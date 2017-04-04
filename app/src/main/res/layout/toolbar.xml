@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/toolbart"
+android:layout_width="match_parent"
+android:layout_height="?attr/actionBarSize"
+android:background="@color/primary_light"
+android:elevation="4dp"
+app:popupTheme="@style/AppTheme.PopupOverlay">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- This is a centered logo -->
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="?attr/actionBarSize"
+        android:layout_marginRight="?attr/actionBarSize"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+        />
+</FrameLayout>
+</android.support.v7.widget.Toolbar>

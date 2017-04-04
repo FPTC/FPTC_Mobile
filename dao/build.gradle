@@ -1,0 +1,25 @@
+project(':dao') {
+
+    apply plugin: 'java'
+    apply plugin: 'application'
+
+    mainClassName = 'org.pfccap.Main'
+    outputDatabase = 'classes/'
+
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile 'de.greenrobot:greendao-generator:2.1.0'
+    }
+
+    sourceCompatibility = "1.7"
+    targetCompatibility = "1.7"
+
+    task createDirs{
+        def dir = file(outputDatabase)
+        dir.mkdirs()
+    }
+
+    run{
+        args outputDatabase
+    }
+}
