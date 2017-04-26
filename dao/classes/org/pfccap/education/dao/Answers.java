@@ -15,6 +15,7 @@ public class Answers {
     private Long id;
     private Long codeQuestion;
     private String answer;
+    private long idUser;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -36,10 +37,11 @@ public class Answers {
         this.id = id;
     }
 
-    public Answers(Long id, Long codeQuestion, String answer) {
+    public Answers(Long id, Long codeQuestion, String answer, long idUser) {
         this.id = id;
         this.codeQuestion = codeQuestion;
         this.answer = answer;
+        this.idUser = idUser;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -70,6 +72,14 @@ public class Answers {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     /** To-one relationship, resolved on first access. */

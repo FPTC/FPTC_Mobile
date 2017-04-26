@@ -55,7 +55,7 @@ public class Main {
         answers.addIdProperty().autoincrement();
         answers.addLongProperty("codeQuestion");
         answers.addStringProperty("answer");
-        Property userProperty = user.addLongProperty("idUser").notNull().getProperty();
+        Property userProperty = answers.addLongProperty("idUser").notNull().getProperty();
         answers.addToOne(user, userProperty);
 
     }

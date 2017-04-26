@@ -1,10 +1,4 @@
-package org.pfccap.education.domain;
-
-import org.pfccap.education.dao.AnswersDao;
-import org.pfccap.education.dao.EducationDao;
-import org.pfccap.education.dao.EvaluationDao;
-import org.pfccap.education.dao.RiskDao;
-import org.pfccap.education.dao.UserDao;
+package org.pfccap.education.dao;
 
 /**
  * Created by USUARIO on 04/04/2017.

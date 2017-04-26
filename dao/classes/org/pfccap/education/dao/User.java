@@ -12,7 +12,6 @@ public class User {
     private Long id;
     private String name;
     private java.util.Date datelogin;
-    private long idUser;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -24,11 +23,10 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, String name, java.util.Date datelogin, long idUser) {
+    public User(Long id, String name, java.util.Date datelogin) {
         this.id = id;
         this.name = name;
         this.datelogin = datelogin;
-        this.idUser = idUser;
     }
 
     public Long getId() {
@@ -53,14 +51,6 @@ public class User {
 
     public void setDatelogin(java.util.Date datelogin) {
         this.datelogin = datelogin;
-    }
-
-    public long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
     }
 
     // KEEP METHODS - put your custom methods here

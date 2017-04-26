@@ -1,16 +1,18 @@
-package org.pfccap.education.domain;
+package org.pfccap.education.application;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.pfccap.education.dao.AppDao;
 import org.pfccap.education.dao.DaoMaster;
 import org.pfccap.education.dao.DaoSession;
+import org.pfccap.education.utilities.Cache;
 
 /**
  * Created by USUARIO on 04/04/2017.
  */
 
-public class DaoApp extends Application {
+public class FPTCApp extends Application {
 
     @Override
     public void onCreate() {
@@ -28,5 +30,7 @@ public class DaoApp extends Application {
         AppDao.setRiskDao(daoSession.getRiskDao());
         AppDao.setEvaluationDao(daoSession.getEvaluationDao());
         AppDao.setAnswersDao(daoSession.getAnswersDao());
+
+        Cache.init(getApplicationContext());
     }
 }

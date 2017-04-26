@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "114086297027",
+    "firebase_url": "https://fptc-dev.firebaseio.com",
+    "project_id": "fptc-dev",
+    "storage_bucket": "fptc-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114086297027:android:7ba249406672ccd9",
+        "android_client_info": {
+          "package_name": "org.pfccap.education"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114086297027-jfb8o6s8i4pphfcf8gb5u4b6qaqt0ge7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.pfccap.education",
+            "certificate_hash": "a4d45109359fb93901b38c95bc98a70cf17feffc"
+          }
+        },
+        {
+          "client_id": "114086297027-k0uus36j4sc21ot2ujde833vsfa8p2h3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY5UpIzq1_p2vJdHDcp5RP8aJzAHN-gbA"
+        },
+        {
+          "current_key": "AIzaSyDSqKMTVNU_zwXdjrY4Mxx2N6M2QBtvBxU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114086297027-k0uus36j4sc21ot2ujde833vsfa8p2h3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

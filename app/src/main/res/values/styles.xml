@@ -21,4 +21,26 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="DialogInfo" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimaryText</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/dialog_info</item>
+    </style>
+
+    <style name="DialogError" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/white</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/dialog_error</item>
+    </style>
+
+    <style name="BtnPpal" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

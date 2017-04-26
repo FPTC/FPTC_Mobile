@@ -2,85 +2,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.pfccap.education.presentation.fragments.auth.Signup">
+    tools:context="org.pfccap.education.presentation.auth.ui.fragments.Signup">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="56dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:layout_weight="0.3"
+            android:src="@drawable/logo" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="56dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp">
-
-            <ImageView android:src="@drawable/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginBottom="24dp"
-                android:layout_gravity="center_horizontal" />
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
 
             <!--  Name Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/input_name"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/authSignupName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:hint="Name" />
+                    android:hint="@string/nombre_usuario"
+                    android:inputType="textCapWords" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Email Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/input_email"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/authSignupEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:hint="Email" />
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/input_password"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/authSignupPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="Password"/>
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Signup Button -->
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_signup"
-                android:layout_width="fill_parent"
+            <Button
+                android:id="@+id/authBtnSignUp"
+                style="@style/BtnPpal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
                 android:padding="12dp"
-                android:text="Crear Cuenta"/>
+                android:text="@string/crear_cuenta" />
 
-            <TextView android:id="@+id/link_login"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/authLinkLogin"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:text="¿Ya tienes una cuenta? Ingresa"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:textSize="16dip"/>
+                android:text="@string/tienes_cuenta"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"/>
 
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

@@ -1,11 +1,11 @@
-package org.pfccap.education.presentation.activities.splash;
+package org.pfccap.education.presentation.splash;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import org.pfccap.education.R;
-import org.pfccap.education.presentation.activities.auth.AuthActivity;
+import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;

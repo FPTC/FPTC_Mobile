@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.pfccap.education.presentation.activities.auth.AuthActivity"
+    tools:context="org.pfccap.education.presentation.auth.ui.activities.AuthActivity"
     android:fitsSystemWindows="true">
 
     <FrameLayout

@@ -3,4 +3,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Generales -->
+    <string name="CARGANDO">Cargando</string>
+    <string name="PROGRESS_DIALOG_MENSAJE_GENERAL">Estamos procesando tu solicitud</string>
+    <string name="TITULO_ERROR">Error</string>
+
+    <!-- Pantalla Login -->
+    <string name="login">Ingresar</string>
+    <string name="sign_up">Crea una nueva cuenta. Regístrate</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+    <string name="nombre_usuario">Nombres y Apellidos</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="tienes_cuenta">¿Ya tienes una cuenta? Ingresa</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="recordar_contrasena">Recordar Contraseña</string>
+
 </resources>

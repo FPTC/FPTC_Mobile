@@ -26,7 +26,6 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Datelogin = new Property(2, java.util.Date.class, "datelogin", false, "DATELOGIN");
-        public final static Property IdUser = new Property(3, long.class, "idUser", false, "ID_USER");
     };
 
 
@@ -44,8 +43,7 @@ public class UserDao extends AbstractDao<User, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NAME\" TEXT," + // 1: name
-                "\"DATELOGIN\" INTEGER," + // 2: datelogin
-                "\"ID_USER\" INTEGER NOT NULL );"); // 3: idUser
+                "\"DATELOGIN\" INTEGER);"); // 2: datelogin
     }
 
     /** Drops the underlying database table. */
@@ -73,7 +71,6 @@ public class UserDao extends AbstractDao<User, Long> {
         if (datelogin != null) {
             stmt.bindLong(3, datelogin.getTime());
         }
-        stmt.bindLong(4, entity.getIdUser());
     }
 
     /** @inheritdoc */
@@ -88,8 +85,7 @@ public class UserDao extends AbstractDao<User, Long> {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)), // datelogin
-            cursor.getLong(offset + 3) // idUser
+            cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)) // datelogin
         );
         return entity;
     }
@@ -100,7 +96,6 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setDatelogin(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
-        entity.setIdUser(cursor.getLong(offset + 3));
      }
     
     /** @inheritdoc */

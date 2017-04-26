@@ -79,6 +79,7 @@ public class AnswersDao extends AbstractDao<Answers, Long> {
         if (answer != null) {
             stmt.bindString(3, answer);
         }
+        stmt.bindLong(4, entity.getIdUser());
     }
 
     @Override
@@ -99,7 +100,8 @@ public class AnswersDao extends AbstractDao<Answers, Long> {
         Answers entity = new Answers( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // codeQuestion
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // answer
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // answer
+            cursor.getLong(offset + 3) // idUser
         );
         return entity;
     }
@@ -110,6 +112,7 @@ public class AnswersDao extends AbstractDao<Answers, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCodeQuestion(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setAnswer(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setIdUser(cursor.getLong(offset + 3));
      }
     
     /** @inheritdoc */
