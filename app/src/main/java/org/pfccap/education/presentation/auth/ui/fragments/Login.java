@@ -1,6 +1,7 @@
 package org.pfccap.education.presentation.auth.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.facebook.CallbackManager;
+import com.facebook.login.widget.LoginButton;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ILoginPresenter;
@@ -32,6 +36,7 @@ public class Login extends Fragment implements ILoginView {
 
     private OnLoginFragInteractionListener mListener;
     private ILoginPresenter loginPresenter;
+    private CallbackManager callbackManager;
 
     @BindView(R.id.authLoginTxtEmail)
     TextView authLoginTxtEmail;
@@ -41,6 +46,9 @@ public class Login extends Fragment implements ILoginView {
 
     @BindView(R.id.authBtnLogin)
     Button authBtnLogin;
+
+    @BindView(R.id.authBtnLoginFacebook)
+    LoginButton authBtnLoginFacebook;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -62,7 +70,9 @@ public class Login extends Fragment implements ILoginView {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -72,7 +82,23 @@ public class Login extends Fragment implements ILoginView {
         ButterKnife.bind(this, view);
 
         loginPresenter = new LoginPresenter(this);
+
+        initLoginFacebook();
+
+        callbackManager = loginPresenter.registerCallbackFacebook(authBtnLoginFacebook);
+
         return view;
+    }
+
+    private void initLoginFacebook() {
+        authBtnLoginFacebook.setReadPermissions("email");
+        authBtnLoginFacebook.setFragment(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

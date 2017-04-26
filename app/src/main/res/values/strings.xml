@@ -20,4 +20,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="recordar_contrasena">Recordar Contraseña</string>
 
+    <!-- Facebook Login -->
+    <string name="facebook_app_id">302572720156810</string>
+    <string name="fb_login_protocol_scheme">fb302572720156810</string>
+
 </resources>

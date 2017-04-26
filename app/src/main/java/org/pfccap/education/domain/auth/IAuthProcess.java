@@ -15,5 +15,7 @@ public interface IAuthProcess {
 
     Observable<UserAuth> signIn(final String email, final String password);
 
+    Observable<UserAuth> signInWithCredential(String token);
+
     Observable<String> resetPassword(final String email);
 }

@@ -9,9 +9,9 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
         android:indeterminate="true"
-        android:visibility="invisible"
-        android:layout_gravity="top|center"/>
+        android:visibility="invisible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,11 +65,11 @@
 
             <Button
                 android:id="@+id/authBtnLogin"
+                style="@style/BtnPpal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:padding="12dp"
-                style="@style/BtnPpal"
                 android:text="@string/login" />
 
             <TextView
@@ -77,10 +77,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/sign_up"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/authBtnLoginFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp" />
 
         </LinearLayout>
 

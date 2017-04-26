@@ -46,6 +46,7 @@ public class ResetPasswordPresenter implements IResetPasswordPresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        resetPasswordView.enableInputs();
                         resetPasswordView.resetError(e.getMessage());
                     }
 

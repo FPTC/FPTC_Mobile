@@ -21,7 +21,7 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
     }
 
     private void initFragment() {
-        Utilities.initFragment(this, new Signup());
+        Utilities.initFragment(this, new Login());
     }
 
     @Override

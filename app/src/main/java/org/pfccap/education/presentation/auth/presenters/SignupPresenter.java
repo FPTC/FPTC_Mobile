@@ -46,6 +46,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        signupView.enableInputs();
                         signupView.signUpError(e.getMessage());
                     }
 
