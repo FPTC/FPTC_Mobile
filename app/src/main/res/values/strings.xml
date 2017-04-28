@@ -19,9 +19,21 @@
     <string name="tienes_cuenta">¿Ya tienes una cuenta? Ingresa</string>
     <string name="title_activity_maps">Map</string>
     <string name="recordar_contrasena">Recordar Contraseña</string>
-
-    <!-- Facebook Login -->
-    <string name="facebook_app_id">302572720156810</string>
-    <string name="fb_login_protocol_scheme">fb302572720156810</string>
+    <string name="home">Inicio</string>
+    <string name="profile">Perfil</string>
+    <string name="gift">Premios</string>
+    <string name="main_fragmen_learn">Aprende sobre</string>
+    <string name="fragment_main_gift">Reclama tus premios</string>
+    <string name="btn_breast_cancer">Cáncer de seno</string>
+    <string name="btn_cervical_cancer">Cáncer de cuello uterino</string>
+    <string name="btn_take_gift">Reclama tus premios</string>
+    <string name="name">Nombre y apellidos</string>
+    <string name="birth">Fecha de nacimiento</string>
+    <string name="country">País</string>
+    <string name="city">Ciudad</string>
+    <string name="adress">Dirección</string>
+    <string name="neighborhood">Barrio</string>
+    <string name="phone">Telephono</string>
+    <string name="age">Edad</string>
 
 </resources>
