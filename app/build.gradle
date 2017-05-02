@@ -59,8 +59,6 @@ dependencies {
         exclude group: 'org.freemarker'
     }
 
-    compile 'com.google.android.gms:play-services:10.2.1'
-
     compile 'com.facebook.android:facebook-android-sdk:4.22.0'
 
 }

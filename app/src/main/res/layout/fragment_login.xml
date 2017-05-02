@@ -63,6 +63,17 @@
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:id="@+id/authLinkResetPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/olvidaste_contrasena"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+
             <Button
                 android:id="@+id/authBtnLogin"
                 style="@style/BtnPpal"
@@ -72,22 +83,26 @@
                 android:padding="12dp"
                 android:text="@string/login" />
 
+            <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/authBtnLoginFacebook"
+                style="@style/FacebookLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                facebook:com_facebook_login_text="@string/fb_texto_ingreso" />
+
             <TextView
                 android:id="@+id/authLinkSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="25dp"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/authBtnLoginFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

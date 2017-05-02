@@ -12,16 +12,24 @@
     <!-- Pantalla Login -->
     <string name="login">Ingresar</string>
     <string name="sign_up">Crea una nueva cuenta. Regístrate</string>
-    <string name="password">Password</string>
+    <string name="password">Contraseña</string>
     <string name="email">E-mail</string>
     <string name="nombre_usuario">Nombres y Apellidos</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="tienes_cuenta">¿Ya tienes una cuenta? Ingresa</string>
     <string name="title_activity_maps">Map</string>
     <string name="recordar_contrasena">Recordar Contraseña</string>
+    <string name="olvidaste_contrasena">¿Olvidaste tu Contraseña?</string>
+
+    <!-- Pantalla Reset Password -->
+    <string name="resetPasswordSuccessful">Te hemos enviado un correo electronico con los pasos para cambiar tu contraseña</string>
+
+    <!-- Pantalla SignUp -->
+    <string name="sigUpSuccessful">Se ha creado tu usuario correctamente.</string>
 
     <!-- Facebook Login -->
     <string name="facebook_app_id">302572720156810</string>
     <string name="fb_login_protocol_scheme">fb302572720156810</string>
+    <string name="fb_texto_ingreso">Ingresar con Facebook</string>
 
 </resources>

@@ -35,36 +35,42 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void login(String email, String password) {
-        loginView.disableInputs();
 
-        objAuthProcess = new AuthProcess();
+        try {
 
-        objAuthProcess.signIn(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<UserAuth>() {
-                    @Override
-                    public void accept(UserAuth userAuth) throws Exception {
-                        loginView.showProgress();
-                    }
-                })
-                .subscribeWith(new DisposableObserver<UserAuth>() {
-                    @Override
-                    public void onNext(UserAuth value) {
-                        loginView.navigateToMainScreen();
-                    }
+            loginView.disableInputs();
+            loginView.showProgress();
 
-                    @Override
-                    public void onError(Throwable e) {
-                        loginView.loginError(e.getMessage());
-                    }
+            objAuthProcess = new AuthProcess();
 
-                    @Override
-                    public void onComplete() {
-                        loginView.hideProgress();
-                        loginView.enableInputs();
-                    }
-                });
+            objAuthProcess.signIn(email, password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<UserAuth>() {
+                        @Override
+                        public void onNext(UserAuth value) {
+                            loginView.enableInputs();
+                            loginView.hideProgress();
+                            loginView.navigateToMainScreen();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            loginView.enableInputs();
+                            loginView.hideProgress();
+                            loginView.loginError(e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+
+        } catch (Exception e) {
+            loginView.hideProgress();
+            loginView.enableInputs();
+            loginView.loginError(e.getMessage());
+        }
 
     }
 
@@ -76,7 +82,6 @@ public class LoginPresenter implements ILoginPresenter {
         loginButtonFacebook.registerCallback(objCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
 
                 objAuthProcess = new AuthProcess();
 
@@ -93,19 +98,20 @@ public class LoginPresenter implements ILoginPresenter {
                         .subscribeWith(new DisposableObserver<UserAuth>() {
                             @Override
                             public void onNext(UserAuth value) {
+                                loginView.enableInputs();
+                                loginView.hideProgress();
                                 loginView.navigateToMainScreen();
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 loginView.enableInputs();
+                                loginView.hideProgress();
                                 loginView.loginError(e.getMessage());
                             }
 
                             @Override
                             public void onComplete() {
-                                loginView.hideProgress();
-                                loginView.enableInputs();
                             }
                         });
 

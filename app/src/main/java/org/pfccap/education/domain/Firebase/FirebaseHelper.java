@@ -1,4 +1,4 @@
-package org.pfccap.education.domain.Firebase;
+package org.pfccap.education.domain.firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

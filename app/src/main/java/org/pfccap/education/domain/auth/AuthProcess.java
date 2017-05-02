@@ -9,7 +9,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.pfccap.education.domain.Firebase.FirebaseHelper;
+import org.pfccap.education.domain.user.IUserBP;
+import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
@@ -24,14 +25,14 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class AuthProcess implements IAuthProcess {
 
-    private FirebaseHelper firebaseHelper;
+    private IUserBP userBP;
 
     public AuthProcess() {
-        firebaseHelper = FirebaseHelper.getInstance();
+
     }
 
     @Override
-    public Observable<UserAuth> signUp(final String email, final String password) {
+    public Observable<UserAuth> signUp(final String name, final String email, final String password) {
 
         return Observable.create(
                 new ObservableOnSubscribe<UserAuth>() {
@@ -49,15 +50,18 @@ public class AuthProcess implements IAuthProcess {
                                         userAuth.setUID(authResult.getUser().getUid());
 
                                         saveAuthData(userAuth);
+
+                                        userBP = new UserBP();
+
+                                        userBP.saveNameData(name);
+
                                         e.onNext(userAuth);
-                                        e.onComplete();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception ex) {
                                         e.onError(ex);
-                                        e.onComplete();
                                     }
                                 });
 
@@ -87,14 +91,12 @@ public class AuthProcess implements IAuthProcess {
 
                                         saveAuthData(userAuth);
                                         e.onNext(userAuth);
-                                        e.onComplete();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception ex) {
                                         e.onError(ex);
-                                        e.onComplete();
                                     }
                                 });
                     }
@@ -124,14 +126,12 @@ public class AuthProcess implements IAuthProcess {
 
                                         saveAuthData(userAuth);
                                         e.onNext(userAuth);
-                                        e.onComplete();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception ex) {
                                         e.onError(ex);
-                                        e.onComplete();
                                     }
                                 });
                     }
@@ -152,7 +152,7 @@ public class AuthProcess implements IAuthProcess {
                                         new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                e.onComplete();
+                                                e.onNext("");
                                             }
                                         }
                                 )
@@ -160,7 +160,6 @@ public class AuthProcess implements IAuthProcess {
                                     @Override
                                     public void onFailure(@NonNull Exception ex) {
                                         e.onError(ex);
-                                        e.onComplete();
                                     }
                                 });
                     }

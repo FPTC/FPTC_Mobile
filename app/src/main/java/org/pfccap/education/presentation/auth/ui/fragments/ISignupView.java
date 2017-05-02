@@ -20,4 +20,6 @@ public interface ISignupView {
 
     void signUpError(String error);
 
+    void signUpSuccessful();
+
 }

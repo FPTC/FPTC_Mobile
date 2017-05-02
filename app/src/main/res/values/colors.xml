@@ -7,4 +7,5 @@
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorBlack">#080808</color>
     <color name="colorGray">#CCCCCC</color>
+    <color name="colorFacebook">#3b5998</color>
 </resources>

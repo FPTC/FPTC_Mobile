@@ -5,7 +5,6 @@ import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.presentation.auth.ui.fragments.IResetPasswordView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -25,36 +24,41 @@ public class ResetPasswordPresenter implements IResetPasswordPresenter {
     @Override
     public void resetPassword(String email) {
 
-        resetPasswordView.disableInputs();
+        try {
 
-        objAuthProcess = new AuthProcess();
+            resetPasswordView.disableInputs();
+            resetPasswordView.showProgress();
 
-        objAuthProcess.resetPassword(email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<String>() {
-                    @Override
-                    public void accept(String msj) throws Exception {
-                        resetPasswordView.showProgress();
-                    }
-                })
-                .subscribeWith(new DisposableObserver<String>() {
-                    @Override
-                    public void onNext(String value) {
-                        resetPasswordView.navigateToLoginScreen();
-                    }
+            objAuthProcess = new AuthProcess();
 
-                    @Override
-                    public void onError(Throwable e) {
-                        resetPasswordView.enableInputs();
-                        resetPasswordView.resetError(e.getMessage());
-                    }
+            objAuthProcess.resetPassword(email)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<String>() {
+                        @Override
+                        public void onNext(String value) {
+                            resetPasswordView.hideProgress();
+                            resetPasswordView.enableInputs();
+                            resetPasswordView.resetMessageSuccessful();
+                            resetPasswordView.navigateToLoginScreen();
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        resetPasswordView.hideProgress();
-                        resetPasswordView.enableInputs();
-                    }
-                });
+                        @Override
+                        public void onError(Throwable e) {
+                            resetPasswordView.hideProgress();
+                            resetPasswordView.enableInputs();
+                            resetPasswordView.resetError(e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+
+        } catch (Exception e) {
+            resetPasswordView.hideProgress();
+            resetPasswordView.enableInputs();
+            resetPasswordView.resetError(e.getMessage());
+        }
     }
 }

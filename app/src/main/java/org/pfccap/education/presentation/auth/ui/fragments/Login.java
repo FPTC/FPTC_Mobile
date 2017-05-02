@@ -3,7 +3,10 @@ package org.pfccap.education.presentation.auth.ui.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.facebook.login.widget.LoginButton;
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ILoginPresenter;
 import org.pfccap.education.presentation.auth.presenters.LoginPresenter;
+import org.pfccap.education.utilities.ColoredSnackbar;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
@@ -53,6 +57,12 @@ public class Login extends Fragment implements ILoginView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.authLinkSignup)
+    TextView authLinkSignup;
+
+    @BindView(R.id.authLinkResetPassword)
+    TextView authLinkResetPassword;
+
     public Login() {
         // Required empty public constructor
     }
@@ -85,14 +95,25 @@ public class Login extends Fragment implements ILoginView {
 
         initLoginFacebook();
 
-        callbackManager = loginPresenter.registerCallbackFacebook(authBtnLoginFacebook);
+        initText();
 
         return view;
+    }
+
+    private void initText() {
+        SpannableString content = new SpannableString(getString(R.string.sign_up));
+        content.setSpan(new UnderlineSpan(), 0, getString(R.string.sign_up).length(), 0);
+        authLinkSignup.setText(content);
+
+        content = new SpannableString(getString(R.string.olvidaste_contrasena));
+        content.setSpan(new UnderlineSpan(), 0, getString(R.string.olvidaste_contrasena).length(), 0);
+        authLinkResetPassword.setText(content);
     }
 
     private void initLoginFacebook() {
         authBtnLoginFacebook.setReadPermissions("email");
         authBtnLoginFacebook.setFragment(this);
+        callbackManager = loginPresenter.registerCallbackFacebook(authBtnLoginFacebook);
     }
 
     @Override
@@ -138,11 +159,20 @@ public class Login extends Fragment implements ILoginView {
         progressBar.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.authLinkSignup)
+
     @Override
+    @OnClick(R.id.authLinkSignup)
     public void navigateToSignUp() {
         if (mListener != null) {
             mListener.onNavigateToSignUp();
+        }
+    }
+
+    @Override
+    @OnClick(R.id.authLinkResetPassword)
+    public void navigateToResetPassword() {
+        if (mListener != null) {
+            mListener.onNavigateToResetPassword();
         }
     }
 
@@ -164,7 +194,7 @@ public class Login extends Fragment implements ILoginView {
 
     @Override
     public void loginError(String error) {
-        Utilities.dialogoError(getString(R.string.TITULO_ERROR), error, getActivity());
+        Utilities.snackbarMessageError(getView(), error);
     }
 
     private void setInputs(boolean enabled) {
@@ -187,5 +217,7 @@ public class Login extends Fragment implements ILoginView {
         void onNavigateToMainScreen();
 
         void onNavigateToSignUp();
+
+        void onNavigateToResetPassword();
     }
 }
