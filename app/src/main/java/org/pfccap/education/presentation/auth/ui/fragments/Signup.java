@@ -3,16 +3,19 @@ package org.pfccap.education.presentation.auth.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
 import org.pfccap.education.presentation.auth.presenters.SignupPresenter;
-import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
@@ -44,6 +47,12 @@ public class Signup extends Fragment implements ISignupView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.authLinkLogin)
+    TextView authLinkLogin;
+
+    @BindView(R.id.authBtnSignUp)
+    Button authBtnSignUp;
+
     public Signup() {
         // Required empty public constructor
     }
@@ -67,7 +76,15 @@ public class Signup extends Fragment implements ISignupView {
 
         signupPresenter = new SignupPresenter(this);
 
+        initText();
+
         return view;
+    }
+
+    private void initText() {
+        SpannableString content = new SpannableString(getString(R.string.tienes_cuenta));
+        content.setSpan(new UnderlineSpan(), 0, getString(R.string.tienes_cuenta).length(), 0);
+        authLinkLogin.setText(content);
     }
 
     @Override
@@ -110,28 +127,35 @@ public class Signup extends Fragment implements ISignupView {
     @Override
     @OnClick(R.id.authBtnSignUp)
     public void handleSignUp() {
-        signupPresenter.signUp(authSignupEmail.getText().toString(), authSignupPassword.getText().toString());
+        signupPresenter.signUp(authSignupName.getText().toString(),
+                authSignupEmail.getText().toString(),
+                authSignupPassword.getText().toString());
     }
 
 
     @OnClick(R.id.authLinkLogin)
     @Override
     public void navigateToLoginScreen() {
-        if(mListener != null){
+        if (mListener != null) {
             mListener.onNavigateToLoginScreen();
         }
     }
 
     @Override
     public void signUpError(String error) {
-        authSignupPassword.setText("");
-        authSignupPassword.setError(error);
+        Utilities.snackbarMessageError(getView(), error);
+    }
+
+    @Override
+    public void signUpSuccessful() {
+        Utilities.snackbarMessageInfo(getView(), getString(R.string.sigUpSuccessful));
     }
 
     private void setInputs(boolean enabled) {
         authSignupName.setEnabled(enabled);
         authSignupEmail.setEnabled(enabled);
         authSignupPassword.setEnabled(enabled);
+        authBtnSignUp.setEnabled(enabled);
     }
 
     /**

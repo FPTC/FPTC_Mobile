@@ -3,11 +3,13 @@ package org.pfccap.education.utilities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import org.pfccap.education.R;
 
@@ -43,13 +45,6 @@ public class Utilities {
         t.commit();
     }
 
-    public static <T extends AppCompatActivity> void initMainFragment(T classInicio,
-                                                                  Fragment fragmentDestino) {
-        FragmentTransaction t = classInicio.getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.fragment, fragmentDestino);
-        t.commit();
-    }
-
     public static void dialogoInfo(String titulo, String mensaje, Context context) {
         dialogo(titulo, mensaje, tipoDialogEnum.informacion, context);
     }
@@ -82,6 +77,16 @@ public class Utilities {
         });
 
         dialog.show();
+    }
+
+    public static void snackbarMessageError(View view, String error){
+        Snackbar snackbar = Snackbar.make(view, error, Snackbar.LENGTH_LONG);
+        ColoredSnackbar.alert(snackbar).show();
+    }
+
+    public static void snackbarMessageInfo(View view, String info){
+        Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_LONG);
+        ColoredSnackbar.info(snackbar).show();
     }
 
     private enum tipoDialogEnum {

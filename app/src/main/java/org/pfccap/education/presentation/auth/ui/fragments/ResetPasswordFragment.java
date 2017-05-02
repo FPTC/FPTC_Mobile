@@ -3,11 +3,15 @@ package org.pfccap.education.presentation.auth.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.IResetPasswordPresenter;
@@ -37,6 +41,12 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.authLinkSignIn)
+    TextView authLinkSignIn;
+
+    @BindView(R.id.authBtnResetPassword)
+    Button authBtnResetPassword;
+
     public ResetPasswordFragment() {
         // Required empty public constructor
     }
@@ -60,7 +70,15 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
 
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
+        initText();
+
         return view;
+    }
+
+    private void initText() {
+        SpannableString content = new SpannableString(getString(R.string.tienes_cuenta));
+        content.setSpan(new UnderlineSpan(), 0, getString(R.string.tienes_cuenta).length(), 0);
+        authLinkSignIn.setText(content);
     }
 
     @Override
@@ -109,7 +127,7 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
     }
 
     @Override
-    @OnClick(R.id.authBtnLogin)
+    @OnClick(R.id.authBtnResetPassword)
     public void handleResetPassword() {
         resetPasswordPresenter.resetPassword(
                 authResetTxtEmail.getText().toString());
@@ -117,11 +135,17 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
 
     @Override
     public void resetError(String error) {
-        Utilities.dialogoError(getString(R.string.TITULO_ERROR), error, getActivity());
+        Utilities.snackbarMessageError(getView(), error);
+    }
+
+    @Override
+    public void resetMessageSuccessful() {
+        Utilities.snackbarMessageInfo(getView(), getString(R.string.resetPasswordSuccessful));
     }
 
     private void setInputs(boolean enabled) {
         authResetTxtEmail.setEnabled(enabled);
+        authBtnResetPassword.setEnabled(enabled);
     }
 
     /**

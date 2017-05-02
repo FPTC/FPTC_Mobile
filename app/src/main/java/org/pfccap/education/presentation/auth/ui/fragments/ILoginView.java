@@ -16,6 +16,8 @@ public interface ILoginView {
 
     void navigateToSignUp();
 
+    void navigateToResetPassword();
+
     void handleSignIn();
 
     void navigateToMainScreen();

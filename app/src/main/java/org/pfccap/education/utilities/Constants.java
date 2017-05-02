@@ -6,5 +6,7 @@ package org.pfccap.education.utilities;
 
 public class Constants {
 
-    public static String USER_AUTH_KEY = "UsuarioAutenticado";
+    public static String USER_UID = "useruid";
+    public static String USER_NAME = "username";
+    public static String USER_EMAIL = "useremail";
 }

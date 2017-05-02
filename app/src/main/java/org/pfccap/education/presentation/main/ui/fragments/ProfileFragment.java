@@ -2,7 +2,6 @@ package org.pfccap.education.presentation.main.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 import org.pfccap.education.R;
-import org.pfccap.education.presentation.main.persenters.IProfilePresenter;
-import org.pfccap.education.presentation.main.persenters.ProfilePresenter;
+import org.pfccap.education.presentation.main.presenters.IProfilePresenter;
+import org.pfccap.education.presentation.main.presenters.ProfilePresenter;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,13 +29,21 @@ import butterknife.OnClick;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment implements IProfileView{
+public class ProfileFragment extends Fragment implements IProfileView, DatePickerDialog.OnDateSetListener {
 
     private OnFragmentInteractionListener mListener;
     private IProfilePresenter profilePresenter;
 
     @BindView(R.id.mainProfileTxtAddress)
     EditText address;
+
+    @BindView(R.id.mainProfileTxtBirth)
+    EditText txtBirth;
+
+    @BindView(R.id.mainProfileTxtAge)
+    EditText txtAge;
+
+    private DatePickerDialog datePickerDialog;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -44,8 +55,7 @@ public class ProfileFragment extends Fragment implements IProfileView{
      *
      * @return A new instance of fragment ProfileFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
 
         return fragment;
@@ -65,7 +75,37 @@ public class ProfileFragment extends Fragment implements IProfileView{
         ButterKnife.bind(this, view);
 
         profilePresenter = new ProfilePresenter(this);
+
+        initCalendar();
         return view;
+    }
+
+    private void initCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        datePickerDialog = DatePickerDialog.newInstance(
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+    }
+
+    @OnClick(R.id.mainProfileTxtBirth)
+    public void clickTxtBirth(){
+        datePickerDialog.show(getActivity().getFragmentManager(), "Datepickerdialog");
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        Calendar calendar = Calendar.getInstance();
+        int age = calendar.get(Calendar.YEAR) -  year;
+        setAge(age);
+        txtBirth.setText(date);
+    }
+
+    public void setAge(int age){
+        txtAge.setText(String.format("%s años", String.valueOf(age)));
     }
 
 
@@ -86,18 +126,11 @@ public class ProfileFragment extends Fragment implements IProfileView{
         mListener = null;
     }
 
-    @OnClick(R.id.btnmaps)
     @Override
-    public void getAddressMap(){
-        if (mListener != null) {
-            mListener.onGetAddressMap();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

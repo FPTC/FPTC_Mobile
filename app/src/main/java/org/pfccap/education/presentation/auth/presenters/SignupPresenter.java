@@ -24,38 +24,50 @@ public class SignupPresenter implements ISignupPresenter {
     }
 
     @Override
-    public void signUp(String email, String password) {
-        signupView.disableInputs();
+    public void signUp(final String name, String email, String password) {
 
-        objAuthProcess = new AuthProcess();
+        try {
 
-        objAuthProcess.signUp(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Consumer<UserAuth>() {
-                    @Override
-                    public void accept(UserAuth userAuth) throws Exception {
-                        signupView.showProgress();
-                    }
-                })
-                .subscribeWith(new DisposableObserver<UserAuth>() {
-                    @Override
-                    public void onNext(UserAuth value) {
-                        signupView.navigateToLoginScreen();
-                    }
+            signupView.disableInputs();
+            signupView.showProgress();
 
-                    @Override
-                    public void onError(Throwable e) {
-                        signupView.enableInputs();
-                        signupView.signUpError(e.getMessage());
-                    }
+            objAuthProcess = new AuthProcess();
 
-                    @Override
-                    public void onComplete() {
-                        signupView.hideProgress();
-                        signupView.enableInputs();
-                    }
-                });
+            objAuthProcess.signUp(name, email, password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(new Consumer<UserAuth>() {
+                        @Override
+                        public void accept(UserAuth userAuth) throws Exception {
+                            signupView.showProgress();
+                        }
+                    })
+                    .subscribeWith(new DisposableObserver<UserAuth>() {
+                        @Override
+                        public void onNext(UserAuth value) {
+                            signupView.hideProgress();
+                            signupView.enableInputs();
+                            signupView.signUpSuccessful();
+                            signupView.navigateToLoginScreen();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            signupView.hideProgress();
+                            signupView.enableInputs();
+                            signupView.signUpError(e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+
+        } catch (Exception e) {
+            signupView.hideProgress();
+            signupView.enableInputs();
+            signupView.signUpError(e.getMessage());
+        }
 
     }
 

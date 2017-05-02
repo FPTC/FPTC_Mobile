@@ -20,4 +20,6 @@ public interface IResetPasswordView {
 
     void resetError(String error);
 
+    void resetMessageSuccessful();
+
 }
