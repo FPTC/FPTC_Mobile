@@ -33,9 +33,9 @@
                 android:id="@+id/authLinkSignup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="0.7"
-                android:layout_gravity="bottom"
                 android:text="user@user.com"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/colorPrimary" />
@@ -64,7 +64,6 @@
                         android:inputType="textPersonName" />
                 </android.support.design.widget.TextInputLayout>
 
-                <!-- Password Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,31 +77,17 @@
                         android:inputType="date" />
                 </android.support.design.widget.TextInputLayout>
 
-                <!-- Country Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <EditText
-                        android:id="@+id/mainProfileTxtCountry"
+                        android:id="@+id/mainProfileTxtPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/country"
-                        android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/city"
-                        android:inputType="text" />
+                        android:hint="@string/phone"
+                        android:inputType="phone" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -124,22 +109,16 @@
                             android:hint="@string/address"
                             android:inputType="textPostalAddress" />
                     </android.support.design.widget.TextInputLayout>
-<<<<<<< HEAD
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2">
-=======
 
->>>>>>> 8ffbd527bb134c80f8d6091efb66c5dee661f5c8
                     <Button
                         android:id="@+id/btnmaps"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/map"
-                        android:background="@drawable/maps30x30"
+                        android:layout_gravity="center"
                         android:layout_weight="0.1"
-                        android:layout_gravity="center"/>
+                        android:background="@drawable/maps30x30"
+                        android:contentDescription="@string/map" />
+
                 </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -157,38 +136,52 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/mainProfileTxtPhone"
+                        android:id="@+id/mainProfileTxtHeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/phone"
-                        android:inputType="phone" />
+                        android:hint="@string/person_height"
+                        android:inputType="numberDecimal" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/mainProfileTxtAge"
+                        android:id="@+id/mainProfileTxtWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/age"
+                        android:hint="@string/person_weight"
+                        android:inputType="numberDecimal" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtChilds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/person_childs"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/mainProfileBtnSave"
+                    style="@style/BtnPpal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
+                    android:text="@string/save" />
+
             </LinearLayout>
         </ScrollView>
-        <Button
-            android:id="@+id/mainProfileBtnSave"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:text="@string/save"
-            style="@style/BtnPpal"/>
+
+
     </LinearLayout>
 
 </FrameLayout>

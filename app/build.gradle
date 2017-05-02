@@ -63,6 +63,8 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.1'
 
+    compile 'com.google.android.gms:play-services:10.2.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

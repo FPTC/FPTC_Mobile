@@ -8,6 +8,7 @@ import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.fragments.Login;
 import org.pfccap.education.presentation.auth.ui.fragments.ResetPasswordFragment;
 import org.pfccap.education.presentation.auth.ui.fragments.Signup;
+import org.pfccap.education.presentation.main.ui.activities.MainActivity;
 import org.pfccap.education.utilities.Utilities;
 
 public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFragmentInteractor,
@@ -23,7 +24,7 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
         fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if(getSupportFragmentManager().getBackStackEntryCount() == 0){
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                     finish();
                 }
             }
@@ -43,8 +44,8 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
 
     @Override
     public void onNavigateToMainScreen() {
-        // TODO : enviar a la actividad ppal
-        //Utilities.initActivity(this, new Login());
+        Utilities.initActivity(this, MainActivity.class);
+        finish();
     }
 
     @Override
