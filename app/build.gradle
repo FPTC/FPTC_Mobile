@@ -65,6 +65,8 @@ dependencies {
 
     compile 'com.google.android.gms:play-services:10.2.1'
 
+    compile 'com.wdullaer:materialdatetimepicker:3.2.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

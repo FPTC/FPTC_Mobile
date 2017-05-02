@@ -32,8 +32,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
@@ -48,18 +50,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".utilities.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".presentation.main.ui.activities.MainActivity" />
 
-        <activity android:name=".presentation.main.ui.activities.MainActivity"/>
-
+        <activity
+            android:name=".presentation.main.ui.activities.ProfileActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".presentation.main.ui.activities.MainActivity" />
     </application>
 
 </manifest>

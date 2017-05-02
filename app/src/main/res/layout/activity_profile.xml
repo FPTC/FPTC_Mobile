@@ -1,57 +1,63 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.pfccap.education.presentation.main.ui.fragments.ProfileFragment">
+    android:orientation="vertical"
+    tools:context="org.pfccap.education.presentation.main.ui.activities.ProfileActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top|center"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
+        <!-- TODO: Update blank fragment layout -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_weight="0.2"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:gravity="top|center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
             android:weightSum="1">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.3"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:id="@+id/authLinkSignup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.7"
-                android:text="user@user.com"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/colorPrimary" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:layout_weight="0.1"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/authLinkSignup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="0.7"
+                    android:text="user@user.com"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.9"
                 android:orientation="vertical">
 
-                <!-- Email Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -62,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
                         android:inputType="textPersonName" />
+
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -73,8 +80,27 @@
                         android:id="@+id/mainProfileTxtBirth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="@string/birth"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@string/selecciona_fecha_nac" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:textStyle="bold" />
+
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -93,6 +119,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
@@ -100,7 +127,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_weight="0.9">
+                        android:layout_weight="0.8">
 
                         <EditText
                             android:id="@+id/mainProfileTxtAddress"
@@ -110,14 +137,17 @@
                             android:inputType="textPostalAddress" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/btnmaps"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="0.1"
-                        android:background="@drawable/maps30x30"
-                        android:contentDescription="@string/map" />
+                        android:layout_weight="0.2"
+                        android:background="@null"
+                        android:contentDescription="@string/map"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_add_location_black_48dp"
+                        android:tint="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -136,7 +166,8 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
                     <EditText
                         android:id="@+id/mainProfileTxtHeight"
@@ -148,7 +179,8 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
                     <EditText
                         android:id="@+id/mainProfileTxtWeight"
@@ -160,7 +192,8 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
                     <EditText
                         android:id="@+id/mainProfileTxtChilds"
@@ -170,18 +203,10 @@
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/mainProfileBtnSave"
-                    style="@style/BtnPpal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
-                    android:text="@string/save" />
-
             </LinearLayout>
-        </ScrollView>
 
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</FrameLayout>
+</LinearLayout>

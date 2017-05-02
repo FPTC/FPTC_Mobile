@@ -6,6 +6,8 @@ package org.pfccap.education.presentation.main.ui.fragments;
 
 public interface IProfileView {
 
-    void getAddressMap();
+    void setAge(int age);
+
+    void clickTxtBirth();
 
 }

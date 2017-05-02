@@ -17,13 +17,6 @@ public class Cache {
 
     public static void init(Context context) {
         sharedPreferences = context.getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE);
-        //gson = new Gson();
-    }
-
-    public static <T> void saveObject(String key, T value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, "");//gson.toJson(value));
-        editor.commit();
     }
 
     public static void save(String key, String value) {
@@ -34,14 +27,6 @@ public class Cache {
 
     public static String getByKey(String key) {
         return sharedPreferences.getString(key, "");
-    }
-
-    public static <T> T getByKey(String key, Class<T> type) {
-        String value = sharedPreferences.getString(key, "");
-        if (value != "") {
-            return (T) "";//gson.fromJson(value, type.getClass());
-        }
-        return null;
     }
 
     public static void remove(String key) {

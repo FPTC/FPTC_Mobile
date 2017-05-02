@@ -37,7 +37,7 @@
     <string name="btn_cervical_cancer">Cáncer de cuello uterino</string>
     <string name="btn_take_gift">Reclama tus premios</string>
     <string name="name">Nombre y apellidos</string>
-    <string name="birth">Fecha de nacimiento</string>
+    <string name="birth">Fecha de nacimiento (dd/mm/yyyy)</string>
     <string name="country">País</string>
     <string name="city">Ciudad</string>
     <string name="address">Dirección</string>
@@ -45,7 +45,7 @@
     <string name="phone">Teléfono o Número de Celular</string>
     <string name="age">Edad</string>
 
- <!-- Facebook Login -->
+    <!-- Facebook Login -->
     <string name="facebook_app_id">302572720156810</string>
     <string name="fb_login_protocol_scheme">fb302572720156810</string>
     <string name="fb_texto_ingreso">Ingresar con Facebook</string>
@@ -56,5 +56,7 @@
     <string name="person_height">Estatura</string>
     <string name="person_weight">Peso</string>
     <string name="person_childs">Cuantos hijos tienes ?</string>
+    <string name="title_profile">Perfil Usuario</string>
+    <string name="selecciona_fecha_nac">Selecciona una fecha</string>
 
 </resources>
