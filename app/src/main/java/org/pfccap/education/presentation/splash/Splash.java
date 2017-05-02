@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
+import org.pfccap.education.presentation.main.ui.activities.MainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +24,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(Splash.this, AuthActivity.class);
+                Intent i = new Intent(Splash.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }

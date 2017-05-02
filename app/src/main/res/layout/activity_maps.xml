@@ -44,17 +44,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <EditText
-            android:id="@+id/utilitiesMapsTxt"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:weightSum="1">
+        <EditText
+            android:id="@+id/utilitiesMapsTxt"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
             android:layout_margin="12dp"
             android:background="@drawable/rounded_corner"
             android:hint="@string/address"
             android:maxLines="1"
-            android:selectAllOnFocus="false" />
+            android:selectAllOnFocus="false"
+            android:layout_weight="0.9"/>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/mark"
