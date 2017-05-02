@@ -168,7 +168,7 @@ public class AuthProcess implements IAuthProcess {
     }
 
     private void saveAuthData(UserAuth userAuth) {
-        Cache.save(Constants.USER_AUTH_KEY, userAuth);
+        //Cache.save(Constants.USER_AUTH_KEY, userAuth);
     }
 
 }
