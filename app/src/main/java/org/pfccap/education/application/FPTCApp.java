@@ -1,7 +1,9 @@
 package org.pfccap.education.application;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDex;
 
 import org.pfccap.education.dao.AppDao;
 import org.pfccap.education.dao.DaoMaster;
@@ -13,6 +15,12 @@ import org.pfccap.education.utilities.Cache;
  */
 
 public class FPTCApp extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {

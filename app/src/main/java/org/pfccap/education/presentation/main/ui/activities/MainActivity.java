@@ -1,6 +1,7 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,21 +12,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.fragments.Login;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
 import org.pfccap.education.presentation.main.ui.fragments.ProfileFragment;
+import org.pfccap.education.utilities.MapsActivity;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener {
 
-    @BindView(R.id.navigation_drawer_layout)
+    static final int CODIGO_SOLICITUD = 1;
+
+    // @BindView(R.id.navigation_drawer_layout)
     DrawerLayout drawerLayout;
 
-    @BindView(R.id.toolbar)
+    //  @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     ActionBar actionBar;
@@ -42,13 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void starViews() {
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         if (navigationView != null) {
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        Utilities.initFragment(this, new MainFragment());
+        Utilities.initMainFragment(this, new MainFragment());
     }
 
     @Override
@@ -106,6 +112,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragmentProfile() {
-        Utilities.initFragment(this, new ProfileFragment());
+        Utilities.initMainFragment(this, new ProfileFragment());
+    }
+
+    @Override
+    public String onGetAddressMap() {
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivityForResult(intent, CODIGO_SOLICITUD);
+
+        return null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String address = "";
+        if (requestCode == CODIGO_SOLICITUD) {
+
+            if (resultCode == RESULT_OK) {
+                // SE LLENAN LOS CAMPOS
+                 address = data.getStringExtra("Address");
+            }
+        }
+        Toast.makeText(
+                MainActivity.this,
+                "La dirección es: " + address,
+                Toast.LENGTH_SHORT).show();
     }
 }
