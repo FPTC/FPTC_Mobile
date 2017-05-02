@@ -31,9 +31,16 @@
     <string name="birth">Fecha de nacimiento</string>
     <string name="country">País</string>
     <string name="city">Ciudad</string>
-    <string name="adress">Dirección</string>
+    <string name="address">Dirección</string>
     <string name="neighborhood">Barrio</string>
     <string name="phone">Telephono</string>
     <string name="age">Edad</string>
 
+ <!-- Facebook Login -->
+    <string name="facebook_app_id">302572720156810</string>
+    <string name="fb_login_protocol_scheme">fb302572720156810</string>
+    <string name="logout">Salir</string>
+    <string name="map">map</string>
+    <string name="get_address">Aceptar</string>
+    <string name="save">Guardar</string>
 </resources>

@@ -43,6 +43,13 @@ public class Utilities {
         t.commit();
     }
 
+    public static <T extends AppCompatActivity> void initMainFragment(T classInicio,
+                                                                  Fragment fragmentDestino) {
+        FragmentTransaction t = classInicio.getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.fragment, fragmentDestino);
+        t.commit();
+    }
+
     public static void dialogoInfo(String titulo, String mensaje, Context context) {
         dialogo(titulo, mensaje, tipoDialogEnum.informacion, context);
     }

@@ -33,10 +33,9 @@
                 android:id="@+id/authLinkSignup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="54dp"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="0.7"
-                android:gravity="start|bottom"
+                android:layout_gravity="bottom"
                 android:text="user@user.com"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/colorPrimary" />
@@ -45,7 +44,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_weight="0.7">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,28 +115,24 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_weight="0.8">
+                        android:layout_weight="0.9">
 
                         <EditText
-                            android:id="@+id/mainProfileTxtAdress"
+                            android:id="@+id/mainProfileTxtAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/adress"
+                            android:hint="@string/address"
                             android:inputType="textPostalAddress" />
                     </android.support.design.widget.TextInputLayout>
-                    <FrameLayout
-                        android:layout_width="0d"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2">
+
                     <Button
                         android:id="@+id/btnmaps"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/map"
                         android:background="@drawable/maps30x30"
-                        android:gravity="center"
-                        />
-                    </FrameLayout>
+                        android:layout_weight="0.1"
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -180,6 +175,13 @@
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </ScrollView>
+        <Button
+            android:id="@+id/mainProfileBtnSave"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:text="@string/save"
+            style="@style/BtnPpal"/>
     </LinearLayout>
 
 </FrameLayout>
