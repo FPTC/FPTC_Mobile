@@ -54,13 +54,12 @@
         <EditText
             android:id="@+id/utilitiesMapsTxt"
             android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_margin="12dp"
+            android:layout_height="37dp"
             android:background="@drawable/rounded_corner"
             android:hint="@string/address"
             android:maxLines="1"
             android:selectAllOnFocus="false"
-            android:layout_weight="0.9"/>
+            android:layout_weight="0.85"/>
         </LinearLayout>
 
         <ImageView
@@ -78,5 +77,6 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:text="@string/get_address"
+        android:background="@color/colorPrimary"
         style="@style/BtnPpal"/>
 </LinearLayout>

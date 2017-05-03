@@ -7,63 +7,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="top|center"
         android:orientation="vertical"
         android:weightSum="1">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="left"
-            android:layout_weight="0.3"
-            android:paddingLeft="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
-            android:text="@string/main_fragmen_learn"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorPrimary" />
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <!-- TODO: Update blank fragment layout -->
 
-        <Button
-            android:id="@+id/mainBtnBreast"
-            style="@style/BtnPpal"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_button"
-            android:padding="3dp"
-            android:text="@string/btn_breast_cancer" />
+            <Button
+                android:id="@+id/mainBtnBreast"
+                style="@style/BtnMain"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/btn_breast_cancer"
+                android:layout_weight="0.5"
+                android:background="@color/colorPrimaryLight"/>
 
-        <Button
-            android:id="@+id/mainBtnCervical"
-            style="@style/BtnPpal"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_button"
-            android:padding="4dp"
-            android:text="@string/btn_cervical_cancer" />
+            <Button
+                android:id="@+id/mainBtnCervical"
+                style="@style/BtnMain"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/btn_cervical_cancer"
+                android:layout_weight="0.5"
+                android:background="@color/colorBlueLigth"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="left"
-            android:layout_weight="0.3"
-            android:paddingLeft="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
-            android:text="@string/fragment_main_gift"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/colorPrimary" />
+            android:layout_weight="0.5">
 
-        <Button
-            android:id="@+id/mainBtnGift"
-            style="@style/BtnPpal"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/btn_take_gift" />
+            <Button
+                android:id="@+id/mainBtnGift"
+                style="@style/BtnMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/btn_take_gift"
+                android:background="@color/colorPrimary"/>
 
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>
