@@ -1,25 +1,28 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.presentation.main.presenters.IMainActivityPresenter;
+import org.pfccap.education.presentation.main.presenters.MainActivityPresenter;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivityView {
 
+    private IMainActivityPresenter mainActivityPresenter;
 
     @BindView(R.id.navigation_drawer_layout)
     DrawerLayout drawerLayout;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
 
-    private Context context;
+    private TextView txtNavigationHeaderUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         starViews();
         initFragment();
+
+        mainActivityPresenter = new MainActivityPresenter(this);
+        mainActivityPresenter.setUserName();
     }
 
     private void starViews() {
@@ -52,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (navigationView != null) {
             setupNavigationDrawerContent(navigationView);
+            View headerLayout = navigationView.getHeaderView(0);
+            txtNavigationHeaderUserName =
+                    (TextView) headerLayout.findViewById(R.id.txtNavigationHeaderUserName);
+
         }
 
     }
@@ -103,4 +113,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void setUserName(String userName) {
+        txtNavigationHeaderUserName.setText(userName);
+    }
+
+    @Override
+    public void showError(String error) {
+        Utilities.snackbarMessageError(findViewById(android.R.id.content), error);
+    }
 }

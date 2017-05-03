@@ -58,5 +58,6 @@
     <string name="person_childs">Cuantos hijos tienes ?</string>
     <string name="title_profile">Perfil Usuario</string>
     <string name="selecciona_fecha_nac">Selecciona una fecha</string>
+    <string name="NO_ACEPTADO_PERMISOS">Por favor acepta los permisos para poder saber tu ubicación</string>
 
 </resources>

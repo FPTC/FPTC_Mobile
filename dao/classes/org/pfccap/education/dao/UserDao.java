@@ -19,7 +19,7 @@ public class UserDao extends AbstractDao<User, Long> {
     public static final String TABLENAME = "USER";
 
     /**
-     * Properties of entity User.<br/>
+     * Properties of entity UserAuth.<br/>
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {

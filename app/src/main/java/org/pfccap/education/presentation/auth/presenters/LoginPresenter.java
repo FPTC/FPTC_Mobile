@@ -1,7 +1,5 @@
 package org.pfccap.education.presentation.auth.presenters;
 
-import android.util.Log;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -12,6 +10,8 @@ import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -132,6 +132,14 @@ public class LoginPresenter implements ILoginPresenter {
         });
 
         return objCallbackManager;
+    }
+
+    @Override
+    public void isLogging() {
+        String val = Cache.getByKey(Constants.IS_LOGGGIN);
+        if(!val.isEmpty()){
+            loginView.navigateToMainScreen();
+        }
     }
 
 }

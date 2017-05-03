@@ -37,18 +37,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
-                    android:src="@drawable/logo" />
+                    android:layout_weight="0.4"
+                    android:src="@drawable/logo_fptc" />
 
                 <TextView
-                    android:id="@+id/authLinkSignup"
+                    android:id="@+id/textEmailUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="15dp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:text="user@user.com"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textSize="17sp"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
@@ -208,5 +209,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <include layout="@layout/toolbar" />
 
 </LinearLayout>

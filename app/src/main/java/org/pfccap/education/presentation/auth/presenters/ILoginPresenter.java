@@ -12,4 +12,6 @@ public interface ILoginPresenter {
     void login(String email, String password);
 
     CallbackManager registerCallbackFacebook(final LoginButton loginButtonFacebook);
+
+    void isLogging();
 }

@@ -17,7 +17,6 @@ import io.reactivex.schedulers.Schedulers;
 public class SignupPresenter implements ISignupPresenter {
 
     private ISignupView signupView;
-    private IAuthProcess objAuthProcess;
 
     public SignupPresenter(ISignupView signupView) {
         this.signupView = signupView;
@@ -31,7 +30,7 @@ public class SignupPresenter implements ISignupPresenter {
             signupView.disableInputs();
             signupView.showProgress();
 
-            objAuthProcess = new AuthProcess();
+            IAuthProcess objAuthProcess = new AuthProcess();
 
             objAuthProcess.signUp(name, email, password)
                     .subscribeOn(Schedulers.io())

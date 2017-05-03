@@ -25,6 +25,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin">
 
         <TextView
+            android:id="@+id/txtNavigationHeaderUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

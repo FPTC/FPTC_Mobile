@@ -3,7 +3,6 @@ package org.pfccap.education.presentation.auth.ui.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -20,7 +19,6 @@ import com.facebook.login.widget.LoginButton;
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ILoginPresenter;
 import org.pfccap.education.presentation.auth.presenters.LoginPresenter;
-import org.pfccap.education.utilities.ColoredSnackbar;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
@@ -92,6 +90,8 @@ public class Login extends Fragment implements ILoginView {
         ButterKnife.bind(this, view);
 
         loginPresenter = new LoginPresenter(this);
+
+        loginPresenter.isLogging();
 
         initLoginFacebook();
 

@@ -2,12 +2,15 @@ package org.pfccap.education.domain.auth;
 
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
@@ -44,18 +47,23 @@ public class AuthProcess implements IAuthProcess {
                                     @Override
                                     public void onSuccess(final AuthResult authResult) {
 
-                                        final UserAuth userAuth = new UserAuth();
-                                        userAuth.setEmail(authResult.getUser().getEmail());
-                                        userAuth.setName(authResult.getUser().getDisplayName());
-                                        userAuth.setUID(authResult.getUser().getUid());
+                                        final UserAuth user = new UserAuth();
+                                        user.setEmail(authResult.getUser().getEmail());
+                                        user.setFirstLastName(name);
 
-                                        saveAuthData(userAuth);
+                                        saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 
-                                        userBP = new UserBP();
+                                        UserProfileChangeRequest.Builder userProfileReq = new UserProfileChangeRequest.Builder();
+                                        userProfileReq.setDisplayName(name);
 
-                                        userBP.saveNameData(name);
-
-                                        e.onNext(userAuth);
+                                        authResult.getUser().updateProfile(userProfileReq.build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                userBP = new UserBP();
+                                                userBP.save(user);
+                                                e.onNext(user);
+                                            }
+                                        });
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -64,7 +72,6 @@ public class AuthProcess implements IAuthProcess {
                                         e.onError(ex);
                                     }
                                 });
-
 
                     }
                 }
@@ -84,13 +91,15 @@ public class AuthProcess implements IAuthProcess {
                                     @Override
                                     public void onSuccess(final AuthResult authResult) {
 
-                                        final UserAuth userAuth = new UserAuth();
-                                        userAuth.setEmail(authResult.getUser().getEmail());
-                                        userAuth.setName(authResult.getUser().getDisplayName());
-                                        userAuth.setUID(authResult.getUser().getUid());
+                                        final UserAuth user = new UserAuth();
+                                        user.setEmail(authResult.getUser().getEmail());
+                                        user.setFirstLastName(authResult.getUser().getDisplayName());
 
-                                        saveAuthData(userAuth);
-                                        e.onNext(userAuth);
+                                        saveAuthData(authResult.getUser().getEmail(),
+                                                authResult.getUser().getDisplayName(),
+                                                authResult.getUser().getUid());
+
+                                        e.onNext(user);
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -121,10 +130,12 @@ public class AuthProcess implements IAuthProcess {
 
                                         final UserAuth userAuth = new UserAuth();
                                         userAuth.setEmail(authResult.getUser().getEmail());
-                                        userAuth.setName(authResult.getUser().getDisplayName());
-                                        userAuth.setUID(authResult.getUser().getUid());
+                                        userAuth.setFirstLastName(authResult.getUser().getDisplayName());
 
-                                        saveAuthData(userAuth);
+                                        saveAuthData(authResult.getUser().getEmail(),
+                                                authResult.getUser().getDisplayName(),
+                                                authResult.getUser().getUid());
+
                                         e.onNext(userAuth);
                                     }
                                 })
@@ -167,8 +178,11 @@ public class AuthProcess implements IAuthProcess {
         );
     }
 
-    private void saveAuthData(UserAuth userAuth) {
-        //Cache.save(Constants.USER_AUTH_KEY, userAuth);
+    private void saveAuthData(String email, String name, String uid) {
+        Cache.save(Constants.IS_LOGGGIN, "true");
+        Cache.save(Constants.USER_EMAIL, email);
+        Cache.save(Constants.USER_NAME, name);
+        Cache.save(Constants.USER_UID, uid);
     }
 
 }

@@ -8,4 +8,8 @@ public interface IProfilePresenter {
 
     void calculateAge(int yearBirth);
 
+    void getEmailUser();
+
+    void saveUserData();
+
 }

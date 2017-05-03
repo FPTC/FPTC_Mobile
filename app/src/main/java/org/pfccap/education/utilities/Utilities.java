@@ -25,11 +25,19 @@ public class Utilities {
         classInicio.startActivity(intent);
     }
 
+    public static <T extends AppCompatActivity> void initActivityForResult
+            (T classInicio, Class classDestino, int requestCode) {
+        Intent intent = new Intent(classInicio, classDestino);
+        classInicio.startActivityForResult(intent, requestCode);
+    }
+
     public static <T extends FragmentActivity> void initActivityFromFragment(T classInicio,
                                                                              Class classDestino) {
         Intent intent = new Intent(classInicio, classDestino);
         classInicio.startActivity(intent);
     }
+
+
 
     public static <T extends FragmentActivity> void initFragmentFromFragment(T classInicio,
                                                                              Fragment fragmentDestino) {
@@ -79,12 +87,12 @@ public class Utilities {
         dialog.show();
     }
 
-    public static void snackbarMessageError(View view, String error){
+    public static void snackbarMessageError(View view, String error) {
         Snackbar snackbar = Snackbar.make(view, error, Snackbar.LENGTH_LONG);
         ColoredSnackbar.alert(snackbar).show();
     }
 
-    public static void snackbarMessageInfo(View view, String info){
+    public static void snackbarMessageInfo(View view, String info) {
         Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_LONG);
         ColoredSnackbar.info(snackbar).show();
     }
