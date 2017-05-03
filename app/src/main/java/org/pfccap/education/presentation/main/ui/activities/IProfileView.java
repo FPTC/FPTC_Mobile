@@ -26,4 +26,6 @@ public interface IProfileView {
 
     void loadData(UserAuth user);
 
+    void finishActivity();
+
 }

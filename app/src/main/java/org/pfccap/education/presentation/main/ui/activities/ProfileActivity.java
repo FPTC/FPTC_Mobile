@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -62,6 +65,9 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.textEmailUser)
     TextView textEmailUser;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     private DatePickerDialog datePickerDialog;
 
     @Override
@@ -78,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity
         initToolbar();
 
         profilePresenter.getEmailUser();
+        profilePresenter.getUserData();
 
     }
 
@@ -104,6 +111,33 @@ public class ProfileActivity extends AppCompatActivity
         return true;
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                saveUserData();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveUserData() {
+        UserAuth user = new UserAuth();
+
+        user.setFirstLastName(txtName.getText().toString());
+        user.setAddress(txtAddress.getText().toString());
+        user.setAge(txtAge.getText().toString());
+        user.setDateBirthday(txtBirth.getText().toString());
+        user.setHasChilds(txtChilds.getText().toString());
+        user.setHeight(Double.parseDouble(txtHeight.getText().toString()));
+        user.setWeight(Double.parseDouble(txtWeight.getText().toString()));
+        //user.setLatitude(txt.getText().toString());
+        //user.setLongitude(txtName.getText().toString());
+        user.setNeighborhood(txtNeighborhood.getText().toString());
+        user.setPhoneNumber(txtPhone.getText().toString());
+
+        profilePresenter.saveUserData(user);
+    }
+
     @Override
     @OnClick(R.id.mainProfileTxtBirth)
     public void clickTxtBirth() {
@@ -117,32 +151,45 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void enableInputs() {
-
+        setInputs(true);
     }
 
     @Override
     public void disableInputs() {
-
+        setInputs(false);
     }
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String error) {
-
+        Utilities.snackbarMessageError(findViewById(android.R.id.content), error);
     }
 
     @Override
     public void loadData(UserAuth user) {
+        txtBirth.setText(user.getDateBirthday());
+        txtAddress.setText(user.getAddress());
+        txtAge.setText(user.getAge());
+        txtChilds.setText(user.getHasChilds());
+        txtHeight.setText(String.valueOf(user.getHeight()));
+        txtName.setText(user.getFirstLastName());
+        txtNeighborhood.setText(user.getNeighborhood());
+        txtPhone.setText(user.getPhoneNumber());
+        txtWeight.setText(String.valueOf(user.getWeight()));
+    }
 
+    @Override
+    public void finishActivity() {
+        finish();
     }
 
     @OnClick(R.id.btnmaps)
@@ -163,7 +210,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_MAPS && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_MAPS) {
             String address = data.getStringExtra("address");
             txtAddress.setText(address);
         }

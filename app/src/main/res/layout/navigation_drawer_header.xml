@@ -12,7 +12,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="@dimen/navigation_drawer_header_margin"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_fptc" />
 
     <LinearLayout
         android:layout_width="match_parent"
