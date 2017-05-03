@@ -19,8 +19,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.auth.ui.activities.AuthActivity" />
         <activity
-            android:name=".presentation.splash.Splash"
-            android:theme="@style/SplashTheme">
+            android:name=".presentation.splash.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
