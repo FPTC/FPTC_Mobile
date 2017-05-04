@@ -40,7 +40,24 @@ public class ProfilePresenter implements IProfilePresenter {
     }
 
     @Override
-    public void saveUserData() {
+    public void saveUserData(UserAuth user) {
+
+        try {
+
+            profileView.showProgress();
+            profileView.disableInputs();
+
+            userBP.save(user);
+
+            profileView.hideProgress();
+            profileView.enableInputs();
+            profileView.finishActivity();
+
+        } catch (Exception e) {
+            profileView.hideProgress();
+            profileView.enableInputs();
+            profileView.showError(e.getMessage());
+        }
 
     }
 

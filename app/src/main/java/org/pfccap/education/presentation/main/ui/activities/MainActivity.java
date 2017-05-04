@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
 import org.pfccap.education.presentation.main.presenters.IMainActivityPresenter;
 import org.pfccap.education.presentation.main.presenters.MainActivityPresenter;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
@@ -83,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.logout:
+                mainActivityPresenter.logOut();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -121,5 +125,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void showError(String error) {
         Utilities.snackbarMessageError(findViewById(android.R.id.content), error);
+    }
+
+    @Override
+    public void navigateToLogin() {
+        Utilities.initActivity(this, AuthActivity.class);
     }
 }

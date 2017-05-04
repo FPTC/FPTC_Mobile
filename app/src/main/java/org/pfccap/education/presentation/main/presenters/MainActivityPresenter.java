@@ -17,18 +17,6 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     }
 
     @Override
-    public void getUser() {
-
-        try {
-
-
-        } catch (Exception e) {
-
-        }
-
-    }
-
-    @Override
     public void setUserName() {
         try {
 
@@ -37,5 +25,11 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         } catch (Exception e) {
             mainActivityView.showError(e.getMessage());
         }
+    }
+
+    @Override
+    public void logOut() {
+        Cache.clearAll();
+        mainActivityView.navigateToLogin();
     }
 }

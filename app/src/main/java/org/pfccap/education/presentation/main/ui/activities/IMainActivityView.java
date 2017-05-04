@@ -9,4 +9,6 @@ public interface IMainActivityView {
     void setUserName(String userName);
 
     void showError(String error);
+
+    void navigateToLogin();
 }

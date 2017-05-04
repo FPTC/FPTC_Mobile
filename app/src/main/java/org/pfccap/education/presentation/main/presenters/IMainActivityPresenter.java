@@ -6,8 +6,8 @@ package org.pfccap.education.presentation.main.presenters;
 
 public interface IMainActivityPresenter {
 
-    void getUser();
-
     void setUserName();
+
+    void logOut();
 
 }
