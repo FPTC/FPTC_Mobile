@@ -49,6 +49,12 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtAddress)
     EditText txtAddress;
 
+    @BindView(R.id.mainProfileTxtLongitude)
+    EditText txtLongitude;
+
+    @BindView(R.id.mainProfileTxtLatitude)
+    EditText txtLatitude;
+
     @BindView(R.id.mainProfileTxtNeighborhood)
     EditText txtNeighborhood;
 
@@ -129,8 +135,8 @@ public class ProfileActivity extends AppCompatActivity
         user.setHasChilds(txtChilds.getText().toString());
         user.setHeight(Double.parseDouble(txtHeight.getText().toString()));
         user.setWeight(Double.parseDouble(txtWeight.getText().toString()));
-        //user.setLatitude(txt.getText().toString());
-        //user.setLongitude(txtName.getText().toString());
+        user.setLatitude(Double.parseDouble(txtLatitude.getText().toString()));
+        user.setLongitude(Double.parseDouble(txtLongitude.getText().toString()));
         user.setNeighborhood(txtNeighborhood.getText().toString());
         user.setPhoneNumber(txtPhone.getText().toString());
 
@@ -177,6 +183,8 @@ public class ProfileActivity extends AppCompatActivity
     public void loadData(UserAuth user) {
         txtBirth.setText(user.getDateBirthday());
         txtAddress.setText(user.getAddress());
+        txtLongitude.setText(String.valueOf(user.getLongitude()));
+        txtLatitude.setText(String.valueOf(user.getLatitude()));
         txtAge.setText(user.getAge());
         txtChilds.setText(user.getHasChilds());
         txtHeight.setText(String.valueOf(user.getHeight()));
@@ -211,7 +219,11 @@ public class ProfileActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_MAPS) {
             String address = data.getStringExtra("address");
+            String latitud = data.getStringExtra("latitud");
+            String longitud = data.getStringExtra("longitud");
             txtAddress.setText(address);
+            txtLatitude.setText(latitud);
+            txtLongitude.setText(longitud);
         }
     }
 

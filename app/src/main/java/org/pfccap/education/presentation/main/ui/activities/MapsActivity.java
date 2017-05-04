@@ -131,6 +131,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void clickGetAddress() {
         Intent intent = new Intent();
         intent.putExtra("address", mapAddress.getText().toString());
+        intent.putExtra("latitud", lat);
+        intent.putExtra("longitud", lng);
         setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
         finish();
     }
