@@ -8,7 +8,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="org.pfccap.education.utilities.MapsActivity">
+    tools:context="org.pfccap.education.presentation.main.ui.activities.MapsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,8 +24,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:text="Mapa"
+            android:text="@string/map"
             android:textColor="#ffffff"
             android:textSize="24dp"
             android:textStyle="bold"

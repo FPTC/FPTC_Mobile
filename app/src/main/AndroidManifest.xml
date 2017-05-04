@@ -55,7 +55,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".utilities.MapsActivity"
+            android:name=".presentation.main.ui.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".presentation.main.ui.activities.MainActivity" />
 

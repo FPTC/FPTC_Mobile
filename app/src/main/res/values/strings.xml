@@ -59,5 +59,8 @@
     <string name="title_profile">Perfil Usuario</string>
     <string name="selecciona_fecha_nac">Selecciona una fecha</string>
     <string name="NO_ACEPTADO_PERMISOS">Por favor acepta los permisos para poder saber tu ubicación</string>
+    <string name="enable_gps">Activación del GPS</string>
+    <string name="content_enable_gps">¿Deseas ir activar el GPS para ubicar mejor tu posición en el mapa?</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>

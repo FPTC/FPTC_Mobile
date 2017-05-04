@@ -5,14 +5,14 @@
             android:checked="true"
             android:id="@+id/item_drawer_home"
             android:title="@string/home"
-            android:icon="@drawable/ic_home_black_24dp"/>
+            android:icon="@drawable/ic_home_black_48dp"/>
         <item
             android:id="@+id/item_drawer_profile"
             android:title="@string/profile"
-            android:icon="@drawable/ic_face_profile_black_24dp"/>
+            android:icon="@drawable/ic_face_profile_black_48dp"/>
         <item
             android:id="@+id/item_drawer_gifts"
             android:title="@string/gift"
-            android:icon="@drawable/ic_gift_black_24dp"/>
+            android:icon="@drawable/ic_gift_black_48dp"/>
     </group>
 </menu>

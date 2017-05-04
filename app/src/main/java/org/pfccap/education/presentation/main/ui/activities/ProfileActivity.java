@@ -14,7 +14,6 @@ import org.pfccap.education.R;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.presenters.IProfilePresenter;
 import org.pfccap.education.presentation.main.presenters.ProfilePresenter;
-import org.pfccap.education.utilities.MapsActivity;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.Calendar;
