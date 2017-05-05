@@ -8,7 +8,8 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="org.pfccap.education.presentation.main.ui.activities.MapsActivity">
+    tools:context="org.pfccap.education.presentation.main.ui.activities.MapsActivity"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"

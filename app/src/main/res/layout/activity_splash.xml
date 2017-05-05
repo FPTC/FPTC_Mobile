@@ -9,14 +9,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context=".presentation.splash.Splash">
+    tools:context=".presentation.splash.Splash"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo_fptc"/>
-
 
 
 </FrameLayout>

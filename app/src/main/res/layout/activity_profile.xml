@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.pfccap.education.presentation.main.ui.activities.ProfileActivity">
+    tools:context="org.pfccap.education.presentation.main.ui.activities.ProfileActivity"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/toolbar" />
 
@@ -56,7 +57,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="15dp"
                     android:layout_weight="0.7"
-                    android:text="user@user.com"
+                    android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimary" />
@@ -136,7 +137,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_weight="0.8">
+                        android:layout_weight="0.9">
 
                         <EditText
                             android:id="@+id/mainProfileTxtAddress"
@@ -163,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.1"
                         android:background="@null"
                         android:contentDescription="@string/map"
                         android:scaleType="centerInside"

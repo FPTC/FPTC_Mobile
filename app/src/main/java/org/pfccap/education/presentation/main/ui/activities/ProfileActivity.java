@@ -219,11 +219,11 @@ public class ProfileActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_MAPS) {
             String address = data.getStringExtra("address");
-            String latitud = data.getStringExtra("latitud");
-            String longitud = data.getStringExtra("longitud");
+            String latitude = data.getStringExtra("latitude");
+            String longitude = data.getStringExtra("longitude");
             txtAddress.setText(address);
-            txtLatitude.setText(latitud);
-            txtLongitude.setText(longitud);
+            txtLatitude.setText(latitude);
+            txtLongitude.setText(longitude);
         }
     }
 

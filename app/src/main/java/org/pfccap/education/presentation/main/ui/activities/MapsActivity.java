@@ -131,12 +131,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void clickGetAddress() {
         Intent intent = new Intent();
         intent.putExtra("address", mapAddress.getText().toString());
-        intent.putExtra("latitud", lat);
-        intent.putExtra("longitud", lng);
+        intent.putExtra("latitude", String.valueOf(lat));
+        intent.putExtra("longitude", String.valueOf(lng));
         setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("address", "");
+        intent.putExtra("latitude", "0");
+        intent.putExtra("longitude", "0");
+        setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
+        super.onBackPressed();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

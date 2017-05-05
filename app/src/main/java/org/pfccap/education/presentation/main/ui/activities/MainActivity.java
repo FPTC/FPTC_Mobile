@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_48dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_36dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (navigationView != null) {

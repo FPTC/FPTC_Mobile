@@ -1,9 +1,12 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import com.google.firebase.auth.FirebaseAuthException;
+
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ISignupView;
+import org.pfccap.education.utilities.Utilities;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -54,7 +57,10 @@ public class SignupPresenter implements ISignupPresenter {
                         public void onError(Throwable e) {
                             signupView.hideProgress();
                             signupView.enableInputs();
-                            signupView.signUpError(e.getMessage());
+                            if (e instanceof FirebaseAuthException) {
+                                String errorCode = ((FirebaseAuthException) e).getErrorCode();
+                                signupView.signUpError(Utilities.traslateErrorCode(errorCode));
+                            }
                         }
 
                         @Override

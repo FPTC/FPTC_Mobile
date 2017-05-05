@@ -1,10 +1,13 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import android.widget.Switch;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.FirebaseAuthException;
 
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
@@ -12,6 +15,7 @@ import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
+import org.pfccap.education.utilities.Utilities;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -58,7 +62,10 @@ public class LoginPresenter implements ILoginPresenter {
                         public void onError(Throwable e) {
                             loginView.enableInputs();
                             loginView.hideProgress();
-                            loginView.loginError(e.getMessage());
+                            if (e instanceof FirebaseAuthException) {
+                               String errorCode = ((FirebaseAuthException) e).getErrorCode();
+                                loginView.loginError(Utilities.traslateErrorCode(errorCode));
+                            }
                         }
 
                         @Override
@@ -141,5 +148,6 @@ public class LoginPresenter implements ILoginPresenter {
             loginView.navigateToMainScreen();
         }
     }
+
 
 }

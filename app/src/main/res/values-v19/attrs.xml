@@ -3,6 +3,5 @@
     <bool name="fitsSystemWindows">false</bool>
     <dimen name="navigation_drawer_header_margin">41dp</dimen>
     <dimen name="status_bar_height">25dp</dimen>
-    <dimen name="status_bar_height_kitkat">25dp</dimen>
-    <dimen name="status_bar_height_lollipop">0dp</dimen>
+
 </resources>

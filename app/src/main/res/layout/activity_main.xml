@@ -15,13 +15,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_height_kitkat"
+            android:layout_height="@dimen/status_bar_height"
             android:background="?colorPrimary" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_height_lollipop"
-            android:background="?colorPrimaryDark" />
 
     </LinearLayout>
 
