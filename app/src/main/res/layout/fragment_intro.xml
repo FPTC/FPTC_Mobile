@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.pfccap.education.presentation.main.ui.fragments.IntroFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/mainIntroTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="Hola bienvenido al portal, sabias que el cancer de mama..., ahora contastaras un cuestionario"
+            android:layout_marginTop="5dp"
+            android:textSize="25sp"
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/mainIntroBtnGo"
+            style="@style/BtnIntro"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="Vamos a contestar"
+            />
+    </LinearLayout>
+</FrameLayout>

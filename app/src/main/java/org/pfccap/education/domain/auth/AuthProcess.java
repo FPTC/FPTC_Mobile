@@ -50,6 +50,9 @@ public class AuthProcess implements IAuthProcess {
                                         final UserAuth user = new UserAuth();
                                         user.setEmail(authResult.getUser().getEmail());
                                         user.setFirstLastName(name);
+                                        user.setPointsTotal(0);
+                                        user.setRepetitionsAnswers(0);
+                                        user.setState(1);
 
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 

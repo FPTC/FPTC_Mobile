@@ -128,7 +128,7 @@ public class Signup extends Fragment implements ISignupView {
     @OnClick(R.id.authBtnSignUp)
     public void handleSignUp() {
         signupPresenter.signUp(authSignupName.getText().toString(),
-                authSignupEmail.getText().toString(),
+              authSignupEmail.getText().toString(),
                 authSignupPassword.getText().toString());
     }
 

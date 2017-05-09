@@ -17,10 +17,10 @@ public class UserAuth {
     private double longitude;
     private double height;
     private double weight;
-    private String hasChilds;
-    private String pointsTotal;
-    private String state;
-    private String repetitionsAnswers;
+    private int hasChilds;
+    private int pointsTotal;
+    private int state;
+    private int repetitionsAnswers;
 
     public UserAuth() {
 
@@ -106,27 +106,27 @@ public class UserAuth {
         this.weight = weight;
     }
 
-    public String getPointsTotal() {
+    public int getPointsTotal() {
         return pointsTotal;
     }
 
-    public void setPointsTotal(String pointsTotal) {
+    public void setPointsTotal(int pointsTotal) {
         this.pointsTotal = pointsTotal;
     }
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 
-    public String getRepetitionsAnswers() {
+    public int getRepetitionsAnswers() {
         return repetitionsAnswers;
     }
 
-    public void setRepetitionsAnswers(String repetitionsAnswers) {
+    public void setRepetitionsAnswers(int repetitionsAnswers) {
         this.repetitionsAnswers = repetitionsAnswers;
     }
 
@@ -138,11 +138,11 @@ public class UserAuth {
         this.latitude = latitude;
     }
 
-    public String getHasChilds() {
+    public int getHasChilds() {
         return hasChilds;
     }
 
-    public void setHasChilds(String hasChilds) {
+    public void setHasChilds(int hasChilds) {
         this.hasChilds = hasChilds;
     }
 }

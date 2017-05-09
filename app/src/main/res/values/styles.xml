@@ -63,4 +63,8 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="BtnIntro" parent="BtnMain">
+        <item name="background">@drawable/rounded_button</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+    </style>
 </resources>

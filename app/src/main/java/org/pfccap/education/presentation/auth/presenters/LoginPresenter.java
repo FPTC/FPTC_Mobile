@@ -56,6 +56,7 @@ public class LoginPresenter implements ILoginPresenter {
                             loginView.enableInputs();
                             loginView.hideProgress();
                             loginView.navigateToMainScreen();
+                            getQuestion();
                         }
 
                         @Override
@@ -78,6 +79,10 @@ public class LoginPresenter implements ILoginPresenter {
             loginView.enableInputs();
             loginView.loginError(e.getMessage());
         }
+
+    }
+
+    private void getQuestion() {
 
     }
 

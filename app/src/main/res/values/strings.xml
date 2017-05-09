@@ -62,5 +62,7 @@
     <string name="enable_gps">Activación del GPS</string>
     <string name="content_enable_gps">¿Deseas ir activar el GPS para ubicar mejor tu posición en el mapa?</string>
     <string name="cancel">Cancelar</string>
+    <string name="yes">SI</string>
+    <string name="no">NO</string>
 
 </resources>
