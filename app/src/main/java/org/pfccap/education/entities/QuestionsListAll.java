@@ -9,7 +9,13 @@ import java.util.List;
 
 public class QuestionsListAll {
 
-    private List<QuestionByCancer> cancerCervix = null;
+
+
+    private List<QuestionByCancer> cancerCervix = new ArrayList<QuestionByCancer>();
+
+    public QuestionsListAll(){
+
+    }
 
     public List<QuestionByCancer> getCancerCervix() {
         return cancerCervix;

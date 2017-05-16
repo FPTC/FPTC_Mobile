@@ -17,6 +17,10 @@ public class QuestionByCancer {
         private String typeQuestion;
         private boolean enable;
 
+        public QuestionByCancer(){
+
+        }
+
         public String getAnswers() {
                 return answers;
         }
