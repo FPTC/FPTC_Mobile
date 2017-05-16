@@ -6,8 +6,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import org.pfccap.education.entities.QuestionsListAll;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
+import org.pfccap.education.entities.QuestionList;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -27,18 +28,22 @@ public class QuestionBP implements IQuestionBP {
     }
 
     @Override
-    public Observable<QuestionsListAll> getQuestions() {
+    public Observable<QuestionList> getQuestions() {
         try {
-            return Observable.create(new ObservableOnSubscribe<QuestionsListAll>() {
+            return Observable.create(new ObservableOnSubscribe<QuestionList>() {
                 @Override
-                public void subscribe(final ObservableEmitter<QuestionsListAll> e) throws Exception {
+                public void subscribe(final ObservableEmitter<QuestionList> e) throws Exception {
 
                     firebaseHelper.getQuestionsReference().addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.e(TAG, dataSnapshot.toString());
-                            QuestionsListAll questionsListAll = dataSnapshot.getValue(QuestionsListAll.class);
-                            e.onNext(questionsListAll);
+                            try {
+                                QuestionList questionsListAll = dataSnapshot.getValue(QuestionList.class);
+                                e.onNext(questionsListAll);
+                            } catch (Exception ex) {
+                                e.onError(ex);
+                            }
                         }
 
                         @Override
@@ -50,14 +55,14 @@ public class QuestionBP implements IQuestionBP {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
 
     }
 
     @Override
-    public void save(QuestionsListAll questionsListAll) {
+    public void save(QuestionList questionsListAll) {
         try {
 
 

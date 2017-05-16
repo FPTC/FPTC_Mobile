@@ -1,6 +1,6 @@
 package org.pfccap.education.domain.questions;
 
-import org.pfccap.education.entities.QuestionsListAll;
+import org.pfccap.education.entities.QuestionList;
 
 import io.reactivex.Observable;
 
@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 
 public interface IQuestionBP {
 
-    Observable<QuestionsListAll> getQuestions();
+    Observable<QuestionList> getQuestions();
 
-    void save(QuestionsListAll questionsListAll);
+    void save(QuestionList questionsListAll);
 }

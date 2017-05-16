@@ -1,7 +1,5 @@
 package org.pfccap.education.presentation.auth.presenters;
 
-import android.widget.Switch;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -16,7 +14,7 @@ import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.QuestionBP;
-import org.pfccap.education.entities.QuestionsListAll;
+import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
 import org.pfccap.education.utilities.Cache;
@@ -97,9 +95,9 @@ public class LoginPresenter implements ILoginPresenter {
           questionBP.getQuestions()
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
-                  .subscribeWith(new DisposableObserver<QuestionsListAll>() {
+                  .subscribeWith(new DisposableObserver<QuestionList>() {
                       @Override
-                      public void onNext(QuestionsListAll value) {
+                      public void onNext(QuestionList value) {
                           Question questionDB;
 /*
                           for (){
