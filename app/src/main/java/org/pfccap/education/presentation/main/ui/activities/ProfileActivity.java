@@ -130,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity
 
         user.setFirstLastName(txtName.getText().toString());
         user.setAddress(txtAddress.getText().toString());
-        user.setAge(txtAge.getText().toString());
+        user.setAge(Integer.parseInt(txtAge.getText().toString()));
         user.setDateBirthday(txtBirth.getText().toString());
         user.setHasChilds(Integer.parseInt(txtChilds.getText().toString()));
         user.setHeight(Double.parseDouble(txtHeight.getText().toString()));
@@ -185,7 +185,7 @@ public class ProfileActivity extends AppCompatActivity
         txtAddress.setText(user.getAddress());
         txtLongitude.setText(String.valueOf(user.getLongitude()));
         txtLatitude.setText(String.valueOf(user.getLatitude()));
-        txtAge.setText(user.getAge());
+        txtAge.setText(String.valueOf(user.getAge()));
         txtChilds.setText(String.valueOf(user.getHasChilds()));
         txtHeight.setText(String.valueOf(user.getHeight()));
         txtName.setText(user.getFirstLastName());

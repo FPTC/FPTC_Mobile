@@ -7,10 +7,8 @@ package org.pfccap.education.dao;
 public class AppDao {
 
     private static UserDao userDao;
-    private static EducationDao educationDao;
-    private static RiskDao riskDao;
-    private static EvaluationDao evaluationDao;
     private static AnswersDao answersDao;
+    private static QuestionDao questionDao;
 
     public static UserDao getUserDao() {
         return userDao;
@@ -20,35 +18,19 @@ public class AppDao {
         AppDao.userDao = userDao;
     }
 
-    public static EducationDao getEducationDao() {
-        return educationDao;
-    }
-
-    public static void setEducationDao(EducationDao educationDao) {
-        AppDao.educationDao = educationDao;
-    }
-
-    public static RiskDao getRiskDao() {
-        return riskDao;
-    }
-
-    public static void setRiskDao(RiskDao riskDao) {
-        AppDao.riskDao = riskDao;
-    }
-
-    public static EvaluationDao getEvaluationDao() {
-        return evaluationDao;
-    }
-
-    public static void setEvaluationDao(EvaluationDao evaluationDao) {
-        AppDao.evaluationDao = evaluationDao;
-    }
-
     public static AnswersDao getAnswersDao() {
         return answersDao;
     }
 
     public static void setAnswersDao(AnswersDao answersDao) {
         AppDao.answersDao = answersDao;
+    }
+
+    public static QuestionDao getQuestionDao() {
+        return questionDao;
+    }
+
+    public static void setQuestionDao(QuestionDao questionDao) {
+        AppDao.questionDao = questionDao;
     }
 }

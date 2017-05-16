@@ -12,16 +12,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.dao.Question;
 import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
 import org.pfccap.education.presentation.main.presenters.IMainActivityPresenter;
 import org.pfccap.education.presentation.main.presenters.MainActivityPresenter;
+import org.pfccap.education.presentation.main.ui.fragments.GiftsFragment;
+import org.pfccap.education.presentation.main.ui.fragments.IntroFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements IMainActivityView {
+public class MainActivity extends AppCompatActivity implements IMainActivityView,
+        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener{
 
     private IMainActivityPresenter mainActivityPresenter;
 
@@ -130,5 +134,27 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void navigateToLogin() {
         Utilities.initActivity(this, AuthActivity.class);
+    }
+
+    @Override
+    public void onNavigateToBreast() {
+        Utilities.initFragment(this, IntroFragment.newInstance(getString(R.string.intro_breast),
+                R.drawable.cancer_seno, R.color.colorPrimary));
+    }
+
+    @Override
+    public void onNavigateToCervical() {
+        Utilities.initFragment(this, IntroFragment.newInstance(getString(R.string.intro_cervical),
+                R.drawable.cancer_cervix, R.color.colorBlueLigth));
+    }
+
+    @Override
+    public void onNavigateToGifts() {
+        Utilities.initFragment(this, GiftsFragment.newInstance());
+    }
+
+    @Override
+    public void onNavigationQuestion() {
+        Utilities.initActivity(this, QuestionsActivity.class);
     }
 }

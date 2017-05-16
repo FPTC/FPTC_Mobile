@@ -5,30 +5,32 @@ package org.pfccap.education.dao;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table "RISK".
+ * Entity mapped to table "QUESTION".
  */
-public class Risk {
+public class Question {
 
     private Long id;
     private String code;
     private String question;
     private Integer typeCancer;
+    private String typeQuestion;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public Risk() {
+    public Question() {
     }
 
-    public Risk(Long id) {
+    public Question(Long id) {
         this.id = id;
     }
 
-    public Risk(Long id, String code, String question, Integer typeCancer) {
+    public Question(Long id, String code, String question, Integer typeCancer, String typeQuestion) {
         this.id = id;
         this.code = code;
         this.question = question;
         this.typeCancer = typeCancer;
+        this.typeQuestion = typeQuestion;
     }
 
     public Long getId() {
@@ -61,6 +63,14 @@ public class Risk {
 
     public void setTypeCancer(Integer typeCancer) {
         this.typeCancer = typeCancer;
+    }
+
+    public String getTypeQuestion() {
+        return typeQuestion;
+    }
+
+    public void setTypeQuestion(String typeQuestion) {
+        this.typeQuestion = typeQuestion;
     }
 
     // KEEP METHODS - put your custom methods here

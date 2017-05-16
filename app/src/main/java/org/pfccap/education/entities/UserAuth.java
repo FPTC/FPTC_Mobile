@@ -9,7 +9,7 @@ public class UserAuth {
     private String firstLastName;
     private String dateBirthday;
     private String email;
-    private String age;
+    private int age;
     private String phoneNumber;
     private String address;
     private String neighborhood;
@@ -50,11 +50,11 @@ public class UserAuth {
         this.email = email;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

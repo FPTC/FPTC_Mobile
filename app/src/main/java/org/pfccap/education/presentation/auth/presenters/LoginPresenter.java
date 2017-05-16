@@ -9,8 +9,14 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuthException;
 
+import org.pfccap.education.dao.AppDao;
+import org.pfccap.education.dao.Question;
+import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
+import org.pfccap.education.domain.questions.IQuestionBP;
+import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.entities.QuestionsListAll;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
 import org.pfccap.education.utilities.Cache;
@@ -32,9 +38,13 @@ public class LoginPresenter implements ILoginPresenter {
 
     private ILoginView loginView;
     private IAuthProcess objAuthProcess;
+    private IQuestionBP questionBP;
+    private QuestionDao questionDao;
 
     public LoginPresenter(ILoginView loginView) {
         this.loginView = loginView;
+        questionBP = new QuestionBP();
+        questionDao = AppDao.getQuestionDao();
     }
 
     @Override
@@ -53,10 +63,10 @@ public class LoginPresenter implements ILoginPresenter {
                     .subscribeWith(new DisposableObserver<UserAuth>() {
                         @Override
                         public void onNext(UserAuth value) {
+                            getQuestion();
                             loginView.enableInputs();
                             loginView.hideProgress();
                             loginView.navigateToMainScreen();
-                            getQuestion();
                         }
 
                         @Override
@@ -83,7 +93,43 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     private void getQuestion() {
+      try {
+          questionBP.getQuestions()
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribeWith(new DisposableObserver<QuestionsListAll>() {
+                      @Override
+                      public void onNext(QuestionsListAll value) {
+                          Question questionDB;
+/*
+                          for (){
+                              questionDB = new Question();
+                              questionDB.setCode();
+                              questionDB.setQuestion();
+                              questionDB.setTypeCancer();
+                              questionDB.setTypeQuestion();
+                              questionDao.insert(questionDB);
+                          }*/
+                      }
 
+                      @Override
+                      public void onError(Throwable e) {
+                          loginView.enableInputs();
+                          loginView.hideProgress();
+                          loginView.loginError(e.getMessage());
+                      }
+
+                      @Override
+                      public void onComplete() {
+
+                      }
+                  });
+
+      }catch (Exception e){
+          loginView.enableInputs();
+          loginView.hideProgress();
+          loginView.loginError(e.getMessage());
+      }
     }
 
     @Override

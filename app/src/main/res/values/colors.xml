@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8e24aa</color>
-    <color name="colorPrimaryDark">#5c007a</color>
-    <color name="colorAccent">#8e24aa</color>
-    <color name="colorPrimaryLight">#c158dc</color>
+    <color name="colorPrimary">#db2763</color>
+    <color name="colorPrimaryDark">#a30039</color>
+    <color name="colorAccent">#ff6390</color>
+    <color name="colorPrimaryLight">#ff6390</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorBlack">#080808</color>
     <color name="colorGray">#CCCCCC</color>
     <color name="colorFacebook">#3b5998</color>
-    <color name="colorBlueLigth">#03a9f4</color>
+    <color name="colorBlueLigth">#0da4a6</color>
 </resources>

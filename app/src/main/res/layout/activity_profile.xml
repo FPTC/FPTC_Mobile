@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.3"
-                    android:src="@drawable/logo_fptc" />
+                    android:src="@drawable/logo_amate" />
 
                 <TextView
                     android:id="@+id/textEmailUser"

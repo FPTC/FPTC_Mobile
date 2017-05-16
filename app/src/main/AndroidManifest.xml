@@ -60,7 +60,7 @@
             android:name=".presentation.main.ui.activities.ProfileActivity"
             android:parentActivityName=".presentation.main.ui.activities.MainActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".presentation.main.ui.activities.QuestionsActivity"></activity>
+        <activity android:name=".presentation.main.ui.activities.QuestionsActivity"/>
     </application>
 
 </manifest>

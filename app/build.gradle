@@ -34,41 +34,41 @@ dependencies {
     })
     compile project(':dao')
 
-    testCompile 'junit:junit:4.12'
+
+
+
+    compile('io.reactivex.rxjava2:rxandroid:2.0.1') {
+        exclude group: 'org.freemarker'
+    }
+
+    compile('io.reactivex.rxjava2:rxjava:2.0.1') {
+        exclude group: 'org.freemarker'
+    }
+
+
+
+    compile('de.greenrobot:greendao:2.1.0') {
+        exclude group: 'org.freemarker'
+    }
+
+
+
+
+
 
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
-
-    compile 'com.google.firebase:firebase-auth:10.2.1'
-    compile 'com.google.firebase:firebase-database:10.2.1'
-
-    compile ('io.reactivex.rxjava2:rxandroid:2.0.1'){
-        exclude group: 'org.freemarker'
-    }
-
-    compile ('io.reactivex.rxjava2:rxjava:2.0.1'){
-        exclude group: 'org.freemarker'
-    }
-
+    compile 'com.google.firebase:firebase-auth:10.2.4'
+    compile 'com.google.firebase:firebase-database:10.2.4'
     compile 'com.jakewharton:butterknife:8.5.1'
-
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-    compile ('de.greenrobot:greendao:2.1.0'){
-        exclude group: 'org.freemarker'
-    }
-
     compile 'com.facebook.android:facebook-android-sdk:4.22.0'
-
     compile 'com.android.support:multidex:1.0.1'
-
-    compile 'com.google.android.gms:play-services:10.2.1'
-
+    compile 'com.google.android.gms:play-services:10.2.4'
     compile 'com.wdullaer:materialdatetimepicker:3.2.0'
-
     compile 'com.afollestad.material-dialogs:core:0.9.0.2'
-
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

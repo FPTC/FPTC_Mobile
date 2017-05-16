@@ -29,26 +29,13 @@ public class Main {
         user.addStringProperty("name");
         user.addDateProperty("datelogin");
 
-        //crea pregunta educativas
-        Entity education = schema.addEntity("Education");
-        education.addIdProperty().autoincrement();
-        education.addStringProperty("code");
-        education.addStringProperty("question");
-        education.addIntProperty("typeCancer");
-
-        //crea pregunta riesgo
-        Entity risk = schema.addEntity("Risk");
-        risk.addIdProperty().autoincrement();
-        risk.addStringProperty("code");
-        risk.addStringProperty("question");
-        risk.addIntProperty("typeCancer");
-
-        //crea pregunta evaluativas
-        Entity evaluation = schema.addEntity("Evaluation");
-        evaluation.addIdProperty().autoincrement();
-        evaluation.addStringProperty("code");
-        evaluation.addStringProperty("question");
-        evaluation.addIntProperty("typeCancer");
+        //crea preguntas
+        Entity questions = schema.addEntity("Question");
+        questions.addIdProperty().autoincrement();
+        questions.addStringProperty("code");
+        questions.addStringProperty("question");
+        questions.addIntProperty("typeCancer");
+        questions.addStringProperty("typeQuestion");
 
         //crea respuestas
         Entity answers = schema.addEntity("Answers");

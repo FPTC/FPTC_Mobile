@@ -2,32 +2,46 @@ package org.pfccap.education.presentation.main.ui.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.pfccap.education.R;
+import org.pfccap.education.utilities.Utilities;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,7 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, PlaceSelectionListener {
 
     double lat;
     double lng;
@@ -50,6 +64,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @BindView(R.id.utilitiesMapBtnBack)
     Button btnGetAddress;
+
+    @BindView(R.id.place_attribution)
+    TextView mPlaceAttribution;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -88,8 +105,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         ButterKnife.bind(this);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */,
-                        this /*OnConnectionFailedListener*/)
+                .enableAutoManage(this, this)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
@@ -97,6 +113,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .build();
         mGoogleApiClient.connect();
 
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(this);
 
     }
 
@@ -264,4 +284,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mLastKnownLocation = null;
         }
     }
+
+    @Override
+    public void onPlaceSelected(Place place) {
+        Log.i(TAG, "Place Selected: " + place.getLatLng());
+        LatLng queriedLocation = place.getLatLng();
+        lat = queriedLocation.latitude;
+        lng = queriedLocation.longitude;
+        // Format the returned place's details and display them in the TextView.
+
+
+        CharSequence attributions = place.getAttributions();
+        if (!TextUtils.isEmpty(attributions)) {
+            mPlaceAttribution.setVisibility(View.VISIBLE);
+            mPlaceAttribution.setText(Html.fromHtml(attributions.toString()));
+        } else {
+            mPlaceAttribution.setVisibility(View.GONE);
+            mPlaceAttribution.setText("");
+        }
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+        Utilities.snackbarMessageError(findViewById(R.id.mainMapsLayout), status.getStatusMessage());
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
+                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
+        Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber,
+                websiteUri));
+        return Html.fromHtml(res.getString(R.string.place_details, name, id, address, phoneNumber,
+                websiteUri));
+
+    }
+
 }

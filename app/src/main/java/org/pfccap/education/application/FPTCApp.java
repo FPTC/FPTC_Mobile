@@ -34,9 +34,7 @@ public class FPTCApp extends Application {
 
         //se crean los DAOs
         AppDao.setUserDao(daoSession.getUserDao());
-        AppDao.setEducationDao(daoSession.getEducationDao());
-        AppDao.setRiskDao(daoSession.getRiskDao());
-        AppDao.setEvaluationDao(daoSession.getEvaluationDao());
+       // AppDao.setEducationDao(daoSession.getEducationDao());
         AppDao.setAnswersDao(daoSession.getAnswersDao());
 
         Cache.init(getApplicationContext());

@@ -65,6 +65,5 @@
 
     <style name="BtnIntro" parent="BtnMain">
         <item name="background">@drawable/rounded_button</item>
-        <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 </resources>

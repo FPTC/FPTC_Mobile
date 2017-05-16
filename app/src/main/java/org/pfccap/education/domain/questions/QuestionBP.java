@@ -1,14 +1,18 @@
 package org.pfccap.education.domain.questions;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import org.pfccap.education.entities.Questions;
+import org.pfccap.education.entities.QuestionsListAll;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+
+import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by USUARIO on 08/05/2017.
@@ -23,17 +27,18 @@ public class QuestionBP implements IQuestionBP {
     }
 
     @Override
-    public Observable<Questions> getQuestions() {
+    public Observable<QuestionsListAll> getQuestions() {
         try {
-            return Observable.create(new ObservableOnSubscribe<Questions>() {
+            return Observable.create(new ObservableOnSubscribe<QuestionsListAll>() {
                 @Override
-                public void subscribe(final ObservableEmitter<Questions> e) throws Exception {
+                public void subscribe(final ObservableEmitter<QuestionsListAll> e) throws Exception {
 
                     firebaseHelper.getQuestionsReference().addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Questions questions = dataSnapshot.getValue(Questions.class);
-                            e.onNext(questions);
+                            Log.e(TAG, dataSnapshot.toString());
+                            QuestionsListAll questionsListAll = dataSnapshot.getValue(QuestionsListAll.class);
+                            e.onNext(questionsListAll);
                         }
 
                         @Override
@@ -52,10 +57,9 @@ public class QuestionBP implements IQuestionBP {
     }
 
     @Override
-    public void save(Questions questions) {
+    public void save(QuestionsListAll questionsListAll) {
         try {
 
-            firebaseHelper.getQuestionsReference().setValue(questions);
 
         } catch (Exception e) {
             throw e;

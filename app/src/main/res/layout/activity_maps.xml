@@ -45,12 +45,15 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
+            android:id="@+id/mainMapsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:visibility="visible">
+
         <EditText
             android:id="@+id/utilitiesMapsTxt"
             android:layout_width="0dp"
@@ -60,6 +63,30 @@
             android:maxLines="1"
             android:selectAllOnFocus="false"
             android:layout_weight="0.85"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium">
+
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/place_attribution"
+                android:autoLink="all"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_medium"
+                android:background="@drawable/md_transparent"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <ImageView

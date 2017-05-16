@@ -11,18 +11,12 @@ import android.view.ViewGroup;
 import org.pfccap.education.R;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MainFragment extends Fragment {
 
-   // private OnFragmentInteractionListener mListener;
+public class MainFragment extends Fragment implements IMainFragmentView{
+
+    private OnMainFragInteractionListener mListener;
 
     public MainFragment() {
         // Required empty public constructor
@@ -54,12 +48,37 @@ public class MainFragment extends Fragment {
         return view;
     }
 
+    @Override
+    @OnClick(R.id.mainBtnBreast)
+    public void navigateToBreast() {
+        if (mListener != null) {
+            mListener.onNavigateToBreast();
+        }
 
-  /*  @Override
+    }
+
+    @Override
+    @OnClick(R.id.mainBtnCervical)
+    public void navigateToCervical() {
+        if (mListener != null) {
+            mListener.onNavigateToCervical();
+        }
+    }
+
+    @Override
+    @OnClick(R.id.mainBtnGift)
+    public void navigateToGifts() {
+        if (mListener != null) {
+            mListener.onNavigateToGifts();
+        }
+    }
+
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnMainFragInteractionListener) {
+            mListener = (OnMainFragInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -70,7 +89,7 @@ public class MainFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }*/
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -82,8 +101,9 @@ public class MainFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnMainFragInteractionListener {
+        void onNavigateToBreast();
+        void onNavigateToCervical();
+        void onNavigateToGifts();
     }
 }
