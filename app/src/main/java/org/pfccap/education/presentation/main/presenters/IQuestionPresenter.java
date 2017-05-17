@@ -12,5 +12,7 @@ public interface IQuestionPresenter {
 
     void saveAnswerQuestionDB(UserAuth user);
 
+    void loadLablesAnswer();
+
 
 }

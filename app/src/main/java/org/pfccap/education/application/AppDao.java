@@ -1,4 +1,8 @@
-package org.pfccap.education.dao;
+package org.pfccap.education.application;
+
+import org.pfccap.education.dao.AnswersDao;
+import org.pfccap.education.dao.QuestionDao;
+import org.pfccap.education.dao.UserDao;
 
 /**
  * Created by USUARIO on 04/04/2017.

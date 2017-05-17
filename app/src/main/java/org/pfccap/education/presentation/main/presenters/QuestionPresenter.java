@@ -1,5 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
+import org.json.JSONObject;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
@@ -26,6 +27,13 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void saveAnswerQuestionDB(UserAuth user) {
+
+    }
+
+    @Override
+    public void loadLablesAnswer() {
+        //TODO traer el objeto de answer de la base de datos para sacar los textos de las opciones de respeusta de las preguntas tipo evaluativas
+        //asi como las de las de tipo riesgo que esta en la pregunta anidada.
 
     }
 }

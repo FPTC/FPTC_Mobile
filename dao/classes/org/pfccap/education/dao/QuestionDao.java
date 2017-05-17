@@ -24,10 +24,14 @@ public class QuestionDao extends AbstractDao<Question, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Code = new Property(1, String.class, "code", false, "CODE");
-        public final static Property Question = new Property(2, String.class, "question", false, "QUESTION");
-        public final static Property TypeCancer = new Property(3, Integer.class, "typeCancer", false, "TYPE_CANCER");
+        public final static Property Idquest = new Property(1, String.class, "idquest", false, "IDQUEST");
+        public final static Property TxtQuestion = new Property(2, String.class, "txtQuestion", false, "TXT_QUESTION");
+        public final static Property TypeCancer = new Property(3, String.class, "typeCancer", false, "TYPE_CANCER");
         public final static Property TypeQuestion = new Property(4, String.class, "typeQuestion", false, "TYPE_QUESTION");
+        public final static Property Order = new Property(5, Integer.class, "order", false, "ORDER");
+        public final static Property Enable = new Property(6, Boolean.class, "enable", false, "ENABLE");
+        public final static Property Info = new Property(7, String.class, "info", false, "INFO");
+        public final static Property Answers = new Property(8, String.class, "answers", false, "ANSWERS");
     };
 
 
@@ -44,10 +48,14 @@ public class QuestionDao extends AbstractDao<Question, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"QUESTION\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"CODE\" TEXT," + // 1: code
-                "\"QUESTION\" TEXT," + // 2: question
-                "\"TYPE_CANCER\" INTEGER," + // 3: typeCancer
-                "\"TYPE_QUESTION\" TEXT);"); // 4: typeQuestion
+                "\"IDQUEST\" TEXT," + // 1: idquest
+                "\"TXT_QUESTION\" TEXT," + // 2: txtQuestion
+                "\"TYPE_CANCER\" TEXT," + // 3: typeCancer
+                "\"TYPE_QUESTION\" TEXT," + // 4: typeQuestion
+                "\"ORDER\" INTEGER," + // 5: order
+                "\"ENABLE\" INTEGER," + // 6: enable
+                "\"INFO\" TEXT," + // 7: info
+                "\"ANSWERS\" TEXT);"); // 8: answers
     }
 
     /** Drops the underlying database table. */
@@ -66,24 +74,44 @@ public class QuestionDao extends AbstractDao<Question, Long> {
             stmt.bindLong(1, id);
         }
  
-        String code = entity.getCode();
-        if (code != null) {
-            stmt.bindString(2, code);
+        String idquest = entity.getIdquest();
+        if (idquest != null) {
+            stmt.bindString(2, idquest);
         }
  
-        String question = entity.getQuestion();
-        if (question != null) {
-            stmt.bindString(3, question);
+        String txtQuestion = entity.getTxtQuestion();
+        if (txtQuestion != null) {
+            stmt.bindString(3, txtQuestion);
         }
  
-        Integer typeCancer = entity.getTypeCancer();
+        String typeCancer = entity.getTypeCancer();
         if (typeCancer != null) {
-            stmt.bindLong(4, typeCancer);
+            stmt.bindString(4, typeCancer);
         }
  
         String typeQuestion = entity.getTypeQuestion();
         if (typeQuestion != null) {
             stmt.bindString(5, typeQuestion);
+        }
+ 
+        Integer order = entity.getOrder();
+        if (order != null) {
+            stmt.bindLong(6, order);
+        }
+ 
+        Boolean enable = entity.getEnable();
+        if (enable != null) {
+            stmt.bindLong(7, enable ? 1L: 0L);
+        }
+ 
+        String info = entity.getInfo();
+        if (info != null) {
+            stmt.bindString(8, info);
+        }
+ 
+        String answers = entity.getAnswers();
+        if (answers != null) {
+            stmt.bindString(9, answers);
         }
     }
 
@@ -98,10 +126,14 @@ public class QuestionDao extends AbstractDao<Question, Long> {
     public Question readEntity(Cursor cursor, int offset) {
         Question entity = new Question( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // code
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // question
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // typeCancer
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // typeQuestion
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // idquest
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // txtQuestion
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // typeCancer
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // typeQuestion
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // order
+            cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // enable
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // info
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // answers
         );
         return entity;
     }
@@ -110,10 +142,14 @@ public class QuestionDao extends AbstractDao<Question, Long> {
     @Override
     public void readEntity(Cursor cursor, Question entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setQuestion(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTypeCancer(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.setIdquest(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setTxtQuestion(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setTypeCancer(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setTypeQuestion(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setOrder(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setEnable(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
+        entity.setInfo(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setAnswers(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     /** @inheritdoc */

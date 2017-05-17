@@ -7,9 +7,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuthException;
 
-import org.pfccap.education.dao.AppDao;
-import org.pfccap.education.dao.Question;
-import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.domain.questions.IQuestionBP;
@@ -37,12 +34,12 @@ public class LoginPresenter implements ILoginPresenter {
     private ILoginView loginView;
     private IAuthProcess objAuthProcess;
     private IQuestionBP questionBP;
-    private QuestionDao questionDao;
+
 
     public LoginPresenter(ILoginView loginView) {
         this.loginView = loginView;
         questionBP = new QuestionBP();
-        questionDao = AppDao.getQuestionDao();
+
     }
 
     @Override
@@ -72,7 +69,7 @@ public class LoginPresenter implements ILoginPresenter {
                             loginView.enableInputs();
                             loginView.hideProgress();
                             if (e instanceof FirebaseAuthException) {
-                               String errorCode = ((FirebaseAuthException) e).getErrorCode();
+                                String errorCode = ((FirebaseAuthException) e).getErrorCode();
                                 loginView.loginError(Utilities.traslateErrorCode(errorCode));
                             }
                         }
@@ -91,43 +88,34 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     private void getQuestion() {
-      try {
-          questionBP.getQuestions()
-                  .subscribeOn(Schedulers.io())
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .subscribeWith(new DisposableObserver<QuestionList>() {
-                      @Override
-                      public void onNext(QuestionList value) {
-                          Question questionDB;
-/*
-                          for (){
-                              questionDB = new Question();
-                              questionDB.setCode();
-                              questionDB.setQuestion();
-                              questionDB.setTypeCancer();
-                              questionDB.setTypeQuestion();
-                              questionDao.insert(questionDB);
-                          }*/
-                      }
+        try {
+            questionBP.getQuestions()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<QuestionList>() {
+                        @Override
+                        public void onNext(QuestionList value) {
 
-                      @Override
-                      public void onError(Throwable e) {
-                          loginView.enableInputs();
-                          loginView.hideProgress();
-                          loginView.loginError(e.getMessage());
-                      }
+                        }
 
-                      @Override
-                      public void onComplete() {
+                        @Override
+                        public void onError(Throwable e) {
+                            loginView.enableInputs();
+                            loginView.hideProgress();
+                            loginView.loginError(e.getMessage());
+                        }
 
-                      }
-                  });
+                        @Override
+                        public void onComplete() {
 
-      }catch (Exception e){
-          loginView.enableInputs();
-          loginView.hideProgress();
-          loginView.loginError(e.getMessage());
-      }
+                        }
+                    });
+
+        } catch (Exception e) {
+            loginView.enableInputs();
+            loginView.hideProgress();
+            loginView.loginError(e.getMessage());
+        }
     }
 
     @Override
@@ -193,7 +181,7 @@ public class LoginPresenter implements ILoginPresenter {
     @Override
     public void isLogging() {
         String val = Cache.getByKey(Constants.IS_LOGGGIN);
-        if(!val.isEmpty()){
+        if (!val.isEmpty()) {
             loginView.navigateToMainScreen();
         }
     }

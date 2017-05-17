@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 
-import org.pfccap.education.dao.AppDao;
 import org.pfccap.education.dao.DaoMaster;
 import org.pfccap.education.dao.DaoSession;
 import org.pfccap.education.utilities.Cache;
@@ -34,7 +33,7 @@ public class FPTCApp extends Application {
 
         //se crean los DAOs
         AppDao.setUserDao(daoSession.getUserDao());
-       // AppDao.setEducationDao(daoSession.getEducationDao());
+        AppDao.setQuestionDao(daoSession.getQuestionDao());
         AppDao.setAnswersDao(daoSession.getAnswersDao());
 
         Cache.init(getApplicationContext());

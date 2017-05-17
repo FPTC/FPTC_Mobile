@@ -1,32 +1,40 @@
 package org.pfccap.education.entities;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 /**
- * Created by USUARIO on 16/05/2017.
+ * Created by USUARIO on 11/05/2017.
  */
 
 public class Questions {
 
-    private String answers;
-    private int id;
+    private Object answers;
+    private String id;
     private String info;
     private int order;
     private String text;
     private String typeQuestion;
     private boolean enable;
 
-    public String getAnswers() {
+    public Questions() {
+
+    }
+
+    public Object getAnswers() {
         return answers;
     }
 
-    public void setAnswers(String answers) {
+    public void setAnswers(Object answers) {
         this.answers = answers;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

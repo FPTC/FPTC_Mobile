@@ -10,10 +10,14 @@ package org.pfccap.education.dao;
 public class Question {
 
     private Long id;
-    private String code;
-    private String question;
-    private Integer typeCancer;
+    private String idquest;
+    private String txtQuestion;
+    private String typeCancer;
     private String typeQuestion;
+    private Integer order;
+    private Boolean enable;
+    private String info;
+    private String answers;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -25,12 +29,16 @@ public class Question {
         this.id = id;
     }
 
-    public Question(Long id, String code, String question, Integer typeCancer, String typeQuestion) {
+    public Question(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String answers) {
         this.id = id;
-        this.code = code;
-        this.question = question;
+        this.idquest = idquest;
+        this.txtQuestion = txtQuestion;
         this.typeCancer = typeCancer;
         this.typeQuestion = typeQuestion;
+        this.order = order;
+        this.enable = enable;
+        this.info = info;
+        this.answers = answers;
     }
 
     public Long getId() {
@@ -41,27 +49,27 @@ public class Question {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getIdquest() {
+        return idquest;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setIdquest(String idquest) {
+        this.idquest = idquest;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getTxtQuestion() {
+        return txtQuestion;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setTxtQuestion(String txtQuestion) {
+        this.txtQuestion = txtQuestion;
     }
 
-    public Integer getTypeCancer() {
+    public String getTypeCancer() {
         return typeCancer;
     }
 
-    public void setTypeCancer(Integer typeCancer) {
+    public void setTypeCancer(String typeCancer) {
         this.typeCancer = typeCancer;
     }
 
@@ -71,6 +79,38 @@ public class Question {
 
     public void setTypeQuestion(String typeQuestion) {
         this.typeQuestion = typeQuestion;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(String answers) {
+        this.answers = answers;
     }
 
     // KEEP METHODS - put your custom methods here
