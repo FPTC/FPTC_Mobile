@@ -1,66 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_questions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.pfccap.education.presentation.main.ui.activities.QuestionsActivity"
-    android:weightSum="1"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/mainQuestionTxtQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.25"
-        android:text="Texto temporal de pregunta principal"
-        android:textSize="20sp"/>
+    tools:context="org.pfccap.education.presentation.main.ui.activities.QuestionsActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
-
-        <Button
-            android:id="@+id/mainQuestionBtnYes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            style="@style/BtnPpal"
-            android:padding="20dp"
-            android:text="@string/yes"/>
-
-        <Button
-            android:id="@+id/mainQuestionBtnNo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            style="@style/BtnPpal"
-            android:padding="20dp"
-            android:text="@string/no"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/mainQuestionTxtSecondQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.25"
-        android:visibility="visible"
-        android:text="testo prueba dos"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mainQuestionSpinnerAnswer"
+        android:id="@+id/activity_questions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
-       />
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/margin_horizontal_questions"
+        android:paddingRight="@dimen/margin_horizontal_questions"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1">
 
-</LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarQ"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progressbar_states"
+            android:layout_weight="0.05"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:gravity="center_vertical"
+            android:text="@string/title_question" />
+
+
+        <TextView
+            android:id="@+id/mainQuestionTxtQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:background="@drawable/rounded_darkcolor"
+            android:gravity="center"
+            android:padding="20dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="30sp" />
+
+
+        <LinearLayout
+            android:id="@+id/questionLayoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/mainQuestionBtnYes"
+                style="@style/BtnPpal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:padding="20dp"
+                android:text="@string/yes" />
+
+            <Button
+                android:id="@+id/mainQuestionBtnNo"
+                style="@style/BtnPpal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:padding="20dp"
+                android:text="@string/no" />
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mainQuestionRecyclerAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:paddingTop="10dp" />
+      </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

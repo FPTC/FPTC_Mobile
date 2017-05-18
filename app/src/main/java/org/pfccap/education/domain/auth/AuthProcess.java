@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.auth;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -12,15 +13,23 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import org.pfccap.education.application.AppDao;
+import org.pfccap.education.dao.User;
+import org.pfccap.education.dao.UserDao;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+
+import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 /**
  * Created by jggomez on 20-Apr-17.
@@ -186,6 +195,7 @@ public class AuthProcess implements IAuthProcess {
         Cache.save(Constants.USER_EMAIL, email);
         Cache.save(Constants.USER_NAME, name);
         Cache.save(Constants.USER_UID, uid);
+
     }
 
 }

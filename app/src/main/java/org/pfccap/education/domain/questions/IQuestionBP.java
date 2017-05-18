@@ -12,5 +12,4 @@ public interface IQuestionBP {
 
     Observable<QuestionList> getQuestions();
 
-    void save(QuestionList questionsListAll);
 }

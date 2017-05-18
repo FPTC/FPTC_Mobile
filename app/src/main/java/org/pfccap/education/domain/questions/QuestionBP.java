@@ -7,11 +7,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import org.pfccap.education.application.AppDao;
-import org.pfccap.education.dao.Question;
-import org.pfccap.education.dao.QuestionDao;
+import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.QuestionsDao;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
+import org.pfccap.education.entities.Question;
 import org.pfccap.education.entities.QuestionList;
-import org.pfccap.education.entities.Questions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,22 +49,7 @@ public class QuestionBP implements IQuestionBP {
                             Log.e(TAG, dataSnapshot.toString());
                             try {
                                 QuestionList questionsListAll = dataSnapshot.getValue(QuestionList.class);
-                                HashMap<String, Questions> dataCervix = questionsListAll.getCancerCervix();
-                                HashMap<String, Questions> dataSeno = questionsListAll.getCancerSeno();
-                                QuestionDao questionDao = AppDao.getQuestionDao();
-                                Question questionDB;
-                              for (Map.Entry<String, Questions> entry: dataCervix.entrySet()){
-                                  questionDB = new Question();
-                                  questionDB.setIdquest(entry.getKey());
-                                  questionDB.setTxtQuestion(entry.getValue().getText());
-                                  questionDB.setTypeCancer("cancerCervix");
-                                  questionDB.setTypeQuestion(entry.getValue().getTypeQuestion());
-                                  questionDB.setOrder(entry.getValue().getOrder());
-                                  questionDB.setEnable(entry.getValue().isEnable());
-                                  questionDB.setInfo(entry.getValue().getInfo());
-                                  questionDB.setAnswers(entry.getValue().getAnswers().toString());
-                                  questionDao.insert(questionDB);
-                              }
+                                saveQuestionData(questionsListAll);
                                 e.onNext(questionsListAll);
                             } catch (Exception ex) {
                                 Log.e(TAG, ex.getMessage());
@@ -87,13 +72,28 @@ public class QuestionBP implements IQuestionBP {
 
     }
 
-    @Override
-    public void save(QuestionList questionsListAll) {
+    private void saveQuestionData(QuestionList questionsListAll) {
         try {
+            HashMap<String, Question> cancerCervix = questionsListAll.getCancerCervix();
 
+            QuestionsDao questionsDao = AppDao.getQuestionsDao();
+            Questions questionsDB;
+            for(Map.Entry<String, Question> entry: cancerCervix.entrySet()){
+                questionsDB = new Questions();
+                questionsDB.setIdquest(entry.getKey());
+                questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
+                questionsDB.setAnswers(entry.getValue().getAnswers().toString());
+                questionsDB.setEnable(entry.getValue().isEnable());
+                questionsDB.setInfo(entry.getValue().getInfo());
+                questionsDB.setOrder(entry.getValue().getOrder());
+                questionsDB.setTxtQuestion(entry.getValue().getText());
+                questionsDB.setTypeCancer("cancerCervix");
+                questionsDao.insert(questionsDB);
+            }
 
         } catch (Exception e) {
             throw e;
         }
     }
+
 }

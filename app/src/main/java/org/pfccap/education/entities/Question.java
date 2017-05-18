@@ -8,9 +8,9 @@ import java.util.HashMap;
  * Created by USUARIO on 11/05/2017.
  */
 
-public class Questions {
+public class Question {
 
-    private Object answers;
+    private HashMap<String, Answer> answers = new HashMap();
     private String id;
     private String info;
     private int order;
@@ -18,15 +18,15 @@ public class Questions {
     private String typeQuestion;
     private boolean enable;
 
-    public Questions() {
+    public Question() {
 
     }
 
-    public Object getAnswers() {
+    public HashMap<String, Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Object answers) {
+    public void setAnswers(HashMap<String, Answer> answers) {
         this.answers = answers;
     }
 

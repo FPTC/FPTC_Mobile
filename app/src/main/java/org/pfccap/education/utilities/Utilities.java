@@ -9,9 +9,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import org.pfccap.education.R;
+import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
+import org.pfccap.education.presentation.main.presenters.QuestionPresenter;
+import org.pfccap.education.presentation.main.ui.activities.QuestionsActivity;
+
+import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by jggomez on 05-Apr-17.
@@ -36,7 +42,6 @@ public class Utilities {
         Intent intent = new Intent(classInicio, classDestino);
         classInicio.startActivity(intent);
     }
-
 
 
     public static <T extends FragmentActivity> void initFragmentFromFragment(T classInicio,
@@ -97,14 +102,33 @@ public class Utilities {
         ColoredSnackbar.info(snackbar).show();
     }
 
+    public static void snackbarNextAnswer(View view, String info, final String idQ, final QuestionsActivity context) {
+        Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_LONG)
+                .setAction("Siguiente", new View.OnClickListener() {
+                    @Override
+                    public void onClick (View view){
+                        IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context);
+                        if(idQ.equals("0")){
+                            iQuestionPresenter.getQuestionsDB("1");
+                        }else if(idQ.equals("1")){
+                            iQuestionPresenter.getQuestionsDB("2");
+                        }else {
+                            iQuestionPresenter.finishAcivity();
+                        }
+
+                    }
+        });
+        ColoredSnackbar.info(snackbar).show();
+    }
+
     private enum tipoDialogEnum {
         error,
         informacion
     }
 
-    public static String traslateErrorCode(String code){
+    public static String traslateErrorCode(String code) {
         String message = "";
-        switch (code){
+        switch (code) {
             case "ERROR_USER_NOT_FOUND":
                 message = "No existe este usuario con este email, por favor verifique.";
                 break;

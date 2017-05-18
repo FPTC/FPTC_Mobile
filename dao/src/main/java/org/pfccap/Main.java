@@ -30,7 +30,18 @@ public class Main {
         user.addDateProperty("datelogin");
 
         //crea preguntas
-        Entity questions = schema.addEntity("Question");
+        Entity questions = schema.addEntity("Questions");
+        questions.addIdProperty().autoincrement();
+        questions.addStringProperty("idquest");
+        questions.addStringProperty("txtQuestion");
+        questions.addStringProperty("typeCancer");
+        questions.addStringProperty("typeQuestion");
+        questions.addIntProperty("order");
+        questions.addBooleanProperty("enable");
+        questions.addStringProperty("info");
+        questions.addStringProperty("answers");
+
+        Entity pregunta = schema.addEntity("Pregunta");
         questions.addIdProperty().autoincrement();
         questions.addStringProperty("idquest");
         questions.addStringProperty("txtQuestion");

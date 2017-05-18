@@ -1,7 +1,6 @@
 package org.pfccap.education.entities;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by USUARIO on 16/05/2017.
@@ -12,10 +11,18 @@ public class Answer {
     private String description;
     private int points;
     private boolean value;
-    private List<SecondaryQst> question;
+    private HashMap<String, SecondQuestion> question = new HashMap();
 
     public Answer() {
 
+    }
+
+    public HashMap<String, SecondQuestion> getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(HashMap<String, SecondQuestion> question) {
+        this.question = question;
     }
 
     public String getDescription() {
@@ -42,11 +49,5 @@ public class Answer {
         this.value = value;
     }
 
-    public List<SecondaryQst> getQuestion() {
-        return question;
-    }
 
-    public void setQuestion(List<SecondaryQst> question) {
-        this.question = question;
-    }
 }

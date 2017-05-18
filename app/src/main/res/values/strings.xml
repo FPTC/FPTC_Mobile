@@ -81,5 +81,6 @@
     </string>
     <string name="intro_cervical">Este es el ejemplo de introcción a la sección de preguntas del cáncer de cervix</string>
     <string name="intro_breast">Este es el ejemplo de introducción al cáncer de seno para iniciar el cuestionario</string>
+    <string name="title_question">Pregunta:</string>
 
 </resources>

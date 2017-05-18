@@ -4,11 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_button"
     android:padding="15dp"
-    android:layout_margin="10dp">
+    android:layout_margin="20dp"
+    >
 
     <TextView
         android:id="@+id/questionAnswersSecondaryTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:text="asdfasdfasdfasdfasdf"
+        android:textColor="@color/colorPrimaryText"/>
 </LinearLayout>

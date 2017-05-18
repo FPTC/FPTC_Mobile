@@ -8,11 +8,13 @@ import org.pfccap.education.entities.UserAuth;
 
 public interface IQuestionPresenter {
 
-    void getQuestions();
+    void getQuestionsDB(String numQst);
 
-    void saveAnswerQuestionDB(UserAuth user);
+    void saveAnswerQuestionDB();
 
-    void loadLablesAnswer();
+    void loadLablesAnswer(String numQst);
+
+    void finishAcivity();
 
 
 }

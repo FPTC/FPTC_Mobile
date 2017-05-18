@@ -13,6 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by USUARIO on 17/05/2017.
@@ -61,6 +62,11 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.iQuestionPresenter = iQuestionPresenter;
+        }
+
+        @OnClick(R.id.questionAnswersSecondaryTxt)
+        public void clickList(){
+            iQuestionPresenter.saveAnswerQuestionDB();
         }
     }
 }

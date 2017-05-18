@@ -45,8 +45,11 @@
     </style>
 
     <style name="BtnPpal" parent="Widget.AppCompat.Button.Colored">
-    <item name="android:textStyle">bold</item>
-</style>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
 
     <style name="FacebookLoginButton" parent="BtnPpal">
         <item name="android:layout_gravity">center_horizontal</item>
