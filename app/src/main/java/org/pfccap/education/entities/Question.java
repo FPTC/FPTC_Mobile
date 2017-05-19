@@ -1,7 +1,5 @@
 package org.pfccap.education.entities;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 
 /**

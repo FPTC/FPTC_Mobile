@@ -18,41 +18,45 @@
             android:weightSum="1">
             <!-- TODO: Update blank fragment layout -->
             <RelativeLayout
-                android:id="@+id/mainBtnBreast"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5">
 
                 <ImageButton
+                    android:id="@+id/mainBtnBreast"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_seno" />
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:background="@color/colorPrimaryLightTransparence"
                     android:gravity="center"
-                    android:text="@string/btn_breast_cancer" />
+                    android:text="@string/btn_breast_cancer"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/mainBtnCervical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5">
 
                 <ImageButton
+                    android:id="@+id/mainBtnCervical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_cervix" />
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:background="@color/colorBlueLigthTransparence"
                     android:gravity="center"
-                    android:text="@string/btn_cervical_cancer" />
+                    android:text="@string/btn_cervical_cancer"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
             </RelativeLayout>
         </LinearLayout>
 

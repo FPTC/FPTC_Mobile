@@ -103,7 +103,7 @@ public class Utilities {
     }
 
     public static void snackbarNextAnswer(View view, String info, final String idQ, final QuestionsActivity context) {
-        final Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_LONG);
+        final Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction("Siguiente", new View.OnClickListener() {
                     @Override
                     public void onClick (View view){

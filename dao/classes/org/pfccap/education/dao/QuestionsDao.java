@@ -19,7 +19,7 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
     public static final String TABLENAME = "QUESTIONS";
 
     /**
-     * Properties of entity Question.<br/>
+     * Properties of entity Questions.<br/>
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
