@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_button"
     android:padding="15dp"
-    android:layout_margin="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     >
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="30dp"
+        android:textSize="16dp"
         android:text="asdfasdfasdfasdfasdf"
         android:textColor="@color/colorPrimaryText"/>
 </LinearLayout>

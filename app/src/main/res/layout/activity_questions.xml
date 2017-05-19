@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,37 +17,68 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="1">
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.12"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            >
         <ProgressBar
             android:id="@+id/progressBarQ"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
             android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
             android:indeterminate="false"
             android:progressDrawable="@drawable/progressbar_states"
-            android:layout_weight="0.05"/>
-
+            android:layout_marginBottom="8dp"
+            />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-24dp"
+                android:layout_weight="0.2">
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text="8"
+                android:textColor="@color/colorBlueLigth"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_text_circle"
+                />
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentBottom="true"
+                 android:layout_centerHorizontal="true"
+                 android:text="PUNTOS"
+                 android:textColor="@color/colorBlueLigth"/>
+            </RelativeLayout>
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
             android:gravity="center_vertical"
-            android:text="@string/title_question" />
+            android:text="@string/title_question"
+            android:textSize="22sp"/>
 
 
         <TextView
             android:id="@+id/mainQuestionTxtQuestion"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
             android:layout_weight="0.25"
             android:background="@drawable/rounded_darkcolor"
             android:gravity="center"
             android:padding="20dp"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
 
         <LinearLayout
@@ -83,7 +115,7 @@
             android:id="@+id/mainQuestionRecyclerAnswer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
             android:paddingTop="10dp" />
       </LinearLayout>
 
