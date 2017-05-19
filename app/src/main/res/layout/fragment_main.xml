@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_seno" />
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@color/colorPrimaryLightTransparence"
@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_cervix" />
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@color/colorBlueLigthTransparence"
@@ -72,7 +72,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@color/colorPrimary"
-                android:text="@string/btn_take_gift" />
+                android:text="@string/btn_take_gift"
+                android:drawableTop="@mipmap/ic_gift_white_intro"
+                android:padding="60dp"/>
 
         </LinearLayout>
     </LinearLayout>

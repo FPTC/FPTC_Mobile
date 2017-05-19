@@ -51,6 +51,11 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         notifyDataSetChanged();
     }
 
+    public void clear(){
+        dataset.clear();
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private IQuestionPresenter iQuestionPresenter;

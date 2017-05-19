@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.12"
+            android:layout_weight="0.07"
             android:orientation="horizontal"
             android:weightSum="1"
             >
@@ -29,44 +29,43 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="0.88"
             android:layout_gravity="center"
             android:indeterminate="false"
             android:progressDrawable="@drawable/progressbar_states"
-            android:layout_marginBottom="8dp"
             />
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-24dp"
-                android:layout_weight="0.2">
             <TextView
-                android:layout_width="30dp"
+                android:id="@+id/mainQuestionTxtPoints"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:text="8"
+                android:layout_weight="0.08"
+                android:layout_marginLeft="-10dp"
+                android:text="0"
                 android:textColor="@color/colorBlueLigth"
                 android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:background="@drawable/rounded_text_circle"
                 />
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentBottom="true"
-                 android:layout_centerHorizontal="true"
-                 android:text="PUNTOS"
-                 android:textColor="@color/colorBlueLigth"/>
-            </RelativeLayout>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="PUNTOS"
+            android:textColor="@color/colorBlueLigth"
+         />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/title_question"
-            android:textSize="22sp"/>
-
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_marginBottom="15dp"/>
 
         <TextView
             android:id="@+id/mainQuestionTxtQuestion"
@@ -119,4 +118,24 @@
             android:paddingTop="10dp" />
       </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/mainQuestionLayoutThanks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    <ImageButton
+        android:id="@+id/mainQUestionThanks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gracias_frase"
+        />
+        <TextView
+            android:id="@+id/mainQuestionTxtPointThanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="22sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

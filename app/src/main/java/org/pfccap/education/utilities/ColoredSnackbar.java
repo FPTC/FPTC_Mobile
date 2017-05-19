@@ -10,8 +10,8 @@ import android.view.View;
 
 public class ColoredSnackbar {
 
-    private static final int COLOR_ERROR = 0xff5c007a;
-    private static final int COLOR_INFO = 0xff5c007a;
+    private static final int COLOR_ERROR = 0xffa30039;
+    private static final int COLOR_INFO = 0xffdb2763;
 
     private static View getSnackBarLayout(Snackbar snackbar) {
         if (snackbar != null) {

@@ -7,7 +7,6 @@ import java.util.HashMap;
  */
 
 public class SecondQuestion {
-
     private String text;
     private HashMap<String, String> answers = new HashMap();
 

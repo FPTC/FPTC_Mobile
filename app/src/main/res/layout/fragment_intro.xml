@@ -40,7 +40,8 @@
             android:text="Hola bienvenido al portal, sabias que el cancer de mama..., ahora contastaras un cuestionario"
             android:layout_marginTop="5dp"
             android:textSize="22sp"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:gravity="center"/>
 
     </LinearLayout>
 

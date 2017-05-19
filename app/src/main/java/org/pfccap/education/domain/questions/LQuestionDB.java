@@ -2,7 +2,7 @@ package org.pfccap.education.domain.questions;
 
 import org.pfccap.education.entities.Answer;
 import org.pfccap.education.entities.Question;
-import org.pfccap.education.entities.SecondQuesti;
+import org.pfccap.education.entities.SecondQuestion;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
@@ -64,7 +64,7 @@ public class LQuestionDB implements ILQuestionDB {
         hasAnswer1.put("id234573", answer3);
         question1.setAnswers(hasAnswer1);
 
-        SecondQuesti secondQuestion = new SecondQuesti();
+        SecondQuestion secondQuestion = new SecondQuestion();
         secondQuestion.setText("¿Cuando fue tu última citología?");
 
         HashMap<String, String> hass = new HashMap<String, String>();
@@ -72,7 +72,7 @@ public class LQuestionDB implements ILQuestionDB {
         hass.put("description2", "hace más de un año");
         hass.put("description3","no recuerdo");
         secondQuestion.setAnswers(hass);
-        HashMap<String, SecondQuesti> secondhass = new HashMap<>();
+        HashMap<String, SecondQuestion> secondhass = new HashMap<>();
         secondhass.put("question", secondQuestion);
 
         question1.setQuestion(secondhass);

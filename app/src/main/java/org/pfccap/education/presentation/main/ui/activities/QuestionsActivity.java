@@ -8,8 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
@@ -47,6 +49,15 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @BindView(R.id.questionLayoutButtons)
     LinearLayout layoutButtons;
+
+    @BindView(R.id.mainQuestionLayoutThanks)
+    RelativeLayout lytThanks;
+
+    @BindView(R.id.mainQuestionTxtPoints)
+    TextView txtPoints;
+
+    @BindView(R.id.mainQuestionTxtPointThanks)
+    TextView txtPointsThk;
 
     private AnswerSecondaryAdapter adapter;
     private IQuestionPresenter questionPresenter;
@@ -95,6 +106,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 txtPrimaryQuestion.setVisibility(View.VISIBLE);
                 layoutButtons.setVisibility(View.GONE);
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
+                txtPoints.setText("8");
                 break;
             case "Riesgo":
                 txtPrimaryQuestion.setVisibility(View.VISIBLE);
@@ -130,6 +142,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void loadAdapterRecycler(List<String> lable) {
+        adapter.clear();
         for(String item: lable){
             adapter.addItemSite(item);
         }
@@ -143,6 +156,14 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void finishActivity() {
+        txtPointsThk.setText("Has obtenido 8 puntos");
+        lytThanks.setVisibility(View.VISIBLE);
+
+    }
+
+    @OnClick(R.id.mainQUestionThanks)
+    public void clickFinish(){
+        Utilities.initActivity(QuestionsActivity.this, MainActivity.class);
         finish();
     }
 
