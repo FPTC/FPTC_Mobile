@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#a30039</color>
     <color name="colorAccent">#ff6390</color>
     <color name="colorPrimaryLight">#ff6390</color>
+    <color name="colorPrimaryLightTransparence">#70ff6390</color>
     <color name="colorPrimaryText">#ffffff</color>
     <color name="colorBlack">#080808</color>
     <color name="colorGray">#CCCCCC</color>
     <color name="colorFacebook">#3b5998</color>
     <color name="colorBlueLigth">#0da4a6</color>
+    <color name="colorBlueLigthTransparence">#700da4a6</color>
 </resources>

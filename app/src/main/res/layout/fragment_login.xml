@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:paddingTop="56dp"
+        android:paddingTop="30dp"
         android:weightSum="1">
 
         <ImageView
@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.7"
             android:orientation="vertical">
 
@@ -53,7 +53,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="5dp">
 
                 <EditText
                     android:id="@+id/authLoginTxtPassword"
@@ -79,7 +79,7 @@
                 style="@style/BtnPpal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:padding="12dp"
                 android:text="@string/login" />
 
@@ -88,15 +88,14 @@
                 style="@style/FacebookLoginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 facebook:com_facebook_login_text="@string/fb_texto_ingreso" />
 
             <TextView
                 android:id="@+id/authLinkSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="18dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/sign_up"

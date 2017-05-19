@@ -13,36 +13,53 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.6"
             android:orientation="horizontal"
             android:weightSum="1">
             <!-- TODO: Update blank fragment layout -->
-
-            <Button
+            <RelativeLayout
                 android:id="@+id/mainBtnBreast"
-                style="@style/BtnMain"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="@string/btn_breast_cancer"
-                android:layout_weight="0.5"
-                android:background="@color/colorPrimaryLight"/>
+                android:layout_weight="0.5">
 
-            <Button
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/aprende_cancer_seno" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLightTransparence"
+                    android:gravity="center"
+                    android:text="@string/btn_breast_cancer" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/mainBtnCervical"
-                style="@style/BtnMain"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="@string/btn_cervical_cancer"
-                android:layout_weight="0.5"
-                android:background="@color/colorBlueLigth"/>
+                android:layout_weight="0.5">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/aprende_cancer_cervix" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorBlueLigthTransparence"
+                    android:gravity="center"
+                    android:text="@string/btn_cervical_cancer" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5">
+            android:layout_weight="0.4">
 
             <Button
                 android:id="@+id/mainBtnGift"
@@ -50,8 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/btn_take_gift"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary"
+                android:text="@string/btn_take_gift" />
 
         </LinearLayout>
     </LinearLayout>

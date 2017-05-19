@@ -55,18 +55,6 @@ public class LQuestionDB implements ILQuestionDB {
         answer2.setDescription("si");
         answer2.setValue(true);
 
-        SecondQuestion secondQuestion = new SecondQuestion();
-        secondQuestion.setText("¿Cuando fue tu última citología?");
-
-        HashMap<String, String> hass = new HashMap<String, String>();
-        hass.put("description1", "Hace menos de un año, description3=no recuerdo");
-        hass.put("description2", "hace más de un año");
-        hass.put("description3","no recuerdo");
-        secondQuestion.setAnswer(hass);
-        HashMap<String, SecondQuestion> secondhass = new HashMap<>();
-        secondhass.put("question", secondQuestion);
-        answer2.setQuestion(secondhass);
-
         Answer answer3 = new Answer();
         answer1.setDescription("no");
         answer1.setValue(false);
@@ -75,6 +63,19 @@ public class LQuestionDB implements ILQuestionDB {
         hasAnswer1.put("id234574", answer2);
         hasAnswer1.put("id234573", answer3);
         question1.setAnswers(hasAnswer1);
+
+        SecondQuestion secondQuestion = new SecondQuestion();
+        secondQuestion.setText("¿Cuando fue tu última citología?");
+
+        HashMap<String, String> hass = new HashMap<String, String>();
+        hass.put("description1", "Hace menos de un año, description3=no recuerdo");
+        hass.put("description2", "hace más de un año");
+        hass.put("description3","no recuerdo");
+        secondQuestion.setAnswers(hass);
+        HashMap<String, SecondQuestion> secondhass = new HashMap<>();
+        secondhass.put("question", secondQuestion);
+
+        question1.setQuestion(secondhass);
         listQuestions.add(question1);
 
         Question question2 = new Question();

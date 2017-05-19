@@ -15,27 +15,33 @@
             android:id="@+id/mainIntroImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.36"
             android:src="@drawable/cancer_cervix"
-             android:layout_marginTop="-12dp"/>
+            />
+        <Button
+            android:id="@+id/mainIntroBtnGo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/go_to_learn"
+            android:layout_weight="0.2"
+            android:drawableLeft="@mipmap/ic_blanco_barra_amate"
+            android:drawableRight="@mipmap/ic_keyboard_arrow_right_white_48dp"
+            android:textSize="25sp"
+            android:paddingLeft="30dp"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_marginTop="-8dp"
+            />
 
         <TextView
             android:id="@+id/mainIntroTxt"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.44"
             android:text="Hola bienvenido al portal, sabias que el cancer de mama..., ahora contastaras un cuestionario"
             android:layout_marginTop="5dp"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:padding="15dp"/>
 
     </LinearLayout>
-    <Button
-        android:id="@+id/mainIntroBtnGo"
-        style="@style/BtnIntro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Vamos a contestar"
-        android:layout_gravity="bottom"
-        />
+
 </FrameLayout>

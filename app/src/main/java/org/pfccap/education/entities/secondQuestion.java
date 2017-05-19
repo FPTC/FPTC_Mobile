@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class SecondQuestion {
 
     private String text;
-    private HashMap answers = new HashMap();
+    private HashMap<String, String> answers = new HashMap();
 
     public SecondQuestion(){
 
@@ -23,11 +23,11 @@ public class SecondQuestion {
         this.text = text;
     }
 
-    public HashMap getAnswer() {
+    public HashMap<String, String> getAnswers() {
         return answers;
     }
 
-    public void setAnswer(HashMap answer) {
-        this.answers = answer;
+    public void setAnswers(HashMap<String, String> answers) {
+        this.answers = answers;
     }
 }

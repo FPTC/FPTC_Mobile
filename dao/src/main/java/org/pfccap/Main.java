@@ -41,16 +41,6 @@ public class Main {
         questions.addStringProperty("info");
         questions.addStringProperty("answers");
 
-        Entity pregunta = schema.addEntity("Pregunta");
-        questions.addIdProperty().autoincrement();
-        questions.addStringProperty("idquest");
-        questions.addStringProperty("txtQuestion");
-        questions.addStringProperty("typeCancer");
-        questions.addStringProperty("typeQuestion");
-        questions.addIntProperty("order");
-        questions.addBooleanProperty("enable");
-        questions.addStringProperty("info");
-        questions.addStringProperty("answers");
 
         //crea respuestas
         Entity answers = schema.addEntity("Answers");

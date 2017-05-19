@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class Question {
 
     private HashMap<String, Answer> answers = new HashMap();
+    private HashMap<String, SecondQuestion> question = new HashMap();
     private String id;
     private String info;
     private int order;
@@ -76,5 +77,13 @@ public class Question {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public HashMap<String, SecondQuestion> getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(HashMap<String, SecondQuestion> question) {
+        this.question = question;
     }
 }
