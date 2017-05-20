@@ -3,13 +3,14 @@ package org.pfccap.education.entities;
 import java.util.HashMap;
 
 /**
- * Created by USUARIO on 11/05/2017.
+ * Created by USUARIO on 20/05/2017.
  */
 
 public class Question {
 
-    private HashMap<String, Answer> answers = new HashMap();
-    private HashMap<String, SecondQuestion> question = new HashMap();
+
+    private HashMap<String, Answer> answers = new HashMap<>();
+    private HashMap<String, SecondQuestion> question = new HashMap<>();
     private String id;
     private String info;
     private int order;
@@ -27,6 +28,14 @@ public class Question {
 
     public void setAnswers(HashMap<String, Answer> answers) {
         this.answers = answers;
+    }
+
+    public HashMap<String, SecondQuestion> getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(HashMap<String, SecondQuestion> question) {
+        this.question = question;
     }
 
     public String getId() {
@@ -75,13 +84,5 @@ public class Question {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
-    }
-
-    public HashMap<String, SecondQuestion> getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(HashMap<String, SecondQuestion> question) {
-        this.question = question;
     }
 }

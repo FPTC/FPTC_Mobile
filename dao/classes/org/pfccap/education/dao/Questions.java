@@ -17,7 +17,9 @@ public class Questions {
     private Integer order;
     private Boolean enable;
     private String info;
-    private String answers;
+    private String Answers;
+    private String secondQuestion;
+    private String secondAnswers;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -29,7 +31,7 @@ public class Questions {
         this.id = id;
     }
 
-    public Questions(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String answers) {
+    public Questions(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String Answers, String secondQuestion, String secondAnswers) {
         this.id = id;
         this.idquest = idquest;
         this.txtQuestion = txtQuestion;
@@ -38,7 +40,9 @@ public class Questions {
         this.order = order;
         this.enable = enable;
         this.info = info;
-        this.answers = answers;
+        this.Answers = Answers;
+        this.secondQuestion = secondQuestion;
+        this.secondAnswers = secondAnswers;
     }
 
     public Long getId() {
@@ -106,11 +110,27 @@ public class Questions {
     }
 
     public String getAnswers() {
-        return answers;
+        return Answers;
     }
 
-    public void setAnswers(String answers) {
-        this.answers = answers;
+    public void setAnswers(String Answers) {
+        this.Answers = Answers;
+    }
+
+    public String getSecondQuestion() {
+        return secondQuestion;
+    }
+
+    public void setSecondQuestion(String secondQuestion) {
+        this.secondQuestion = secondQuestion;
+    }
+
+    public String getSecondAnswers() {
+        return secondAnswers;
+    }
+
+    public void setSecondAnswers(String secondAnswers) {
+        this.secondAnswers = secondAnswers;
     }
 
     // KEEP METHODS - put your custom methods here

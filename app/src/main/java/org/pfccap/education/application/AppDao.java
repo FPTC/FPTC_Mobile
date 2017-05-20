@@ -1,7 +1,6 @@
 package org.pfccap.education.application;
 
 import org.pfccap.education.dao.AnswersDao;
-import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.QuestionsDao;
 import org.pfccap.education.dao.UserDao;
 

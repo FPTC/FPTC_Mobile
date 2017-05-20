@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
-import org.pfccap.education.dao.Question;
 import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
 import org.pfccap.education.presentation.main.presenters.IMainActivityPresenter;
 import org.pfccap.education.presentation.main.presenters.MainActivityPresenter;

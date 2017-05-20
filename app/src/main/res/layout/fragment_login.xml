@@ -89,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
                 facebook:com_facebook_login_text="@string/fb_texto_ingreso" />
 
             <TextView

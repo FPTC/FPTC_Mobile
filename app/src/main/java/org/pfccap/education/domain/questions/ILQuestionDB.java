@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.questions;
 
-import org.pfccap.education.entities.Question;
+import org.pfccap.education.dao.Questions;
+import java.util.List;
 
 /**
  * Created by USUARIO on 18/05/2017.
@@ -8,5 +9,5 @@ import org.pfccap.education.entities.Question;
 
 public interface ILQuestionDB {
 
-    Question load(String id);
+    List<Questions> getAll(String typeCancer);
 }

@@ -3,12 +3,12 @@ package org.pfccap.education.entities;
 import java.util.HashMap;
 
 /**
- * Created by USUARIO on 19/05/2017.
+ * Created by USUARIO on 20/05/2017.
  */
 
 public class SecondQuestion {
     private String text;
-    private HashMap<String, String> answers = new HashMap();
+    private HashMap<String, Answer> answers = new HashMap<>();
 
     public SecondQuestion(){
 
@@ -22,11 +22,11 @@ public class SecondQuestion {
         this.text = text;
     }
 
-    public HashMap<String, String> getAnswers() {
+    public HashMap<String, Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(HashMap<String, String> answers) {
+    public void setAnswers(HashMap<String, Answer> answers) {
         this.answers = answers;
     }
 }

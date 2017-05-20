@@ -39,8 +39,18 @@ public class Main {
         questions.addIntProperty("order");
         questions.addBooleanProperty("enable");
         questions.addStringProperty("info");
-        questions.addStringProperty("answers");
+        questions.addStringProperty("Answers");
+        questions.addStringProperty("secondQuestion");
+        questions.addStringProperty("secondAnswers");
 
+        //crea respuestas de la preunta
+        Entity answersQuestion = schema.addEntity("AnswersQuestion");
+        answersQuestion.addIdProperty();
+        answersQuestion.addStringProperty("description");
+        answersQuestion.addStringProperty("value");
+        answersQuestion.addStringProperty("points");
+        Property questionProperty = answersQuestion.addLongProperty("idQuestion").notNull().getProperty();
+        answersQuestion.addToOne(questions, questionProperty);
 
         //crea respuestas
         Entity answers = schema.addEntity("Answers");

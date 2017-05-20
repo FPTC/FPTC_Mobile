@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class QuestionList {
 
 
-    private HashMap<String, Question> cancerCervix = new HashMap();
-    private HashMap<String, Question> cencerSeno = new HashMap();
+    private HashMap<String, Question> cancerCervix = new HashMap<>();
+    private HashMap<String, Question> cencerSeno = new HashMap<>();
 
     public QuestionList() {
 

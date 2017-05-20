@@ -31,7 +31,9 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
         public final static Property Order = new Property(5, Integer.class, "order", false, "ORDER");
         public final static Property Enable = new Property(6, Boolean.class, "enable", false, "ENABLE");
         public final static Property Info = new Property(7, String.class, "info", false, "INFO");
-        public final static Property Answers = new Property(8, String.class, "answers", false, "ANSWERS");
+        public final static Property Answers = new Property(8, String.class, "Answers", false, "ANSWERS");
+        public final static Property SecondQuestion = new Property(9, String.class, "secondQuestion", false, "SECOND_QUESTION");
+        public final static Property SecondAnswers = new Property(10, String.class, "secondAnswers", false, "SECOND_ANSWERS");
     };
 
 
@@ -55,7 +57,9 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
                 "\"ORDER\" INTEGER," + // 5: order
                 "\"ENABLE\" INTEGER," + // 6: enable
                 "\"INFO\" TEXT," + // 7: info
-                "\"ANSWERS\" TEXT);"); // 8: answers
+                "\"ANSWERS\" TEXT," + // 8: Answers
+                "\"SECOND_QUESTION\" TEXT," + // 9: secondQuestion
+                "\"SECOND_ANSWERS\" TEXT);"); // 10: secondAnswers
     }
 
     /** Drops the underlying database table. */
@@ -109,9 +113,19 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
             stmt.bindString(8, info);
         }
  
-        String answers = entity.getAnswers();
-        if (answers != null) {
-            stmt.bindString(9, answers);
+        String Answers = entity.getAnswers();
+        if (Answers != null) {
+            stmt.bindString(9, Answers);
+        }
+ 
+        String secondQuestion = entity.getSecondQuestion();
+        if (secondQuestion != null) {
+            stmt.bindString(10, secondQuestion);
+        }
+ 
+        String secondAnswers = entity.getSecondAnswers();
+        if (secondAnswers != null) {
+            stmt.bindString(11, secondAnswers);
         }
     }
 
@@ -133,7 +147,9 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // order
             cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // enable
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // info
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // answers
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // Answers
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // secondQuestion
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // secondAnswers
         );
         return entity;
     }
@@ -150,6 +166,8 @@ public class QuestionsDao extends AbstractDao<Questions, Long> {
         entity.setEnable(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
         entity.setInfo(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setAnswers(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setSecondQuestion(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setSecondAnswers(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     /** @inheritdoc */

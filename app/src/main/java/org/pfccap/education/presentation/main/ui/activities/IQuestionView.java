@@ -18,7 +18,7 @@ public interface IQuestionView {
 
     void setProgressBar(int progress);
 
-    void setLabelButtonYesNo(String No, String Yes);
+    void setLabelButtonTrueFalse(String True, String False);
 
     void setInfoSnackbar(String text, String idQ);
 

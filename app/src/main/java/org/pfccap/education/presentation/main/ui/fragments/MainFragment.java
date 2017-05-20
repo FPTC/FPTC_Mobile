@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.pfccap.education.R;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,6 +53,7 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @Override
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
+        Cache.save(Constants.TYPE_CANCER, "breast");
         if (mListener != null) {
             mListener.onNavigateToBreast();
         }
@@ -58,8 +61,9 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     }
 
     @Override
-    @OnClick(R.id.mainBtnCervical)
+    @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
+        Cache.save(Constants.TYPE_CANCER, "cervix");
         if (mListener != null) {
             mListener.onNavigateToCervical();
         }

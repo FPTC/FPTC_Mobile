@@ -44,7 +44,7 @@
                 android:layout_weight="0.5">
 
                 <ImageButton
-                    android:id="@+id/mainBtnCervical"
+                    android:id="@+id/mainBtnCervix"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_cervix" />

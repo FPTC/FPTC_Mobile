@@ -91,7 +91,7 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/mainQuestionBtnYes"
+                android:id="@+id/mainQuestionBtnTrue"
                 style="@style/BtnPpal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -100,7 +100,7 @@
                 android:text="@string/yes" />
 
             <Button
-                android:id="@+id/mainQuestionBtnNo"
+                android:id="@+id/mainQuestionBtnFalse"
                 style="@style/BtnPpal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

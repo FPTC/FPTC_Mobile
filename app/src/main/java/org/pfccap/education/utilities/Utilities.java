@@ -109,9 +109,9 @@ public class Utilities {
                     public void onClick (View view){
                         IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context);
                         if(idQ.equals("0")){
-                            iQuestionPresenter.getQuestionsDB("1");
+                //            iQuestionPresenter.getQuestionsDB("1");
                         }else if(idQ.equals("1")){
-                            iQuestionPresenter.getQuestionsDB("2");
+                  //          iQuestionPresenter.getQuestionsDB("2");
                         }else {
                             iQuestionPresenter.finishAcivity();
                         }
