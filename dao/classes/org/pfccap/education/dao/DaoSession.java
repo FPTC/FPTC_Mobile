@@ -10,12 +10,12 @@ import de.greenrobot.dao.identityscope.IdentityScopeType;
 import de.greenrobot.dao.internal.DaoConfig;
 
 import org.pfccap.education.dao.User;
-import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.dao.Answers;
 
 import org.pfccap.education.dao.UserDao;
-import org.pfccap.education.dao.QuestionsDao;
+import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.AnswersQuestionDao;
 import org.pfccap.education.dao.AnswersDao;
 
@@ -29,12 +29,12 @@ import org.pfccap.education.dao.AnswersDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig userDaoConfig;
-    private final DaoConfig questionsDaoConfig;
+    private final DaoConfig questionDaoConfig;
     private final DaoConfig answersQuestionDaoConfig;
     private final DaoConfig answersDaoConfig;
 
     private final UserDao userDao;
-    private final QuestionsDao questionsDao;
+    private final QuestionDao questionDao;
     private final AnswersQuestionDao answersQuestionDao;
     private final AnswersDao answersDao;
 
@@ -45,8 +45,8 @@ public class DaoSession extends AbstractDaoSession {
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
 
-        questionsDaoConfig = daoConfigMap.get(QuestionsDao.class).clone();
-        questionsDaoConfig.initIdentityScope(type);
+        questionDaoConfig = daoConfigMap.get(QuestionDao.class).clone();
+        questionDaoConfig.initIdentityScope(type);
 
         answersQuestionDaoConfig = daoConfigMap.get(AnswersQuestionDao.class).clone();
         answersQuestionDaoConfig.initIdentityScope(type);
@@ -55,19 +55,19 @@ public class DaoSession extends AbstractDaoSession {
         answersDaoConfig.initIdentityScope(type);
 
         userDao = new UserDao(userDaoConfig, this);
-        questionsDao = new QuestionsDao(questionsDaoConfig, this);
+        questionDao = new QuestionDao(questionDaoConfig, this);
         answersQuestionDao = new AnswersQuestionDao(answersQuestionDaoConfig, this);
         answersDao = new AnswersDao(answersDaoConfig, this);
 
         registerDao(User.class, userDao);
-        registerDao(Questions.class, questionsDao);
+        registerDao(Question.class, questionDao);
         registerDao(AnswersQuestion.class, answersQuestionDao);
         registerDao(Answers.class, answersDao);
     }
     
     public void clear() {
         userDaoConfig.getIdentityScope().clear();
-        questionsDaoConfig.getIdentityScope().clear();
+        questionDaoConfig.getIdentityScope().clear();
         answersQuestionDaoConfig.getIdentityScope().clear();
         answersDaoConfig.getIdentityScope().clear();
     }
@@ -76,8 +76,8 @@ public class DaoSession extends AbstractDaoSession {
         return userDao;
     }
 
-    public QuestionsDao getQuestionsDao() {
-        return questionsDao;
+    public QuestionDao getQuestionDao() {
+        return questionDao;
     }
 
     public AnswersQuestionDao getAnswersQuestionDao() {

@@ -1,8 +1,8 @@
 package org.pfccap.education.domain.questions;
 
 import org.pfccap.education.application.AppDao;
-import org.pfccap.education.dao.Questions;
-import org.pfccap.education.dao.QuestionsDao;
+import org.pfccap.education.dao.Question;
+import org.pfccap.education.dao.QuestionDao;
 
 import java.util.List;
 
@@ -12,16 +12,16 @@ import java.util.List;
 
 public class LQuestionDB implements ILQuestionDB {
 
-    private QuestionsDao questionDao;
+    private QuestionDao questionDao;
 
-    public LQuestionDB(){
+    public LQuestionDB() {
         questionDao = AppDao.getQuestionsDao();
     }
 
     @Override
-    public List<Questions> getAll(String typeCancer) {
-        List<Questions> lstQuestions = questionDao.queryBuilder()
-                .where(QuestionsDao.Properties.TypeCancer.eq(typeCancer))
+    public List<Question> getAll(String typeCancer) {
+        List<Question> lstQuestions = questionDao.queryBuilder()
+                .where(QuestionDao.Properties.TypeCancer.eq(typeCancer))
                 .list();
 
         return lstQuestions;

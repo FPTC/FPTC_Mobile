@@ -30,7 +30,7 @@ public class Main {
         user.addDateProperty("datelogin");
 
         //crea preguntas
-        Entity questions = schema.addEntity("Questions");
+        Entity questions = schema.addEntity("Question");
         questions.addIdProperty().autoincrement();
         questions.addStringProperty("idquest");
         questions.addStringProperty("txtQuestion");
@@ -43,7 +43,7 @@ public class Main {
         questions.addStringProperty("secondQuestion");
         questions.addStringProperty("secondAnswers");
 
-        //crea respuestas de la preunta
+        //crea respuestas de la pregunta
         Entity answersQuestion = schema.addEntity("AnswersQuestion");
         answersQuestion.addIdProperty();
         answersQuestion.addStringProperty("description");

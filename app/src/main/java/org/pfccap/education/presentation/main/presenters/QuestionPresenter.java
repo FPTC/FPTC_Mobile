@@ -1,8 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.Question;
 import org.pfccap.education.domain.questions.ILQuestionDB;
 import org.pfccap.education.domain.questions.LQuestionDB;
 import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
@@ -28,13 +26,13 @@ public class QuestionPresenter implements IQuestionPresenter {
     }
 
     @Override
-    public List<Questions> getQuestionsDB() {
+    public List<Question> getQuestionsDB() {
         return ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
     }
 
     @Override
-    public void loadQuestionCurrent(List<Questions> questions, int randomQ) {
-        Questions currentQ = questions.get(randomQ);
+    public void loadQuestionCurrent(List<Question> questions, int randomQ) {
+        Question currentQ = questions.get(randomQ);
         Cache.save(Constants.TYPE_Q, currentQ.getTypeQuestion());
         questionView.setPrimaryQuestion(currentQ.getTxtQuestion());
         switch (currentQ.getTypeQuestion()){

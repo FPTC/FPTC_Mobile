@@ -5,9 +5,9 @@ package org.pfccap.education.dao;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table "QUESTIONS".
+ * Entity mapped to table "QUESTION".
  */
-public class Questions {
+public class Question {
 
     private Long id;
     private String idquest;
@@ -24,14 +24,14 @@ public class Questions {
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public Questions() {
+    public Question() {
     }
 
-    public Questions(Long id) {
+    public Question(Long id) {
         this.id = id;
     }
 
-    public Questions(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String Answers, String secondQuestion, String secondAnswers) {
+    public Question(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String Answers, String secondQuestion, String secondAnswers) {
         this.id = id;
         this.idquest = idquest;
         this.txtQuestion = txtQuestion;

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
-import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.Question;
 import org.pfccap.education.presentation.main.adapters.AnswerSecondaryAdapter;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
 import org.pfccap.education.presentation.main.presenters.QuestionPresenter;
@@ -59,7 +59,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.progressBarQ)
     ProgressBar progressBar;
 
-    private List<Questions> lstQuestion;
+    private List<Question> lstQuestion;
     private int[] ramdomNumberSecuence;
     private int progressq = 0;
     private int currentQ = 0;

@@ -9,7 +9,7 @@ import de.greenrobot.dao.AbstractDaoMaster;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 
 import org.pfccap.education.dao.UserDao;
-import org.pfccap.education.dao.QuestionsDao;
+import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.AnswersQuestionDao;
 import org.pfccap.education.dao.AnswersDao;
 
@@ -23,7 +23,7 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
         UserDao.createTable(db, ifNotExists);
-        QuestionsDao.createTable(db, ifNotExists);
+        QuestionDao.createTable(db, ifNotExists);
         AnswersQuestionDao.createTable(db, ifNotExists);
         AnswersDao.createTable(db, ifNotExists);
     }
@@ -31,7 +31,7 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(SQLiteDatabase db, boolean ifExists) {
         UserDao.dropTable(db, ifExists);
-        QuestionsDao.dropTable(db, ifExists);
+        QuestionDao.dropTable(db, ifExists);
         AnswersQuestionDao.dropTable(db, ifExists);
         AnswersDao.dropTable(db, ifExists);
     }
@@ -66,7 +66,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(SQLiteDatabase db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(UserDao.class);
-        registerDaoClass(QuestionsDao.class);
+        registerDaoClass(QuestionDao.class);
         registerDaoClass(AnswersQuestionDao.class);
         registerDaoClass(AnswersDao.class);
     }

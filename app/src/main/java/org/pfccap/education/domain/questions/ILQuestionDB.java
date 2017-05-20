@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.questions;
 
-import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.Question;
+
 import java.util.List;
 
 /**
@@ -9,5 +10,5 @@ import java.util.List;
 
 public interface ILQuestionDB {
 
-    List<Questions> getAll(String typeCancer);
+    List<Question> getAll(String typeCancer);
 }

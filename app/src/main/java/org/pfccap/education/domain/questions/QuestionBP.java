@@ -8,13 +8,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.pfccap.education.application.AppDao;
-import org.pfccap.education.dao.Questions;
-import org.pfccap.education.dao.QuestionsDao;
+import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
-import org.pfccap.education.entities.Answer;
 import org.pfccap.education.entities.Question;
 import org.pfccap.education.entities.QuestionList;
-import org.pfccap.education.entities.SecondQuestion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,27 +73,27 @@ public class QuestionBP implements IQuestionBP {
     }
 
     private void saveQuestionData(QuestionList questionsListAll) {
-        try {
+       /* try {
             HashMap<String, Question> cancerCervix = questionsListAll.getCancerCervix();
 
-            QuestionsDao questionsDao = AppDao.getQuestionsDao();
-            Questions questionsDB;
-            for(Map.Entry<String, Question> entry: cancerCervix.entrySet()){
-                questionsDB = new Questions();
-                questionsDB.setIdquest(entry.getKey());
+            QuestionDao questionsDao = AppDao.getQuestionsDao();
+            Question questionsDB;
+            for (Map.Entry<String, Question> entry : cancerCervix.entrySet()) {
+                questionsDB = new Question();
+                questionsDB.setId(entry.getKey());
                 questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
                 questionsDB.setOrder(entry.getValue().getOrder());
-                questionsDB.setTxtQuestion(entry.getValue().getText());
-                questionsDB.setTypeCancer("cervix");
+                questionsDB.setText(entry.getValue().getText());
+                questionsDB.setTypeQuestion("cervix");
 
-               // HashMap<String, Object> answers = entry.getValue().getAnswers();
+                // HashMap<String, Object> answers = entry.getValue().getAnswers();
                 JSONArray answerArray = new JSONArray();
               /*  for (Map.Entry<String, Object> entry1: answers.entrySet()){
                     answerArray.put(entry1.getValue());
                 }*/
-                questionsDB.setAnswers(answerArray.toString());
+                /*questionsDB.setAnswers(answerArray.toString());
                 if (entry.getValue().getQuestion()!=null) {
                     HashMap<String, SecondQuestion> secondquestion = entry.getValue().getQuestion();
                     questionsDB.setSecondQuestion(secondquestion.get("text").getText());
@@ -122,9 +119,9 @@ public class QuestionBP implements IQuestionBP {
                 questionsDao.insert(questionsDB);
             }
 
-        } catch (Exception e) {
-            throw e;
+            }catch(Exception e){
+                throw e;
+            }*/
         }
-    }
 
-}
+    }

@@ -154,9 +154,9 @@ public class AnswersQuestionDao extends AbstractDao<AnswersQuestion, Long> {
             StringBuilder builder = new StringBuilder("SELECT ");
             SqlUtils.appendColumns(builder, "T", getAllColumns());
             builder.append(',');
-            SqlUtils.appendColumns(builder, "T0", daoSession.getQuestionsDao().getAllColumns());
+            SqlUtils.appendColumns(builder, "T0", daoSession.getQuestionDao().getAllColumns());
             builder.append(" FROM ANSWERS_QUESTION T");
-            builder.append(" LEFT JOIN QUESTIONS T0 ON T.\"ID_QUESTION\"=T0.\"_id\"");
+            builder.append(" LEFT JOIN QUESTION T0 ON T.\"ID_QUESTION\"=T0.\"_id\"");
             builder.append(' ');
             selectDeep = builder.toString();
         }
@@ -167,9 +167,9 @@ public class AnswersQuestionDao extends AbstractDao<AnswersQuestion, Long> {
         AnswersQuestion entity = loadCurrent(cursor, 0, lock);
         int offset = getAllColumns().length;
 
-        Questions questions = loadCurrentOther(daoSession.getQuestionsDao(), cursor, offset);
-         if(questions != null) {
-            entity.setQuestions(questions);
+        Question question = loadCurrentOther(daoSession.getQuestionDao(), cursor, offset);
+         if(question != null) {
+            entity.setQuestion(question);
         }
 
         return entity;    

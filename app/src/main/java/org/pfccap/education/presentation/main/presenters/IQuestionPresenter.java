@@ -1,6 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
-import org.pfccap.education.dao.Questions;
+import org.pfccap.education.dao.Question;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface IQuestionPresenter {
 
-    List<Questions> getQuestionsDB();
+    List<Question> getQuestionsDB();
 
-    void loadQuestionCurrent(List<Questions> questions, int randomQ);
+    void loadQuestionCurrent(List<Question> questions, int randomQ);
 
     void saveAnswerQuestionDB();
 

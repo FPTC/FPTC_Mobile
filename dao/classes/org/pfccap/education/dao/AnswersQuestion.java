@@ -24,8 +24,8 @@ public class AnswersQuestion {
     /** Used for active entity operations. */
     private transient AnswersQuestionDao myDao;
 
-    private Questions questions;
-    private Long questions__resolvedKey;
+    private Question question;
+    private Long question__resolvedKey;
 
 
     // KEEP FIELDS - put your custom fields here
@@ -93,30 +93,30 @@ public class AnswersQuestion {
     }
 
     /** To-one relationship, resolved on first access. */
-    public Questions getQuestions() {
+    public Question getQuestion() {
         long __key = this.idQuestion;
-        if (questions__resolvedKey == null || !questions__resolvedKey.equals(__key)) {
+        if (question__resolvedKey == null || !question__resolvedKey.equals(__key)) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            QuestionsDao targetDao = daoSession.getQuestionsDao();
-            Questions questionsNew = targetDao.load(__key);
+            QuestionDao targetDao = daoSession.getQuestionDao();
+            Question questionNew = targetDao.load(__key);
             synchronized (this) {
-                questions = questionsNew;
-            	questions__resolvedKey = __key;
+                question = questionNew;
+            	question__resolvedKey = __key;
             }
         }
-        return questions;
+        return question;
     }
 
-    public void setQuestions(Questions questions) {
-        if (questions == null) {
+    public void setQuestion(Question question) {
+        if (question == null) {
             throw new DaoException("To-one property 'idQuestion' has not-null constraint; cannot set to-one to null");
         }
         synchronized (this) {
-            this.questions = questions;
-            idQuestion = questions.getId();
-            questions__resolvedKey = idQuestion;
+            this.question = question;
+            idQuestion = question.getId();
+            question__resolvedKey = idQuestion;
         }
     }
 
