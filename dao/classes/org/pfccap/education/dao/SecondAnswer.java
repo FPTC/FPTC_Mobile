@@ -5,32 +5,28 @@ package org.pfccap.education.dao;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table "ANSWERS_QUESTION".
+ * Entity mapped to table "SECOND_ANSWER".
  */
-public class AnswersQuestion {
+public class SecondAnswer {
 
     private Long id;
     private String idQuestion;
     private String description;
-    private Boolean value;
-    private Integer points;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public AnswersQuestion() {
+    public SecondAnswer() {
     }
 
-    public AnswersQuestion(Long id) {
+    public SecondAnswer(Long id) {
         this.id = id;
     }
 
-    public AnswersQuestion(Long id, String idQuestion, String description, Boolean value, Integer points) {
+    public SecondAnswer(Long id, String idQuestion, String description) {
         this.id = id;
         this.idQuestion = idQuestion;
         this.description = description;
-        this.value = value;
-        this.points = points;
     }
 
     public Long getId() {
@@ -55,22 +51,6 @@ public class AnswersQuestion {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Boolean getValue() {
-        return value;
-    }
-
-    public void setValue(Boolean value) {
-        this.value = value;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
     }
 
     // KEEP METHODS - put your custom methods here

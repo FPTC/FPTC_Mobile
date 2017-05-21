@@ -6,12 +6,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
 import org.pfccap.education.application.AppDao;
+import org.pfccap.education.dao.AnswersQuestion;
+import org.pfccap.education.dao.AnswersQuestionDao;
+import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.QuestionDao;
+import org.pfccap.education.dao.SecondAnswer;
+import org.pfccap.education.dao.SecondAnswerDao;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
-import org.pfccap.education.entities.Question;
+import org.pfccap.education.entities.Answer;
 import org.pfccap.education.entities.QuestionList;
+import org.pfccap.education.entities.Questions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,55 +78,101 @@ public class QuestionBP implements IQuestionBP {
     }
 
     private void saveQuestionData(QuestionList questionsListAll) {
-       /* try {
-            HashMap<String, Question> cancerCervix = questionsListAll.getCancerCervix();
+        try {
+            //se limpia la base de datos para la nueva descarga
+            ILQuestionDB ilQuestionDB = new LQuestionDB();
+            ilQuestionDB.deleteDB();
+            //este Questions es el de entities con lo que se mapio al cargar de firebase
+            HashMap<String, Questions> cancerCervix = questionsListAll.getCancerCervix();
 
-            QuestionDao questionsDao = AppDao.getQuestionsDao();
-            Question questionsDB;
-            for (Map.Entry<String, Question> entry : cancerCervix.entrySet()) {
+            QuestionDao questionsDao = AppDao.getQuestionDao();
+            Question questionsDB;  //este Question es el del DAO para mapear a la base de datos
+            for (Map.Entry<String, Questions> entry : cancerCervix.entrySet()) {
                 questionsDB = new Question();
-                questionsDB.setId(entry.getKey());
+                questionsDB.setIdquest(entry.getKey());
+                questionsDB.setTxtQuestion(entry.getValue().getText());
+                questionsDB.setTypeCancer("cervix");
                 questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
+                questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
-                questionsDB.setOrder(entry.getValue().getOrder());
-                questionsDB.setText(entry.getValue().getText());
-                questionsDB.setTypeQuestion("cervix");
-
-                // HashMap<String, Object> answers = entry.getValue().getAnswers();
-                JSONArray answerArray = new JSONArray();
-              /*  for (Map.Entry<String, Object> entry1: answers.entrySet()){
-                    answerArray.put(entry1.getValue());
-                }*/
-                /*questionsDB.setAnswers(answerArray.toString());
                 if (entry.getValue().getQuestion()!=null) {
-                    HashMap<String, SecondQuestion> secondquestion = entry.getValue().getQuestion();
-                    questionsDB.setSecondQuestion(secondquestion.get("text").getText());
+                    questionsDB.setTxtSecondQuestion(entry.getValue().getQuestion().getText());
                 }
                 questionsDao.insert(questionsDB);
+
+                HashMap<String, Answer> answersCervix = entry.getValue().getAnswers();
+                AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
+                AnswersQuestion answersQuestionDB;
+                for (Map.Entry<String, Answer> entry1: answersCervix.entrySet()){
+                    answersQuestionDB = new AnswersQuestion();
+                    answersQuestionDB.setIdQuestion(entry.getKey());
+                    answersQuestionDB.setDescription(entry1.getValue().getDescription());
+                    answersQuestionDB.setValue(entry1.getValue().isValue());
+                    answersQuestionDB.setPoints(entry1.getValue().getPoints());
+                    answersQuestionDao.insert(answersQuestionDB);
+
+                }
+                if (entry.getValue().getQuestion()!=null) {
+                    HashMap<String, Answer> answersCervixSecond = entry.getValue().getQuestion().getAnswers();
+                    SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
+                    SecondAnswer secondAnswerDB;
+                    for (Map.Entry<String, Answer> entry2 : answersCervixSecond.entrySet()) {
+                        secondAnswerDB = new SecondAnswer();
+                        secondAnswerDB.setIdQuestion(entry.getKey());
+                        secondAnswerDB.setDescription(entry2.getValue().getDescription());
+                        secondAnswerDao.insert(secondAnswerDB);
+                    }
+                }
             }
 
-            HashMap<String, Question> cancerSeno = questionsListAll.getCancerSeno();
+            HashMap<String, Questions> cancerSeno = questionsListAll.getCancerSeno();
 
-            for(Map.Entry<String, Question> entry: cancerSeno.entrySet()){
-                questionsDB = new Questions();
+            for(Map.Entry<String, Questions> entry: cancerSeno.entrySet()){
+                questionsDB = new Question();
                 questionsDB.setIdquest(entry.getKey());
-                questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
-                questionsDB.setEnable(entry.getValue().isEnable());
-                questionsDB.setInfo(entry.getValue().getInfo());
-                questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setTxtQuestion(entry.getValue().getText());
                 questionsDB.setTypeCancer("breast");
-                questionsDB.setAnswers(entry.getValue().getAnswers().toString());
+                questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
+                questionsDB.setOrder(entry.getValue().getOrder());
+                questionsDB.setEnable(entry.getValue().isEnable());
+                questionsDB.setInfo(entry.getValue().getInfo());
                 if (entry.getValue().getQuestion()!=null) {
-                    questionsDB.setSecondQuestion(entry.getValue().getQuestion().toString());
+                    questionsDB.setTxtSecondQuestion(entry.getValue().getQuestion().getText());
                 }
                 questionsDao.insert(questionsDB);
+
+                HashMap<String, Answer> answersBreast = entry.getValue().getAnswers();
+                AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
+                AnswersQuestion answersQuestionDB;
+                for (Map.Entry<String, Answer> entry1: answersBreast.entrySet()){
+                    answersQuestionDB = new AnswersQuestion();
+                    answersQuestionDB.setIdQuestion(entry.getKey());
+                    answersQuestionDB.setDescription(entry1.getValue().getDescription());
+                    answersQuestionDB.setValue(entry1.getValue().isValue());
+                    answersQuestionDB.setPoints(entry1.getValue().getPoints());
+                    answersQuestionDao.insert(answersQuestionDB);
+
+                }
+                if (entry.getValue().getQuestion()!=null) {
+                    HashMap<String, Answer> answersBreastSecond = entry.getValue().getQuestion().getAnswers();
+                    SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
+                    SecondAnswer secondAnswerDB;
+                    for (Map.Entry<String, Answer> entry2 : answersBreastSecond.entrySet()) {
+                        secondAnswerDB = new SecondAnswer();
+                        secondAnswerDB.setIdQuestion(entry.getKey());
+                        secondAnswerDB.setDescription(entry2.getValue().getDescription());
+                        secondAnswerDao.insert(secondAnswerDB);
+                    }
+                }
+
             }
+
+
 
             }catch(Exception e){
                 throw e;
-            }*/
+            }
         }
 
     }

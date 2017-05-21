@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 
 import java.util.List;
 
@@ -21,10 +24,10 @@ import butterknife.OnClick;
 
 public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondaryAdapter.ViewHolder> {
 
-    private List<String> dataset;
+    private List<AnswersQuestion> dataset;
     private IQuestionPresenter iQuestionPresenter;
 
-    public AnswerSecondaryAdapter(List<String> dataset, IQuestionPresenter iQuestionPresenter) {
+    public AnswerSecondaryAdapter(List<AnswersQuestion> dataset, IQuestionPresenter iQuestionPresenter) {
         this.dataset = dataset;
         this.iQuestionPresenter = iQuestionPresenter;
     }
@@ -37,8 +40,9 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
 
     @Override
     public void onBindViewHolder(AnswerSecondaryAdapter.ViewHolder holder, int position) {
-        String element = dataset.get(position);
-        holder.labelButton.setText(element);
+        AnswersQuestion element = dataset.get(position);
+        holder.labelButton.setText(element.getDescription());
+        holder.pointsAnswer.setText(String.valueOf(element.getPoints()));
     }
 
     @Override
@@ -46,8 +50,8 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         return dataset.size();
     }
 
-    public void addItemSite(String element){
-        dataset.add(0, element);
+    public void addItemSite(AnswersQuestion item){
+        dataset.add(0, item);
         notifyDataSetChanged();
     }
 
@@ -56,22 +60,28 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private IQuestionPresenter iQuestionPresenter;
 
         @BindView(R.id.questionAnswersSecondaryTxt)
         TextView labelButton;
 
-        public ViewHolder(View itemView, IQuestionPresenter iQuestionPresenter) {
+        @BindView(R.id.questionAnswersPoints)
+        TextView pointsAnswer;
+
+        ViewHolder(View itemView, IQuestionPresenter iQuestionPresenter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.iQuestionPresenter = iQuestionPresenter;
         }
 
         @OnClick(R.id.questionAnswersSecondaryTxt)
-        public void clickList(){
-            iQuestionPresenter.saveAnswerQuestionDB();
+        void clickList(){
+            Cache.save(Constants.INFO_SNACKBAR, "");
+            int points = Integer.valueOf(pointsAnswer.getText().toString());
+            iQuestionPresenter.calculatePointsCheck(points);
         }
     }
 }

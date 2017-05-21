@@ -17,9 +17,7 @@ public class Question {
     private Integer order;
     private Boolean enable;
     private String info;
-    private String Answers;
-    private String secondQuestion;
-    private String secondAnswers;
+    private String txtSecondQuestion;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -31,7 +29,7 @@ public class Question {
         this.id = id;
     }
 
-    public Question(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String Answers, String secondQuestion, String secondAnswers) {
+    public Question(Long id, String idquest, String txtQuestion, String typeCancer, String typeQuestion, Integer order, Boolean enable, String info, String txtSecondQuestion) {
         this.id = id;
         this.idquest = idquest;
         this.txtQuestion = txtQuestion;
@@ -40,9 +38,7 @@ public class Question {
         this.order = order;
         this.enable = enable;
         this.info = info;
-        this.Answers = Answers;
-        this.secondQuestion = secondQuestion;
-        this.secondAnswers = secondAnswers;
+        this.txtSecondQuestion = txtSecondQuestion;
     }
 
     public Long getId() {
@@ -109,28 +105,12 @@ public class Question {
         this.info = info;
     }
 
-    public String getAnswers() {
-        return Answers;
+    public String getTxtSecondQuestion() {
+        return txtSecondQuestion;
     }
 
-    public void setAnswers(String Answers) {
-        this.Answers = Answers;
-    }
-
-    public String getSecondQuestion() {
-        return secondQuestion;
-    }
-
-    public void setSecondQuestion(String secondQuestion) {
-        this.secondQuestion = secondQuestion;
-    }
-
-    public String getSecondAnswers() {
-        return secondAnswers;
-    }
-
-    public void setSecondAnswers(String secondAnswers) {
-        this.secondAnswers = secondAnswers;
+    public void setTxtSecondQuestion(String txtSecondQuestion) {
+        this.txtSecondQuestion = txtSecondQuestion;
     }
 
     // KEEP METHODS - put your custom methods here

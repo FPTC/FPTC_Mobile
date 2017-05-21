@@ -102,20 +102,13 @@ public class Utilities {
         ColoredSnackbar.info(snackbar).show();
     }
 
-    public static void snackbarNextAnswer(View view, String info, final String idQ, final QuestionsActivity context) {
+    public static void snackbarNextAnswer(View view, String info, final QuestionsActivity context) {
         final Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction("Siguiente", new View.OnClickListener() {
                     @Override
                     public void onClick (View view){
                         IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context);
-                        if(idQ.equals("0")){
-                //            iQuestionPresenter.getQuestionsDB("1");
-                        }else if(idQ.equals("1")){
-                  //          iQuestionPresenter.getQuestionsDB("2");
-                        }else {
-                            iQuestionPresenter.finishAcivity();
-                        }
-
+                        iQuestionPresenter.loadNextQuestion();
                     }
         });
         ColoredSnackbar.info(snackbar).show();
@@ -127,6 +120,7 @@ public class Utilities {
     }
 
     public static String traslateErrorCode(String code) {
+        //TODO pasar el contexto para poner los mensajes en string
         String message = "";
         switch (code) {
             case "ERROR_USER_NOT_FOUND":

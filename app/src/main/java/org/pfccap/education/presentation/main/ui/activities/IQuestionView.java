@@ -1,11 +1,7 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
-import android.graphics.Color;
+import org.pfccap.education.dao.AnswersQuestion;
 
-import org.pfccap.education.entities.Question;
-import org.pfccap.education.entities.UserAuth;
-
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,13 +14,15 @@ public interface IQuestionView {
 
     void setProgressBar(int progress);
 
-    void setLabelButtonTrueFalse(String True, String False);
+    void setLabelButtonTrueFalse(String lableTrue, String lableFalse);
 
-    void setInfoSnackbar(String text, String idQ);
+    void setInfoSnackbar(String text);
 
-    void loadAdapterRecycler(List<String> lable);
+    void loadAdapterRecycler(List<AnswersQuestion> lable);
 
     void saveAnswerQuestion();
+
+    void loadNextQuestion();
 
     void finishActivity();
 

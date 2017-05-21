@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.dao.Question;
 import org.pfccap.education.presentation.main.adapters.AnswerSecondaryAdapter;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
@@ -87,7 +88,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     private void initAdapter() {
         if (adapter == null){
-            adapter = new AnswerSecondaryAdapter(new ArrayList<String>(), questionPresenter);
+            adapter = new AnswerSecondaryAdapter(new ArrayList<AnswersQuestion>(), questionPresenter);
         }
     }
 
@@ -98,6 +99,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void setPrimaryQuestion(String text) {
+        btnFalse.setEnabled(true);
+        btnTrue.setEnabled(true);
+        recyclerViewAnswers.setEnabled(true);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Evaluativa":
                 txtPrimaryQuestion.setVisibility(View.VISIBLE);
@@ -122,23 +126,25 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setProgressBar(int progress) {
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
+        //TODO se pone el set de puntos actuales provisional
+        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINS));
     }
 
     @Override
-    public void setLabelButtonTrueFalse(String True, String False) {
-        btnTrue.setText(True);
-        btnFalse.setText(False);
+    public void setLabelButtonTrueFalse(String lableTrue, String lableFalse) {
+        btnTrue.setText(lableTrue);
+        btnFalse.setText(lableFalse);
     }
 
     @Override
-    public void setInfoSnackbar(String text, String idQ) {
-        Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, idQ, context);
+    public void setInfoSnackbar(String text) {
+        Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, context);
     }
 
     @Override
-    public void loadAdapterRecycler(List<String> lable) {
+    public void loadAdapterRecycler(List<AnswersQuestion> answers) {
         adapter.clear();
-        for(String item: lable){
+        for(AnswersQuestion item: answers){
             adapter.addItemSite(item);
         }
     }
@@ -148,13 +154,27 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     }
 
+    @Override
+    public void loadNextQuestion() {
+        currentQ = currentQ + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
+        //TODO trasladar esta desición al presenter
+        if (currentQ>=lstQuestion.size()){
+            questionPresenter.finishAcivity();
+        }else{
+            questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
+
+        }
+    }
+
 
     @Override
     public void finishActivity() {
-        txtPointsThk.setText("Has obtenido 8 puntos");
+        //TODO buscar la manera de concatenar resource string + la variable de chache
+        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINS));
         lytThanks.setVisibility(View.VISIBLE);
-
+        Cache.save(Constants.TOTAL_POINS, "");
     }
+
 
     @OnClick(R.id.mainQUestionThanks)
     public void clickFinish(){
@@ -164,7 +184,8 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @OnClick(R.id.mainQuestionBtnTrue)
     public void clickYes(){
-    //    numQst = Cache.getByKey(Constants.NEXT_Q);
+        btnTrue.setEnabled(false);
+        btnFalse.setEnabled(false);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Riesgo":
                 txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
@@ -172,20 +193,22 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
                 break;
             case "Educativa":
-      //          questionPresenter.loadLablesAnswer(numQst);
+                questionPresenter.loadInfoSnakbar("¡Correcto!");
                 break;
         }
     }
 
     @OnClick(R.id.mainQuestionBtnFalse)
     public void clickNO(){
-    //    numQst = Cache.getByKey(Constants.NEXT_Q);
+        btnTrue.setEnabled(false);
+        btnFalse.setEnabled(false);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Riesgo":
-                questionPresenter.saveAnswerQuestionDB();
+                questionPresenter.loadInfoSnakbar("");
+                Cache.save(Constants.INFO_SNACKBAR, "");
                 break;
             case "Educativa":
-    //           questionPresenter.loadLablesAnswer(numQst);
+                questionPresenter.loadInfoSnakbar("¡Incorrecto!");
                 break;
         }
     }

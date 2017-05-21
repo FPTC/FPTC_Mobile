@@ -16,11 +16,15 @@ public interface IQuestionPresenter {
 
     void saveAnswerQuestionDB();
 
-    void loadLablesAnswer(String numQst);
+    void loadNextQuestion();
 
     void finishAcivity();
 
     int[] ramdomNumberSecuence(int num);
+
+    void loadInfoSnakbar(String check);
+
+    void calculatePointsCheck(int points);
 
 
 }

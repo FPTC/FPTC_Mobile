@@ -74,7 +74,7 @@
                 android:background="@color/colorPrimary"
                 android:text="@string/btn_take_gift"
                 android:drawableTop="@mipmap/ic_gift_white_intro"
-                android:padding="60dp"/>
+                android:padding="10dp"/>
 
         </LinearLayout>
     </LinearLayout>

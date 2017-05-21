@@ -9,26 +9,26 @@ import java.util.HashMap;
 public class QuestionList {
 
 
-    private HashMap<String, Question> cancerCervix = new HashMap<>();
-    private HashMap<String, Question> cencerSeno = new HashMap<>();
+    private HashMap<String, Questions> cancerCervix = new HashMap<>();
+    private HashMap<String, Questions> cencerSeno = new HashMap<>();
 
     public QuestionList() {
 
     }
 
-    public HashMap<String, Question> getCancerCervix() {
+    public HashMap<String, Questions> getCancerCervix() {
         return cancerCervix;
     }
 
-    public void setCancerCervix(HashMap<String, Question> cancerCervix) {
+    public void setCancerCervix(HashMap<String, Questions> cancerCervix) {
         this.cancerCervix = cancerCervix;
     }
 
-    public HashMap<String, Question> getCancerSeno() {
+    public HashMap<String, Questions> getCancerSeno() {
         return cencerSeno;
     }
 
-    public void setCancerSeno(HashMap<String, Question> cancerSeno) {
+    public void setCancerSeno(HashMap<String, Questions> cancerSeno) {
         this.cencerSeno = cancerSeno;
     }
 }

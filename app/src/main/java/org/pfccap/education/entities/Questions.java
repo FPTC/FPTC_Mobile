@@ -6,11 +6,9 @@ import java.util.HashMap;
  * Created by USUARIO on 20/05/2017.
  */
 
-public class Question {
-
-
+public class Questions {
     private HashMap<String, Answer> answers = new HashMap<>();
-    private HashMap<String, SecondQuestion> question = new HashMap<>();
+    private SecondQuestion question;
     private String id;
     private String info;
     private int order;
@@ -18,7 +16,7 @@ public class Question {
     private String typeQuestion;
     private boolean enable;
 
-    public Question() {
+    public Questions() {
 
     }
 
@@ -30,11 +28,11 @@ public class Question {
         this.answers = answers;
     }
 
-    public HashMap<String, SecondQuestion> getQuestion() {
+    public SecondQuestion getQuestion() {
         return question;
     }
 
-    public void setQuestion(HashMap<String, SecondQuestion> question) {
+    public void setQuestion(SecondQuestion question) {
         this.question = question;
     }
 
