@@ -135,13 +135,13 @@ public class QuestionPresenter implements IQuestionPresenter {
     public void calculatePointsCheck(int points) {
 
         int totalPoinst;
-        if (Cache.getByKey(Constants.TOTAL_POINS).equals("")){
+        if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")){
             totalPoinst = 0;
         }else {
-            totalPoinst =  Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINS));
+            totalPoinst =  Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
         }
         totalPoinst = totalPoinst + points;
-        Cache.save(Constants.TOTAL_POINS, String.valueOf(totalPoinst));
+        Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
 
         String check = "";
         if (points>0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")){

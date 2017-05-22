@@ -83,5 +83,6 @@
     <string name="intro_breast">Este es el ejemplo de introducción al cáncer de seno para iniciar el cuestionario</string>
     <string name="title_question">Pregunta:</string>
     <string name="go_to_learn">Vamos a Aprender</string>
+    <string name="points">Puntos</string>
 
 </resources>

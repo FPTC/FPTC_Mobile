@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.pfccap.education.R;
@@ -34,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @NotEmpty
     @BindView(R.id.mainProfileTxtName)
     EditText txtName;
 
@@ -64,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtWeight)
     EditText txtWeight;
 
+    @Length(min = 0, max = 10)
     @BindView(R.id.mainProfileTxtChilds)
     EditText txtChilds;
 

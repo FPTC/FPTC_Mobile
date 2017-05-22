@@ -127,7 +127,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
         //TODO se pone el set de puntos actuales provisional
-        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINS));
+        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINTS));
     }
 
     @Override
@@ -170,9 +170,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @Override
     public void finishActivity() {
         //TODO buscar la manera de concatenar resource string + la variable de chache
-        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINS));
+        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINTS));
         lytThanks.setVisibility(View.VISIBLE);
-        Cache.save(Constants.TOTAL_POINS, "");
+        Cache.save(Constants.TOTAL_POINTS, "");
     }
 
 
