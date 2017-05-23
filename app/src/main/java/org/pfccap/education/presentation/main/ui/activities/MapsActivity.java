@@ -250,14 +250,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         if (mCameraPosition != null) {
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
         } else if (mLastKnownLocation != null) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mLastKnownLocation.getLatitude(),
                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
         } else {
             Log.d(TAG, "Current location is null. Using defaults.");
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
     }
@@ -318,7 +318,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         lng = queriedLocation.longitude;
         // Format the returned place's details and display them in the TextView.
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(lat,
                         lng), DEFAULT_ZOOM));
 

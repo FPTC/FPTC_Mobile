@@ -145,7 +145,7 @@ public class Utilities {
                 message = "La contraseña es muy débil, digite una combinación más compleja";
                 break;
             case "WEAK_PASSWORD":
-                message = "La contraseña es muy débil, digite una contraseña que tenga más de 4 letras o números";
+                message = "La contraseña es débil, digite más de 6 letras o números";
         }
         return message;
     }

@@ -144,6 +144,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryText"
+            android:paddingBottom="40dp"
             android:textSize="22sp" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
