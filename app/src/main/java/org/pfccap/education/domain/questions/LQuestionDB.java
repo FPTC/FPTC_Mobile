@@ -52,9 +52,11 @@ public class LQuestionDB implements ILQuestionDB {
     @Override
     public void deleteDB() {
         try {
-            AppDao.getAnswersQuestionDao().deleteAll();
-            AppDao.getQuestionDao().deleteAll();
-            AppDao.getSecondAnswerDao().deleteAll();
+            if (questionDao.loadAll()!=null) {
+                AppDao.getAnswersQuestionDao().deleteAll();
+                AppDao.getQuestionDao().deleteAll();
+                AppDao.getSecondAnswerDao().deleteAll();
+            }
         }catch (Exception e){
             throw e;
         }

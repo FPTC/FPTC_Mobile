@@ -67,7 +67,6 @@
                 android:id="@+id/authLinkResetPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/olvidaste_contrasena"
@@ -79,7 +78,6 @@
                 style="@style/BtnPpal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:padding="12dp"
                 android:text="@string/login" />
 
@@ -88,15 +86,14 @@
                 style="@style/FacebookLoginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:paddingLeft="15dp"
-                facebook:com_facebook_login_text="@string/fb_texto_ingreso" />
+                facebook:com_facebook_login_text="@string/fb_texto_ingreso"
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/authLinkSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/sign_up"

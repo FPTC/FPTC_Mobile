@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.presentation.main.presenters.IIntroFragPresenter;
+import org.pfccap.education.presentation.main.presenters.IntroFragPresenter;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
+import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +28,7 @@ import butterknife.OnClick;
  * Created by USUARIO on 08/05/2017.
  */
 
-public class IntroFragment extends Fragment {
+public class IntroFragment extends Fragment implements IIntroView{
 
     private OnIntroFragInteractionListener mListener;
 
@@ -39,6 +44,7 @@ public class IntroFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
+    private IIntroFragPresenter iIntroFragPresenter;
 
     private String mParam1;
     private int mParam2;
@@ -77,13 +83,16 @@ public class IntroFragment extends Fragment {
         textIntro.setText(mParam1);
         introImage.setImageResource(mParam2);
         btnGoAnswerQuestion.setBackgroundColor(ContextCompat.getColor(getContext(), mParam3));
+        iIntroFragPresenter = new IntroFragPresenter(this, getContext());
         return view;
     }
 
     @OnClick(R.id.mainIntroBtnGo)
     public void goAnswersQuestion(){
-        if (mListener != null) {
-            mListener.onNavigationQuestion();
+        if (iIntroFragPresenter.IIntroFragPresenter()) {
+            if (mListener != null) {
+                mListener.onNavigationQuestion();
+            }
         }
     }
 
@@ -102,6 +111,11 @@ public class IntroFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void errorDBQuestion(String error) {
+        Utilities.snackbarMessageError(getView(), error);
     }
 
     public interface OnIntroFragInteractionListener {

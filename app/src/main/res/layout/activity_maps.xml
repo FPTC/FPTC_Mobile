@@ -62,7 +62,8 @@
             android:hint="@string/address"
             android:maxLines="1"
             android:selectAllOnFocus="false"
-            android:layout_weight="0.85"/>
+            android:layout_weight="0.85"
+            android:visibility="gone"/>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

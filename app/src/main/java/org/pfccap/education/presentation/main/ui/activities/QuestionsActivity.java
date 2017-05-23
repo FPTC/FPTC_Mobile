@@ -81,6 +81,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     private void initQuestion() {
+      txtPoints.setText("0");
       lstQuestion = questionPresenter.getQuestionsDB();
       ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
       questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
@@ -172,7 +173,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         //TODO buscar la manera de concatenar resource string + la variable de chache
         txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINS));
         lytThanks.setVisibility(View.VISIBLE);
-        Cache.save(Constants.TOTAL_POINS, "");
+        Cache.save(Constants.TOTAL_POINS, "0");
     }
 
 

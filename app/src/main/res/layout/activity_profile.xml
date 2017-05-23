@@ -78,7 +78,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:maxLength="35"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -109,7 +110,8 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:hint="@string/age"
-                        android:inputType="number"/>
+                        android:inputType="number"
+                        android:maxLength="2"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -123,7 +125,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/phone"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="15"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -144,7 +147,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/address"
-                            android:inputType="textPostalAddress" />
+                            android:inputType="textPostalAddress"
+                            android:maxLength="80"/>
                     </android.support.design.widget.TextInputLayout>
 
                     <EditText
@@ -183,7 +187,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/neighborhood"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:maxLength="25"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -196,7 +201,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/person_height"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:maxLength="3"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -209,7 +215,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/person_weight"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:maxLength="4"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -222,7 +229,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/person_childs"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:maxLength="2"/>
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>

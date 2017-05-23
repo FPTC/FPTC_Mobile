@@ -17,64 +17,70 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="1">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:orientation="horizontal"
+            >
+
+            <ProgressBar
+                android:id="@+id/progressBarQ"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progressbar_states"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/mainQuestionTxtPoints" />
+
+            <TextView
+                android:id="@+id/mainQuestionTxtPoints"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:background="@drawable/rounded_text_circle"
+                android:gravity="center"
+                android:textColor="@color/colorBlueLigth"
+                android:layout_marginLeft="-12dp"/>
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.09"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            >
-        <ProgressBar
-            android:id="@+id/progressBarQ"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.88"
-            android:layout_gravity="center"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/progressbar_states"
-            />
-            <TextView
-                android:id="@+id/mainQuestionTxtPoints"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="0.08"
-                android:layout_marginLeft="-10dp"
-                android:text="0"
-                android:textColor="@color/colorBlueLigth"
-                android:gravity="center"
-                android:background="@drawable/rounded_text_circle"
-                />
-        </LinearLayout>
+            android:layout_weight="0.13"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="PUNTOS"
-            android:textColor="@color/colorBlueLigth"
-         />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="@string/title_question"
-            android:textSize="22sp"
-            android:layout_marginTop="20dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/question_points"
+                android:textColor="@color/colorBlueLigth" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/title_question"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/mainQuestionTxtQuestion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:layout_weight="0.25"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
             android:background="@drawable/rounded_darkcolor"
             android:gravity="center"
+            android:minHeight="0dp"
             android:padding="20dp"
             android:textColor="@color/colorPrimaryText"
             android:textSize="20sp" />
@@ -114,28 +120,30 @@
             android:id="@+id/mainQuestionRecyclerAnswer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:paddingTop="10dp" />
-      </LinearLayout>
+            android:layout_weight="0.4"
+            android:paddingTop="10dp"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/mainQuestionLayoutThanks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
-    <ImageButton
-        android:id="@+id/mainQUestionThanks"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gracias_frase"
-        />
+
+        <ImageButton
+            android:id="@+id/mainQUestionThanks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gracias_frase" />
+
         <TextView
             android:id="@+id/mainQuestionTxtPointThanks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="22sp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="22sp" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
