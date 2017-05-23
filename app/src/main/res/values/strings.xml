@@ -65,25 +65,21 @@
     <string name="yes">SI</string>
     <string name="no">NO</string>
 
-    <!--Autocomplete places -->
-     <string name="place_details">
-        <![CDATA[
-            <b>%1$s</b>
-            <br/>
-            <i>Place Id: %2$s</i>
-            <br/>
-            Address: %3$s
-            <br/>
-            Phone: %4$s
-            <br/>
-            Website: %5$s
-        ]]>
-    </string>
     <string name="intro_cervical">Este es el ejemplo de introcción a la sección de preguntas del cáncer de cervix</string>
     <string name="intro_breast">Este es el ejemplo de introducción al cáncer de seno para iniciar el cuestionario</string>
     <string name="title_question">Pregunta:</string>
     <string name="go_to_learn">Vamos a Aprender</string>
     <string name="no_db_questions">No hay preguntas en el sistema para responder, por favor cierre sesión y vuelva a ingresar</string>
     <string name="question_points">PUNTOS</string>
+
+    <string name="height_min_msg">La altura debe ser mayor a 1.30mts</string>
+    <string name="height_max_msg">La altura debe ser menor a 2.20mts</string>
+    <string name="weight_min_msg">El peso debe ser mayor a 40 KGs</string>
+    <string name="weight_max_msg">El peso debe ser menor a 200 KGs</string>
+    <string name="child_max_msg">El número de hijos debe ser menor a 20</string>
+
+    <string name="email_validation_msg">El e-mail no es valido</string>
+    <string name="field_required">Este campo es requerido</string>
+
 
 </resources>

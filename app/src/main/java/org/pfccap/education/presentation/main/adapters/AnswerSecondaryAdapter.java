@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
@@ -42,6 +43,7 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
     public void onBindViewHolder(AnswerSecondaryAdapter.ViewHolder holder, int position) {
         AnswersQuestion element = dataset.get(position);
         holder.labelButton.setText(element.getDescription());
+        holder.labelButton.setEnabled(element.isEnable());
         holder.pointsAnswer.setText(String.valueOf(element.getPoints()));
     }
 
@@ -50,23 +52,29 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         return dataset.size();
     }
 
-    public void addItemSite(AnswersQuestion item){
+    public void addItemSite(AnswersQuestion item) {
         dataset.add(0, item);
         notifyDataSetChanged();
     }
 
-    public void clear(){
+    public void clear() {
         dataset.clear();
         notifyDataSetChanged();
     }
 
+    public void disableItems() {
+        for (AnswersQuestion item : dataset) {
+            item.setEnable(false);
+        }
+        notifyDataSetChanged();
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private IQuestionPresenter iQuestionPresenter;
 
         @BindView(R.id.questionAnswersSecondaryTxt)
-        TextView labelButton;
+        Button labelButton;
 
         @BindView(R.id.questionAnswersPoints)
         TextView pointsAnswer;
@@ -78,10 +86,11 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         }
 
         @OnClick(R.id.questionAnswersSecondaryTxt)
-        void clickList(){
+        void clickList() {
             Cache.save(Constants.INFO_SNACKBAR, "");
             int points = Integer.valueOf(pointsAnswer.getText().toString());
             iQuestionPresenter.calculatePointsCheck(points);
+
         }
     }
 }

@@ -68,18 +68,18 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtNeighborhood)
     EditText txtNeighborhood;
 
-    @DecimalMin(value = 1.30, message = "La altura debe ser mayor a 1.30mts")
-    @DecimalMax(value = 2.20, message = "La altura debe ser menor a 2.20mts")
+    @DecimalMin(value = 1.30, messageResId = R.string.height_min_msg)
+    @DecimalMax(value = 2.20, messageResId = R.string.height_max_msg)
     @BindView(R.id.mainProfileTxtHeight)
     EditText txtHeight;
 
-    @DecimalMin(value = 40, message = "El peso debe ser mayor a 40 KGs")
-    @DecimalMax(value = 200, message = "El peso debe ser menor a 200 KGs")
+    @DecimalMin(value = 40, messageResId = R.string.weight_min_msg)
+    @DecimalMax(value = 200, messageResId = R.string.weight_max_msg)
     @BindView(R.id.mainProfileTxtWeight)
     EditText txtWeight;
 
     @Min(value = 0)
-    @Max(value = 20, message = "El número de hijos debe ser menor a 20")
+    @Max(value = 20, messageResId = R.string.child_max_msg)
     @BindView(R.id.mainProfileTxtChilds)
     EditText txtChilds;
 
@@ -278,7 +278,6 @@ public class ProfileActivity extends AppCompatActivity
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
-            // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {

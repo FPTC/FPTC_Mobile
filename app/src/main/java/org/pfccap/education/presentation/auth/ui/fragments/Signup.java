@@ -13,10 +13,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
 import org.pfccap.education.presentation.auth.presenters.SignupPresenter;
 import org.pfccap.education.utilities.Utilities;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,17 +37,23 @@ import butterknife.OnClick;
  * Use the {@link Signup#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Signup extends Fragment implements ISignupView {
+public class Signup extends Fragment implements ISignupView,
+        Validator.ValidationListener {
 
     private OnSigUpFragmentInteractor mListener;
     private ISignupPresenter signupPresenter;
+    private Validator validator;
 
+    @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.authSignupName)
     EditText authSignupName;
 
+    @NotEmpty(messageResId = R.string.field_required)
+    @Email(messageResId = R.string.email_validation_msg)
     @BindView(R.id.authSignupEmail)
     EditText authSignupEmail;
 
+    @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.authSignupPassword)
     EditText authSignupPassword;
 
@@ -77,6 +90,9 @@ public class Signup extends Fragment implements ISignupView {
         signupPresenter = new SignupPresenter(this);
 
         initText();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         return view;
     }
@@ -127,9 +143,7 @@ public class Signup extends Fragment implements ISignupView {
     @Override
     @OnClick(R.id.authBtnSignUp)
     public void handleSignUp() {
-        signupPresenter.signUp(authSignupName.getText().toString(),
-              authSignupEmail.getText().toString(),
-                authSignupPassword.getText().toString());
+        validator.validate();
     }
 
 
@@ -156,6 +170,27 @@ public class Signup extends Fragment implements ISignupView {
         authSignupEmail.setEnabled(enabled);
         authSignupPassword.setEnabled(enabled);
         authBtnSignUp.setEnabled(enabled);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        signupPresenter.signUp(authSignupName.getText().toString(),
+                authSignupEmail.getText().toString(),
+                authSignupPassword.getText().toString());
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Utilities.snackbarMessageError(getActivity().findViewById(android.R.id.content), message);
+            }
+        }
     }
 
     /**

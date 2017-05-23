@@ -150,6 +150,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void setInfoSnackbar(String text) {
+        adapter.disableItems();
         Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, context);
     }
 
