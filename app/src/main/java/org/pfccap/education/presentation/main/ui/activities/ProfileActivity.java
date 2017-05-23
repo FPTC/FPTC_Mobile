@@ -11,7 +11,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.DecimalMax;
+import com.mobsandgeeks.saripaar.annotation.DecimalMin;
+import com.mobsandgeeks.saripaar.annotation.Max;
+import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -22,15 +27,17 @@ import org.pfccap.education.presentation.main.presenters.ProfilePresenter;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ProfileActivity extends AppCompatActivity
-        implements IProfileView, DatePickerDialog.OnDateSetListener {
+        implements IProfileView, DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
 
     private IProfilePresenter profilePresenter;
+    private Validator validator;
     public final static int REQUEST_CODE_MAPS = 9999;
 
     @BindView(R.id.toolbar)
@@ -61,13 +68,18 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtNeighborhood)
     EditText txtNeighborhood;
 
+    @DecimalMin(value = 1.30, message = "La altura debe ser mayor a 1.30mts")
+    @DecimalMax(value = 1.50, message = "La altura debe ser menor a 1.50mts")
     @BindView(R.id.mainProfileTxtHeight)
     EditText txtHeight;
 
+    @DecimalMin(value = 35, message = "El peso debe ser mayor a 35 KGs")
+    @DecimalMax(value = 150, message = "El peso debe ser menor a 150 KGs")
     @BindView(R.id.mainProfileTxtWeight)
     EditText txtWeight;
 
-    @Length(min = 0, max = 10)
+    @Min(value = 0)
+    @Max(value = 20, message = "El número de hijos debe ser menor a 20")
     @BindView(R.id.mainProfileTxtChilds)
     EditText txtChilds;
 
@@ -94,6 +106,9 @@ public class ProfileActivity extends AppCompatActivity
 
         profilePresenter.getEmailUser();
         profilePresenter.getUserData();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
     }
 
@@ -123,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                saveUserData();
+                validator.validate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -244,4 +259,23 @@ public class ProfileActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onValidationSucceeded() {
+        saveUserData();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Utilities.snackbarMessageError(findViewById(android.R.id.content), message);
+            }
+        }
+    }
 }
