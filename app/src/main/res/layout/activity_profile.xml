@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/person_height"
                         android:inputType="numberDecimal"
-                        android:maxLength="3"/>
+                        android:maxLength="4"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -216,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/person_weight"
                         android:inputType="numberDecimal"
-                        android:maxLength="4"/>
+                        android:maxLength="5"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

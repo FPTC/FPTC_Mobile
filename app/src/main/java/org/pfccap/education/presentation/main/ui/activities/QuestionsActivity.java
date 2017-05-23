@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.dao.AnswersQuestion;
@@ -22,6 +25,7 @@ import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +34,7 @@ import butterknife.OnClick;
 
 public class QuestionsActivity extends AppCompatActivity implements IQuestionView{
 
+    private static final String TAG = "error";
     @BindView(R.id.mainQuestionTxtQuestion)
     TextView txtPrimaryQuestion;
 
@@ -84,7 +89,13 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
       txtPoints.setText("0");
       lstQuestion = questionPresenter.getQuestionsDB();
       ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
-      questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
+        if (lstQuestion!=null && ramdomNumberSecuence!=null) {
+            questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
+        }else{
+            FirebaseCrash.log("Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
+            FirebaseCrash.logcat(Log.ERROR, TAG, "Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
+            finish();
+        }
     }
 
     private void initAdapter() {
@@ -128,7 +139,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
         //TODO se pone el set de puntos actuales provisional
-        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINS));
+        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINTS));
     }
 
     @Override
@@ -159,11 +170,10 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void loadNextQuestion() {
         currentQ = currentQ + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
         //TODO trasladar esta desición al presenter
-        if (currentQ>=lstQuestion.size()){
+        if (currentQ==lstQuestion.size()){
             questionPresenter.finishAcivity();
         }else{
             questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
-
         }
     }
 
@@ -171,9 +181,10 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @Override
     public void finishActivity() {
         //TODO buscar la manera de concatenar resource string + la variable de chache
-        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINS));
+        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINTS));
         lytThanks.setVisibility(View.VISIBLE);
-        Cache.save(Constants.TOTAL_POINS, "0");
+
+        Cache.save(Constants.TOTAL_POINTS, "");
     }
 
 
