@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -18,13 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen', '../dao/classes']
         }
     }
-
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

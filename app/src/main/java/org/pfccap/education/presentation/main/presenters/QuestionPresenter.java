@@ -92,7 +92,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                     Cache.save(Constants.INFO_SNACKBAR, currentQ.getInfo());
                     break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
 
@@ -105,7 +105,7 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void loadNextQuestion() {
-     questionView.loadNextQuestion();
+        questionView.loadNextQuestion();
     }
 
     @Override
@@ -131,7 +131,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                 numerosAleatorios[posicion] = tmp;
             }
             return numerosAleatorios;
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
             return null;
         }
@@ -146,22 +146,23 @@ public class QuestionPresenter implements IQuestionPresenter {
     public void calculatePointsCheck(int points) {
 
         int totalPoinst;
-        if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")){
+        if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")) {
             totalPoinst = 0;
-        }else {
-            totalPoinst =  Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
+        } else {
+            totalPoinst = Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
         }
         totalPoinst = totalPoinst + points;
         Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
 
         String check = "";
-        if (points>0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")){
+        if (points > 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
             check = "¡Correcto!";
-        }else if(points == 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
+        } else if (points == 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
             check = "¡Incorrecto!";
-        }else {
+        } else {
             check = "";
         }
+
         loadInfoSnakbar(check);
     }
 }

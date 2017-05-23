@@ -4,6 +4,7 @@ package org.pfccap.education.dao;
 
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
+
 /**
  * Entity mapped to table "ANSWERS_QUESTION".
  */
@@ -14,6 +15,16 @@ public class AnswersQuestion {
     private String description;
     private Boolean value;
     private Integer points;
+    private boolean enable = true;
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END

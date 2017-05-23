@@ -13,10 +13,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.IResetPasswordPresenter;
 import org.pfccap.education.presentation.auth.presenters.ResetPasswordPresenter;
 import org.pfccap.education.utilities.Utilities;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,11 +37,15 @@ import butterknife.OnClick;
  * Use the {@link ResetPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ResetPasswordFragment extends Fragment implements IResetPasswordView {
+public class ResetPasswordFragment extends Fragment implements IResetPasswordView,
+        Validator.ValidationListener {
 
     private OnResetPassFragInteractionListener mListener;
     private IResetPasswordPresenter resetPasswordPresenter;
+    private Validator validator;
 
+    @NotEmpty(messageResId = R.string.field_required)
+    @Email(messageResId = R.string.email_validation_msg)
     @BindView(R.id.authResetTxtEmail)
     EditText authResetTxtEmail;
 
@@ -71,6 +82,9 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
         initText();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         return view;
     }
@@ -129,8 +143,7 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
     @Override
     @OnClick(R.id.authBtnResetPassword)
     public void handleResetPassword() {
-        resetPasswordPresenter.resetPassword(
-                authResetTxtEmail.getText().toString());
+        validator.validate();
     }
 
     @Override
@@ -146,6 +159,26 @@ public class ResetPasswordFragment extends Fragment implements IResetPasswordVie
     private void setInputs(boolean enabled) {
         authResetTxtEmail.setEnabled(enabled);
         authBtnResetPassword.setEnabled(enabled);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        resetPasswordPresenter.resetPassword(
+                authResetTxtEmail.getText().toString());
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Utilities.snackbarMessageError(getActivity().findViewById(android.R.id.content), message);
+            }
+        }
     }
 
     /**

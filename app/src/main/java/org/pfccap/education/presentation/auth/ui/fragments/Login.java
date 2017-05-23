@@ -10,16 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ILoginPresenter;
 import org.pfccap.education.presentation.auth.presenters.LoginPresenter;
 import org.pfccap.education.utilities.Utilities;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,16 +40,21 @@ import butterknife.OnClick;
  * Use the {@link Login#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Login extends Fragment implements ILoginView {
+public class Login extends Fragment implements ILoginView,
+        Validator.ValidationListener {
 
 
     private OnLoginFragInteractionListener mListener;
     private ILoginPresenter loginPresenter;
     private CallbackManager callbackManager;
+    private Validator validator;
 
+    @NotEmpty(messageResId = R.string.field_required)
+    @Email(messageResId = R.string.email_validation_msg)
     @BindView(R.id.authLoginTxtEmail)
     TextView authLoginTxtEmail;
 
+    @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.authLoginTxtPassword)
     TextView authLoginTxtPassword;
 
@@ -96,6 +108,9 @@ public class Login extends Fragment implements ILoginView {
         initLoginFacebook();
 
         initText();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         return view;
     }
@@ -179,9 +194,7 @@ public class Login extends Fragment implements ILoginView {
     @Override
     @OnClick(R.id.authBtnLogin)
     public void handleSignIn() {
-        loginPresenter.login(
-                authLoginTxtEmail.getText().toString(),
-                authLoginTxtPassword.getText().toString());
+        validator.validate();
     }
 
 
@@ -201,6 +214,27 @@ public class Login extends Fragment implements ILoginView {
         authBtnLogin.setEnabled(enabled);
         authLoginTxtEmail.setEnabled(enabled);
         authLoginTxtPassword.setEnabled(enabled);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        loginPresenter.login(
+                authLoginTxtEmail.getText().toString(),
+                authLoginTxtPassword.getText().toString());
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Utilities.snackbarMessageError(getActivity().findViewById(android.R.id.content), message);
+            }
+        }
     }
 
     /**
