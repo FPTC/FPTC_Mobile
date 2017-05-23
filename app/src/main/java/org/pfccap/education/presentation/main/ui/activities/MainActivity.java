@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView,
-        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener{
+        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener {
 
     private IMainActivityPresenter mainActivityPresenter;
 
@@ -57,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_36dp);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_36dp);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if (navigationView != null) {
             setupNavigationDrawerContent(navigationView);

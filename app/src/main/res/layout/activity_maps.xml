@@ -11,32 +11,12 @@
     tools:context="org.pfccap.education.presentation.main.ui.activities.MapsActivity"
     android:fitsSystemWindows="true">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:text="@string/map"
-            android:textColor="#ffffff"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            />
-
-    </RelativeLayout>
+    <include layout="@layout/toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8">
+        android:layout_weight="0.9">
 
         <fragment
             android:id="@+id/map"
@@ -79,15 +59,6 @@
 
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/place_attribution"
-                android:autoLink="all"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_medium"
-                android:background="@drawable/md_transparent"
-                android:visibility="gone"/>
         </LinearLayout>
 
         <ImageView

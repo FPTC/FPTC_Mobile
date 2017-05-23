@@ -69,12 +69,12 @@ public class ProfileActivity extends AppCompatActivity
     EditText txtNeighborhood;
 
     @DecimalMin(value = 1.30, message = "La altura debe ser mayor a 1.30mts")
-    @DecimalMax(value = 1.50, message = "La altura debe ser menor a 1.50mts")
+    @DecimalMax(value = 2.20, message = "La altura debe ser menor a 2.20mts")
     @BindView(R.id.mainProfileTxtHeight)
     EditText txtHeight;
 
-    @DecimalMin(value = 35, message = "El peso debe ser mayor a 35 KGs")
-    @DecimalMax(value = 150, message = "El peso debe ser menor a 150 KGs")
+    @DecimalMin(value = 40, message = "El peso debe ser mayor a 40 KGs")
+    @DecimalMax(value = 200, message = "El peso debe ser menor a 200 KGs")
     @BindView(R.id.mainProfileTxtWeight)
     EditText txtWeight;
 
@@ -114,9 +114,10 @@ public class ProfileActivity extends AppCompatActivity
 
     private void initToolbar() {
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.title_profile));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.title_profile));
+        }
     }
 
     private void initCalendar() {
@@ -127,6 +128,13 @@ public class ProfileActivity extends AppCompatActivity
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
+
+        Calendar minCal = Calendar.getInstance();
+        minCal.set(Calendar.YEAR, minCal.get(Calendar.YEAR) - 90);
+        Calendar maxCal = Calendar.getInstance();
+        maxCal.set(Calendar.YEAR, maxCal.get(Calendar.YEAR) - 14);
+        datePickerDialog.setMaxDate(maxCal);
+        datePickerDialog.setMinDate(minCal);
     }
 
     @Override

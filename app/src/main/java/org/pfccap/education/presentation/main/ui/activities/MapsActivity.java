@@ -13,11 +13,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,15 +62,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     double lat;
     double lng;
+    String Address = "";
 
-    @BindView(R.id.utilitiesMapsTxt)
-    EditText mapAddress;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
 
     @BindView(R.id.utilitiesMapBtnBack)
     Button btnGetAddress;
 
-    @BindView(R.id.place_attribution)
-    TextView mPlaceAttribution;
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -90,6 +94,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+    private PlaceAutocompleteFragment autocompleteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +118,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .build();
         mGoogleApiClient.connect();
 
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+        autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         autocompleteFragment.setOnPlaceSelectedListener(this);
 
+        initToolbar();
+
     }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.map));
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -150,7 +174,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.utilitiesMapBtnBack)
     public void clickGetAddress() {
         Intent intent = new Intent();
-        intent.putExtra("address", mapAddress.getText().toString());
+        intent.putExtra("address", Address);
         intent.putExtra("latitude", String.valueOf(lat));
         intent.putExtra("longitude", String.valueOf(lng));
         setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
@@ -176,12 +200,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        mMap.getUiSettings().setZoomControlsEnabled(true);
 
         mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             public void onCameraChange(CameraPosition position) {
                 lat = position.target.latitude;
                 lng = position.target.longitude;
+
+
                 try {
                     Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
                     List<Address> list = geocoder.getFromLocation(position.target.latitude, position.target.longitude, 1);
@@ -194,9 +219,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Matcher matcher = pattern.matcher(direccion);
                         if (matcher.find()) {
                             resultado = matcher.group(1);
-                            mapAddress.setText(resultado);
+                            Address = resultado;
+                            autocompleteFragment.setText(Address);
                         } else {
-                            mapAddress.setText(address.getAddressLine(0));
+                            Address = address.getAddressLine(0);
+                            autocompleteFragment.setText(Address);
                         }
                     }
                 } catch (IOException e) {
@@ -293,15 +320,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         lng = queriedLocation.longitude;
         // Format the returned place's details and display them in the TextView.
 
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(lat,
+                        lng), DEFAULT_ZOOM));
 
-        CharSequence attributions = place.getAttributions();
-        if (!TextUtils.isEmpty(attributions)) {
-            mPlaceAttribution.setVisibility(View.VISIBLE);
-            mPlaceAttribution.setText(Html.fromHtml(attributions.toString()));
-        } else {
-            mPlaceAttribution.setVisibility(View.GONE);
-            mPlaceAttribution.setText("");
-        }
     }
 
     @Override

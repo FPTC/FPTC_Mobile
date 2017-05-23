@@ -54,12 +54,16 @@
 
         <activity
             android:name=".presentation.main.ui.activities.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:parentActivityName=".presentation.main.ui.activities.ProfileActivity"
+            android:windowSoftInputMode="stateHidden" />
+
         <activity android:name=".presentation.main.ui.activities.MainActivity" />
+
         <activity
             android:name=".presentation.main.ui.activities.ProfileActivity"
             android:parentActivityName=".presentation.main.ui.activities.MainActivity"
             android:windowSoftInputMode="stateHidden" />
+
         <activity android:name=".presentation.main.ui.activities.QuestionsActivity"/>
     </application>
 
