@@ -1,5 +1,6 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuthException;
 
 import org.pfccap.education.domain.auth.AuthProcess;
@@ -7,6 +8,9 @@ import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ISignupView;
 import org.pfccap.education.utilities.Utilities;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -60,7 +64,14 @@ public class SignupPresenter implements ISignupPresenter {
                             if (e instanceof FirebaseAuthException) {
                                 String errorCode = ((FirebaseAuthException) e).getErrorCode();
                                 signupView.signUpError(Utilities.traslateErrorCode(errorCode));
+                            }else {
+                                Pattern pattern = Pattern.compile(".*WEAK_PASSWORD.*");
+                                Matcher matcher = pattern.matcher(e.getMessage());
+                                if (matcher.find()) {
+                                    signupView.signUpError(Utilities.traslateErrorCode("WEAK_PASSWORD"));
+                                }
                             }
+
                         }
 
                         @Override
