@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 
 public class Cache {
 
-    private static String preferenceFileKey = "EKOSAVEPREF";
+    private static String preferenceFileKey = "FPTC";
     private static SharedPreferences sharedPreferences;
     //private static Gson gson;
 

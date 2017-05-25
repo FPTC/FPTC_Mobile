@@ -3,6 +3,7 @@ package org.pfccap.education.domain.auth;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import org.pfccap.education.application.AppDao;
 import org.pfccap.education.dao.User;
 import org.pfccap.education.dao.UserDao;
+import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
@@ -196,6 +198,11 @@ public class AuthProcess implements IAuthProcess {
         Cache.save(Constants.USER_NAME, name);
         Cache.save(Constants.USER_UID, uid);
 
+    }
+
+    public void logOut(){
+        FirebaseHelper.getInstance().signOut();
+        LoginManager.getInstance().logOut();
     }
 
 }
