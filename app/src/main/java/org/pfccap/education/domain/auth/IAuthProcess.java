@@ -18,4 +18,6 @@ public interface IAuthProcess {
     Observable<UserAuth> signInWithCredential(String token);
 
     Observable<String> resetPassword(final String email);
+
+    void logOut();
 }
