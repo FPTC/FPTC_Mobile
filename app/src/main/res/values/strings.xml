@@ -49,7 +49,7 @@
     <string name="facebook_app_id">302572720156810</string>
     <string name="fb_login_protocol_scheme">fb302572720156810</string>
     <string name="fb_texto_ingreso">Ingresar con Facebook</string>
-    <string name="logout">Salir</string>
+    <string name="logout">Cerrar sesión</string>
     <string name="map">Dirección</string>
     <string name="get_address">Aceptar</string>
     <string name="save">Guardar</string>

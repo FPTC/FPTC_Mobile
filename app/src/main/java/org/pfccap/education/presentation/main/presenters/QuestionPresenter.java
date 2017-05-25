@@ -25,6 +25,8 @@ public class QuestionPresenter implements IQuestionPresenter {
     private ILQuestionDB ilQuestionDB;
     private String lableTrue = "";
     private String lableFalse = "";
+    private String valueTrue = "";
+    private String valueFalse = "";
 
     public QuestionPresenter(IQuestionView questionView) {
         this.questionView = questionView;
@@ -51,14 +53,14 @@ public class QuestionPresenter implements IQuestionPresenter {
                     break;
                 case "Riesgo":
                     //se carga los label de los botones true y false
-                    for (AnswersQuestion answersQuestion : ilQuestionDB.getAnswers(currentQ.getIdquest())) {
-                        if (answersQuestion.getValue()) {
-                            lableTrue = answersQuestion.getDescription();
-                        } else {
-                            lableFalse = answersQuestion.getDescription();
-                        }
+                    List<AnswersQuestion> lstAnswersQuestion = ilQuestionDB.getAnswers(currentQ.getIdquest());
+                    if (lstAnswersQuestion != null && lstAnswersQuestion.size()!=0){
+                        lableTrue = lstAnswersQuestion.get(0).getDescription();
+                        valueTrue = String.valueOf(lstAnswersQuestion.get(0).getValue());
+                        lableFalse = lstAnswersQuestion.get(1).getDescription();
+                        valueFalse = String.valueOf(lstAnswersQuestion.get(1).getValue());
                     }
-                    questionView.setLabelButtonTrueFalse(lableTrue, lableFalse);
+                    questionView.setLabelButtonTrueFalse(lableTrue, valueTrue, lableFalse, valueFalse);
 
                     //se verifica si existe segunda preguna
                     if (!currentQ.getTxtSecondQuestion().equals("")) {
@@ -80,14 +82,14 @@ public class QuestionPresenter implements IQuestionPresenter {
                     break;
                 case "Educativa":
                     //se carga los label de los botones true y false
-                    for (AnswersQuestion answersQuestion : ilQuestionDB.getAnswers(currentQ.getIdquest())) {
-                        if (answersQuestion.getValue()) {
-                            lableTrue = answersQuestion.getDescription();
-                        } else {
-                            lableFalse = answersQuestion.getDescription();
-                        }
+                    List<AnswersQuestion> lstAnswersQuestion1 = ilQuestionDB.getAnswers(currentQ.getIdquest());
+                    if (lstAnswersQuestion1 != null && lstAnswersQuestion1.size()!=0){
+                        lableTrue = lstAnswersQuestion1.get(0).getDescription();
+                        valueTrue = String.valueOf(lstAnswersQuestion1.get(0).getValue());
+                        lableFalse = lstAnswersQuestion1.get(1).getDescription();
+                        valueFalse = String.valueOf(lstAnswersQuestion1.get(1).getValue());
                     }
-                    questionView.setLabelButtonTrueFalse(lableTrue, lableFalse);
+                    questionView.setLabelButtonTrueFalse(lableTrue, valueTrue, lableFalse, valueFalse);
                     //se carga la información que se muestra en el snack bar para usarla luego
                     Cache.save(Constants.INFO_SNACKBAR, currentQ.getInfo());
                     break;
@@ -138,8 +140,8 @@ public class QuestionPresenter implements IQuestionPresenter {
     }
 
     @Override
-    public void loadInfoSnakbar(String check) {
-        questionView.setInfoSnackbar(check + "\n" + Cache.getByKey(Constants.INFO_SNACKBAR));
+    public void loadInfoSnackbar(String check) {
+        questionView.setInfoSnackbar(check);
     }
 
     @Override
@@ -163,8 +165,8 @@ public class QuestionPresenter implements IQuestionPresenter {
             } else {
                 check = "";
             }
-
-            loadInfoSnakbar(check);
+            questionView.disableItemsAdapter();
+            loadInfoSnackbar(check);
         } catch (Exception e) {
             FirebaseCrash.report(e);
         }

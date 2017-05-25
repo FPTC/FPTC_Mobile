@@ -54,6 +54,7 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
 
     public void addItemSite(AnswersQuestion item) {
         dataset.add(0, item);
+        item.setEnable(true);
         notifyDataSetChanged();
     }
 
@@ -87,7 +88,6 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
 
         @OnClick(R.id.questionAnswersSecondaryTxt)
         void clickList() {
-            Cache.save(Constants.INFO_SNACKBAR, "");
             int points = Integer.valueOf(pointsAnswer.getText().toString());
             iQuestionPresenter.calculatePointsCheck(points);
 

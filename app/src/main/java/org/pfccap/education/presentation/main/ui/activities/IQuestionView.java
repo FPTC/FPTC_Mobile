@@ -14,7 +14,7 @@ public interface IQuestionView {
 
     void setProgressBar(int progress);
 
-    void setLabelButtonTrueFalse(String lableTrue, String lableFalse);
+    void setLabelButtonTrueFalse(String lableTrue, String valT, String lableFalse, String valF);
 
     void setInfoSnackbar(String text);
 
@@ -25,5 +25,7 @@ public interface IQuestionView {
     void loadNextQuestion();
 
     void finishActivity();
+
+    void disableItemsAdapter();
 
 }

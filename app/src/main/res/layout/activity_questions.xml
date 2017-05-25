@@ -17,48 +17,22 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="1">
 
-        <RelativeLayout
+
+        <ProgressBar
+            android:id="@+id/progressBarQ"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.05"
-            android:orientation="horizontal"
-            >
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/progressbar_states" />
 
-            <ProgressBar
-                android:id="@+id/progressBarQ"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/progressbar_states"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/mainQuestionTxtPoints" />
-
-            <TextView
-                android:id="@+id/mainQuestionTxtPoints"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:padding="5dp"
-                android:background="@drawable/rounded_text_circle"
-                android:gravity="center"
-                android:textColor="@color/colorBlueLigth"
-                android:layout_marginStart="-12dp"/>
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.13"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/question_points"
-                android:textColor="@color/colorBlueLigth" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -105,6 +79,12 @@
                 android:padding="20dp"
                 android:text="@string/yes" />
 
+            <TextView
+                android:id="@+id/mainQuestionTxtTrue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/mainQuestionBtnFalse"
                 style="@style/BtnPpal"
@@ -113,6 +93,12 @@
                 android:layout_weight="0.4"
                 android:padding="20dp"
                 android:text="@string/no" />
+
+            <TextView
+                android:id="@+id/mainQuestionTxtFalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -123,6 +109,13 @@
             android:layout_weight="0.4"
             android:paddingTop="10dp"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/mainQuestionTxtInfo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout
@@ -132,7 +125,7 @@
         android:visibility="gone">
 
         <ImageButton
-            android:id="@+id/mainQUestionThanks"
+            android:id="@+id/mainQuestionThanks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/gracias_frase" />
@@ -143,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimaryText"
             android:paddingBottom="40dp"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="22sp" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -22,7 +22,7 @@ public interface IQuestionPresenter {
 
     int[] ramdomNumberSecuence(int num);
 
-    void loadInfoSnakbar(String check);
+    void loadInfoSnackbar(String check);
 
     void calculatePointsCheck(int points);
 

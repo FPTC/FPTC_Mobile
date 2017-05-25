@@ -9,4 +9,9 @@
         app:showAsAction="always"
         />
 
+    <item
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title=""
+        android:icon="@mipmap/ic_blanco_barra_amate"/>
 </menu>

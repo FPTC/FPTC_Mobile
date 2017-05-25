@@ -41,8 +41,14 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.mainQuestionBtnTrue)
     Button btnTrue;
 
+    @BindView(R.id.mainQuestionTxtTrue)
+    TextView valueTrue;
+
     @BindView(R.id.mainQuestionBtnFalse)
     Button btnFalse;
+
+    @BindView(R.id.mainQuestionTxtFalse)
+    TextView valueFalse;
 
     @BindView(R.id.mainQuestionRecyclerAnswer)
     RecyclerView recyclerViewAnswers;
@@ -53,11 +59,11 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.mainQuestionLayoutThanks)
     RelativeLayout lytThanks;
 
-    @BindView(R.id.mainQuestionTxtPoints)
-    TextView txtPoints;
-
     @BindView(R.id.mainQuestionTxtPointThanks)
     TextView txtPointsThk;
+
+    @BindView(R.id.mainQuestionTxtInfo)
+    TextView txtInfo;
 
     private AnswerSecondaryAdapter adapter;
     private IQuestionPresenter questionPresenter;
@@ -87,14 +93,11 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     private void initQuestion() {
         try {
-            txtPoints.setText("0");
             lstQuestion = questionPresenter.getQuestionsDB();
             ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
             if (lstQuestion != null && ramdomNumberSecuence != null && lstQuestion.size() != 0 && ramdomNumberSecuence.length != 0) {
                 questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
             } else {
-                FirebaseCrash.log("Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
-                FirebaseCrash.logcat(Log.ERROR, TAG, "Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
                 finish();
             }
         }catch (Exception e){
@@ -118,7 +121,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setPrimaryQuestion(String text) {
         btnFalse.setEnabled(true);
         btnTrue.setEnabled(true);
-        recyclerViewAnswers.setEnabled(true);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Evaluativa":
                 txtPrimaryQuestion.setVisibility(View.VISIBLE);
@@ -143,19 +145,31 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setProgressBar(int progress) {
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
-        //TODO se pone el set de puntos actuales provisional
-        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINTS));
     }
 
     @Override
-    public void setLabelButtonTrueFalse(String lableTrue, String lableFalse) {
-        btnTrue.setText(lableTrue);
-        btnFalse.setText(lableFalse);
+    public void setLabelButtonTrueFalse(String lableTrue, String valT, String lableFalse, String valF) {
+        switch (Cache.getByKey(Constants.TYPE_Q)) {
+            case "Riesgo":
+                if (Boolean.valueOf(valT)){
+                    btnTrue.setText(lableTrue);
+                    btnFalse.setText(lableFalse);
+                }else{
+                    btnTrue.setText(lableFalse);
+                    btnFalse.setText(lableTrue);
+                }
+                break;
+            case "Evaluativa":
+                btnTrue.setText(lableTrue);
+                valueTrue.setText(valT);
+                btnFalse.setText(lableFalse);
+                valueFalse.setText(valF);
+                break;
+        }
     }
 
     @Override
     public void setInfoSnackbar(String text) {
-        adapter.disableItems();
         Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, context);
     }
 
@@ -193,8 +207,13 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         Cache.save(Constants.TOTAL_POINTS, "0");
     }
 
+    @Override
+    public void disableItemsAdapter() {
+        adapter.disableItems();
+    }
 
-    @OnClick(R.id.mainQUestionThanks)
+
+    @OnClick(R.id.mainQuestionThanks)
     public void clickFinish() {
         Utilities.initActivity(QuestionsActivity.this, MainActivity.class);
         finish();
@@ -209,9 +228,16 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
                 layoutButtons.setVisibility(View.GONE);
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
+                txtInfo.setVisibility(View.GONE);
                 break;
             case "Educativa":
-                questionPresenter.loadInfoSnakbar("¡Correcto!");
+                if(Boolean.valueOf(valueTrue.getText().toString())) {
+                    questionPresenter.loadInfoSnackbar("¡Correcto!");
+                }else{
+                    questionPresenter.loadInfoSnackbar("¡Incorrecto!");
+                }
+                txtInfo.setVisibility(View.VISIBLE);
+                txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
                 break;
         }
     }
@@ -222,12 +248,23 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         btnFalse.setEnabled(false);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Riesgo":
-                questionPresenter.loadInfoSnakbar("");
-                Cache.save(Constants.INFO_SNACKBAR, "");
+                questionPresenter.loadInfoSnackbar("");
                 break;
             case "Educativa":
-                questionPresenter.loadInfoSnakbar("¡Incorrecto!");
+                if(Boolean.valueOf(valueTrue.getText().toString())) {
+                    questionPresenter.loadInfoSnackbar("¡Correcto!");
+                }else{
+                    questionPresenter.loadInfoSnackbar("¡Incorrecto!");
+                }
+                txtInfo.setVisibility(View.VISIBLE);
+                txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Cache.save(Constants.TOTAL_POINTS, "0");
+        super.onBackPressed();
     }
 }
