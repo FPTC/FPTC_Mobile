@@ -8,4 +8,9 @@ public interface IIntroView {
 
     void errorDBQuestion(String error);
 
+    void showProgress();
+
+    void hideProgress();
+
+    void goAnswersQuestion();
 }

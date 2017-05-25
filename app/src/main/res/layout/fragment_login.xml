@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:maxLength="30"/>
+                    android:maxLength="50"/>
             </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="15"/>
+                    android:maxLength="30"/>
             </android.support.design.widget.TextInputLayout>
 
             <TextView

@@ -47,7 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nombre_usuario"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:maxLength="50"/>
             </android.support.design.widget.TextInputLayout>
 
             <!-- Email Label -->
@@ -61,7 +62,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"/>
             </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
@@ -75,7 +77,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="30"/>
             </android.support.design.widget.TextInputLayout>
 
             <!-- Signup Button -->

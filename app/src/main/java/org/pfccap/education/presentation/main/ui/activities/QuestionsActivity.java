@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class QuestionsActivity extends AppCompatActivity implements IQuestionView{
+public class QuestionsActivity extends AppCompatActivity implements IQuestionView {
 
     private static final String TAG = "error";
     @BindView(R.id.mainQuestionTxtQuestion)
@@ -86,20 +86,25 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     private void initQuestion() {
-      txtPoints.setText("0");
-      lstQuestion = questionPresenter.getQuestionsDB();
-      ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
-        if (lstQuestion!=null && ramdomNumberSecuence!=null) {
-            questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
-        }else{
-            FirebaseCrash.log("Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
-            FirebaseCrash.logcat(Log.ERROR, TAG, "Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
-            finish();
+        try {
+            txtPoints.setText("0");
+            lstQuestion = questionPresenter.getQuestionsDB();
+            ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
+            if (lstQuestion != null && ramdomNumberSecuence != null && lstQuestion.size() != 0 && ramdomNumberSecuence.length != 0) {
+                questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
+            } else {
+                FirebaseCrash.log("Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
+                FirebaseCrash.logcat(Log.ERROR, TAG, "Base de datos vacia list =" + lstQuestion + " y array random = " + Arrays.toString(ramdomNumberSecuence));
+                finish();
+            }
+        }catch (Exception e){
+            FirebaseCrash.report(e);
         }
+
     }
 
     private void initAdapter() {
-        if (adapter == null){
+        if (adapter == null) {
             adapter = new AnswerSecondaryAdapter(new ArrayList<AnswersQuestion>(), questionPresenter);
         }
     }
@@ -157,7 +162,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @Override
     public void loadAdapterRecycler(List<AnswersQuestion> answers) {
         adapter.clear();
-        for(AnswersQuestion item: answers){
+        for (AnswersQuestion item : answers) {
             adapter.addItemSite(item);
         }
     }
@@ -171,9 +176,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void loadNextQuestion() {
         currentQ = currentQ + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
         //TODO trasladar esta desición al presenter
-        if (currentQ==lstQuestion.size()){
+        if (currentQ == lstQuestion.size()) {
             questionPresenter.finishAcivity();
-        }else{
+        } else {
             questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
         }
     }
@@ -185,18 +190,18 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINTS));
         lytThanks.setVisibility(View.VISIBLE);
 
-        Cache.save(Constants.TOTAL_POINTS, "");
+        Cache.save(Constants.TOTAL_POINTS, "0");
     }
 
 
     @OnClick(R.id.mainQUestionThanks)
-    public void clickFinish(){
+    public void clickFinish() {
         Utilities.initActivity(QuestionsActivity.this, MainActivity.class);
         finish();
     }
 
     @OnClick(R.id.mainQuestionBtnTrue)
-    public void clickYes(){
+    public void clickYes() {
         btnTrue.setEnabled(false);
         btnFalse.setEnabled(false);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
@@ -212,7 +217,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @OnClick(R.id.mainQuestionBtnFalse)
-    public void clickNO(){
+    public void clickNO() {
         btnTrue.setEnabled(false);
         btnFalse.setEnabled(false);
         switch (Cache.getByKey(Constants.TYPE_Q)) {

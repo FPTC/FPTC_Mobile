@@ -74,6 +74,7 @@ public class QuestionBP implements IQuestionBP {
                 }
             });
         } catch (Exception e) {
+            FirebaseCrash.report(e);
             throw e;
         }
 

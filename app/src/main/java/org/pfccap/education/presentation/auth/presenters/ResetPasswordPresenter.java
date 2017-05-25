@@ -1,5 +1,7 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.presentation.auth.ui.fragments.IResetPasswordView;
@@ -47,6 +49,7 @@ public class ResetPasswordPresenter implements IResetPasswordPresenter {
                         public void onError(Throwable e) {
                             resetPasswordView.hideProgress();
                             resetPasswordView.enableInputs();
+                            FirebaseCrash.report(e);
                             resetPasswordView.resetError(e.getMessage());
                         }
 
@@ -58,6 +61,7 @@ public class ResetPasswordPresenter implements IResetPasswordPresenter {
         } catch (Exception e) {
             resetPasswordView.hideProgress();
             resetPasswordView.enableInputs();
+            FirebaseCrash.report(e);
             resetPasswordView.resetError(e.getMessage());
         }
     }

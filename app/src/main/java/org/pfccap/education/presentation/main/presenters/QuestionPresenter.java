@@ -145,24 +145,28 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void calculatePointsCheck(int points) {
 
-        int totalPoinst;
-        if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")) {
-            totalPoinst = 0;
-        } else {
-            totalPoinst = Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
-        }
-        totalPoinst = totalPoinst + points;
-        Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
+        try {
+            int totalPoinst;
+            if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")) {
+                totalPoinst = 0;
+            } else {
+                totalPoinst = Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
+            }
+            totalPoinst = totalPoinst + points;
+            Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
 
-        String check = "";
-        if (points > 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
-            check = "¡Correcto!";
-        } else if (points == 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
-            check = "¡Incorrecto!";
-        } else {
-            check = "";
-        }
+            String check = "";
+            if (points > 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
+                check = "¡Correcto!";
+            } else if (points == 0 && Cache.getByKey(Constants.TYPE_Q).equals("Evaluativa")) {
+                check = "¡Incorrecto!";
+            } else {
+                check = "";
+            }
 
-        loadInfoSnakbar(check);
+            loadInfoSnakbar(check);
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+        }
     }
 }

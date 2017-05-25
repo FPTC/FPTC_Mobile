@@ -2,6 +2,7 @@ package org.pfccap.education.presentation.auth.presenters;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
@@ -61,6 +62,7 @@ public class SignupPresenter implements ISignupPresenter {
                         public void onError(Throwable e) {
                             signupView.hideProgress();
                             signupView.enableInputs();
+                            FirebaseCrash.report(e);
                             if (e instanceof FirebaseAuthException) {
                                 String errorCode = ((FirebaseAuthException) e).getErrorCode();
                                 signupView.signUpError(Utilities.traslateErrorCode(errorCode));
@@ -71,7 +73,6 @@ public class SignupPresenter implements ISignupPresenter {
                                     signupView.signUpError(Utilities.traslateErrorCode("WEAK_PASSWORD"));
                                 }
                             }
-
                         }
 
                         @Override
@@ -82,6 +83,7 @@ public class SignupPresenter implements ISignupPresenter {
         } catch (Exception e) {
             signupView.hideProgress();
             signupView.enableInputs();
+            FirebaseCrash.report(e);
             signupView.signUpError(e.getMessage());
         }
 

@@ -43,7 +43,7 @@
                 android:background="@drawable/rounded_text_circle"
                 android:gravity="center"
                 android:textColor="@color/colorBlueLigth"
-                android:layout_marginLeft="-12dp"/>
+                android:layout_marginStart="-12dp"/>
         </RelativeLayout>
 
         <LinearLayout

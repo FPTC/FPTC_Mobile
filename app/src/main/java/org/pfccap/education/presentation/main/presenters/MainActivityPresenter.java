@@ -1,5 +1,7 @@
 package org.pfccap.education.presentation.main.presenters;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import org.pfccap.education.presentation.main.ui.activities.IMainActivityView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
@@ -23,6 +25,7 @@ public class MainActivityPresenter implements IMainActivityPresenter {
             mainActivityView.setUserName(Cache.getByKey(Constants.USER_NAME));
 
         } catch (Exception e) {
+            FirebaseCrash.report(e);
             mainActivityView.showError(e.getMessage());
         }
     }

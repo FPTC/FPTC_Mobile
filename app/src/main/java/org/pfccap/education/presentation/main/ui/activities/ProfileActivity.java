@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtHeight)
     EditText txtHeight;
 
-    @DecimalMin(value = 40, messageResId = R.string.weight_min_msg)
+    @DecimalMin(value = 30, messageResId = R.string.weight_min_msg)
     @DecimalMax(value = 200, messageResId = R.string.weight_max_msg)
     @BindView(R.id.mainProfileTxtWeight)
     EditText txtWeight;

@@ -1,5 +1,7 @@
 package org.pfccap.education.presentation.main.presenters;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
@@ -56,6 +58,7 @@ public class ProfilePresenter implements IProfilePresenter {
         } catch (Exception e) {
             profileView.hideProgress();
             profileView.enableInputs();
+            FirebaseCrash.report(e);
             profileView.showError(e.getMessage());
         }
 
@@ -81,6 +84,7 @@ public class ProfilePresenter implements IProfilePresenter {
                         public void onError(Throwable e) {
                             profileView.hideProgress();
                             profileView.enableInputs();
+                            FirebaseCrash.report(e);
                             profileView.showError(e.getMessage());
                         }
 
@@ -92,6 +96,7 @@ public class ProfilePresenter implements IProfilePresenter {
         } catch (Exception e) {
             profileView.hideProgress();
             profileView.enableInputs();
+            FirebaseCrash.report(e);
             profileView.showError(e.getMessage());
         }
 

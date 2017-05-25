@@ -6,6 +6,7 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
@@ -59,15 +60,13 @@ public class LoginPresenter implements ILoginPresenter {
                         @Override
                         public void onNext(UserAuth value) {
                             getQuestion();
-                            loginView.enableInputs();
-                            loginView.hideProgress();
-                            loginView.navigateToMainScreen();
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             loginView.enableInputs();
                             loginView.hideProgress();
+                            FirebaseCrash.report(e);
                             if (e instanceof FirebaseAuthException) {
                                 String errorCode = ((FirebaseAuthException) e).getErrorCode();
                                 loginView.loginError(Utilities.traslateErrorCode(errorCode));
@@ -82,6 +81,7 @@ public class LoginPresenter implements ILoginPresenter {
         } catch (Exception e) {
             loginView.hideProgress();
             loginView.enableInputs();
+            FirebaseCrash.report(e);
             loginView.loginError(e.getMessage());
         }
 
@@ -95,14 +95,18 @@ public class LoginPresenter implements ILoginPresenter {
                     .subscribeWith(new DisposableObserver<QuestionList>() {
                         @Override
                         public void onNext(QuestionList value) {
-
+                            loginView.enableInputs();
+                            loginView.hideProgress();
+                            loginView.navigateToMainScreen();
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             loginView.enableInputs();
                             loginView.hideProgress();
+                            FirebaseCrash.report(e);
                             loginView.loginError(e.getMessage());
+
                         }
 
                         @Override
@@ -113,6 +117,7 @@ public class LoginPresenter implements ILoginPresenter {
 
         } catch (Exception e) {
             loginView.enableInputs();
+            FirebaseCrash.report(e);
             loginView.hideProgress();
             loginView.loginError(e.getMessage());
         }
@@ -151,6 +156,7 @@ public class LoginPresenter implements ILoginPresenter {
                             public void onError(Throwable e) {
                                 loginView.enableInputs();
                                 loginView.hideProgress();
+                                FirebaseCrash.report(e);
                                 loginView.loginError(e.getMessage());
                             }
 
@@ -171,6 +177,7 @@ public class LoginPresenter implements ILoginPresenter {
             public void onError(FacebookException error) {
                 loginView.enableInputs();
                 loginView.hideProgress();
+                FirebaseCrash.report(error);
                 loginView.loginError(error.getMessage());
             }
         });

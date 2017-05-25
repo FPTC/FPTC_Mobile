@@ -1,5 +1,6 @@
 package org.pfccap.education.domain.user;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -31,6 +32,7 @@ public class UserBP implements IUserBP {
             firebaseHelper.getMyUserReference().setValue(user);
 
         } catch (Exception e) {
+            FirebaseCrash.report(e);
             throw e;
         }
     }
@@ -54,6 +56,7 @@ public class UserBP implements IUserBP {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             Exception error = new Exception(databaseError.getMessage());
+                            FirebaseCrash.report(error);
                             e.onError(error);
                         }
                     });
@@ -62,6 +65,7 @@ public class UserBP implements IUserBP {
             });
 
         } catch (Exception e) {
+            FirebaseCrash.report(e);
             throw e;
         }
 
