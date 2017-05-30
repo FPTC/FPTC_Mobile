@@ -80,6 +80,11 @@
 
     <string name="email_validation_msg">El e-mail no es valido</string>
     <string name="field_required">Este campo es requerido</string>
+    <string name="points">Puntos</string>
 
-
+    <!--Para la tabla de premios -->
+    <string-array name="head_table">
+        <item>Puntos</item>
+        <item>Premios</item>
+    </string-array>
 </resources>

@@ -1,6 +1,8 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -100,7 +102,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
             } else {
                 finish();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
 
@@ -121,19 +123,19 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setPrimaryQuestion(String text) {
         btnFalse.setEnabled(true);
         btnTrue.setEnabled(true);
+        txtPrimaryQuestion.setVisibility(View.VISIBLE);
+        txtInfo.setVisibility(View.GONE);
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Evaluativa":
-                txtPrimaryQuestion.setVisibility(View.VISIBLE);
                 layoutButtons.setVisibility(View.GONE);
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
                 break;
             case "Riesgo":
-                txtPrimaryQuestion.setVisibility(View.VISIBLE);
                 layoutButtons.setVisibility(View.VISIBLE);
                 recyclerViewAnswers.setVisibility(View.GONE);
                 break;
             case "Educativa":
-                txtPrimaryQuestion.setVisibility(View.VISIBLE);
+
                 layoutButtons.setVisibility(View.VISIBLE);
                 recyclerViewAnswers.setVisibility(View.GONE);
                 break;
@@ -151,15 +153,15 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setLabelButtonTrueFalse(String lableTrue, String valT, String lableFalse, String valF) {
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case "Riesgo":
-                if (Boolean.valueOf(valT)){
+                if (Boolean.valueOf(valT)) {
                     btnTrue.setText(lableTrue);
                     btnFalse.setText(lableFalse);
-                }else{
+                } else {
                     btnTrue.setText(lableFalse);
                     btnFalse.setText(lableTrue);
                 }
                 break;
-            case "Evaluativa":
+            case "Educativa":
                 btnTrue.setText(lableTrue);
                 valueTrue.setText(valT);
                 btnFalse.setText(lableFalse);
@@ -228,15 +230,16 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
                 layoutButtons.setVisibility(View.GONE);
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
-                txtInfo.setVisibility(View.GONE);
                 break;
             case "Educativa":
-                if(Boolean.valueOf(valueTrue.getText().toString())) {
+                if (Boolean.valueOf(valueTrue.getText().toString())) {
                     questionPresenter.loadInfoSnackbar("¡Correcto!");
-                }else{
+                }
+                if (!Boolean.valueOf(valueTrue.getText().toString())) {
                     questionPresenter.loadInfoSnackbar("¡Incorrecto!");
                 }
                 txtInfo.setVisibility(View.VISIBLE);
+                layoutButtons.setVisibility(View.GONE);
                 txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
                 break;
         }
@@ -251,12 +254,14 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 questionPresenter.loadInfoSnackbar("");
                 break;
             case "Educativa":
-                if(Boolean.valueOf(valueTrue.getText().toString())) {
+                if (Boolean.valueOf(valueFalse.getText().toString())) {
                     questionPresenter.loadInfoSnackbar("¡Correcto!");
-                }else{
+                }
+                if (!Boolean.valueOf(valueFalse.getText().toString())) {
                     questionPresenter.loadInfoSnackbar("¡Incorrecto!");
                 }
                 txtInfo.setVisibility(View.VISIBLE);
+                layoutButtons.setVisibility(View.GONE);
                 txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
                 break;
         }

@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.auth.ui.activities.AuthActivity" />
-        <activity android:name=".presentation.splash.Splash">
+        <activity
+            android:name=".presentation.splash.Splash"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +66,7 @@
             android:parentActivityName=".presentation.main.ui.activities.MainActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".presentation.main.ui.activities.QuestionsActivity"/>
+        <activity android:name=".presentation.main.ui.activities.QuestionsActivity" />
     </application>
 
 </manifest>
