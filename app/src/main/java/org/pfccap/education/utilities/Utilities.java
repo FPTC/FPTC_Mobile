@@ -3,13 +3,16 @@ package org.pfccap.education.utilities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import org.pfccap.education.R;
@@ -53,8 +56,18 @@ public class Utilities {
 
     public static <T extends AppCompatActivity> void initFragment(T classInicio,
                                                                   Fragment fragmentDestino) {
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Slide slideTransition = new Slide(Gravity.END);
+            slideTransition.setDuration(1000);
+
+            fragmentDestino.setEnterTransition(slideTransition);
+            fragmentDestino.setAllowEnterTransitionOverlap(true);
+            fragmentDestino.setAllowReturnTransitionOverlap(true);
+        }
+
         FragmentTransaction t = classInicio.getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.content, fragmentDestino);
+        t.replace(R.id.content, fragmentDestino).addToBackStack(null);
         t.commit();
     }
 

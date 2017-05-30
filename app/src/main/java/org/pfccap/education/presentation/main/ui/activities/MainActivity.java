@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void navigateToLogin() {
         Utilities.initActivity(this, AuthActivity.class);
+        finish();
     }
 
     @Override
