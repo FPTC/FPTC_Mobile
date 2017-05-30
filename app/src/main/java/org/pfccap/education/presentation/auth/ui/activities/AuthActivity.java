@@ -14,6 +14,7 @@ import org.pfccap.education.utilities.Utilities;
 public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFragmentInteractor,
         ResetPasswordFragment.OnResetPassFragInteractionListener, Login.OnLoginFragInteractionListener {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,4 +58,10 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
     public void onNavigateToResetPassword() {
         Utilities.initFragment(this, ResetPasswordFragment.newInstance());
     }
+
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStack();
+    }
+
 }
