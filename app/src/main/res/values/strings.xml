@@ -81,6 +81,9 @@
     <string name="email_validation_msg">El e-mail no es valido</string>
     <string name="field_required">Este campo es requerido</string>
     <string name="points">Puntos</string>
+    <string name="get_to_gift">RECLAMA TU PREMIO</string>
+    <string name="title_star_have">"TIENES "</string>
+    <string name="title_end_points">" PUNTOS"</string>
 
     <!--Para la tabla de premios -->
     <string-array name="head_table">

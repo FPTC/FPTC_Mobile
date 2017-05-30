@@ -22,5 +22,4 @@ public class Constants {
     public static final String INFO_SNACKBAR = "infosnackbar";
     public static final String TOTAL_POINTS = "totalpoins";
 
-
 }

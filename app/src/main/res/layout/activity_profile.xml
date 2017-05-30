@@ -188,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/neighborhood"
                         android:inputType="text"
-                        android:maxLength="25"/>
+                        android:maxLength="50"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

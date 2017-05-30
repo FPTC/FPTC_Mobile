@@ -1,26 +1,33 @@
 package org.pfccap.education.presentation.main.ui.fragments;
 
-import android.content.Context;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
+import org.pfccap.education.utilities.Table;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GiftsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link GiftsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class GiftsFragment extends Fragment {
 
     //private OnFragmentInteractionListener mListener;
+    @BindView(R.id.mainGiftLayoutTable)
+    TableLayout giftTable;
+    @BindView(R.id.mainGiftTxtPoints)
+    TextView totalPoints;
 
     public GiftsFragment() {
         // Required empty public constructor
@@ -36,7 +43,28 @@ public class GiftsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gifts, container, false);
+        View view = inflater.inflate(R.layout.fragment_gifts, container, false);
+        ButterKnife.bind(this, view);
+        if (Cache.getByKey(Constants.TOTAL_POINTS).equals(""))
+            Cache.save(Constants.TOTAL_POINTS, "0");
+
+        totalPoints.setText(getString(R.string.title_star_have) + Cache.getByKey(Constants.TOTAL_POINTS) + getString(R.string.title_end_points));
+        initTable();
+        return view;
+    }
+
+    private void initTable() {
+
+        Table table = new Table(getActivity(), giftTable);
+        table.addHead(R.array.head_table);
+        int r = 0;
+        for (int i = 0; i < 3; i++){
+            r = r + 5000;
+            ArrayList<String> elements = new ArrayList<String>();
+            elements.add(Integer.toString(i));
+            elements.add("Recarga $" + r );
+            table.addRowTable(elements);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -63,6 +91,7 @@ public class GiftsFragment extends Fragment {
         mListener = null;
     }
 */
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

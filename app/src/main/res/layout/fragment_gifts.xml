@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context="org.pfccap.education.presentation.main.ui.fragments.GiftsFragment">
 
-    <include layout="@layout/toolbar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:text="@string/hello_blank_fragment" />
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="28sp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            />
 
         <ImageView
             android:layout_width="match_parent"
@@ -26,22 +28,36 @@
             android:background="@drawable/premios" />
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:scrollbars="none">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TableLayout
                     android:id="@+id/mainGiftLayoutTable"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    />
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/mainGiftBtnGetGift"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="@color/colorBlueLigth"
+            android:text="@string/get_to_gift"
+            style="@style/BtnMain"
+            android:paddingStart="30dp"
+            android:drawableStart="@mipmap/ic_gift_white_intro"/>
     </LinearLayout>
 
 </FrameLayout>

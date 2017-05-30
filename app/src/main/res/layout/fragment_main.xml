@@ -70,11 +70,10 @@
                 style="@style/BtnMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:background="@color/colorPrimary"
                 android:text="@string/btn_take_gift"
                 android:drawableTop="@mipmap/ic_gift_white_intro"
-                android:padding="10dp"/>
+                android:paddingTop="10dp"/>
 
         </LinearLayout>
     </LinearLayout>

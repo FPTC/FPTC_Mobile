@@ -14,8 +14,6 @@ import org.pfccap.education.R;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 /**
  * Created by USUARIO on 30/05/2017.
  */
@@ -39,7 +37,7 @@ public class Table {
         this.table = table;
         rs = this.activity.getResources();
         ROWS = COLUMNS = 0;
-        rows = new ArrayList<TableRow>();
+        rows = new ArrayList<>();
     }
 
     /**
@@ -84,7 +82,7 @@ public class Table {
      * Agrega una fila a la tabla
      * @param element Elementos de la fila
      */
-    public void agregarFilaTabla(ArrayList<String> element) {
+    public void addRowTable(ArrayList<String> element) {
         TableRow.LayoutParams layoutCell;
         TableRow.LayoutParams layoutRow = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
@@ -101,7 +99,8 @@ public class Table {
                 text.setTextAppearance(R.style.style_cell);
             }
             text.setBackgroundResource(R.drawable.table_cell);
-            layoutCell = new TableRow.LayoutParams(getWidthPixelText(text.getText().toString()), TableRow.LayoutParams.WRAP_CONTENT);
+            layoutCell = new TableRow.LayoutParams(getWidthPixelText(text.getText().toString()),
+                    TableRow.LayoutParams.WRAP_CONTENT);
             text.setLayoutParams(layoutCell);
 
             row.addView(text);

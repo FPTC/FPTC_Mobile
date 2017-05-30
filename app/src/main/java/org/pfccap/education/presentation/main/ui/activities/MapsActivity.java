@@ -67,11 +67,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-
-    @BindView(R.id.utilitiesMapBtnBack)
-    Button btnGetAddress;
-
-
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
@@ -112,6 +107,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
@@ -320,7 +316,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onError(Status status) {
         Log.e(TAG, "onError: Status = " + status.toString());
-        Utilities.snackbarMessageError(findViewById(R.id.mainMapsLayout), status.getStatusMessage());
+        Utilities.snackbarMessageError(findViewById(android.R.id.content), status.getStatusMessage());
         Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
                 Toast.LENGTH_SHORT).show();
     }

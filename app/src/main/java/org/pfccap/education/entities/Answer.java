@@ -1,6 +1,5 @@
 package org.pfccap.education.entities;
 
-import java.util.HashMap;
 
 /**
  * Created by USUARIO on 16/05/2017.

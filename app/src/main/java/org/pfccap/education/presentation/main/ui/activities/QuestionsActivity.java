@@ -205,8 +205,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         //TODO buscar la manera de concatenar resource string + la variable de chache
         txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINTS));
         lytThanks.setVisibility(View.VISIBLE);
-
-        Cache.save(Constants.TOTAL_POINTS, "0");
     }
 
     @Override
@@ -269,7 +267,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void onBackPressed() {
-        Cache.save(Constants.TOTAL_POINTS, "0");
         super.onBackPressed();
     }
 }
