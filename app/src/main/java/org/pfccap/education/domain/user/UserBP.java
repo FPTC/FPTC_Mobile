@@ -50,6 +50,9 @@ public class UserBP implements IUserBP {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserAuth userAuth = dataSnapshot.getValue(UserAuth.class);
+                            if (userAuth == null){
+                                userAuth = new UserAuth();
+                            }
                             e.onNext(userAuth);
                         }
 
