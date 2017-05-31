@@ -4,7 +4,6 @@ package org.pfccap.education.dao;
 
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
-
 /**
  * Entity mapped to table "ANSWERS_QUESTION".
  */
@@ -12,19 +11,11 @@ public class AnswersQuestion {
 
     private Long id;
     private String idQuestion;
+    private String idAnswer;
     private String description;
     private Boolean value;
     private Integer points;
-    private boolean enable = true;
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
+    private Boolean enable;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -36,12 +27,14 @@ public class AnswersQuestion {
         this.id = id;
     }
 
-    public AnswersQuestion(Long id, String idQuestion, String description, Boolean value, Integer points) {
+    public AnswersQuestion(Long id, String idQuestion, String idAnswer, String description, Boolean value, Integer points, Boolean enable) {
         this.id = id;
         this.idQuestion = idQuestion;
+        this.idAnswer = idAnswer;
         this.description = description;
         this.value = value;
         this.points = points;
+        this.enable = enable;
     }
 
     public Long getId() {
@@ -58,6 +51,14 @@ public class AnswersQuestion {
 
     public void setIdQuestion(String idQuestion) {
         this.idQuestion = idQuestion;
+    }
+
+    public String getIdAnswer() {
+        return idAnswer;
+    }
+
+    public void setIdAnswer(String idAnswer) {
+        this.idAnswer = idAnswer;
     }
 
     public String getDescription() {
@@ -82,6 +83,14 @@ public class AnswersQuestion {
 
     public void setPoints(Integer points) {
         this.points = points;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     // KEEP METHODS - put your custom methods here

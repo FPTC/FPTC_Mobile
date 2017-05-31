@@ -11,6 +11,7 @@ public class SecondAnswer {
 
     private Long id;
     private String idQuestion;
+    private String idAnswer;
     private String description;
 
     // KEEP FIELDS - put your custom fields here
@@ -23,9 +24,10 @@ public class SecondAnswer {
         this.id = id;
     }
 
-    public SecondAnswer(Long id, String idQuestion, String description) {
+    public SecondAnswer(Long id, String idQuestion, String idAnswer, String description) {
         this.id = id;
         this.idQuestion = idQuestion;
+        this.idAnswer = idAnswer;
         this.description = description;
     }
 
@@ -43,6 +45,14 @@ public class SecondAnswer {
 
     public void setIdQuestion(String idQuestion) {
         this.idQuestion = idQuestion;
+    }
+
+    public String getIdAnswer() {
+        return idAnswer;
+    }
+
+    public void setIdAnswer(String idAnswer) {
+        this.idAnswer = idAnswer;
     }
 
     public String getDescription() {

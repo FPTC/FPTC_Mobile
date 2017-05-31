@@ -18,6 +18,7 @@ import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.entities.Answer;
 import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.Questions;
+import org.pfccap.education.entities.SecondAnswers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,10 +100,7 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
-                if (entry.getValue().getQuestion() != null) {
-                    questionsDB.setTxtSecondQuestion(entry.getValue().getQuestion().getText());
-                }
-                questionsDao.insert(questionsDB);
+
 
                 HashMap<String, Answer> answersCervix = entry.getValue().getAnswers();
                 AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
@@ -111,26 +109,30 @@ public class QuestionBP implements IQuestionBP {
                     for (Map.Entry<String, Answer> entry1 : answersCervix.entrySet()) {
                         answersQuestionDB = new AnswersQuestion();
                         answersQuestionDB.setIdQuestion(entry.getKey());
+                        answersQuestionDB.setIdAnswer(entry1.getKey());
                         answersQuestionDB.setDescription(entry1.getValue().getDescription());
                         answersQuestionDB.setValue(entry1.getValue().isValue());
                         answersQuestionDB.setPoints(entry1.getValue().getPoints());
                         answersQuestionDao.insert(answersQuestionDB);
-
-                    }
-                    if (entry.getValue().getQuestion() != null) {
-                        HashMap<String, Answer> answersCervixSecond = entry.getValue().getQuestion().getAnswers();
-                        SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
-                        SecondAnswer secondAnswerDB;
-                        for (Map.Entry<String, Answer> entry2 : answersCervixSecond.entrySet()) {
-                            secondAnswerDB = new SecondAnswer();
-                            secondAnswerDB.setIdQuestion(entry.getKey());
-                            secondAnswerDB.setDescription(entry2.getValue().getDescription());
-                            secondAnswerDao.insert(secondAnswerDB);
+                        if (entry1.getValue().getQuestion() != null) {
+                            questionsDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
+                            HashMap<String, SecondAnswers> answersCervixSecond = entry1.getValue().getQuestion().getAnswers();
+                            SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
+                            SecondAnswer secondAnswerDB;
+                            for (Map.Entry<String, SecondAnswers> entry2 : answersCervixSecond.entrySet()) {
+                                secondAnswerDB = new SecondAnswer();
+                                secondAnswerDB.setIdQuestion(entry.getKey());
+                                secondAnswerDB.setIdAnswer(entry1.getKey());
+                                secondAnswerDB.setDescription(entry2.getValue().getDescription());
+                                secondAnswerDao.insert(secondAnswerDB);
+                            }
                         }
                     }
+
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
+                questionsDao.insert(questionsDB);
             }
 
             HashMap<String, Questions> cancerSeno = questionsListAll.getCancerSeno();
@@ -144,10 +146,6 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
-                if (entry.getValue().getQuestion() != null) {
-                    questionsDB.setTxtSecondQuestion(entry.getValue().getQuestion().getText());
-                }
-                questionsDao.insert(questionsDB);
 
                 HashMap<String, Answer> answersBreast = entry.getValue().getAnswers();
                 AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
@@ -156,29 +154,32 @@ public class QuestionBP implements IQuestionBP {
                     for (Map.Entry<String, Answer> entry1 : answersBreast.entrySet()) {
                         answersQuestionDB = new AnswersQuestion();
                         answersQuestionDB.setIdQuestion(entry.getKey());
+                        answersQuestionDB.setIdAnswer(entry1.getKey());
                         answersQuestionDB.setDescription(entry1.getValue().getDescription());
                         answersQuestionDB.setValue(entry1.getValue().isValue());
                         answersQuestionDB.setPoints(entry1.getValue().getPoints());
                         answersQuestionDao.insert(answersQuestionDB);
 
-                    }
-                    if (entry.getValue().getQuestion() != null) {
-                        HashMap<String, Answer> answersBreastSecond = entry.getValue().getQuestion().getAnswers();
-                        SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
-                        SecondAnswer secondAnswerDB;
-                        for (Map.Entry<String, Answer> entry2 : answersBreastSecond.entrySet()) {
-                            secondAnswerDB = new SecondAnswer();
-                            secondAnswerDB.setIdQuestion(entry.getKey());
-                            secondAnswerDB.setDescription(entry2.getValue().getDescription());
-                            secondAnswerDao.insert(secondAnswerDB);
+                        if (entry1.getValue().getQuestion() != null) {
+                            questionsDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
+                            HashMap<String, SecondAnswers> answersBreastSecond = entry1.getValue().getQuestion().getAnswers();
+                            SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
+                            SecondAnswer secondAnswerDB;
+                            for (Map.Entry<String, SecondAnswers> entry2 : answersBreastSecond.entrySet()) {
+                                secondAnswerDB = new SecondAnswer();
+                                secondAnswerDB.setIdQuestion(entry.getKey());
+                                secondAnswerDB.setIdAnswer(entry1.getKey());
+                                secondAnswerDB.setDescription(entry2.getValue().getDescription());
+                                secondAnswerDao.insert(secondAnswerDB);
+                            }
                         }
                     }
+
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
-
+                questionsDao.insert(questionsDB);
             }
-
 
         } catch (Exception e) {
             FirebaseCrash.report(e);

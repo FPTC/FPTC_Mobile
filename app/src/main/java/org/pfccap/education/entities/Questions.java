@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class Questions {
     private HashMap<String, Answer> answers = new HashMap<>();
-    private SecondQuestion question;
     private String id;
     private String info;
     private int order;
@@ -26,14 +25,6 @@ public class Questions {
 
     public void setAnswers(HashMap<String, Answer> answers) {
         this.answers = answers;
-    }
-
-    public SecondQuestion getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(SecondQuestion question) {
-        this.question = question;
     }
 
     public String getId() {

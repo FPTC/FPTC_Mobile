@@ -10,7 +10,7 @@ public class Answer {
     private String description;
     private int points;
     private boolean value;
-
+    private SecondQuestion question;
 
     public Answer() {
 
@@ -40,5 +40,11 @@ public class Answer {
         this.value = value;
     }
 
+    public SecondQuestion getQuestion() {
+        return question;
+    }
 
+    public void setQuestion(SecondQuestion question) {
+        this.question = question;
+    }
 }

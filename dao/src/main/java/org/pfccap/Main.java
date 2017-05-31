@@ -45,15 +45,18 @@ public class Main {
         Entity answersQuestion = schema.addEntity("AnswersQuestion");
         answersQuestion.addIdProperty().autoincrement();
         answersQuestion.addStringProperty("idQuestion");
+        answersQuestion.addStringProperty("idAnswer");
         answersQuestion.addStringProperty("description");
         answersQuestion.addBooleanProperty("value");
         answersQuestion.addIntProperty("points");
+        answersQuestion.addBooleanProperty("enable");
 
 
         //crea respeustas de la pregutna anidada
         Entity secondAnswer = schema.addEntity("SecondAnswer");
         secondAnswer.addIdProperty().autoincrement();
         secondAnswer.addStringProperty("idQuestion");
+        secondAnswer.addStringProperty("idAnswer");
         secondAnswer.addStringProperty("description");
 
 

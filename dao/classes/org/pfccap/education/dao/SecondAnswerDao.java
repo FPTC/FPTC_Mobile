@@ -25,7 +25,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property IdQuestion = new Property(1, String.class, "idQuestion", false, "ID_QUESTION");
-        public final static Property Description = new Property(2, String.class, "description", false, "DESCRIPTION");
+        public final static Property IdAnswer = new Property(2, String.class, "idAnswer", false, "ID_ANSWER");
+        public final static Property Description = new Property(3, String.class, "description", false, "DESCRIPTION");
     };
 
 
@@ -43,7 +44,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"SECOND_ANSWER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"ID_QUESTION\" TEXT," + // 1: idQuestion
-                "\"DESCRIPTION\" TEXT);"); // 2: description
+                "\"ID_ANSWER\" TEXT," + // 2: idAnswer
+                "\"DESCRIPTION\" TEXT);"); // 3: description
     }
 
     /** Drops the underlying database table. */
@@ -67,9 +69,14 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
             stmt.bindString(2, idQuestion);
         }
  
+        String idAnswer = entity.getIdAnswer();
+        if (idAnswer != null) {
+            stmt.bindString(3, idAnswer);
+        }
+ 
         String description = entity.getDescription();
         if (description != null) {
-            stmt.bindString(3, description);
+            stmt.bindString(4, description);
         }
     }
 
@@ -85,7 +92,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
         SecondAnswer entity = new SecondAnswer( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // idQuestion
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // description
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // idAnswer
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // description
         );
         return entity;
     }
@@ -95,7 +103,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
     public void readEntity(Cursor cursor, SecondAnswer entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setIdQuestion(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setDescription(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setIdAnswer(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

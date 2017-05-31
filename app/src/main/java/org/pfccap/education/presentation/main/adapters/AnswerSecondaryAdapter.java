@@ -43,7 +43,7 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
     public void onBindViewHolder(AnswerSecondaryAdapter.ViewHolder holder, int position) {
         AnswersQuestion element = dataset.get(position);
         holder.labelButton.setText(element.getDescription());
-        holder.labelButton.setEnabled(element.isEnable());
+        holder.labelButton.setEnabled(element.getEnable());
         holder.pointsAnswer.setText(String.valueOf(element.getPoints()));
     }
 

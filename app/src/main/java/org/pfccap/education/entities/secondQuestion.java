@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class SecondQuestion {
     private String text;
-    private HashMap<String, Answer> answers = new HashMap<>();
+    private HashMap<String, SecondAnswers> answers = new HashMap<>();
 
     public SecondQuestion(){
 
@@ -22,11 +22,11 @@ public class SecondQuestion {
         this.text = text;
     }
 
-    public HashMap<String, Answer> getAnswers() {
+    public HashMap<String, SecondAnswers> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(HashMap<String, Answer> answers) {
+    public void setAnswers(HashMap<String, SecondAnswers> answers) {
         this.answers = answers;
     }
 }
