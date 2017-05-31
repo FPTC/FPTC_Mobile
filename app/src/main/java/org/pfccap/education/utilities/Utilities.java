@@ -62,6 +62,11 @@ public class Utilities {
             slideTransition.setDuration(1000);
 
             fragmentDestino.setEnterTransition(slideTransition);
+
+            slideTransition = new Slide(Gravity.START);
+            slideTransition.setDuration(1000);
+
+            fragmentDestino.setExitTransition(slideTransition);
             fragmentDestino.setAllowEnterTransitionOverlap(true);
             fragmentDestino.setAllowReturnTransitionOverlap(true);
         }
