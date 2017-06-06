@@ -162,7 +162,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @Override
     public void loadNextQuestion() {
         current = current + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
-        //TODO trasladar esta desición al presenter
         questionPresenter.loadQuestionCurrent(current);
     }
 
@@ -189,6 +188,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @OnClick(R.id.mainQuestionThanks)
     public void clickFinish() {
+        questionPresenter.saveAnswerQuestionDB(); //se llama el metodo para enviar las preguntas a firebase
         Utilities.initActivity(QuestionsActivity.this, MainActivity.class);
         finish();
     }
@@ -266,7 +266,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void onBackPressed() {
-        questionPresenter.backLastQuestion();
+        questionPresenter.backLastQuestion(); //se verifica si ya ha contestado todas las preguntas
         super.onBackPressed();
     }
 }

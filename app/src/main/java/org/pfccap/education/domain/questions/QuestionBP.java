@@ -19,6 +19,7 @@ import org.pfccap.education.entities.Answer;
 import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.Questions;
 import org.pfccap.education.entities.SecondAnswers;
+import org.pfccap.education.entities.SendAnswers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,6 +80,15 @@ public class QuestionBP implements IQuestionBP {
             throw e;
         }
 
+    }
+
+    @Override
+    public void save(SendAnswers answers) {
+        try{
+           // firebaseHelper.
+        }catch (Exception e){
+            FirebaseCrash.report(e);
+        }
     }
 
     private void saveQuestionData(QuestionList questionsListAll) {

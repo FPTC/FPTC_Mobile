@@ -10,7 +10,10 @@ import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.SecondAnswer;
 import org.pfccap.education.domain.questions.ILQuestionDB;
+import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.LQuestionDB;
+import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.entities.SendAnswers;
 import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
 import org.pfccap.education.presentation.main.ui.activities.QuestionsActivity;
 import org.pfccap.education.utilities.Cache;
@@ -28,6 +31,7 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     private IQuestionView questionView;
     private ILQuestionDB ilQuestionDB;
+    private IQuestionBP questionBP;
     private String lableTrue = "";
     private String lableFalse = "";
     private String valueTrue = "";
@@ -40,6 +44,7 @@ public class QuestionPresenter implements IQuestionPresenter {
         this.questionView = questionView;
         this.context = context;
         ilQuestionDB = new LQuestionDB();
+        questionBP = new QuestionBP();
     }
 
     @Override
@@ -77,6 +82,9 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void saveAnswerQuestionDB() {
+        SendAnswers answers = new SendAnswers();
+        //TODO mapear los datos según como están en la base de datos firebase
+        questionBP.save(answers);
 
     }
 
