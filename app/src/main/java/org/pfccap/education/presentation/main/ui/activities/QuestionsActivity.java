@@ -1,12 +1,9 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,7 +15,6 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.dao.AnswersQuestion;
-import org.pfccap.education.dao.Question;
 import org.pfccap.education.presentation.main.adapters.AnswerSecondaryAdapter;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
 import org.pfccap.education.presentation.main.presenters.QuestionPresenter;
@@ -27,7 +23,6 @@ import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,12 +68,8 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.progressBarQ)
     ProgressBar progressBar;
 
-    private List<Question> lstQuestion;
-    private int[] ramdomNumberSecuence;
     private int progressq = 0;
-    private int currentQ = 0;
-
-    QuestionsActivity context;
+    private int current = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,22 +77,16 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         setContentView(R.layout.activity_questions);
 
         ButterKnife.bind(this);
-        context = QuestionsActivity.this;
-        questionPresenter = new QuestionPresenter(QuestionsActivity.this);
+        questionPresenter = new QuestionPresenter(this, QuestionsActivity.this);
         initAdapter();
         initRecyclerView();
         initQuestion();
+
     }
 
     private void initQuestion() {
         try {
-            lstQuestion = questionPresenter.getQuestionsDB();
-            ramdomNumberSecuence = questionPresenter.ramdomNumberSecuence(lstQuestion.size());
-            if (lstQuestion != null && ramdomNumberSecuence != null && lstQuestion.size() != 0 && ramdomNumberSecuence.length != 0) {
-                questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
-            } else {
-                finish();
-            }
+            questionPresenter.getQuestionsDB(current);
         } catch (Exception e) {
             FirebaseCrash.report(e);
         }
@@ -135,7 +120,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 recyclerViewAnswers.setVisibility(View.GONE);
                 break;
             case "Educativa":
-
                 layoutButtons.setVisibility(View.VISIBLE);
                 recyclerViewAnswers.setVisibility(View.GONE);
                 break;
@@ -151,28 +135,15 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void setLabelButtonTrueFalse(String lableTrue, String valT, String lableFalse, String valF) {
-        switch (Cache.getByKey(Constants.TYPE_Q)) {
-            case "Riesgo":
-                if (Boolean.valueOf(valT)) {
-                    btnTrue.setText(lableTrue);
-                    btnFalse.setText(lableFalse);
-                } else {
-                    btnTrue.setText(lableFalse);
-                    btnFalse.setText(lableTrue);
-                }
-                break;
-            case "Educativa":
-                btnTrue.setText(lableTrue);
-                valueTrue.setText(valT);
-                btnFalse.setText(lableFalse);
-                valueFalse.setText(valF);
-                break;
-        }
+        btnTrue.setText(lableTrue);
+        valueTrue.setText(valT);
+        btnFalse.setText(lableFalse);
+        valueFalse.setText(valF);
     }
 
     @Override
     public void setInfoSnackbar(String text) {
-        Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, context);
+        Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, QuestionsActivity.this);
     }
 
     @Override
@@ -190,26 +161,29 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @Override
     public void loadNextQuestion() {
-        currentQ = currentQ + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
+        current = current + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
         //TODO trasladar esta desición al presenter
-        if (currentQ == lstQuestion.size()) {
-            questionPresenter.finishAcivity();
-        } else {
-            questionPresenter.loadQuestionCurrent(lstQuestion, ramdomNumberSecuence[currentQ]);
-        }
+        questionPresenter.loadQuestionCurrent(current);
     }
 
 
     @Override
-    public void finishActivity() {
-        //TODO buscar la manera de concatenar resource string + la variable de chache
-        txtPointsThk.setText("Los puntos obtenidos son " + Cache.getByKey(Constants.TOTAL_POINTS));
+    public void finishActivity(String message) {
+        txtPointsThk.setText(message);
         lytThanks.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void disableItemsAdapter() {
         adapter.disableItems();
+    }
+
+    @Override
+    public void showInfoTxtSecondary() {
+        txtInfo.setVisibility(View.VISIBLE);
+        layoutButtons.setVisibility(View.GONE);
+        recyclerViewAnswers.setVisibility(View.GONE);
+        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
     }
 
 
@@ -219,54 +193,80 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         finish();
     }
 
-    @OnClick(R.id.mainQuestionBtnTrue)
-    public void clickYes() {
+    @OnClick({R.id.mainQuestionBtnFalse, R.id.mainQuestionBtnTrue})
+    public void clickFalseOrTrueBtn(Button button) {
         btnTrue.setEnabled(false);
         btnFalse.setEnabled(false);
-        switch (Cache.getByKey(Constants.TYPE_Q)) {
-            case "Riesgo":
-                txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
-                layoutButtons.setVisibility(View.GONE);
-                recyclerViewAnswers.setVisibility(View.VISIBLE);
-                break;
-            case "Educativa":
-                if (Boolean.valueOf(valueTrue.getText().toString())) {
-                    questionPresenter.loadInfoSnackbar("¡Correcto!");
-                }
-                if (!Boolean.valueOf(valueTrue.getText().toString())) {
-                    questionPresenter.loadInfoSnackbar("¡Incorrecto!");
-                }
-                txtInfo.setVisibility(View.VISIBLE);
-                layoutButtons.setVisibility(View.GONE);
-                txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
-                break;
-        }
-    }
+        switch (button.getId()) {
+            case R.id.mainQuestionBtnFalse:
+                switch (Cache.getByKey(Constants.TYPE_Q)) {
+                    case Constants.RIESGO:
+                        if (!Cache.getByKey(Constants.SECOND_QFALSE).equals("")) {
+                            questionPresenter.getSecondAnswers();
+                            txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_QFALSE));
+                            layoutButtons.setVisibility(View.GONE);
+                            recyclerViewAnswers.setVisibility(View.VISIBLE);
 
-    @OnClick(R.id.mainQuestionBtnFalse)
-    public void clickNO() {
-        btnTrue.setEnabled(false);
-        btnFalse.setEnabled(false);
-        switch (Cache.getByKey(Constants.TYPE_Q)) {
-            case "Riesgo":
-                questionPresenter.loadInfoSnackbar("");
+                        } else {
+
+                            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                                txtInfo.setVisibility(View.VISIBLE);
+                                layoutButtons.setVisibility(View.GONE);
+                                recyclerViewAnswers.setVisibility(View.GONE);
+                                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                            }
+                            questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
+                        }
+                        break;
+                    case Constants.EDUCATIVA:
+                        if (Boolean.valueOf(valueFalse.getText().toString())) {
+                            questionPresenter.loadInfoSnackbar(getString(R.string.right));
+                        } else {
+                            questionPresenter.loadInfoSnackbar(getString(R.string.fail));
+                        }
+                        txtInfo.setVisibility(View.VISIBLE);
+                        layoutButtons.setVisibility(View.GONE);
+                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                        break;
+                }
                 break;
-            case "Educativa":
-                if (Boolean.valueOf(valueFalse.getText().toString())) {
-                    questionPresenter.loadInfoSnackbar("¡Correcto!");
+            case R.id.mainQuestionBtnTrue:
+                switch (Cache.getByKey(Constants.TYPE_Q)) {
+                    case Constants.RIESGO:
+                        if (!Cache.getByKey(Constants.SECOND_QTRUE).equals("")) {
+                            questionPresenter.getSecondAnswers();
+                            txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_QTRUE));
+                            layoutButtons.setVisibility(View.GONE);
+                            recyclerViewAnswers.setVisibility(View.VISIBLE);
+
+                        } else {
+                            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                                txtInfo.setVisibility(View.VISIBLE);
+                                layoutButtons.setVisibility(View.GONE);
+                                recyclerViewAnswers.setVisibility(View.GONE);
+                                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                            }
+                            questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
+                        }
+                        break;
+                    case Constants.EDUCATIVA:
+                        if (Boolean.valueOf(valueTrue.getText().toString())) {
+                            questionPresenter.loadInfoSnackbar(getString(R.string.right));
+                        } else {
+                            questionPresenter.loadInfoSnackbar(getString(R.string.fail));
+                        }
+                        txtInfo.setVisibility(View.VISIBLE);
+                        layoutButtons.setVisibility(View.GONE);
+                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                        break;
                 }
-                if (!Boolean.valueOf(valueFalse.getText().toString())) {
-                    questionPresenter.loadInfoSnackbar("¡Incorrecto!");
-                }
-                txtInfo.setVisibility(View.VISIBLE);
-                layoutButtons.setVisibility(View.GONE);
-                txtInfo.setText(Cache.getByKey(Constants.INFO_SNACKBAR));
                 break;
         }
     }
 
     @Override
     public void onBackPressed() {
+        questionPresenter.backLastQuestion();
         super.onBackPressed();
     }
 }

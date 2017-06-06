@@ -100,7 +100,8 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
-
+                questionsDB.setAnswer(false);
+                questionsDao.insert(questionsDB);
 
                 HashMap<String, Answer> answersCervix = entry.getValue().getAnswers();
                 AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
@@ -113,9 +114,9 @@ public class QuestionBP implements IQuestionBP {
                         answersQuestionDB.setDescription(entry1.getValue().getDescription());
                         answersQuestionDB.setValue(entry1.getValue().isValue());
                         answersQuestionDB.setPoints(entry1.getValue().getPoints());
-                        answersQuestionDao.insert(answersQuestionDB);
+
                         if (entry1.getValue().getQuestion() != null) {
-                            questionsDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
+                            answersQuestionDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
                             HashMap<String, SecondAnswers> answersCervixSecond = entry1.getValue().getQuestion().getAnswers();
                             SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
                             SecondAnswer secondAnswerDB;
@@ -127,12 +128,13 @@ public class QuestionBP implements IQuestionBP {
                                 secondAnswerDao.insert(secondAnswerDB);
                             }
                         }
+                        answersQuestionDao.insert(answersQuestionDB);
                     }
 
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
-                questionsDao.insert(questionsDB);
+
             }
 
             HashMap<String, Questions> cancerSeno = questionsListAll.getCancerSeno();
@@ -146,6 +148,8 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
                 questionsDB.setInfo(entry.getValue().getInfo());
+                questionsDB.setAnswer(false);
+                questionsDao.insert(questionsDB);
 
                 HashMap<String, Answer> answersBreast = entry.getValue().getAnswers();
                 AnswersQuestionDao answersQuestionDao = AppDao.getAnswersQuestionDao();
@@ -158,10 +162,9 @@ public class QuestionBP implements IQuestionBP {
                         answersQuestionDB.setDescription(entry1.getValue().getDescription());
                         answersQuestionDB.setValue(entry1.getValue().isValue());
                         answersQuestionDB.setPoints(entry1.getValue().getPoints());
-                        answersQuestionDao.insert(answersQuestionDB);
 
                         if (entry1.getValue().getQuestion() != null) {
-                            questionsDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
+                            answersQuestionDB.setTxtSecondQuestion(entry1.getValue().getQuestion().getText());
                             HashMap<String, SecondAnswers> answersBreastSecond = entry1.getValue().getQuestion().getAnswers();
                             SecondAnswerDao secondAnswerDao = AppDao.getSecondAnswerDao();
                             SecondAnswer secondAnswerDB;
@@ -173,12 +176,13 @@ public class QuestionBP implements IQuestionBP {
                                 secondAnswerDao.insert(secondAnswerDB);
                             }
                         }
+                        answersQuestionDao.insert(answersQuestionDB);
                     }
 
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
-                questionsDao.insert(questionsDB);
+
             }
 
         } catch (Exception e) {

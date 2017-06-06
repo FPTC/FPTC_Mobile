@@ -10,21 +10,20 @@ import java.util.List;
 
 public interface IQuestionPresenter {
 
-    List<Question> getQuestionsDB();
+    void getQuestionsDB(int current);
 
-    void loadQuestionCurrent(List<Question> questions, int randomQ);
+    void loadQuestionCurrent(int randomQ);
 
     void saveAnswerQuestionDB();
 
     void loadNextQuestion();
 
-    void finishAcivity();
-
-    int[] ramdomNumberSecuence(int num);
-
     void loadInfoSnackbar(String check);
 
-    void calculatePointsCheck(int points);
+    void calculatePointsCheck(int points, boolean value);
 
+    void getSecondAnswers();
+
+    void backLastQuestion();
 
 }

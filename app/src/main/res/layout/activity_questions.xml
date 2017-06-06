@@ -76,8 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:padding="20dp"
-                android:text="@string/yes" />
+                android:padding="20dp" />
 
             <TextView
                 android:id="@+id/mainQuestionTxtTrue"
@@ -91,8 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
-                android:padding="20dp"
-                android:text="@string/no" />
+                android:padding="20dp" />
 
             <TextView
                 android:id="@+id/mainQuestionTxtFalse"

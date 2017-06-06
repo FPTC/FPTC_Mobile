@@ -31,7 +31,7 @@ public class QuestionDao extends AbstractDao<Question, Long> {
         public final static Property Order = new Property(5, Integer.class, "order", false, "ORDER");
         public final static Property Enable = new Property(6, Boolean.class, "enable", false, "ENABLE");
         public final static Property Info = new Property(7, String.class, "info", false, "INFO");
-        public final static Property TxtSecondQuestion = new Property(8, String.class, "txtSecondQuestion", false, "TXT_SECOND_QUESTION");
+        public final static Property Answer = new Property(8, Boolean.class, "answer", false, "ANSWER");
     };
 
 
@@ -55,7 +55,7 @@ public class QuestionDao extends AbstractDao<Question, Long> {
                 "\"ORDER\" INTEGER," + // 5: order
                 "\"ENABLE\" INTEGER," + // 6: enable
                 "\"INFO\" TEXT," + // 7: info
-                "\"TXT_SECOND_QUESTION\" TEXT);"); // 8: txtSecondQuestion
+                "\"ANSWER\" INTEGER);"); // 8: answer
     }
 
     /** Drops the underlying database table. */
@@ -109,9 +109,9 @@ public class QuestionDao extends AbstractDao<Question, Long> {
             stmt.bindString(8, info);
         }
  
-        String txtSecondQuestion = entity.getTxtSecondQuestion();
-        if (txtSecondQuestion != null) {
-            stmt.bindString(9, txtSecondQuestion);
+        Boolean answer = entity.getAnswer();
+        if (answer != null) {
+            stmt.bindLong(9, answer ? 1L: 0L);
         }
     }
 
@@ -133,7 +133,7 @@ public class QuestionDao extends AbstractDao<Question, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // order
             cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // enable
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // info
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // txtSecondQuestion
+            cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0 // answer
         );
         return entity;
     }
@@ -149,7 +149,7 @@ public class QuestionDao extends AbstractDao<Question, Long> {
         entity.setOrder(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setEnable(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
         entity.setInfo(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setTxtSecondQuestion(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setAnswer(cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0);
      }
     
     /** @inheritdoc */

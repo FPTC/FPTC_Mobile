@@ -14,12 +14,20 @@ public class Constants {
 
     //cargue de preguntas
     public static final String TYPE_Q = "typeq";
-    public static final String NEXT_Q = "nextq";
-    public static final String PROGRESS_BAR = "progressbar";
-    public static String SECOND_Q = "secondq";
+    public static String SECOND_QTRUE = "secondqtrue";
+    public static String SECOND_QFALSE = "secondqfalse";
     public static final String TYPE_CANCER = "typecancer";
     public static final String QUESTION_ID = "questionid";
-    public static final String INFO_SNACKBAR = "infosnackbar";
+    public static final String INFO_TEACH = "infosnackbar";
     public static final String TOTAL_POINTS = "totalpoins";
+    public static final String CERVIX = "cervix";
+    public static final String BREAST = "breast";
+
+    //tipos pregunta
+    public static final String EVALUATIVA = "Evaluativa";
+    public static final String EDUCATIVA = "Educativa";
+    public static final String RIESGO = "Riesgo";
+    public static final String CERVIX_TURN = "cervixturn";
+    public static final String BREAST_TURN = "breastturn";
 
 }

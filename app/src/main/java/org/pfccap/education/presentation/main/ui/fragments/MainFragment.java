@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import org.pfccap.education.R;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
+import org.pfccap.education.utilities.Utilities;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,8 +54,10 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @Override
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
-        Cache.save(Constants.TYPE_CANCER, "breast");
-        if (mListener != null) {
+        Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
+        if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN))==2){
+            Utilities.snackbarMessageError(getView(), getContext().getResources().getString(R.string.end_turn));
+        }else if (mListener != null) {
             mListener.onNavigateToBreast();
         }
 
@@ -63,8 +66,10 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @Override
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
-        Cache.save(Constants.TYPE_CANCER, "cervix");
-        if (mListener != null) {
+        Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
+        if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN))==2){
+            Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
+        }else if (mListener != null) {
             mListener.onNavigateToCervical();
         }
     }

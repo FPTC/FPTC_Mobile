@@ -16,6 +16,7 @@ public class AnswersQuestion {
     private Boolean value;
     private Integer points;
     private Boolean enable;
+    private String txtSecondQuestion;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -27,7 +28,7 @@ public class AnswersQuestion {
         this.id = id;
     }
 
-    public AnswersQuestion(Long id, String idQuestion, String idAnswer, String description, Boolean value, Integer points, Boolean enable) {
+    public AnswersQuestion(Long id, String idQuestion, String idAnswer, String description, Boolean value, Integer points, Boolean enable, String txtSecondQuestion) {
         this.id = id;
         this.idQuestion = idQuestion;
         this.idAnswer = idAnswer;
@@ -35,6 +36,7 @@ public class AnswersQuestion {
         this.value = value;
         this.points = points;
         this.enable = enable;
+        this.txtSecondQuestion = txtSecondQuestion;
     }
 
     public Long getId() {
@@ -91,6 +93,14 @@ public class AnswersQuestion {
 
     public void setEnable(Boolean enable) {
         this.enable = enable;
+    }
+
+    public String getTxtSecondQuestion() {
+        return txtSecondQuestion;
+    }
+
+    public void setTxtSecondQuestion(String txtSecondQuestion) {
+        this.txtSecondQuestion = txtSecondQuestion;
     }
 
     // KEEP METHODS - put your custom methods here

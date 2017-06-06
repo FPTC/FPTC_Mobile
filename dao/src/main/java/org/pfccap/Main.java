@@ -39,7 +39,8 @@ public class Main {
         questions.addIntProperty("order");
         questions.addBooleanProperty("enable");
         questions.addStringProperty("info");
-        questions.addStringProperty("txtSecondQuestion");
+        questions.addBooleanProperty("answer");
+
 
         //crea respuestas de la pregunta
         Entity answersQuestion = schema.addEntity("AnswersQuestion");
@@ -50,6 +51,7 @@ public class Main {
         answersQuestion.addBooleanProperty("value");
         answersQuestion.addIntProperty("points");
         answersQuestion.addBooleanProperty("enable");
+        answersQuestion.addStringProperty("txtSecondQuestion");
 
 
         //crea respeustas de la pregutna anidada

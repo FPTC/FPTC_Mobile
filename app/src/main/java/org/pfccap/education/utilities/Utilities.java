@@ -125,7 +125,7 @@ public class Utilities {
                 snackbar.setAction("Siguiente", new View.OnClickListener() {
                     @Override
                     public void onClick (View view){
-                        IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context);
+                        IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context, context);
                         iQuestionPresenter.loadNextQuestion();
                     }
         });

@@ -32,7 +32,8 @@ public class LQuestionDB implements ILQuestionDB {
     public List<Question> getAll(String typeCancer) {
         try{
         return questionDao.queryBuilder()
-                .where(QuestionDao.Properties.TypeCancer.eq(typeCancer))
+                .where(QuestionDao.Properties.TypeCancer.eq(typeCancer),
+                        QuestionDao.Properties.Answer.eq(false))
                 .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -75,6 +76,37 @@ public class LQuestionDB implements ILQuestionDB {
         } catch (Exception e) {
             FirebaseCrash.report(e);
             throw e;
+        }
+    }
+
+    @Override
+    public void questionAnswer(String idQuestion) {
+        try{
+            Question question = questionDao.queryBuilder()
+                    .where(QuestionDao.Properties.Idquest.eq(idQuestion))
+                    .unique();
+
+            if (question != null){
+                question.setAnswer(true);
+                questionDao.update(question);
+            }
+        }catch (Exception e){
+            FirebaseCrash.report(e);
+        }
+    }
+
+    @Override
+    public void resetQuestion() {
+        try{
+            List<Question> questionList = questionDao.queryBuilder()
+                    .where(QuestionDao.Properties.Answer.eq(true))
+                    .list();
+            for (Question question: questionList){
+                question.setAnswer(false);
+                questionDao.update(question);
+            }
+        }catch (Exception e){
+            FirebaseCrash.report(e);
         }
     }
 

@@ -197,6 +197,8 @@ public class AuthProcess implements IAuthProcess {
         Cache.save(Constants.USER_EMAIL, email);
         Cache.save(Constants.USER_NAME, name);
         Cache.save(Constants.USER_UID, uid);
+        Cache.save(Constants.BREAST_TURN, "0");
+        Cache.save(Constants.CERVIX_TURN, "0");
 
     }
 

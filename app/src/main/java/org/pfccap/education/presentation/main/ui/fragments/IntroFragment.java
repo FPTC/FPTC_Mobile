@@ -93,7 +93,9 @@ public class IntroFragment extends Fragment implements IIntroView{
 
     @OnClick(R.id.mainIntroBtnGo)
     public void goAnswersQuestion(){
-        if (iIntroFragPresenter.IIntroFragPresenter()) {
+        if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN))==2){
+            Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
+        }else if (iIntroFragPresenter.IIntroFragPresenter()) { // se comprueba si existen preguntas de lo contrario se descargan
             if (mListener != null) {
                 mListener.onNavigationQuestion();
             }

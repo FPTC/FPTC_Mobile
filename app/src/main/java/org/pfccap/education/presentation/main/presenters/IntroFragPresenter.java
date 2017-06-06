@@ -51,7 +51,7 @@ public class IntroFragPresenter implements IIntroFragPresenter {
             if (lstQuestion!=null && lstQuestion.size()!=0){
                 return true;
             }else {
-                iIntroView.errorDBQuestion(context.getString(R.string.no_db_questions));
+                iIntroView.errorDBQuestion(context.getString(R.string.get_questions));
                 iIntroView.showProgress();
                 getQuestions();
                 return false;

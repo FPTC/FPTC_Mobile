@@ -69,7 +69,8 @@
     <string name="intro_breast">Este es el ejemplo de introducción al cáncer de seno para iniciar el cuestionario</string>
     <string name="title_question">Pregunta:</string>
     <string name="go_to_learn">Vamos a Aprender</string>
-    <string name="no_db_questions">Cargando las preguntas</string>
+    <string name="get_questions">Cargando las preguntas</string>
+    <string name="no_db_questions">No hay pregutas disponibles por favor vuelva a ingresar</string>
     <string name="question_points">PUNTOS</string>
 
     <string name="height_min_msg">La altura debe ser mayor a 1.30 metros</string>
@@ -84,7 +85,11 @@
     <string name="get_to_gift">RECLAMA TU PREMIO</string>
     <string name="title_star_have">"TIENES "</string>
     <string name="title_end_points">" PUNTOS"</string>
-
+    <string name="fail">¡Incorrecto!</string>
+    <string name="right">¡Correcto!</string>
+    <string name="total_points">"Los puntos obtenidos son %1$s"</string>
+    <string name="thanks_for_answers">Gracias por responder</string>
+    <string name="end_turn">Se agotaron tus 2 oportunidades para contestar, continua con el otro cuestionario. </string>
     <!--Para la tabla de premios -->
     <string-array name="head_table">
         <item>Puntos</item>

@@ -24,8 +24,10 @@ public interface IQuestionView {
 
     void loadNextQuestion();
 
-    void finishActivity();
+    void finishActivity(String message);
 
     void disableItemsAdapter();
+
+    void showInfoTxtSecondary();
 
 }

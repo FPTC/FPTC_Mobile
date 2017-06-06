@@ -19,4 +19,8 @@ public interface ILQuestionDB {
     List<SecondAnswer> getSecondAnswers (String idQuestion);
 
     void deleteDB();
+
+    void questionAnswer(String idQuestion);
+
+    void resetQuestion();
 }
