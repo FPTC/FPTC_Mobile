@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.DecimalMax;
@@ -244,13 +245,22 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_MAPS) {
-            String address = data.getStringExtra("address");
-            String latitude = data.getStringExtra("latitude");
-            String longitude = data.getStringExtra("longitude");
-            txtAddress.setText(address);
-            txtLatitude.setText(latitude);
-            txtLongitude.setText(longitude);
+        try {
+            if (requestCode == REQUEST_CODE_MAPS) {
+                try {
+                    String address = data.getStringExtra("address");
+                    String latitude = data.getStringExtra("latitude");
+                    String longitude = data.getStringExtra("longitude");
+                    txtAddress.setText(address);
+                    txtLatitude.setText(latitude);
+                    txtLongitude.setText(longitude);
+                }catch (Exception e){
+                    FirebaseCrash.report(e);
+                }
+
+            }
+        }catch (Exception e){
+            FirebaseCrash.report(e);
         }
     }
 

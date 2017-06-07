@@ -57,8 +57,8 @@ public class Main {
         //crea respeustas de la pregutna anidada
         Entity secondAnswer = schema.addEntity("SecondAnswer");
         secondAnswer.addIdProperty().autoincrement();
-        secondAnswer.addStringProperty("idQuestion");
         secondAnswer.addStringProperty("idAnswer");
+        secondAnswer.addStringProperty("idSecondAnswer");
         secondAnswer.addStringProperty("description");
 
 

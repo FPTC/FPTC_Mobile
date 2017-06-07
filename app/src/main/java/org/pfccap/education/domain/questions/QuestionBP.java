@@ -83,9 +83,9 @@ public class QuestionBP implements IQuestionBP {
     }
 
     @Override
-    public void save(SendAnswers answers) {
+    public void save(HashMap<String, Object> answers) {
         try{
-           // firebaseHelper.
+           firebaseHelper.getAnswersReference().updateChildren(answers);
         }catch (Exception e){
             FirebaseCrash.report(e);
         }
@@ -132,8 +132,8 @@ public class QuestionBP implements IQuestionBP {
                             SecondAnswer secondAnswerDB;
                             for (Map.Entry<String, SecondAnswers> entry2 : answersCervixSecond.entrySet()) {
                                 secondAnswerDB = new SecondAnswer();
-                                secondAnswerDB.setIdQuestion(entry.getKey());
                                 secondAnswerDB.setIdAnswer(entry1.getKey());
+                                secondAnswerDB.setIdSecondAnswer(entry2.getKey());
                                 secondAnswerDB.setDescription(entry2.getValue().getDescription());
                                 secondAnswerDao.insert(secondAnswerDB);
                             }
@@ -180,8 +180,8 @@ public class QuestionBP implements IQuestionBP {
                             SecondAnswer secondAnswerDB;
                             for (Map.Entry<String, SecondAnswers> entry2 : answersBreastSecond.entrySet()) {
                                 secondAnswerDB = new SecondAnswer();
-                                secondAnswerDB.setIdQuestion(entry.getKey());
                                 secondAnswerDB.setIdAnswer(entry1.getKey());
+                                secondAnswerDB.setIdSecondAnswer(entry2.getKey());
                                 secondAnswerDB.setDescription(entry2.getValue().getDescription());
                                 secondAnswerDao.insert(secondAnswerDB);
                             }

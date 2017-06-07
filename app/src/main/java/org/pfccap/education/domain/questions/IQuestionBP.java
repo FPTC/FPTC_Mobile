@@ -1,7 +1,8 @@
 package org.pfccap.education.domain.questions;
 
 import org.pfccap.education.entities.QuestionList;
-import org.pfccap.education.entities.SendAnswers;
+
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 
@@ -13,6 +14,6 @@ public interface IQuestionBP {
 
     Observable<QuestionList> getQuestions();
 
-    void save(SendAnswers answers);
+    void save(HashMap<String, Object> answers);
 
 }

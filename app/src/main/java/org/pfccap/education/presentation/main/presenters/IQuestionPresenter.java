@@ -15,7 +15,7 @@ public interface IQuestionPresenter {
 
     void loadQuestionCurrent(int randomQ);
 
-    void saveAnswerQuestionDB();
+    void saveAnswerQuestionDB(String typeAnswer, String idAnswer);
 
     void loadNextQuestion();
 
@@ -23,7 +23,7 @@ public interface IQuestionPresenter {
 
     void calculatePointsCheck(int points, boolean value);
 
-    void getSecondAnswers();
+    void getSecondAnswers(String idAnswer);
 
     void backLastQuestion();
 

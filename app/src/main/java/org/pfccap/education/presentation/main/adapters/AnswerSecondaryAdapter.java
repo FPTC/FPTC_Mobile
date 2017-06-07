@@ -46,6 +46,7 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         holder.labelButton.setEnabled(element.getEnable());
         holder.pointsAnswer.setText(String.valueOf(element.getPoints()));
         holder.valueAnswer.setText(String.valueOf(element.getValue()));
+        holder.answerId.setText(String.valueOf(element.getIdAnswer()));
     }
 
     @Override
@@ -84,6 +85,9 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
         @BindView(R.id.questionAnswersValue)
         TextView valueAnswer;
 
+        @BindView(R.id.questionAnswersId)
+        TextView answerId;
+
         ViewHolder(View itemView, IQuestionPresenter iQuestionPresenter) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -92,8 +96,9 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
 
         @OnClick(R.id.questionAnswersSecondaryTxt)
         void clickList() {
+            iQuestionPresenter.saveAnswerQuestionDB(Cache.getByKey(Constants.TURN_ANSWER), answerId.getText().toString());
             int points = Integer.valueOf(pointsAnswer.getText().toString());
-                       boolean value = Boolean.valueOf(valueAnswer.getText().toString());
+            boolean value = Boolean.valueOf(valueAnswer.getText().toString());
             iQuestionPresenter.calculatePointsCheck(points, value);
 
         }

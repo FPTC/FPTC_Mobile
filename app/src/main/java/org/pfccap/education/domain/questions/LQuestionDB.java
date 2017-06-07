@@ -54,10 +54,10 @@ public class LQuestionDB implements ILQuestionDB {
     }
 
     @Override
-    public List<SecondAnswer> getSecondAnswers(String idQuestion) {
+    public List<SecondAnswer> getSecondAnswers(String idAnswer) {
         try {
             return secondAnswer.queryBuilder()
-                    .where(SecondAnswerDao.Properties.IdQuestion.eq(idQuestion))
+                    .where(SecondAnswerDao.Properties.IdAnswer.eq(idAnswer))
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);

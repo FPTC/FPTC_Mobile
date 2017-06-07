@@ -71,6 +71,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     private int progressq = 0;
     private int current = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         initAdapter();
         initRecyclerView();
         initQuestion();
-
     }
 
     private void initQuestion() {
@@ -155,11 +155,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void saveAnswerQuestion() {
-
-    }
-
-    @Override
     public void loadNextQuestion() {
         current = current + 1; //se aumenta en uno la posición del array que contiene la secuencia de preguntas ramdom
         questionPresenter.loadQuestionCurrent(current);
@@ -188,7 +183,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @OnClick(R.id.mainQuestionThanks)
     public void clickFinish() {
-        questionPresenter.saveAnswerQuestionDB(); //se llama el metodo para enviar las preguntas a firebase
         Utilities.initActivity(QuestionsActivity.this, MainActivity.class);
         finish();
     }
@@ -199,67 +193,12 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         btnFalse.setEnabled(false);
         switch (button.getId()) {
             case R.id.mainQuestionBtnFalse:
-                switch (Cache.getByKey(Constants.TYPE_Q)) {
-                    case Constants.RIESGO:
-                        if (!Cache.getByKey(Constants.SECOND_QFALSE).equals("")) {
-                            questionPresenter.getSecondAnswers();
-                            txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_QFALSE));
-                            layoutButtons.setVisibility(View.GONE);
-                            recyclerViewAnswers.setVisibility(View.VISIBLE);
-
-                        } else {
-
-                            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                                txtInfo.setVisibility(View.VISIBLE);
-                                layoutButtons.setVisibility(View.GONE);
-                                recyclerViewAnswers.setVisibility(View.GONE);
-                                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
-                            }
-                            questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
-                        }
-                        break;
-                    case Constants.EDUCATIVA:
-                        if (Boolean.valueOf(valueFalse.getText().toString())) {
-                            questionPresenter.loadInfoSnackbar(getString(R.string.right));
-                        } else {
-                            questionPresenter.loadInfoSnackbar(getString(R.string.fail));
-                        }
-                        txtInfo.setVisibility(View.VISIBLE);
-                        layoutButtons.setVisibility(View.GONE);
-                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
-                        break;
-                }
+                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.SECOND_QFALSE),
+                        Cache.getByKey(Constants.ANSWER_FALSE_ID));
                 break;
             case R.id.mainQuestionBtnTrue:
-                switch (Cache.getByKey(Constants.TYPE_Q)) {
-                    case Constants.RIESGO:
-                        if (!Cache.getByKey(Constants.SECOND_QTRUE).equals("")) {
-                            questionPresenter.getSecondAnswers();
-                            txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_QTRUE));
-                            layoutButtons.setVisibility(View.GONE);
-                            recyclerViewAnswers.setVisibility(View.VISIBLE);
-
-                        } else {
-                            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                                txtInfo.setVisibility(View.VISIBLE);
-                                layoutButtons.setVisibility(View.GONE);
-                                recyclerViewAnswers.setVisibility(View.GONE);
-                                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
-                            }
-                            questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
-                        }
-                        break;
-                    case Constants.EDUCATIVA:
-                        if (Boolean.valueOf(valueTrue.getText().toString())) {
-                            questionPresenter.loadInfoSnackbar(getString(R.string.right));
-                        } else {
-                            questionPresenter.loadInfoSnackbar(getString(R.string.fail));
-                        }
-                        txtInfo.setVisibility(View.VISIBLE);
-                        layoutButtons.setVisibility(View.GONE);
-                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
-                        break;
-                }
+                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.SECOND_QTRUE),
+                        Cache.getByKey(Constants.ANSWER_TRUE_ID));
                 break;
         }
     }
@@ -268,5 +207,41 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void onBackPressed() {
         questionPresenter.backLastQuestion(); //se verifica si ya ha contestado todas las preguntas
         super.onBackPressed();
+    }
+
+    void processAnswer(String turnAnswer, String answerId, String txtSecondAnswer){
+        questionPresenter.saveAnswerQuestionDB(turnAnswer,
+                answerId);//almacena respeusta en firebase
+
+        switch (Cache.getByKey(Constants.TYPE_Q)) {
+            case Constants.RIESGO:
+                if (!Cache.getByKey(Constants.SECOND_QFALSE).equals("")) {
+                    questionPresenter.getSecondAnswers(answerId);
+                    txtPrimaryQuestion.setText(txtSecondAnswer);
+                    layoutButtons.setVisibility(View.GONE);
+                    recyclerViewAnswers.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                        txtInfo.setVisibility(View.VISIBLE);
+                        layoutButtons.setVisibility(View.GONE);
+                        recyclerViewAnswers.setVisibility(View.GONE);
+                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                    }
+                    questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
+                }
+                break;
+            case Constants.EDUCATIVA:
+                if (Boolean.valueOf(valueFalse.getText().toString())) {
+                    questionPresenter.loadInfoSnackbar(getString(R.string.right));
+                } else {
+                    questionPresenter.loadInfoSnackbar(getString(R.string.fail));
+                }
+                txtInfo.setVisibility(View.VISIBLE);
+                layoutButtons.setVisibility(View.GONE);
+                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                break;
+        }
     }
 }

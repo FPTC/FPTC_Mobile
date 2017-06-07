@@ -16,7 +16,7 @@ public interface ILQuestionDB {
 
     List<AnswersQuestion> getAnswers (String idQuestion);
 
-    List<SecondAnswer> getSecondAnswers (String idQuestion);
+    List<SecondAnswer> getSecondAnswers (String idAnswer);
 
     void deleteDB();
 

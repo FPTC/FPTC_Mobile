@@ -20,8 +20,6 @@ public interface IQuestionView {
 
     void loadAdapterRecycler(List<AnswersQuestion> lable);
 
-    void saveAnswerQuestion();
-
     void loadNextQuestion();
 
     void finishActivity(String message);

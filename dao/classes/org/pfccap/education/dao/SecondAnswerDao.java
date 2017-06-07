@@ -24,8 +24,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property IdQuestion = new Property(1, String.class, "idQuestion", false, "ID_QUESTION");
-        public final static Property IdAnswer = new Property(2, String.class, "idAnswer", false, "ID_ANSWER");
+        public final static Property IdAnswer = new Property(1, String.class, "idAnswer", false, "ID_ANSWER");
+        public final static Property IdSecondAnswer = new Property(2, String.class, "idSecondAnswer", false, "ID_SECOND_ANSWER");
         public final static Property Description = new Property(3, String.class, "description", false, "DESCRIPTION");
     };
 
@@ -43,8 +43,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SECOND_ANSWER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"ID_QUESTION\" TEXT," + // 1: idQuestion
-                "\"ID_ANSWER\" TEXT," + // 2: idAnswer
+                "\"ID_ANSWER\" TEXT," + // 1: idAnswer
+                "\"ID_SECOND_ANSWER\" TEXT," + // 2: idSecondAnswer
                 "\"DESCRIPTION\" TEXT);"); // 3: description
     }
 
@@ -64,14 +64,14 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
             stmt.bindLong(1, id);
         }
  
-        String idQuestion = entity.getIdQuestion();
-        if (idQuestion != null) {
-            stmt.bindString(2, idQuestion);
-        }
- 
         String idAnswer = entity.getIdAnswer();
         if (idAnswer != null) {
-            stmt.bindString(3, idAnswer);
+            stmt.bindString(2, idAnswer);
+        }
+ 
+        String idSecondAnswer = entity.getIdSecondAnswer();
+        if (idSecondAnswer != null) {
+            stmt.bindString(3, idSecondAnswer);
         }
  
         String description = entity.getDescription();
@@ -91,8 +91,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
     public SecondAnswer readEntity(Cursor cursor, int offset) {
         SecondAnswer entity = new SecondAnswer( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // idQuestion
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // idAnswer
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // idAnswer
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // idSecondAnswer
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // description
         );
         return entity;
@@ -102,8 +102,8 @@ public class SecondAnswerDao extends AbstractDao<SecondAnswer, Long> {
     @Override
     public void readEntity(Cursor cursor, SecondAnswer entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setIdQuestion(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setIdAnswer(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setIdAnswer(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setIdSecondAnswer(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setDescription(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     

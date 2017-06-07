@@ -1,7 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -13,14 +12,15 @@ import org.pfccap.education.domain.questions.ILQuestionDB;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.LQuestionDB;
 import org.pfccap.education.domain.questions.QuestionBP;
-import org.pfccap.education.entities.SendAnswers;
 import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
-import org.pfccap.education.presentation.main.ui.activities.QuestionsActivity;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -81,9 +81,10 @@ public class QuestionPresenter implements IQuestionPresenter {
     }
 
     @Override
-    public void saveAnswerQuestionDB() {
-        SendAnswers answers = new SendAnswers();
-        //TODO mapear los datos según como están en la base de datos firebase
+    public void saveAnswerQuestionDB(String typeAnswer, String idAnswer) {
+        HashMap<String, Object> answers = new HashMap<>();
+        answers.put(Cache.getByKey(Constants.TYPE_CANCER)+"/"+ Cache.getByKey(Constants.QUESTION_ID)
+                +"/"+Cache.getByKey(Constants.USER_UID)+"/"+typeAnswer, idAnswer);
         questionBP.save(answers);
 
     }
@@ -158,9 +159,11 @@ public class QuestionPresenter implements IQuestionPresenter {
     }
 
     @Override
-    public void getSecondAnswers() {
+    public void getSecondAnswers(String idAnswer) {
+        //se carga el valor del tipo de respuesta para almacenar en firebase con el valor aninada + el turno de la respeusta de cuestionario
+        setTypeAnswer(context.getString(R.string.nested_label));
         //cargo las respuestas de la pregunta aninada, se debe cambiar de tipo de lista por la clase que recibe el adaptador
-        List<SecondAnswer> secondAnswerList = ilQuestionDB.getSecondAnswers(Cache.getByKey(Constants.QUESTION_ID));
+        List<SecondAnswer> secondAnswerList = ilQuestionDB.getSecondAnswers(idAnswer);
         List<AnswersQuestion> answersQuestionList = new ArrayList<>();
         AnswersQuestion answersQuestion;
         if (secondAnswerList.size() > 0) {
@@ -169,6 +172,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                 answersQuestion.setDescription(secondAnswer.getDescription());
                 answersQuestion.setPoints(0);
                 answersQuestion.setValue(false);
+                answersQuestion.setIdAnswer(secondAnswer.getIdAnswer());
                 answersQuestionList.add(answersQuestion);
             }
             questionView.loadAdapterRecycler(answersQuestionList);
@@ -180,8 +184,18 @@ public class QuestionPresenter implements IQuestionPresenter {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
        if (lstQuestion != null && lstQuestion.size() == 0) {
            //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
-           int turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
-           Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+           int turn;
+           switch (Cache.getByKey(Constants.TYPE_CANCER)){
+               case Constants.CERVIX:
+                   turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
+                   Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+                   break;
+               case Constants.BREAST:
+                   turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
+                   Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+                   break;
+           }
+
            ilQuestionDB.resetQuestion();
        }
     }
@@ -195,6 +209,7 @@ public class QuestionPresenter implements IQuestionPresenter {
             Cache.save(Constants.QUESTION_ID, currentQ.getIdquest());
             questionView.setPrimaryQuestion(currentQ.getTxtQuestion());
             questionView.setProgressBar(100 / lstQuestion.size());
+            setTypeAnswer(context.getString(R.string.answer_label));// set de key que contiene el id de la respeusta al contestar
             switch (currentQ.getTypeQuestion()) {
                 case Constants.EVALUATIVA:
                     //re carga las respuestas de la pregunta en el adaptador
@@ -207,6 +222,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                         if (answersQuestion.getValue()) {
                             lableTrue = answersQuestion.getDescription();
                             valueTrue = String.valueOf(answersQuestion.getValue());
+                            Cache.save(Constants.ANSWER_TRUE_ID, answersQuestion.getIdAnswer());
                             if (answersQuestion.getTxtSecondQuestion() != null &&
                                     !answersQuestion.getTxtSecondQuestion().equals("")) {
                                 //se guarda en cache la preguna aninada para mostrala cuando se necesite
@@ -218,6 +234,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                         if (!answersQuestion.getValue()) {
                             lableFalse = answersQuestion.getDescription();
                             valueFalse = String.valueOf(answersQuestion.getValue());
+                            Cache.save(Constants.ANSWER_FALSE_ID, answersQuestion.getIdAnswer());
                             if (answersQuestion.getTxtSecondQuestion() != null &&
                                     !answersQuestion.getTxtSecondQuestion().equals("")) {
                                 //se guarda en cache la preguna aninada para mostrala cuando se necesite
@@ -246,6 +263,19 @@ public class QuestionPresenter implements IQuestionPresenter {
             }
         } catch (Exception e) {
             FirebaseCrash.report(e);
+        }
+    }
+
+    void setTypeAnswer(String labelAnswer){
+        //se inicializa el valor entero para agregar al tipo de respuesta que va a guardar en firbase, 0 primera vez, 1 segunda vez
+        //se usa el turno de tipo de pregunta ya que este lleva la cuenta de cuantas veces se ha contestado
+        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+            case Constants.CERVIX:
+                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.CERVIX_TURN));
+                break;
+            case Constants.BREAST:
+                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.BREAST_TURN));
+                break;
         }
     }
 }

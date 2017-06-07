@@ -95,4 +95,8 @@
         <item>Puntos</item>
         <item>Premios</item>
     </string-array>
+
+    <!--las keys para almacenar los valores de las respuestas en firebase -->
+    <string name="answer_label">Respuesta</string>
+    <string name="nested_label">Anidada</string>
 </resources>

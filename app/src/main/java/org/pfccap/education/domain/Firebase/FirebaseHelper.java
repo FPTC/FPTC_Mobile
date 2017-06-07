@@ -16,7 +16,7 @@ public class FirebaseHelper {
     private final static String USERS_PATH = "usuarios";
     private final static String CONTACTS_PATH = "contactos";
     private final static String QUESTIONS_PATH = "preguntas";
-    private final static String ANSWERS_PATH = "respuestas";
+    private final static String ANSWERS_PATH = "respuestasTest";
     private final static String QUESTIONS_TYPE_PATH = "tipoPreguntas";
 
     private static class SingletonHolder {

@@ -43,6 +43,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.utilities.Utilities;
@@ -163,9 +164,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.utilitiesMapBtnBack)
     public void clickGetAddress() {
         Intent intent = new Intent();
-        intent.putExtra("address", Address);
-        intent.putExtra("latitude", String.valueOf(lat));
-        intent.putExtra("longitude", String.valueOf(lng));
+        try{
+            intent.putExtra("address", Address);
+            intent.putExtra("latitude", String.valueOf(lat));
+            intent.putExtra("longitude", String.valueOf(lng));
+        }catch (Exception e){
+            FirebaseCrash.report(e);
+        }
         setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
         finish();
     }
