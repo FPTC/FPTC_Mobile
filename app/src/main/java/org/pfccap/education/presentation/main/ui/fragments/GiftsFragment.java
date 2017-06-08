@@ -60,7 +60,7 @@ public class GiftsFragment extends Fragment {
         int r = 0;
         for (int i = 0; i < 3; i++){
             r = r + 5000;
-            ArrayList<String> elements = new ArrayList<String>();
+            ArrayList<String> elements = new ArrayList<>();
             elements.add(Integer.toString(i));
             elements.add("Recarga $" + r );
             table.addRowTable(elements);

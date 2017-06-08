@@ -64,8 +64,8 @@
     </style>
 
     <style name="BtnMain" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:textSize">24sp</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">5dp</item>
         <item name="android:layout_margin">0dp</item>
         <item name="android:layout_gravity">center</item>
     </style>

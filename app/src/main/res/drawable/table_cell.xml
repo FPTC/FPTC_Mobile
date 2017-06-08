@@ -9,7 +9,7 @@
         android:color="@android:color/white"/>
     <padding
         android:left="10dp"
-        android:top="13dp"
+        android:top="10dp"
         android:right="10dp"
-        android:bottom="13dp" />
+        android:bottom="10dp" />
 </shape>

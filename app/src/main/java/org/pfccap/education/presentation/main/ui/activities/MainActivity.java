@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 return true;
                             case R.id.item_drawer_gifts:
                                 menuItem.setChecked(true);
+                                Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                         }

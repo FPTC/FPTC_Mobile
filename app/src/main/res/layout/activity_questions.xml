@@ -17,22 +17,46 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="1">
 
-
-        <ProgressBar
-            android:id="@+id/progressBarQ"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.02"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/progressbar_states" />
+            android:layout_weight="0.05">
 
+            <ProgressBar
+                android:id="@+id/progressBarQ"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/mainQuestionTxtPoints"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progressbar_states" />
+
+            <TextView
+                android:id="@+id/mainQuestionTxtPoints"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="-12dp"
+                android:background="@drawable/rounded_text_circle"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/colorBlueLigth" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/question_points"
+                android:textColor="@color/colorBlueLigth" />
 
             <TextView
                 android:layout_width="match_parent"

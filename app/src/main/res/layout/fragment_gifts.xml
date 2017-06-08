@@ -56,8 +56,8 @@
             android:background="@color/colorBlueLigth"
             android:text="@string/get_to_gift"
             style="@style/BtnMain"
-            android:paddingStart="30dp"
-            android:drawableStart="@mipmap/ic_gift_white_intro"/>
+            android:paddingStart="10dp"
+            android:drawableStart="@drawable/ic_gift_white_36dp"/>
     </LinearLayout>
 
 </FrameLayout>

@@ -62,6 +62,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.mainQuestionTxtInfo)
     TextView txtInfo;
 
+    @BindView(R.id.mainQuestionTxtPoints)
+    TextView txtPoints;
+
     private AnswerSecondaryAdapter adapter;
     private IQuestionPresenter questionPresenter;
 
@@ -86,6 +89,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     private void initQuestion() {
         try {
+            txtPoints.setText("0");
             questionPresenter.getQuestionsDB(current);
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -131,6 +135,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setProgressBar(int progress) {
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
+        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINTS));
     }
 
     @Override
@@ -193,12 +198,12 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         btnFalse.setEnabled(false);
         switch (button.getId()) {
             case R.id.mainQuestionBtnFalse:
-                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.SECOND_QFALSE),
-                        Cache.getByKey(Constants.ANSWER_FALSE_ID));
+                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_FALSE_ID),
+                        Cache.getByKey(Constants.SECOND_QFALSE));
                 break;
             case R.id.mainQuestionBtnTrue:
-                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.SECOND_QTRUE),
-                        Cache.getByKey(Constants.ANSWER_TRUE_ID));
+                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_TRUE_ID),
+                        Cache.getByKey(Constants.SECOND_QTRUE));
                 break;
         }
     }
@@ -215,7 +220,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.RIESGO:
-                if (!Cache.getByKey(Constants.SECOND_QFALSE).equals("")) {
+                if (!txtSecondAnswer.equals("")) {
                     questionPresenter.getSecondAnswers(answerId);
                     txtPrimaryQuestion.setText(txtSecondAnswer);
                     layoutButtons.setVisibility(View.GONE);

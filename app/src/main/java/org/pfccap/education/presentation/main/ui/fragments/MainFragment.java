@@ -67,7 +67,7 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
-        if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN))==2){
+        if (Cache.getByKey(Constants.CERVIX_TURN).equals("2")){
             Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
         }else if (mListener != null) {
             mListener.onNavigateToCervical();
