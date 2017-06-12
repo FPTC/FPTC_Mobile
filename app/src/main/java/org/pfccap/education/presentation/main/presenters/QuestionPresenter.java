@@ -19,8 +19,6 @@ import org.pfccap.education.utilities.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -37,7 +35,7 @@ public class QuestionPresenter implements IQuestionPresenter {
     private String valueTrue = "";
     private String valueFalse = "";
     private List<Question> lstQuestion;
-    private int[] ramdomNumberSecuence;
+    private int[] randomNumberSecuence;
     private Context context;
 
     public QuestionPresenter(IQuestionView questionView, Context context) {
@@ -50,9 +48,10 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void getQuestionsDB(int current) {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
-        ramdomNumberSecuence = ramdomNumberSecuence(lstQuestion.size());
-        if (lstQuestion != null && ramdomNumberSecuence != null && lstQuestion.size() != 0
-                && ramdomNumberSecuence.length != 0) {
+        randomNumberSecuence = randomNumberSecuence(lstQuestion.size());
+
+        if (lstQuestion != null && randomNumberSecuence != null && lstQuestion.size() != 0
+                && randomNumberSecuence.length != 0) {
             loadQuestionCurrent(current);
         } else {
             questionView.finishActivity(context.getResources().getString(R.string.no_db_questions));
@@ -83,8 +82,8 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void saveAnswerQuestionDB(String typeAnswer, String idAnswer) {
         HashMap<String, Object> answers = new HashMap<>();
-        answers.put(Cache.getByKey(Constants.TYPE_CANCER)+"/"+ Cache.getByKey(Constants.QUESTION_ID)
-                +"/"+Cache.getByKey(Constants.USER_UID)+"/"+typeAnswer, idAnswer);
+        answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
+                + "/" + Cache.getByKey(Constants.USER_UID) + "/" + typeAnswer, idAnswer);
         questionBP.save(answers);
 
     }
@@ -92,30 +91,6 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void loadNextQuestion() {
         questionView.loadNextQuestion();
-    }
-
-
-    public int[] ramdomNumberSecuence(int num) {
-
-        try {
-            //num es el total de preguntas que hay en la lista obtenida en la base de datos
-            int[] numerosAleatorios = new int[num];
-            for (int i = 0; i < num; i++) {
-                numerosAleatorios[i] = i;
-            }
-            //desordenando los elementos
-            Random r = new Random();
-            for (int i = numerosAleatorios.length; i > 0; i--) {
-                int posicion = r.nextInt(i);
-                int tmp = numerosAleatorios[i - 1];
-                numerosAleatorios[i - 1] = numerosAleatorios[posicion];
-                numerosAleatorios[posicion] = tmp;
-            }
-            return numerosAleatorios;
-        } catch (Exception e) {
-            FirebaseCrash.report(e);
-            return null;
-        }
     }
 
     @Override
@@ -135,6 +110,7 @@ public class QuestionPresenter implements IQuestionPresenter {
             } else {
                 totalPoinst = Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
             }
+            
             totalPoinst = totalPoinst + points;
             Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
 
@@ -182,28 +158,28 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void backLastQuestion() {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
-       if (lstQuestion != null && lstQuestion.size() == 0) {
-           //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
-           int turn;
-           switch (Cache.getByKey(Constants.TYPE_CANCER)){
-               case Constants.CERVIX:
-                   turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
-                   Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
-                   break;
-               case Constants.BREAST:
-                   turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
-                   Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
-                   break;
-           }
+        if (lstQuestion != null && lstQuestion.size() == 0) {
+            //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
+            int turn;
+            switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+                case Constants.CERVIX:
+                    turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
+                    Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+                    break;
+                case Constants.BREAST:
+                    turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
+                    Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+                    break;
+            }
 
-           ilQuestionDB.resetQuestion();
-       }
+            ilQuestionDB.resetQuestion();
+        }
     }
 
 
     private void setNextQuestion(int current) {
         try {
-            int randomQ = ramdomNumberSecuence[current];
+            int randomQ = randomNumberSecuence[current];
             Question currentQ = lstQuestion.get(randomQ);
             Cache.save(Constants.TYPE_Q, currentQ.getTypeQuestion());
             Cache.save(Constants.QUESTION_ID, currentQ.getIdquest());
@@ -266,16 +242,39 @@ public class QuestionPresenter implements IQuestionPresenter {
         }
     }
 
-    void setTypeAnswer(String labelAnswer){
+    private void setTypeAnswer(String labelAnswer) {
         //se inicializa el valor entero para agregar al tipo de respuesta que va a guardar en firbase, 0 primera vez, 1 segunda vez
         //se usa el turno de tipo de pregunta ya que este lleva la cuenta de cuantas veces se ha contestado
-        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
             case Constants.CERVIX:
-                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.CERVIX_TURN));
+                Cache.save(Constants.TURN_ANSWER, labelAnswer + Cache.getByKey(Constants.CERVIX_TURN));
                 break;
             case Constants.BREAST:
-                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.BREAST_TURN));
+                Cache.save(Constants.TURN_ANSWER, labelAnswer + Cache.getByKey(Constants.BREAST_TURN));
                 break;
+        }
+    }
+
+    private int[] randomNumberSecuence(int num) {
+
+        try {
+            //num es el total de preguntas que hay en la lista obtenida en la base de datos
+            int[] numerosAleatorios = new int[num];
+            for (int i = 0; i < num; i++) {
+                numerosAleatorios[i] = i;
+            }
+            //desordenando los elementos
+            Random r = new Random();
+            for (int i = numerosAleatorios.length; i > 0; i--) {
+                int posicion = r.nextInt(i);
+                int tmp = numerosAleatorios[i - 1];
+                numerosAleatorios[i - 1] = numerosAleatorios[posicion];
+                numerosAleatorios[posicion] = tmp;
+            }
+            return numerosAleatorios;
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            return null;
         }
     }
 }
