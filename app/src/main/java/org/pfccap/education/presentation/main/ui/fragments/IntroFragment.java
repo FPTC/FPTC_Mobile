@@ -1,10 +1,8 @@
 package org.pfccap.education.presentation.main.ui.fragments;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +27,7 @@ import butterknife.OnClick;
  * Created by USUARIO on 08/05/2017.
  */
 
-public class IntroFragment extends Fragment implements IIntroView{
+public class IntroFragment extends Fragment implements IIntroView {
 
     private OnIntroFragInteractionListener mListener;
 
@@ -45,14 +43,14 @@ public class IntroFragment extends Fragment implements IIntroView{
     @BindView(R.id.progressBarF)
     ProgressBar progressBar;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
+    private static final String TEXT = "text";
+    private static final String IMAGE = "image";
+    private static final String BACK_COLOR = "param3";
     private IIntroFragPresenter iIntroFragPresenter;
 
-    private String mParam1;
-    private int mParam2;
-    private int mParam3;
+    private String text;
+    private int image;
+    private int backcolor;
 
     public IntroFragment() {
         // Required empty public constructor
@@ -61,9 +59,9 @@ public class IntroFragment extends Fragment implements IIntroView{
     public static IntroFragment newInstance(String param1, int param2, int param3) {
         IntroFragment fragment = new IntroFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
-        args.putInt(ARG_PARAM3, param3);
+        args.putString(TEXT, param1);
+        args.putInt(IMAGE, param2);
+        args.putInt(BACK_COLOR, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,9 +70,9 @@ public class IntroFragment extends Fragment implements IIntroView{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getInt(ARG_PARAM2);
-            mParam3 = getArguments().getInt(ARG_PARAM3);
+            text = getArguments().getString(TEXT);
+            image = getArguments().getInt(IMAGE);
+            backcolor = getArguments().getInt(BACK_COLOR);
         }
     }
 
@@ -84,9 +82,9 @@ public class IntroFragment extends Fragment implements IIntroView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_intro, container, false);
         ButterKnife.bind(this, view);
-        textIntro.setText(mParam1);
-        introImage.setImageResource(mParam2);
-        btnGoAnswerQuestion.setBackgroundColor(ContextCompat.getColor(getContext(), mParam3));
+        textIntro.setText(text);
+        introImage.setImageResource(image);
+        btnGoAnswerQuestion.setBackgroundColor(ContextCompat.getColor(getContext(), backcolor));
         iIntroFragPresenter = new IntroFragPresenter(this, getContext());
         return view;
     }

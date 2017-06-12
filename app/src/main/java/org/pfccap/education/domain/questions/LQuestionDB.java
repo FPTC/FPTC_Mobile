@@ -21,6 +21,7 @@ public class LQuestionDB implements ILQuestionDB {
     private QuestionDao questionDao;
     private AnswersQuestionDao answersQuestionDao;
     private SecondAnswerDao secondAnswer;
+    private int[] ramdomNumberSecuence;
 
     public LQuestionDB() {
         questionDao = AppDao.getQuestionDao();
@@ -30,11 +31,11 @@ public class LQuestionDB implements ILQuestionDB {
 
     @Override
     public List<Question> getAll(String typeCancer) {
-        try{
-        return questionDao.queryBuilder()
-                .where(QuestionDao.Properties.TypeCancer.eq(typeCancer),
-                        QuestionDao.Properties.Answer.eq(false))
-                .list();
+        try {
+            return questionDao.queryBuilder()
+                    .where(QuestionDao.Properties.TypeCancer.eq(typeCancer),
+                            QuestionDao.Properties.Answer.eq(false))
+                    .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
             return null;
@@ -81,34 +82,33 @@ public class LQuestionDB implements ILQuestionDB {
 
     @Override
     public void questionAnswer(String idQuestion) {
-        try{
+        try {
             Question question = questionDao.queryBuilder()
                     .where(QuestionDao.Properties.Idquest.eq(idQuestion))
                     .unique();
 
-            if (question != null){
+            if (question != null) {
                 question.setAnswer(true);
                 questionDao.update(question);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
     }
 
     @Override
     public void resetQuestion() {
-        try{
+        try {
             List<Question> questionList = questionDao.queryBuilder()
                     .where(QuestionDao.Properties.Answer.eq(true))
                     .list();
-            for (Question question: questionList){
+            for (Question question : questionList) {
                 question.setAnswer(false);
                 questionDao.update(question);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
     }
-
 
 }

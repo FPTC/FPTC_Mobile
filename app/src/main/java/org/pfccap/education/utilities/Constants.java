@@ -40,4 +40,8 @@ public class Constants {
     //almacenmiento de respuestas
     public static final String TURN_ANSWER = "turnanswer";
 
+    //configuracion
+    public static String LAPSE_BREAST = "lapsebreast";
+    public static String LAPSE_CERVIX = "laspsecervix";
+
 }
