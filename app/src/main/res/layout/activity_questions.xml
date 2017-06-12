@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="40dp"
+            android:padding="40dp"
             android:textColor="@color/colorPrimaryText"
             android:textSize="22sp" />
     </RelativeLayout>

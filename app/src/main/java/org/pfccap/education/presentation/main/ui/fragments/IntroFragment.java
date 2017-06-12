@@ -93,9 +93,32 @@ public class IntroFragment extends Fragment implements IIntroView{
 
     @OnClick(R.id.mainIntroBtnGo)
     public void goAnswersQuestion(){
-        if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN))==2){
-            Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
-        }else if (iIntroFragPresenter.IIntroFragPresenter()) { // se comprueba si existen preguntas de lo contrario se descargan
+        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+            case Constants.CERVIX: //TODO validar si puede contestar por segunda o más veces
+                if (Cache.getByKey(Constants.CERVIX_TURN).equals("2")){
+                    showTurnError();
+                }else{
+                    load();
+                }
+
+                break;
+            case Constants.BREAST:
+                if (Cache.getByKey(Constants.BREAST_TURN).equals("2")){
+                    showTurnError();
+                }else {
+                    load();
+                }
+
+                break;
+        }
+    }
+
+    private void showTurnError(){
+        Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
+    }
+
+    private void load(){
+        if (iIntroFragPresenter.IIntroFragPresenter()) { // se comprueba si existen preguntas de lo contrario se descargan
             if (mListener != null) {
                 mListener.onNavigationQuestion();
             }

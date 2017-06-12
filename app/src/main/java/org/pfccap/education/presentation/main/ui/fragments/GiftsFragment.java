@@ -45,10 +45,14 @@ public class GiftsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gifts, container, false);
         ButterKnife.bind(this, view);
-        if (Cache.getByKey(Constants.TOTAL_POINTS).equals(""))
-            Cache.save(Constants.TOTAL_POINTS, "0");
+        int totalpoint;
+        if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("") && Cache.getByKey(Constants.TOTAL_POINTS_C).equals("")) {
+            totalpoint = 0;
+        }else{
+            totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
+        }
 
-        totalPoints.setText(getString(R.string.title_star_have) + Cache.getByKey(Constants.TOTAL_POINTS) + getString(R.string.title_end_points));
+        totalPoints.setText(getString(R.string.title_star_have) + totalpoint + getString(R.string.title_end_points));
         initTable();
         return view;
     }

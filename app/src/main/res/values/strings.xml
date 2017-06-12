@@ -87,7 +87,8 @@
     <string name="title_end_points">" PUNTOS"</string>
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
-    <string name="total_points">"Los puntos obtenidos son %1$s"</string>
+    <string name="total_points_equal">"Has obtenido menos puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. Pero no te preocupes conservarás el puntajes más alto."</string>
+    <string name="total_points_up">"Has obtenido más puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos."</string>
     <string name="thanks_for_answers">Gracias por responder</string>
     <string name="end_turn">Se agotaron tus 2 oportunidades para contestar, continua con el otro cuestionario. </string>
     <!--Para la tabla de premios -->

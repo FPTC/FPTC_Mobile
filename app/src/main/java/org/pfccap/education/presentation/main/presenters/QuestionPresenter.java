@@ -61,30 +61,55 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void loadQuestionCurrent(int current) {
+        String message = "";
+
         if (current == lstQuestion.size()) {
+            ilQuestionDB.resetQuestion();
             switch (Cache.getByKey(Constants.TYPE_CANCER)) {
                 case Constants.CERVIX:
+                    //TODO ultima pregunta, aqui hay que hacer la verificación con la configuración de firebase para sumar los turnos
                     int turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
                     Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))){
+                        message = context.getResources().getString(R.string.total_points_up,
+                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
+                        Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
+                    }else{
+                        message = context.getResources().getString(R.string.total_points_equal,
+                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
+                    }
+
                     break;
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
                     Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+
+                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))){
+                        message = context.getResources().getString(R.string.total_points_up,
+                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
+                        Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                    }else{
+                        message = context.getResources().getString(R.string.total_points_equal,
+                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
+                    }
+
                     break;
             }
-            ilQuestionDB.resetQuestion();
-            questionView.finishActivity(context.getResources().getString(R.string.total_points,
-                    Cache.getByKey(Constants.TOTAL_POINTS)));
+            setPoints(message);
         } else {
             setNextQuestion(current);
         }
     }
 
+    private void setPoints(String message){
+        questionView.finishActivity(message);
+    }
+
     @Override
     public void saveAnswerQuestionDB(String typeAnswer, String idAnswer) {
         HashMap<String, Object> answers = new HashMap<>();
-        answers.put(Cache.getByKey(Constants.TYPE_CANCER)+"/"+ Cache.getByKey(Constants.QUESTION_ID)
-                +"/"+Cache.getByKey(Constants.USER_UID)+"/"+typeAnswer, idAnswer);
+        answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
+                + "/" + Cache.getByKey(Constants.USER_UID) + "/" + typeAnswer, idAnswer);
         questionBP.save(answers);
 
     }
@@ -129,14 +154,15 @@ public class QuestionPresenter implements IQuestionPresenter {
     public void calculatePointsCheck(int points, boolean value) {
 
         try {
-            int totalPoinst;
-            if (Cache.getByKey(Constants.TOTAL_POINTS).equals("")) {
-                totalPoinst = 0;
-            } else {
-                totalPoinst = Integer.parseInt(Cache.getByKey(Constants.TOTAL_POINTS));
+
+            switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+                case Constants.CERVIX:
+                    sumPoints(Constants.CURRENT_POINTS_C, points);
+                    break;
+                case Constants.BREAST:
+                    sumPoints(Constants.CURRENT_POINTS_B, points);
+                    break;
             }
-            totalPoinst = totalPoinst + points;
-            Cache.save(Constants.TOTAL_POINTS, String.valueOf(totalPoinst));
 
             String check;
 
@@ -146,16 +172,29 @@ public class QuestionPresenter implements IQuestionPresenter {
                 check = context.getResources().getString(R.string.fail);
             } else {
                 check = context.getResources().getString(R.string.thanks_for_answers);
-                if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                    questionView.showInfoTxtSecondary();
-                }
             }
+
+            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                questionView.showInfoTxtSecondary();
+            }
+
             questionView.disableItemsAdapter();
             loadInfoSnackbar(check);
         } catch (Exception e) {
             FirebaseCrash.report(e);
             System.out.println("error " + e.getMessage());
         }
+    }
+
+    private void sumPoints(String constant, int points) {
+        int totalPoinst;
+        if (Cache.getByKey(constant).equals("")) {
+            totalPoinst = 0;
+        } else {
+            totalPoinst = Integer.parseInt(Cache.getByKey(constant));
+        }
+        totalPoinst = totalPoinst + points;
+        Cache.save(constant, String.valueOf(totalPoinst));
     }
 
     @Override
@@ -182,22 +221,22 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void backLastQuestion() {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
-       if (lstQuestion != null && lstQuestion.size() == 0) {
-           //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
-           int turn;
-           switch (Cache.getByKey(Constants.TYPE_CANCER)){
-               case Constants.CERVIX:
-                   turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
-                   Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
-                   break;
-               case Constants.BREAST:
-                   turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
-                   Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
-                   break;
-           }
+        if (lstQuestion != null && lstQuestion.size() == 0) {
+            //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
+            int turn;
+            switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+                case Constants.CERVIX:
+                    turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
+                    Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+                    break;
+                case Constants.BREAST:
+                    turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
+                    Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+                    break;
+            }
 
-           ilQuestionDB.resetQuestion();
-       }
+            ilQuestionDB.resetQuestion();
+        }
     }
 
 
@@ -213,6 +252,7 @@ public class QuestionPresenter implements IQuestionPresenter {
             switch (currentQ.getTypeQuestion()) {
                 case Constants.EVALUATIVA:
                     //re carga las respuestas de la pregunta en el adaptador
+                    Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
                     questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
                     break;
                 case Constants.RIESGO:
@@ -266,15 +306,15 @@ public class QuestionPresenter implements IQuestionPresenter {
         }
     }
 
-    void setTypeAnswer(String labelAnswer){
+    void setTypeAnswer(String labelAnswer) {
         //se inicializa el valor entero para agregar al tipo de respuesta que va a guardar en firbase, 0 primera vez, 1 segunda vez
         //se usa el turno de tipo de pregunta ya que este lleva la cuenta de cuantas veces se ha contestado
-        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
             case Constants.CERVIX:
-                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.CERVIX_TURN));
+                Cache.save(Constants.TURN_ANSWER, labelAnswer + Cache.getByKey(Constants.CERVIX_TURN));
                 break;
             case Constants.BREAST:
-                Cache.save(Constants.TURN_ANSWER, labelAnswer+Cache.getByKey(Constants.BREAST_TURN));
+                Cache.save(Constants.TURN_ANSWER, labelAnswer + Cache.getByKey(Constants.BREAST_TURN));
                 break;
         }
     }

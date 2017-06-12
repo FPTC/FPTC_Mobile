@@ -32,8 +32,10 @@ public class Constants {
     public static final String BREAST_TURN = "breastturn";
 
     //puntos
-    public static final String TOTAL_POINTS = "totalpoints";
-    public static final String CURRENT_POINTS = "currentpoints";
+    public static final String TOTAL_POINTS_C = "totalpoints";
+    public static final String TOTAL_POINTS_B = "totalpoints";
+    public static final String CURRENT_POINTS_C = "currentpointsc";
+    public static final String CURRENT_POINTS_B = "currentpointsb";
 
     //almacenmiento de respuestas
     public static final String TURN_ANSWER = "turnanswer";

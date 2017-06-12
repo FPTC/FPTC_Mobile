@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.crash.FirebaseCrash;
@@ -89,7 +90,16 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     private void initQuestion() {
         try {
-            txtPoints.setText("0");
+            if (Cache.getByKey(Constants.CURRENT_POINTS_C).equals("") || Cache.getByKey(Constants.TOTAL_POINTS_C).equals("")) {
+                Cache.save(Constants.CURRENT_POINTS_C, "0");
+                Cache.save(Constants.TOTAL_POINTS_C, "0"); //se guarda las variables con cero al iniciar la app para evitar errores en validaciones
+            }
+
+            if (Cache.getByKey(Constants.CURRENT_POINTS_B).equals("") || Cache.getByKey(Constants.TOTAL_POINTS_B).equals("")) {
+                Cache.save(Constants.CURRENT_POINTS_B, "0");
+                Cache.save(Constants.TOTAL_POINTS_B, "0");
+            }
+
             questionPresenter.getQuestionsDB(current);
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -135,7 +145,15 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void setProgressBar(int progress) {
         progressq = progressq + progress;
         progressBar.setProgress(progressq);
-        txtPoints.setText(Cache.getByKey(Constants.TOTAL_POINTS));
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+            case Constants.CERVIX:
+                txtPoints.setText(Cache.getByKey(Constants.CURRENT_POINTS_C)); //se setea los puntos en el circulo del progressbar
+                break;
+            case Constants.BREAST:
+                txtPoints.setText(Cache.getByKey(Constants.CURRENT_POINTS_B));
+                break;
+        }
+
     }
 
     @Override
@@ -170,6 +188,14 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     public void finishActivity(String message) {
         txtPointsThk.setText(message);
         lytThanks.setVisibility(View.VISIBLE);
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+            case Constants.CERVIX:
+                Cache.save(Constants.CURRENT_POINTS_C, "0");
+                break;
+            case Constants.BREAST:
+                Cache.save(Constants.CURRENT_POINTS_B, "0"); //se reinicia los puntos al finalizar la encuesta
+                break;
+        }
     }
 
     @Override
@@ -182,7 +208,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         txtInfo.setVisibility(View.VISIBLE);
         layoutButtons.setVisibility(View.GONE);
         recyclerViewAnswers.setVisibility(View.GONE);
-        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH)); //esto es los mensajes complementarios que se muestran en algunas preguntas
     }
 
 
@@ -199,11 +225,11 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         switch (button.getId()) {
             case R.id.mainQuestionBtnFalse:
                 processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_FALSE_ID),
-                        Cache.getByKey(Constants.SECOND_QFALSE));
+                        Cache.getByKey(Constants.SECOND_QFALSE), Boolean.valueOf(valueFalse.getText().toString()));
                 break;
             case R.id.mainQuestionBtnTrue:
                 processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_TRUE_ID),
-                        Cache.getByKey(Constants.SECOND_QTRUE));
+                        Cache.getByKey(Constants.SECOND_QTRUE), Boolean.valueOf(valueTrue.getText().toString()));
                 break;
         }
     }
@@ -214,9 +240,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         super.onBackPressed();
     }
 
-    void processAnswer(String turnAnswer, String answerId, String txtSecondAnswer){
+    void processAnswer(String turnAnswer, String answerId, String txtSecondAnswer, boolean value) {
         questionPresenter.saveAnswerQuestionDB(turnAnswer,
-                answerId);//almacena respeusta en firebase
+                answerId);//TODO: almacena respeusta en firebase, falta agregar el UID de usuario
 
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.RIESGO:
@@ -238,7 +264,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 }
                 break;
             case Constants.EDUCATIVA:
-                if (Boolean.valueOf(valueFalse.getText().toString())) {
+                if (value) {
                     questionPresenter.loadInfoSnackbar(getString(R.string.right));
                 } else {
                     questionPresenter.loadInfoSnackbar(getString(R.string.fail));
