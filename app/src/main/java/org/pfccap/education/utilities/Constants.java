@@ -30,6 +30,9 @@ public class Constants {
     public static final String RIESGO = "Riesgo";
     public static final String CERVIX_TURN = "cervixturn";
     public static final String BREAST_TURN = "breastturn";
+    public static final String DATE_COMPLETED_BREAST = "dateCompletedBreast";
+    public static final String DATE_COMPLETED_CERVIX = "dateCompletedCervix";
+    public static final String PROFILE_COMPLETED = "profileCompleted";
 
     //puntos
     public static final String TOTAL_POINTS_C = "totalpoints";
@@ -43,5 +46,6 @@ public class Constants {
     //configuracion
     public static String LAPSE_BREAST = "lapsebreast";
     public static String LAPSE_CERVIX = "laspsecervix";
+    public static String NUM_OPPORTUNITIES = "numOpportunities";
 
 }

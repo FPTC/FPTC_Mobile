@@ -1,7 +1,6 @@
 package org.pfccap.education.presentation.main.ui.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,17 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.pfccap.education.R;
+import org.pfccap.education.presentation.main.presenters.IMainFragmentPresenter;
+import org.pfccap.education.presentation.main.presenters.MainFragmentPresenter;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MainFragment extends Fragment implements IMainFragmentView{
+public class MainFragment extends Fragment implements IMainFragmentView {
 
     private OnMainFragInteractionListener mListener;
+    private IMainFragmentPresenter mainFragmentPresenter;
 
     public MainFragment() {
         // Required empty public constructor
@@ -32,8 +39,7 @@ public class MainFragment extends Fragment implements IMainFragmentView{
      * @return A new instance of fragment MainFragment.
      */
     public static MainFragment newInstance() {
-        MainFragment fragment = new MainFragment();
-        return fragment;
+        return new MainFragment();
     }
 
     @Override
@@ -48,6 +54,7 @@ public class MainFragment extends Fragment implements IMainFragmentView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
+        mainFragmentPresenter = new MainFragmentPresenter(this, getContext());
         return view;
     }
 
@@ -55,10 +62,19 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
         Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
-        if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN))==2){
-            Utilities.snackbarMessageError(getView(), getContext().getResources().getString(R.string.end_turn));
-        }else if (mListener != null) {
-            mListener.onNavigateToBreast();
+        try {
+
+            if(!mainFragmentPresenter.profileCompleted()){
+               return;
+            }
+
+            if (!mainFragmentPresenter.validateTurn(Constants.BREAST_TURN) &&
+                    !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(Constants.DATE_COMPLETED_BREAST),
+                            Cache.getByKey(Constants.LAPSE_BREAST))) {
+                mListener.onNavigateToBreast();
+            }
+        } catch (ParseException e) {
+            Utilities.snackbarMessageError(getView(), e.getMessage());
         }
 
     }
@@ -67,10 +83,19 @@ public class MainFragment extends Fragment implements IMainFragmentView{
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
-        if (Cache.getByKey(Constants.CERVIX_TURN).equals("2")){
-            Utilities.snackbarMessageError(getView(),  getContext().getResources().getString(R.string.end_turn));
-        }else if (mListener != null) {
-            mListener.onNavigateToCervical();
+        try {
+
+            if(!mainFragmentPresenter.profileCompleted()){
+                return;
+            }
+
+            if (!mainFragmentPresenter.validateTurn(Constants.CERVIX_TURN) &&
+                    !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(Constants.DATE_COMPLETED_CERVIX),
+                            Cache.getByKey(Constants.LAPSE_CERVIX))) {
+                mListener.onNavigateToCervical();
+            }
+        } catch (ParseException e) {
+            Utilities.snackbarMessageError(getView(), e.getMessage());
         }
     }
 
@@ -80,6 +105,12 @@ public class MainFragment extends Fragment implements IMainFragmentView{
         if (mListener != null) {
             mListener.onNavigateToGifts();
         }
+    }
+
+    @Override
+    public void showError(String error) {
+        Utilities.snackbarMessageError(getView(),
+                error);
     }
 
 
@@ -112,7 +143,9 @@ public class MainFragment extends Fragment implements IMainFragmentView{
      */
     public interface OnMainFragInteractionListener {
         void onNavigateToBreast();
+
         void onNavigateToCervical();
+
         void onNavigateToGifts();
     }
 }

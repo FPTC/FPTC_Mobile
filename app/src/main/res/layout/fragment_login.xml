@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,14 +48,17 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:maxLength="50"/>
+                    android:maxLength="50" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleContentDescription="@string/password_enable"
+                app:passwordToggleTint="@color/colorAccent">
 
                 <EditText
                     android:id="@+id/authLoginTxtPassword"
@@ -62,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="30"/>
+                    android:maxLength="30" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -89,8 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                facebook:com_facebook_login_text="@string/fb_texto_ingreso"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                facebook:com_facebook_login_text="@string/fb_texto_ingreso" />
 
             <TextView
                 android:id="@+id/authLinkSignup"

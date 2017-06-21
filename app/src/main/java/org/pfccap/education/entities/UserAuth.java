@@ -9,7 +9,6 @@ public class UserAuth {
     private String firstLastName;
     private String dateBirthday;
     private String email;
-    private int age;
     private String phoneNumber;
     private String address;
     private String neighborhood;
@@ -18,12 +17,28 @@ public class UserAuth {
     private double height;
     private double weight;
     private int hasChilds;
+    private int pointsBreast;
+    private int pointsCervix;
     private int pointsTotal;
     private int state;
-    private int repetitionsAnswers;
+    private int repetitionsAnswersBreast;
+    private int repetitionsAnswersCervix;
+    private String dateCompletedBreast;
+    private String dateCompletedCervix;
+    private String currentPointsBreast;
+    private String currentPointsCervix;
+    private int profileCompleted;
 
     public UserAuth() {
 
+    }
+
+    public int getProfileCompleted() {
+        return profileCompleted;
+    }
+
+    public void setProfileCompleted(int profileCompleted) {
+        this.profileCompleted = profileCompleted;
     }
 
     public String getFirstLastName() {
@@ -48,14 +63,6 @@ public class UserAuth {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getPhoneNumber() {
@@ -122,12 +129,12 @@ public class UserAuth {
         this.state = state;
     }
 
-    public int getRepetitionsAnswers() {
-        return repetitionsAnswers;
+    public int getRepetitionsAnswersBreast() {
+        return repetitionsAnswersBreast;
     }
 
-    public void setRepetitionsAnswers(int repetitionsAnswers) {
-        this.repetitionsAnswers = repetitionsAnswers;
+    public void setRepetitionsAnswersBreast(int repetitionsAnswers) {
+        this.repetitionsAnswersBreast = repetitionsAnswers;
     }
 
     public double getLatitude() {
@@ -144,5 +151,61 @@ public class UserAuth {
 
     public void setHasChilds(int hasChilds) {
         this.hasChilds = hasChilds;
+    }
+
+    public int getPointsBreast() {
+        return pointsBreast;
+    }
+
+    public void setPointsBreast(int pointsBreast) {
+        this.pointsBreast = pointsBreast;
+    }
+
+    public int getPointsCervix() {
+        return pointsCervix;
+    }
+
+    public void setPointsCervix(int pointsCervix) {
+        this.pointsCervix = pointsCervix;
+    }
+
+    public int getRepetitionsAnswersCervix() {
+        return repetitionsAnswersCervix;
+    }
+
+    public void setRepetitionsAnswersCervix(int repetitionsAnswersCervix) {
+        this.repetitionsAnswersCervix = repetitionsAnswersCervix;
+    }
+
+    public String getDateCompletedBreast() {
+        return dateCompletedBreast;
+    }
+
+    public void setDateCompletedBreast(String dateCompletedBreast) {
+        this.dateCompletedBreast = dateCompletedBreast;
+    }
+
+    public String getDateCompletedCervix() {
+        return dateCompletedCervix;
+    }
+
+    public void setDateCompletedCervix(String dateCompletedCervix) {
+        this.dateCompletedCervix = dateCompletedCervix;
+    }
+
+    public String getCurrentPointsBreast() {
+        return currentPointsBreast;
+    }
+
+    public void setCurrentPointsBreast(String currentPointsBreast) {
+        this.currentPointsBreast = currentPointsBreast;
+    }
+
+    public String getCurrentPointsCervix() {
+        return currentPointsCervix;
+    }
+
+    public void setCurrentPointsCervix(String currentPointsCervix) {
+        this.currentPointsCervix = currentPointsCervix;
     }
 }

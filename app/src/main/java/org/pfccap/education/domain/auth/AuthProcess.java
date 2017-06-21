@@ -1,7 +1,6 @@
 package org.pfccap.education.domain.auth;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,9 +13,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-import org.pfccap.education.application.AppDao;
-import org.pfccap.education.dao.User;
-import org.pfccap.education.dao.UserDao;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
@@ -24,14 +20,12 @@ import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-
-import static com.google.android.gms.plus.PlusOneDummyView.TAG;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jggomez on 20-Apr-17.
@@ -62,8 +56,10 @@ public class AuthProcess implements IAuthProcess {
                                         user.setEmail(authResult.getUser().getEmail());
                                         user.setFirstLastName(name);
                                         user.setPointsTotal(0);
-                                        user.setRepetitionsAnswers(0);
-                                        user.setState(1);
+                                        user.setRepetitionsAnswersBreast(0);
+                                        user.setRepetitionsAnswersCervix(0);
+                                        user.setProfileCompleted(0);
+                                        user.setState(0);
 
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 
@@ -199,10 +195,10 @@ public class AuthProcess implements IAuthProcess {
         Cache.save(Constants.USER_UID, uid);
         Cache.save(Constants.BREAST_TURN, "0");
         Cache.save(Constants.CERVIX_TURN, "0");
-
+        Cache.save(Constants.PROFILE_COMPLETED, "0");
     }
 
-    public void logOut(){
+    public void logOut() {
         FirebaseHelper.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }

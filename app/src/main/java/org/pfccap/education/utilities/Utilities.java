@@ -3,6 +3,8 @@ package org.pfccap.education.utilities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -19,8 +20,6 @@ import org.pfccap.education.R;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
 import org.pfccap.education.presentation.main.presenters.QuestionPresenter;
 import org.pfccap.education.presentation.main.ui.activities.QuestionsActivity;
-
-import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by jggomez on 05-Apr-17.
@@ -76,6 +75,22 @@ public class Utilities {
         t.commit();
     }
 
+    public static void dialogoInfoAndIntent(String titulo, String mensaje, final Context context,
+                                            final Intent intent) {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.DialogInfo);
+        dialog.setTitle(titulo);
+        dialog.setMessage(mensaje);
+        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                context.startActivity(intent);
+            }
+        });
+
+        dialog.show();
+    }
+
     public static void dialogoInfo(String titulo, String mensaje, Context context) {
         dialogo(titulo, mensaje, tipoDialogEnum.informacion, context);
     }
@@ -84,7 +99,9 @@ public class Utilities {
         dialogo(titulo, mensaje, tipoDialogEnum.error, context);
     }
 
-    private static void dialogo(String titulo, String mensaje, tipoDialogEnum tipoDialog, Context context) {
+    private static void dialogo(String titulo, String mensaje,
+                                tipoDialogEnum tipoDialog,
+                                Context context) {
 
         AlertDialog.Builder dialog = null;
 
@@ -122,12 +139,12 @@ public class Utilities {
 
     public static void snackbarNextAnswer(View view, String info, final QuestionsActivity context) {
         final Snackbar snackbar = Snackbar.make(view, info, Snackbar.LENGTH_INDEFINITE);
-                snackbar.setAction("Siguiente", new View.OnClickListener() {
-                    @Override
-                    public void onClick (View view){
-                        IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context, context);
-                        iQuestionPresenter.loadNextQuestion();
-                    }
+        snackbar.setAction("Siguiente", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context, context);
+                iQuestionPresenter.loadNextQuestion();
+            }
         });
         ColoredSnackbar.info(snackbar).show();
     }
@@ -135,6 +152,13 @@ public class Utilities {
     private enum tipoDialogEnum {
         error,
         informacion
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
     public static String traslateErrorCode(String code) {

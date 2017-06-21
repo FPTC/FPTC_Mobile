@@ -10,8 +10,13 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
+import org.pfccap.education.domain.configuration.ConfigurationBP;
+import org.pfccap.education.domain.configuration.IConfigurationBP;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.domain.user.IUserBP;
+import org.pfccap.education.domain.user.UserBP;
+import org.pfccap.education.entities.Configuration;
 import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
@@ -52,39 +57,100 @@ public class LoginPresenter implements ILoginPresenter {
             loginView.showProgress();
 
             objAuthProcess = new AuthProcess();
+            final IConfigurationBP configurationBP = new ConfigurationBP();
 
             objAuthProcess.signIn(email, password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<UserAuth>() {
+
                         @Override
                         public void onNext(UserAuth value) {
-                            getQuestion();
+
+                            configurationBP.getConfiguration()
+                                    .observeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribeWith(new DisposableObserver<Configuration>() {
+                                        @Override
+                                        public void onNext(Configuration value) {
+
+                                            Cache.save(Constants.LAPSE_BREAST,
+                                                    String.valueOf(value.getLapseBreast()));
+                                            Cache.save(Constants.LAPSE_CERVIX,
+                                                    String.valueOf(value.getLapseCervix()));
+
+                                            IUserBP userBP = new UserBP();
+                                            userBP.getUser().subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribeWith(new DisposableObserver<UserAuth>() {
+                                                                       @Override
+                                                                       public void onNext(UserAuth userAuth) {
+                                                                           Cache.save(Constants.BREAST_TURN,
+                                                                                   String.valueOf(userAuth.getRepetitionsAnswersBreast()));
+                                                                           Cache.save(Constants.CERVIX_TURN,
+                                                                                   String.valueOf(userAuth.getRepetitionsAnswersCervix()));
+                                                                           Cache.save(Constants.DATE_COMPLETED_BREAST,
+                                                                                   String.valueOf(userAuth.getDateCompletedBreast()));
+                                                                           Cache.save(Constants.DATE_COMPLETED_CERVIX,
+                                                                                   String.valueOf(userAuth.getDateCompletedCervix()));
+                                                                           Cache.save(Constants.PROFILE_COMPLETED,
+                                                                                   String.valueOf(userAuth.getProfileCompleted()));
+
+                                                                           getQuestion();
+                                                                       }
+
+                                                                       @Override
+                                                                       public void onError(Throwable e) {
+                                                                           showErrorView(e);
+                                                                       }
+
+                                                                       @Override
+                                                                       public void onComplete() {
+
+                                                                       }
+                                                                   }
+                                                    );
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            showErrorView(e);
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            loginView.enableInputs();
-                            loginView.hideProgress();
-                            FirebaseCrash.report(e);
-                            if (e instanceof FirebaseAuthException) {
-                                String errorCode = ((FirebaseAuthException) e).getErrorCode();
-                                loginView.loginError(Utilities.traslateErrorCode(errorCode));
-                            }
+                            showErrorView(e);
                         }
 
                         @Override
                         public void onComplete() {
                         }
+
                     });
 
         } catch (Exception e) {
-            loginView.hideProgress();
-            loginView.enableInputs();
-            FirebaseCrash.report(e);
-            loginView.loginError(e.getMessage());
+            showErrorView(e);
         }
 
+    }
+
+    private void showErrorView(Throwable e) {
+        loginView.enableInputs();
+        loginView.hideProgress();
+        FirebaseCrash.report(e);
+        if (e instanceof FirebaseAuthException) {
+            String errorCode = ((FirebaseAuthException) e).getErrorCode();
+            loginView.loginError(Utilities.traslateErrorCode(errorCode));
+        } else {
+            loginView.loginError(e.getMessage());
+        }
     }
 
     private void getQuestion() {
@@ -116,10 +182,7 @@ public class LoginPresenter implements ILoginPresenter {
                     });
 
         } catch (Exception e) {
-            loginView.enableInputs();
-            FirebaseCrash.report(e);
-            loginView.hideProgress();
-            loginView.loginError(e.getMessage());
+            showErrorView(e);
         }
     }
 
