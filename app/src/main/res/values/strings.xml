@@ -104,4 +104,5 @@
     <!--las keys para almacenar los valores de las respuestas en firebase -->
     <string name="answer_label">Respuesta</string>
     <string name="nested_label">Anidada</string>
+    <string name="password_enable">Ver Password</string>
 </resources>
