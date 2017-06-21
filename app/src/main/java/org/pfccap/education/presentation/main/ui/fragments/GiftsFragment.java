@@ -52,7 +52,7 @@ public class GiftsFragment extends Fragment {
             totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
         }
 
-        totalPoints.setText(getString(R.string.title_star_have) + totalpoint + getString(R.string.title_end_points));
+        totalPoints.setText(getString(R.string.title_points) + "¡" + totalpoint + "!");
         initTable();
         return view;
     }
