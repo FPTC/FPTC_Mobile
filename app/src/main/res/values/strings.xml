@@ -79,6 +79,8 @@
     <string name="height_max_msg">La altura debe ser menor a 2.20 metros</string>
     <string name="weight_min_msg">El peso debe ser mayor a 30 Kilogramos</string>
     <string name="weight_max_msg">El peso debe ser menor a 200 Kilogramos</string>
+    <string name="neighborhood_no_empty_msg">El barrio es obligatorio</string>
+    <string name="phone_no_empty_msg">El telefono es necesario para reclamar tus premio</string>
     <string name="child_max_msg">El número de hijos debe ser menor a 20</string>
 
     <string name="email_validation_msg">El e-mail no es valido</string>

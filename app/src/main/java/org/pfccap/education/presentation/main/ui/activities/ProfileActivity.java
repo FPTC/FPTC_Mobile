@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtAge)
     EditText txtAge;
 
+    @NotEmpty(messageResId = R.string.phone_no_empty_msg)
     @BindView(R.id.mainProfileTxtPhone)
     EditText txtPhone;
 
@@ -71,6 +72,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtLatitude)
     EditText txtLatitude;
 
+    @NotEmpty(messageResId = R.string.neighborhood_no_empty_msg)
     @BindView(R.id.mainProfileTxtNeighborhood)
     EditText txtNeighborhood;
 
