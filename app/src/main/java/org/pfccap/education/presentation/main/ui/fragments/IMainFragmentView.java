@@ -7,6 +7,10 @@ package org.pfccap.education.presentation.main.ui.fragments;
 public interface IMainFragmentView {
 
     void navigateToBreast();
+
     void navigateToCervical();
+
     void navigateToGifts();
+
+    void showError(String error);
 }

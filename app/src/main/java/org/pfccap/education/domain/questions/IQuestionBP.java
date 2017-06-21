@@ -14,6 +14,6 @@ public interface IQuestionBP {
 
     Observable<QuestionList> getQuestions();
 
-    void save(HashMap<String, Object> answers);
+    void save(String typeAnswer, String idAnswer);
 
 }

@@ -1,13 +1,17 @@
 package org.pfccap.education.presentation.main.presenters;
 
+import android.content.Context;
+
 import com.google.firebase.crash.FirebaseCrash;
 
+import org.pfccap.education.R;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.ui.activities.IProfileView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
+import org.pfccap.education.utilities.Utilities;
 
 import java.util.Calendar;
 
@@ -23,9 +27,11 @@ public class ProfilePresenter implements IProfilePresenter {
 
     private IProfileView profileView;
     private IUserBP userBP;
+    private Context context;
 
-    public ProfilePresenter(IProfileView profileView) {
+    public ProfilePresenter(IProfileView profileView, Context context) {
         this.profileView = profileView;
+        this.context = context;
         userBP = new UserBP();
     }
 
@@ -66,6 +72,14 @@ public class ProfilePresenter implements IProfilePresenter {
 
     public void getUserData() {
         try {
+
+            if (!Utilities.isNetworkAvailable(context)) {
+                Utilities.dialogoError(context.getResources().getString(R.string.title_error_dialog)
+                        , context.getResources().getString(R.string.network_not_available)
+                        , context);
+                return;
+            }
+
             profileView.showProgress();
             profileView.disableInputs();
 

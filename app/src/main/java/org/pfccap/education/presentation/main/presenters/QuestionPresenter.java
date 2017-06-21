@@ -12,13 +12,17 @@ import org.pfccap.education.domain.questions.ILQuestionDB;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.LQuestionDB;
 import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.domain.user.IUserBP;
+import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -64,16 +68,32 @@ public class QuestionPresenter implements IQuestionPresenter {
 
         if (current == lstQuestion.size()) {
             ilQuestionDB.resetQuestion();
+
+            Calendar calendar = Calendar.getInstance();
+
+            String dateCompleted = String.format(Locale.US, "%d/%d/%d",
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.YEAR)
+            );
+
+            HashMap<String, Object> data = new HashMap<>();
+
             switch (Cache.getByKey(Constants.TYPE_CANCER)) {
                 case Constants.CERVIX:
                     //TODO ultima pregunta, aqui hay que hacer la verificación con la configuración de firebase para sumar los turnos
                     int turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
                     Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
-                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))){
+                    // se coloca la fecha de completado de preguntas
+                    Cache.save(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+
+                    data.put(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+
+                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
-                    }else{
+                    } else {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                     }
@@ -82,35 +102,39 @@ public class QuestionPresenter implements IQuestionPresenter {
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
                     Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+                    // se coloca la fecha de completado de preguntas
+                    Cache.save(Constants.DATE_COMPLETED_BREAST, dateCompleted);
 
-                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))){
+                    data.put(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+
+                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                         Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
-                    }else{
+                    } else {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                     }
 
                     break;
             }
+
+            IUserBP userBP = new UserBP();
+            userBP.update(data, Cache.getByKey(Constants.USER_UID));
+
             setPoints(message);
         } else {
             setNextQuestion(current);
         }
     }
 
-    private void setPoints(String message){
+    private void setPoints(String message) {
         questionView.finishActivity(message);
     }
 
     @Override
     public void saveAnswerQuestionDB(String typeAnswer, String idAnswer) {
-        HashMap<String, Object> answers = new HashMap<>();
-        answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
-                + "/" + Cache.getByKey(Constants.USER_UID) + "/" + typeAnswer, idAnswer);
-        questionBP.save(answers);
-
+        questionBP.save(typeAnswer, idAnswer);
     }
 
     @Override
@@ -199,14 +223,26 @@ public class QuestionPresenter implements IQuestionPresenter {
         if (lstQuestion != null && lstQuestion.size() == 0) {
             //esto se da si dan back en al responder la ultima pregunta sin permitir mostrar el mensaje de finalizar
             int turn;
+            Calendar calendar = Calendar.getInstance();
+
+            String dateCompleted = String.format(Locale.US, "%d/%d/%d",
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.YEAR)
+            );
+
             switch (Cache.getByKey(Constants.TYPE_CANCER)) {
                 case Constants.CERVIX:
                     turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
                     Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
+                    // se coloca la fecha de completado de preguntas
+                    Cache.save(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
                     break;
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
                     Cache.save(Constants.BREAST_TURN, String.valueOf(turn));
+                    // se coloca la fecha de completado de preguntas
+                    Cache.save(Constants.DATE_COMPLETED_BREAST, dateCompleted);
                     break;
             }
 

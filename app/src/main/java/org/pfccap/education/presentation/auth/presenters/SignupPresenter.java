@@ -1,13 +1,19 @@
 package org.pfccap.education.presentation.auth.presenters;
 
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
+import org.pfccap.education.domain.configuration.ConfigurationBP;
+import org.pfccap.education.domain.configuration.IConfigurationBP;
+import org.pfccap.education.domain.user.IUserBP;
+import org.pfccap.education.domain.user.UserBP;
+import org.pfccap.education.entities.Configuration;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ISignupView;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.regex.Matcher;
@@ -39,6 +45,7 @@ public class SignupPresenter implements ISignupPresenter {
             signupView.showProgress();
 
             IAuthProcess objAuthProcess = new AuthProcess();
+            final IConfigurationBP configurationBP = new ConfigurationBP();
 
             objAuthProcess.signUp(name, email, password)
                     .subscribeOn(Schedulers.io())
@@ -52,10 +59,63 @@ public class SignupPresenter implements ISignupPresenter {
                     .subscribeWith(new DisposableObserver<UserAuth>() {
                         @Override
                         public void onNext(UserAuth value) {
-                            signupView.hideProgress();
-                            signupView.enableInputs();
-                            signupView.signUpSuccessful();
-                            signupView.navigateToLoginScreen();
+
+
+                            configurationBP.getConfiguration()
+                                    .observeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribeWith(new DisposableObserver<Configuration>() {
+                                        @Override
+                                        public void onNext(Configuration value) {
+                                            Cache.save(Constants.LAPSE_BREAST,
+                                                    String.valueOf(value.getLapseBreast()));
+                                            Cache.save(Constants.LAPSE_CERVIX,
+                                                    String.valueOf(value.getLapseCervix()));
+
+                                            IUserBP userBP = new UserBP();
+                                            userBP.getUser().subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribeWith(new DisposableObserver<UserAuth>() {
+
+                                                                       @Override
+                                                                       public void onNext(UserAuth userAuth) {
+                                                                           Cache.save(Constants.DATE_COMPLETED_BREAST,
+                                                                                   String.valueOf(userAuth.getDateCompletedBreast()));
+                                                                           Cache.save(Constants.DATE_COMPLETED_CERVIX,
+                                                                                   String.valueOf(userAuth.getDateCompletedCervix()));
+
+                                                                           signupView.hideProgress();
+                                                                           signupView.enableInputs();
+                                                                           signupView.signUpSuccessful();
+                                                                           signupView.navigateToLoginScreen();
+                                                                       }
+
+                                                                       @Override
+                                                                       public void onError(Throwable e) {
+
+                                                                       }
+
+                                                                       @Override
+                                                                       public void onComplete() {
+
+                                                                       }
+                                                                   }
+                                                    );
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            signupView.hideProgress();
+                                            signupView.enableInputs();
+                                            FirebaseCrash.report(e);
+                                            signupView.signUpError(Utilities.traslateErrorCode(e.getMessage()));
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
                         }
 
                         @Override
@@ -66,7 +126,7 @@ public class SignupPresenter implements ISignupPresenter {
                             if (e instanceof FirebaseAuthException) {
                                 String errorCode = ((FirebaseAuthException) e).getErrorCode();
                                 signupView.signUpError(Utilities.traslateErrorCode(errorCode));
-                            }else {
+                            } else {
                                 Pattern pattern = Pattern.compile(".*WEAK_PASSWORD.*");
                                 Matcher matcher = pattern.matcher(e.getMessage());
                                 if (matcher.find()) {

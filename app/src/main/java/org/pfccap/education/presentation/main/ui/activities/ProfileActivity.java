@@ -25,10 +25,15 @@ import org.pfccap.education.R;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.presenters.IProfilePresenter;
 import org.pfccap.education.presentation.main.presenters.ProfilePresenter;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        profilePresenter = new ProfilePresenter(this);
+        profilePresenter = new ProfilePresenter(this, this);
 
         initCalendar();
 
@@ -158,7 +163,6 @@ public class ProfileActivity extends AppCompatActivity
 
         user.setFirstLastName(txtName.getText().toString());
         user.setAddress(txtAddress.getText().toString());
-        user.setAge(Integer.parseInt(txtAge.getText().toString()));
         user.setDateBirthday(txtBirth.getText().toString());
         user.setHasChilds(Integer.parseInt(txtChilds.getText().toString()));
         user.setHeight(Double.parseDouble(txtHeight.getText().toString()));
@@ -167,6 +171,8 @@ public class ProfileActivity extends AppCompatActivity
         user.setLongitude(Double.parseDouble(txtLongitude.getText().toString()));
         user.setNeighborhood(txtNeighborhood.getText().toString());
         user.setPhoneNumber(txtPhone.getText().toString());
+        user.setProfileCompleted(1);
+        Cache.save(Constants.PROFILE_COMPLETED, "1");
 
         profilePresenter.saveUserData(user);
     }
@@ -213,13 +219,26 @@ public class ProfileActivity extends AppCompatActivity
         txtAddress.setText(user.getAddress());
         txtLongitude.setText(String.valueOf(user.getLongitude()));
         txtLatitude.setText(String.valueOf(user.getLatitude()));
-        txtAge.setText(String.valueOf(user.getAge()));
         txtChilds.setText(String.valueOf(user.getHasChilds()));
         txtHeight.setText(String.valueOf(user.getHeight()));
         txtName.setText(user.getFirstLastName());
         txtNeighborhood.setText(user.getNeighborhood());
         txtPhone.setText(user.getPhoneNumber());
         txtWeight.setText(String.valueOf(user.getWeight()));
+
+        if (user.getDateBirthday() != null && !user.getDateBirthday().equals("")) {
+
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
+            try {
+                cal.setTime(sdf.parse(user.getDateBirthday()));
+                profilePresenter.calculateAge(cal.get(Calendar.YEAR));
+            } catch (ParseException e) {
+                Utilities.dialogoError(getString(R.string.title_error_dialog), e.getMessage(), this);
+            }
+
+        }
     }
 
     @Override
@@ -254,12 +273,12 @@ public class ProfileActivity extends AppCompatActivity
                     txtAddress.setText(address);
                     txtLatitude.setText(latitude);
                     txtLongitude.setText(longitude);
-                }catch (Exception e){
+                } catch (Exception e) {
                     FirebaseCrash.report(e);
                 }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
     }

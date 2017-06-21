@@ -28,7 +28,8 @@ public class FirebaseHelper {
         return SingletonHolder.INSTANCE;
     }
 
-    public FirebaseHelper() {
+    private FirebaseHelper() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         dataReference = FirebaseDatabase.getInstance().getReference();
     }
 

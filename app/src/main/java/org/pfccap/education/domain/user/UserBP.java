@@ -8,6 +8,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.entities.UserAuth;
 
+import java.util.HashMap;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -37,6 +39,14 @@ public class UserBP implements IUserBP {
         }
     }
 
+    @Override
+    public void update(HashMap<String, Object> dataUser, String uid) {
+        try {
+            FirebaseHelper.getInstance().getUserReference(uid).updateChildren(dataUser);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     @Override
     public Observable<UserAuth> getUser() {
@@ -50,7 +60,7 @@ public class UserBP implements IUserBP {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserAuth userAuth = dataSnapshot.getValue(UserAuth.class);
-                            if (userAuth == null){
+                            if (userAuth == null) {
                                 userAuth = new UserAuth();
                             }
                             e.onNext(userAuth);

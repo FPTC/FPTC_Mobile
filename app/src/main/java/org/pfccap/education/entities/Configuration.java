@@ -8,6 +8,7 @@ public class Configuration {
 
     private int lapseCervix;
     private int lapseBreast;
+    private int numOpportunities;
 
     public int getLapseCervix() {
         return lapseCervix;
@@ -23,5 +24,13 @@ public class Configuration {
 
     public void setLapseBreast(int lapseBreast) {
         this.lapseBreast = lapseBreast;
+    }
+
+    public int getNumOpportunities() {
+        return numOpportunities;
+    }
+
+    public void setNumOpportunities(int numOpportunities) {
+        this.numOpportunities = numOpportunities;
     }
 }

@@ -20,6 +20,8 @@ import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.Questions;
 import org.pfccap.education.entities.SecondAnswers;
 import org.pfccap.education.entities.SendAnswers;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,8 +85,19 @@ public class QuestionBP implements IQuestionBP {
     }
 
     @Override
-    public void save(HashMap<String, Object> answers) {
+    public void save(String typeAnswer, String idAnswer) {
         try{
+            HashMap<String, Object> answers = new HashMap<>();
+
+            answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
+                    + "/" + Cache.getByKey(Constants.USER_UID) + "/" + typeAnswer, idAnswer);
+
+            answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
+                    + "/" + Cache.getByKey(Constants.USER_UID) + "/" + "uid", Cache.getByKey(Constants.USER_UID));
+
+            answers.put(Cache.getByKey(Constants.TYPE_CANCER) + "/" + Cache.getByKey(Constants.QUESTION_ID)
+                    + "/" + Cache.getByKey(Constants.USER_UID) + "/" + "name", Cache.getByKey(Constants.USER_NAME));
+
            firebaseHelper.getAnswersReference().updateChildren(answers);
         }catch (Exception e){
             FirebaseCrash.report(e);

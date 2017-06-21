@@ -34,10 +34,14 @@ public class ConfigurationBP implements IConfigurationBP {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     Configuration configuration =
                                             dataSnapshot.getValue(Configuration.class);
+
                                     Cache.save(Constants.LAPSE_BREAST,
                                             String.valueOf(configuration.getLapseBreast()));
                                     Cache.save(Constants.LAPSE_CERVIX,
                                             String.valueOf(configuration.getLapseCervix()));
+                                    Cache.save(Constants.NUM_OPPORTUNITIES,
+                                            String.valueOf(configuration.getNumOpportunities()));
+
                                     e.onNext(configuration);
                                 }
 
