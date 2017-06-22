@@ -49,6 +49,10 @@ public class Signup extends Fragment implements ISignupView,
     EditText authSignupName;
 
     @NotEmpty(messageResId = R.string.field_required)
+    @BindView(R.id.authSignupLastName)
+    EditText authSignupLastName;
+
+    @NotEmpty(messageResId = R.string.field_required)
     @Email(messageResId = R.string.email_validation_msg)
     @BindView(R.id.authSignupEmail)
     EditText authSignupEmail;
@@ -175,6 +179,7 @@ public class Signup extends Fragment implements ISignupView,
     @Override
     public void onValidationSucceeded() {
         signupPresenter.signUp(authSignupName.getText().toString(),
+                authSignupLastName.getText().toString(),
                 authSignupEmail.getText().toString(),
                 authSignupPassword.getText().toString());
     }

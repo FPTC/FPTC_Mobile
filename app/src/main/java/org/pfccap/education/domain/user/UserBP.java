@@ -31,6 +31,16 @@ public class UserBP implements IUserBP {
     public void save(UserAuth user) {
         try {
 
+            user.setPointsTotal(0);
+            user.setRepetitionsAnswersBreast(0);
+            user.setRepetitionsAnswersCervix(0);
+            user.setProfileCompleted(0);
+            user.setState(0);
+            user.setCurrentPointsBreast(0);
+            user.setCurrentPointsCervix(0);
+            user.setDateCompletedBreast("");
+            user.setDateCompletedCervix("");
+
             firebaseHelper.getMyUserReference().setValue(user);
 
         } catch (Exception e) {

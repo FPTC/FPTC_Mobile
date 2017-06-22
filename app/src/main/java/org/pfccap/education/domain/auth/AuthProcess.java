@@ -23,9 +23,6 @@ import org.pfccap.education.utilities.Constants;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jggomez on 20-Apr-17.
@@ -40,7 +37,7 @@ public class AuthProcess implements IAuthProcess {
     }
 
     @Override
-    public Observable<UserAuth> signUp(final String name, final String email, final String password) {
+    public Observable<UserAuth> signUp(final String name, final String lastName, final String email, final String password) {
 
         return Observable.create(
                 new ObservableOnSubscribe<UserAuth>() {
@@ -54,12 +51,8 @@ public class AuthProcess implements IAuthProcess {
 
                                         final UserAuth user = new UserAuth();
                                         user.setEmail(authResult.getUser().getEmail());
-                                        user.setFirstLastName(name);
-                                        user.setPointsTotal(0);
-                                        user.setRepetitionsAnswersBreast(0);
-                                        user.setRepetitionsAnswersCervix(0);
-                                        user.setProfileCompleted(0);
-                                        user.setState(0);
+                                        user.setName(name);
+                                        user.setLastName(lastName);
 
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 
@@ -103,7 +96,7 @@ public class AuthProcess implements IAuthProcess {
 
                                         final UserAuth user = new UserAuth();
                                         user.setEmail(authResult.getUser().getEmail());
-                                        user.setFirstLastName(authResult.getUser().getDisplayName());
+                                        user.setName(authResult.getUser().getDisplayName());
 
                                         saveAuthData(authResult.getUser().getEmail(),
                                                 authResult.getUser().getDisplayName(),
@@ -140,7 +133,7 @@ public class AuthProcess implements IAuthProcess {
 
                                         final UserAuth userAuth = new UserAuth();
                                         userAuth.setEmail(authResult.getUser().getEmail());
-                                        userAuth.setFirstLastName(authResult.getUser().getDisplayName());
+                                        userAuth.setName(authResult.getUser().getDisplayName());
 
                                         saveAuthData(authResult.getUser().getEmail(),
                                                 authResult.getUser().getDisplayName(),

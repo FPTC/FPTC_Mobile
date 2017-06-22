@@ -49,9 +49,13 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.mainProfileTxtName)
     EditText txtName;
+
+    @NotEmpty(messageResId = R.string.field_required)
+    @BindView(R.id.mainProfileTxtLastName)
+    EditText txtLastName;
 
     @BindView(R.id.mainProfileTxtBirth)
     EditText txtBirth;
@@ -63,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtPhone)
     EditText txtPhone;
 
+    @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.mainProfileTxtAddress)
     EditText txtAddress;
 
@@ -163,7 +168,8 @@ public class ProfileActivity extends AppCompatActivity
     private void saveUserData() {
         UserAuth user = new UserAuth();
 
-        user.setFirstLastName(txtName.getText().toString());
+        user.setName(txtName.getText().toString());
+        user.setLastName(txtLastName.getText().toString());
         user.setAddress(txtAddress.getText().toString());
         user.setDateBirthday(txtBirth.getText().toString());
         user.setHasChilds(Integer.parseInt(txtChilds.getText().toString()));
@@ -223,7 +229,8 @@ public class ProfileActivity extends AppCompatActivity
         txtLatitude.setText(String.valueOf(user.getLatitude()));
         txtChilds.setText(String.valueOf(user.getHasChilds()));
         txtHeight.setText(String.valueOf(user.getHeight()));
-        txtName.setText(user.getFirstLastName());
+        txtName.setText(user.getName());
+        txtLastName.setText(user.getLastName());
         txtNeighborhood.setText(user.getNeighborhood());
         txtPhone.setText(user.getPhoneNumber());
         txtWeight.setText(String.valueOf(user.getWeight()));

@@ -6,7 +6,8 @@ package org.pfccap.education.entities;
 
 public class UserAuth {
 
-    private String firstLastName;
+    private String name;
+    private String lastName;
     private String dateBirthday;
     private String email;
     private String phoneNumber;
@@ -25,12 +26,28 @@ public class UserAuth {
     private int repetitionsAnswersCervix;
     private String dateCompletedBreast;
     private String dateCompletedCervix;
-    private String currentPointsBreast;
-    private String currentPointsCervix;
+    private int currentPointsBreast;
+    private int currentPointsCervix;
     private int profileCompleted;
 
     public UserAuth() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getProfileCompleted() {
@@ -39,14 +56,6 @@ public class UserAuth {
 
     public void setProfileCompleted(int profileCompleted) {
         this.profileCompleted = profileCompleted;
-    }
-
-    public String getFirstLastName() {
-        return firstLastName;
-    }
-
-    public void setFirstLastName(String firstLastName) {
-        this.firstLastName = firstLastName;
     }
 
     public String getDateBirthday() {
@@ -193,19 +202,19 @@ public class UserAuth {
         this.dateCompletedCervix = dateCompletedCervix;
     }
 
-    public String getCurrentPointsBreast() {
+    public int getCurrentPointsBreast() {
         return currentPointsBreast;
     }
 
-    public void setCurrentPointsBreast(String currentPointsBreast) {
+    public void setCurrentPointsBreast(int currentPointsBreast) {
         this.currentPointsBreast = currentPointsBreast;
     }
 
-    public String getCurrentPointsCervix() {
+    public int getCurrentPointsCervix() {
         return currentPointsCervix;
     }
 
-    public void setCurrentPointsCervix(String currentPointsCervix) {
+    public void setCurrentPointsCervix(int currentPointsCervix) {
         this.currentPointsCervix = currentPointsCervix;
     }
 }

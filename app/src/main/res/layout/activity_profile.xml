@@ -77,7 +77,21 @@
                         android:id="@+id/mainProfileTxtName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/name"
+                        android:hint="@string/nombre_usuario"
+                        android:inputType="textPersonName"
+                        android:maxLength="35"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/apellido_usuario"
                         android:inputType="textPersonName"
                         android:maxLength="35"/>
 

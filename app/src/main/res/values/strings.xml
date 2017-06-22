@@ -16,7 +16,8 @@
     <string name="sign_up">Crea una nueva cuenta. Regístrate</string>
     <string name="password">Contraseña</string>
     <string name="email">E-mail</string>
-    <string name="nombre_usuario">Nombres y Apellidos</string>
+    <string name="nombre_usuario">Nombres</string>
+    <string name="apellido_usuario">Apellidos</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="tienes_cuenta">¿Ya tienes una cuenta? Ingresa</string>
     <string name="title_activity_maps">Map</string>
@@ -38,7 +39,6 @@
     <string name="btn_breast_cancer">Aprende sobre el <strong>cáncer de seno</strong></string>
     <string name="btn_cervical_cancer">Aprende sobre el <strong>cáncer de cuello uterino</strong></string>
     <string name="btn_take_gift">Reclama tu premio</string>
-    <string name="name">Nombre y apellidos</string>
     <string name="birth">Fecha de nacimiento (dd/mm/yyyy)</string>
     <string name="country">País</string>
     <string name="city">Ciudad</string>
