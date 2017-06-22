@@ -109,7 +109,7 @@ public class QuestionBP implements IQuestionBP {
             //se limpia la base de datos para la nueva descarga
             ILQuestionDB ilQuestionDB = new LQuestionDB();
             ilQuestionDB.deleteDB();
-            //este Questions es el de entities con lo que se mapio al cargar de firebase
+            //este Questions es el de entities con lo que se mapeo al cargar de firebase
             HashMap<String, Questions> cancerCervix = questionsListAll.getCancerCervix();
 
             QuestionDao questionsDao = AppDao.getQuestionDao();

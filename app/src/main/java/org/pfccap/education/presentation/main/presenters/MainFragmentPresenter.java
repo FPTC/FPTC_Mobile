@@ -47,6 +47,7 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
 
     @Override
     public boolean validateTurn(String turnCancer) {
+        //TODO validar cuando las contasntes vienes "" ya que genera error con el Integer.valueOf
         if (Integer.valueOf(Cache.getByKey(turnCancer)) ==
                 Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
 

@@ -6,7 +6,7 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:title=""
-        android:icon="@mipmap/ic_blanco_barra_amate"/>
+        android:icon="@mipmap/ic_barra_amate"/>
 
     <item
         android:id="@+id/save"

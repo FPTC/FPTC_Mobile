@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.configuration;
 
 import org.pfccap.education.entities.Configuration;
+import org.pfccap.education.entities.ConfigurationGifts;
 
 import io.reactivex.Observable;
 
@@ -11,5 +12,7 @@ import io.reactivex.Observable;
 public interface IConfigurationBP {
 
     Observable<Configuration> getConfiguration();
+
+    Observable<ConfigurationGifts> getConfigurationGifts();
 
 }

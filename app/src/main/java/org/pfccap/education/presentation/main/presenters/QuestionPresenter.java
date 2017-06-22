@@ -88,6 +88,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                     Cache.save(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
 
                     data.put(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+                    data.put(Constants.CERVIX_TURN, turn);
 
                     if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
@@ -97,7 +98,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                     }
-
+                    data.put(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
                     break;
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
@@ -105,7 +106,8 @@ public class QuestionPresenter implements IQuestionPresenter {
                     // se coloca la fecha de completado de preguntas
                     Cache.save(Constants.DATE_COMPLETED_BREAST, dateCompleted);
 
-                    data.put(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+                    data.put(Constants.DATE_COMPLETED_BREAST, dateCompleted);
+                    data.put(Constants.BREAST_TURN, turn);
 
                     if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
@@ -115,10 +117,11 @@ public class QuestionPresenter implements IQuestionPresenter {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                     }
-
+                    data.put(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
                     break;
             }
-
+            data.put(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
+                    Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
             IUserBP userBP = new UserBP();
             userBP.update(data, Cache.getByKey(Constants.USER_UID));
 

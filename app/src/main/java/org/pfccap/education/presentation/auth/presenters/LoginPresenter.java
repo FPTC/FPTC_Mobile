@@ -17,6 +17,7 @@ import org.pfccap.education.domain.questions.QuestionBP;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.Configuration;
+import org.pfccap.education.entities.ConfigurationGifts;
 import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.auth.ui.fragments.ILoginView;
@@ -40,12 +41,13 @@ public class LoginPresenter implements ILoginPresenter {
     private ILoginView loginView;
     private IAuthProcess objAuthProcess;
     private IQuestionBP questionBP;
+    private IConfigurationBP configurationBP;
 
 
     public LoginPresenter(ILoginView loginView) {
         this.loginView = loginView;
         questionBP = new QuestionBP();
-
+        configurationBP = new ConfigurationBP();
     }
 
     @Override
@@ -57,7 +59,6 @@ public class LoginPresenter implements ILoginPresenter {
             loginView.showProgress();
 
             objAuthProcess = new AuthProcess();
-            final IConfigurationBP configurationBP = new ConfigurationBP();
 
             objAuthProcess.signIn(email, password)
                     .subscribeOn(Schedulers.io())
@@ -78,6 +79,8 @@ public class LoginPresenter implements ILoginPresenter {
                                                     String.valueOf(value.getLapseBreast()));
                                             Cache.save(Constants.LAPSE_CERVIX,
                                                     String.valueOf(value.getLapseCervix()));
+                                            Cache.save(Constants.NUM_OPPORTUNITIES,
+                                                    String.valueOf(value.getNumOpportunities()));
 
                                             IUserBP userBP = new UserBP();
                                             userBP.getUser().subscribeOn(Schedulers.io())
@@ -155,12 +158,47 @@ public class LoginPresenter implements ILoginPresenter {
 
     private void getQuestion() {
         try {
+
             questionBP.getQuestions()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<QuestionList>() {
                         @Override
                         public void onNext(QuestionList value) {
+                            getConfGifts();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            loginView.enableInputs();
+                            loginView.hideProgress();
+                            FirebaseCrash.report(e);
+                            loginView.loginError(e.getMessage());
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            showErrorView(e);
+        }
+    }
+
+
+    private void getConfGifts() {
+        try {
+
+            configurationBP.getConfigurationGifts()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<ConfigurationGifts>() {
+                        @Override
+                        public void onNext(ConfigurationGifts value) {
+                            Cache.save(Constants.APPOINTMENT, value.getAppointment());
                             loginView.enableInputs();
                             loginView.hideProgress();
                             loginView.navigateToMainScreen();
@@ -210,9 +248,7 @@ public class LoginPresenter implements ILoginPresenter {
                         .subscribeWith(new DisposableObserver<UserAuth>() {
                             @Override
                             public void onNext(UserAuth value) {
-                                loginView.enableInputs();
-                                loginView.hideProgress();
-                                loginView.navigateToMainScreen();
+                                getQuestion();
                             }
 
                             @Override

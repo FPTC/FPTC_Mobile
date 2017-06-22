@@ -57,7 +57,7 @@ public class Table {
 
         for(int i= 0; i<arrayhead.length; i++){
             TextView text = new TextView(activity);
-            layoutCell = new TableRow.LayoutParams(getWidthPixelText(arrayhead[i]),
+            layoutCell = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
             text.setText(arrayhead[i]);
             text.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -99,7 +99,7 @@ public class Table {
                 text.setTextAppearance(R.style.style_cell);
             }
             text.setBackgroundResource(R.drawable.table_cell);
-            layoutCell = new TableRow.LayoutParams(getWidthPixelText(text.getText().toString()),
+            layoutCell = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT);
             text.setLayoutParams(layoutCell);
 

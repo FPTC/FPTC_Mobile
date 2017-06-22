@@ -5,10 +5,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import org.pfccap.education.application.AppDao;
+import org.pfccap.education.dao.Gift;
+import org.pfccap.education.dao.GiftDao;
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.entities.Configuration;
+import org.pfccap.education.entities.ConfigurationGifts;
+import org.pfccap.education.entities.ItemGifts;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -59,6 +67,59 @@ public class ConfigurationBP implements IConfigurationBP {
             FirebaseCrash.report(e);
             throw e;
         }
+    }
+
+    @Override
+    public Observable<ConfigurationGifts> getConfigurationGifts() {
+        try {
+
+            return Observable.create(new ObservableOnSubscribe<ConfigurationGifts>() {
+                @Override
+                public void subscribe(final ObservableEmitter<ConfigurationGifts> e) throws Exception {
+
+                    FirebaseHelper.getInstance().getGiftsReference()
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    ConfigurationGifts gifts =
+                                            dataSnapshot.getValue(ConfigurationGifts.class);
+                                    saveGiftTable(gifts);
+                                    e.onNext(gifts);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Exception error = new Exception(databaseError.getMessage());
+                                    FirebaseCrash.report(error);
+                                    e.onError(error);
+                                }
+                            });
+                }
+            });
+
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            throw e;
+        }
+    }
+
+    private void saveGiftTable(ConfigurationGifts listGift) {
+
+        try {
+            HashMap<String, ItemGifts> gifts = listGift.getGifts();
+
+            GiftDao giftDao = AppDao.getGiftDao();
+            Gift gift;
+            for (Map.Entry<String, ItemGifts> entry : gifts.entrySet()) {
+                gift = new Gift();
+                gift.setPoints(entry.getValue().getPoints());
+                gift.setGift(entry.getValue().getGift());
+                giftDao.insert(gift);
+            }
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+        }
+
     }
 
 }

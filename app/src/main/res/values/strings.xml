@@ -112,5 +112,6 @@
     <string name="answer_label">Respuesta</string>
     <string name="nested_label">Anidada</string>
     <string name="password_enable">Ver Password</string>
+    <string name="final_thanks">¡Gracias! \n por usar nuestra app</string>
 
 </resources>

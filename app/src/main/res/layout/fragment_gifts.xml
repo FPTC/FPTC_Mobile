@@ -45,13 +45,14 @@
                     android:gravity="center"
                     android:text="@string/title_table"
                     android:textSize="18sp"
-                    android:background="@drawable/border_box"/>
+                    />
 
                 <TableLayout
                     android:id="@+id/mainGiftLayoutTable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
                     android:id="@+id/appointment_gift"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text=""
                     android:textSize="22sp"
                     android:background="@drawable/table_cell_head"
