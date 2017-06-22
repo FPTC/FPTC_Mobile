@@ -35,9 +35,9 @@
     <string name="gift">Premios</string>
     <string name="main_fragmen_learn">Aprende sobre</string>
     <string name="fragment_main_gift">Reclama tus premios</string>
-    <string name="btn_breast_cancer">Conoce sobre el <strong>Cáncer de seno</strong></string>
-    <string name="btn_cervical_cancer">Conoce sobre el <strong>Cáncer de cuello uterino</strong></string>
-    <string name="btn_take_gift">Reclama tus premios</string>
+    <string name="btn_breast_cancer">Aprende sobre el <strong>cáncer de seno</strong></string>
+    <string name="btn_cervical_cancer">Aprende sobre el <strong>cáncer de cuello uterino</strong></string>
+    <string name="btn_take_gift">Reclama tu premio</string>
     <string name="name">Nombre y apellidos</string>
     <string name="birth">Fecha de nacimiento (dd/mm/yyyy)</string>
     <string name="country">País</string>
@@ -55,9 +55,9 @@
     <string name="map">Dirección</string>
     <string name="get_address">Aceptar</string>
     <string name="save">Guardar</string>
-    <string name="person_height">Estatura</string>
-    <string name="person_weight">Peso</string>
-    <string name="person_childs">Cuantos hijos tienes ?</string>
+    <string name="person_height">Estatura (metros)</string>
+    <string name="person_weight">Peso (kilos)</string>
+    <string name="person_childs">¿Cuántos hijos tienes ?</string>
     <string name="title_profile">Perfil Usuario</string>
     <string name="selecciona_fecha_nac">Selecciona una fecha</string>
     <string name="NO_ACEPTADO_PERMISOS">Por favor acepta los permisos para poder saber tu ubicación</string>
@@ -66,9 +66,10 @@
     <string name="cancel">Cancelar</string>
     <string name="yes">SI</string>
     <string name="no">NO</string>
-
-    <string name="intro_cervical">Este es el ejemplo de introcción a la sección de preguntas del cáncer de cervix</string>
-    <string name="intro_breast">Este es el ejemplo de introducción al cáncer de seno para iniciar el cuestionario</string>
+    <string name="intro_cervical"> <strong>¿Sabías que el cáncer de cuello uterino se puede prevenir?</strong> \n
+        Aprender sobre él te permitirá vivir más y mejor. \n Ámate, cuida tu salud.</string>
+    <string name="intro_breast"> <strong>¿Sabías que el cáncer de seno se puede detectar tempranamente?</strong> \n
+        Aprender sobre él te permitirá vivir más y mejor. \n Ámate, cuida tu salud.</string>
     <string name="title_question">Pregunta:</string>
     <string name="go_to_learn">Vamos a Aprender</string>
     <string name="get_questions">Cargando las preguntas</string>
@@ -87,8 +88,10 @@
     <string name="field_required">Este campo es requerido</string>
     <string name="points">Puntos</string>
     <string name="get_to_gift">Reclama tus premios</string>
-    <string name="title_star_have">"TIENES "</string>
-    <string name="title_end_points">" PUNTOS"</string>
+    <string name="title_points">"Puntos acumulados \n"</string>
+    <string name="points_additional">Adicionalmente, si tienes indicación de hacerte la mamografía o citología vaginal y cumples
+    con la cita de tu axamen, recibirás:</string>
+
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
     <string name="total_points_equal">"Has obtenido menos puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. Pero no te preocupes conservarás el puntajes más alto."</string>
@@ -102,9 +105,13 @@
         <item>Puntos</item>
         <item>Premios</item>
     </string-array>
+    <string name="title_table">Catálogo de puntos y premios</string>
+    <string name="title_appointment">¡Recarga por cuidar tu salud!</string>
 
     <!--las keys para almacenar los valores de las respuestas en firebase -->
     <string name="answer_label">Respuesta</string>
     <string name="nested_label">Anidada</string>
     <string name="password_enable">Ver Password</string>
+    <string name="final_thanks">¡Gracias! \n por usar nuestra app</string>
+
 </resources>

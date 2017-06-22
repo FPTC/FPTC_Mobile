@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.questions;
 
 import org.pfccap.education.dao.AnswersQuestion;
+import org.pfccap.education.dao.Gift;
 import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.SecondAnswer;
 
@@ -23,4 +24,6 @@ public interface ILQuestionDB {
     void questionAnswer(String idQuestion);
 
     void resetQuestion();
+
+    List<Gift> getAllGift();
 }

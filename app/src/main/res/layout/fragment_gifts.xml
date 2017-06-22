@@ -14,12 +14,11 @@
             android:id="@+id/mainGiftTxtPoints"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="28sp"
+            android:layout_weight="0.15"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
-            />
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="28sp" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -30,34 +29,71 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.45"
             android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/title_table"
+                    android:textSize="18sp"
+                    />
 
                 <TableLayout
                     android:id="@+id/mainGiftLayoutTable"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    />
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/points_additional"
+                    android:textSize="16sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/title_appointment"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_box"/>
+
+                <TextView
+                    android:id="@+id/appointment_gift"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="22sp"
+                    android:background="@drawable/table_cell_head"
+                    android:textColor="@color/colorPrimaryText"/>
+
             </LinearLayout>
         </ScrollView>
 
         <Button
             android:id="@+id/mainGiftBtnGetGift"
+            style="@style/BtnMain"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
             android:background="@color/colorBlueLigth"
-            android:text="@string/get_to_gift"
-            style="@style/BtnMain"
+            android:drawableStart="@drawable/ic_gift_white_36dp"
             android:paddingStart="10dp"
-            android:drawableStart="@drawable/ic_gift_white_36dp"/>
+            android:text="@string/get_to_gift" />
     </LinearLayout>
 
 </FrameLayout>

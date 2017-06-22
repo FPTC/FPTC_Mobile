@@ -19,6 +19,7 @@ public class FirebaseHelper {
     private final static String ANSWERS_PATH = "respuestasTest";
     private final static String QUESTIONS_TYPE_PATH = "tipoPreguntas";
     private final static String CONFIGURATION_PATH = "configuracion";
+    private final static String GIFTS_PATH = "premiosapp";
 
     private static class SingletonHolder {
         private static final FirebaseHelper INSTANCE = new FirebaseHelper();
@@ -75,6 +76,10 @@ public class FirebaseHelper {
 
     public DatabaseReference getConfigurationReference() {
         return dataReference.getRoot().child(CONFIGURATION_PATH);
+    }
+
+    public DatabaseReference getGiftsReference() {
+        return dataReference.getRoot().child(GIFTS_PATH);
     }
 
     public void signOut() {

@@ -37,6 +37,7 @@ public class FPTCApp extends Application {
         AppDao.setAnswersDao(daoSession.getAnswersDao());
         AppDao.setAnswersQuestionDao(daoSession.getAnswersQuestionDao());
         AppDao.setSecondAnswerDao(daoSession.getSecondAnswerDao());
+        AppDao.setGiftDao(daoSession.getGiftDao());
 
         Cache.init(getApplicationContext());
     }

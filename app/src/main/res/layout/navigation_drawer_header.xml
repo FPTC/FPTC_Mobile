@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo_amate_blanco" />
+        android:src="@drawable/logo_amate" />
 
     <LinearLayout
         android:layout_width="match_parent"

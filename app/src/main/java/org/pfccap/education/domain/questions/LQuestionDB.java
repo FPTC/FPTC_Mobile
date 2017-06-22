@@ -5,6 +5,8 @@ import com.google.firebase.crash.FirebaseCrash;
 import org.pfccap.education.application.AppDao;
 import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.dao.AnswersQuestionDao;
+import org.pfccap.education.dao.Gift;
+import org.pfccap.education.dao.GiftDao;
 import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.SecondAnswer;
@@ -21,12 +23,14 @@ public class LQuestionDB implements ILQuestionDB {
     private QuestionDao questionDao;
     private AnswersQuestionDao answersQuestionDao;
     private SecondAnswerDao secondAnswer;
+    private GiftDao giftDao;
     private int[] ramdomNumberSecuence;
 
     public LQuestionDB() {
         questionDao = AppDao.getQuestionDao();
         answersQuestionDao = AppDao.getAnswersQuestionDao();
         secondAnswer = AppDao.getSecondAnswerDao();
+        giftDao = AppDao.getGiftDao();
     }
 
     @Override
@@ -35,6 +39,7 @@ public class LQuestionDB implements ILQuestionDB {
             return questionDao.queryBuilder()
                     .where(QuestionDao.Properties.TypeCancer.eq(typeCancer),
                             QuestionDao.Properties.Answer.eq(false))
+                    .orderDesc()
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -47,6 +52,7 @@ public class LQuestionDB implements ILQuestionDB {
         try {
             return answersQuestionDao.queryBuilder()
                     .where(AnswersQuestionDao.Properties.IdQuestion.eq(idQuestion))
+                    .orderAsc()
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -59,6 +65,7 @@ public class LQuestionDB implements ILQuestionDB {
         try {
             return secondAnswer.queryBuilder()
                     .where(SecondAnswerDao.Properties.IdAnswer.eq(idAnswer))
+                    .orderAsc()
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -73,6 +80,7 @@ public class LQuestionDB implements ILQuestionDB {
                 AppDao.getAnswersQuestionDao().deleteAll();
                 AppDao.getQuestionDao().deleteAll();
                 AppDao.getSecondAnswerDao().deleteAll();
+                AppDao.getGiftDao().deleteAll();
             }
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -109,6 +117,11 @@ public class LQuestionDB implements ILQuestionDB {
         } catch (Exception e) {
             FirebaseCrash.report(e);
         }
+    }
+
+    @Override
+    public List<Gift> getAllGift() {
+        return giftDao.loadAll();
     }
 
 }

@@ -28,17 +28,18 @@ public class Constants {
     public static final String EVALUATIVA = "Evaluativa";
     public static final String EDUCATIVA = "Educativa";
     public static final String RIESGO = "Riesgo";
-    public static final String CERVIX_TURN = "cervixturn";
-    public static final String BREAST_TURN = "breastturn";
+    public static final String CERVIX_TURN = "repetitionsAnswersCervix";
+    public static final String BREAST_TURN = "repetitionsAnswersBreast";
     public static final String DATE_COMPLETED_BREAST = "dateCompletedBreast";
     public static final String DATE_COMPLETED_CERVIX = "dateCompletedCervix";
     public static final String PROFILE_COMPLETED = "profileCompleted";
 
     //puntos
-    public static final String TOTAL_POINTS_C = "totalpoints";
-    public static final String TOTAL_POINTS_B = "totalpoints";
+    public static final String TOTAL_POINTS_C = "pointsCervix";
+    public static final String TOTAL_POINTS_B = "pointsBreast";
     public static final String CURRENT_POINTS_C = "currentpointsc";
     public static final String CURRENT_POINTS_B = "currentpointsb";
+    public static final String TOTAL_POINTS = "pointsTotal";
 
     //almacenmiento de respuestas
     public static final String TURN_ANSWER = "turnanswer";
@@ -48,4 +49,6 @@ public class Constants {
     public static String LAPSE_CERVIX = "laspsecervix";
     public static String NUM_OPPORTUNITIES = "numOpportunities";
 
+    //tabla de puntos
+    public static String APPOINTMENT = "appointment";
 }

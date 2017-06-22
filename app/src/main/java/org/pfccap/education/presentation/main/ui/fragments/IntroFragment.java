@@ -93,7 +93,7 @@ public class IntroFragment extends Fragment implements IIntroView {
     public void goAnswersQuestion(){
         switch (Cache.getByKey(Constants.TYPE_CANCER)){
             case Constants.CERVIX: //TODO validar si puede contestar por segunda o más veces
-                if (Cache.getByKey(Constants.CERVIX_TURN).equals("2")){
+                if (Cache.getByKey(Constants.CERVIX_TURN).equals(Cache.getByKey(Constants.NUM_OPPORTUNITIES))){
                     showTurnError();
                 }else{
                     load();
@@ -101,7 +101,7 @@ public class IntroFragment extends Fragment implements IIntroView {
 
                 break;
             case Constants.BREAST:
-                if (Cache.getByKey(Constants.BREAST_TURN).equals("2")){
+                if (Cache.getByKey(Constants.BREAST_TURN).equals(Cache.getByKey(Constants.NUM_OPPORTUNITIES))){
                     showTurnError();
                 }else {
                     load();

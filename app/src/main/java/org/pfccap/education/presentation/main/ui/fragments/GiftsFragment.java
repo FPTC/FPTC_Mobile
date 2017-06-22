@@ -11,11 +11,15 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
+import org.pfccap.education.dao.Gift;
+import org.pfccap.education.presentation.main.presenters.GiftsPresenter;
+import org.pfccap.education.presentation.main.presenters.IGiftsPresenter;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Table;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +30,14 @@ public class GiftsFragment extends Fragment {
     //private OnFragmentInteractionListener mListener;
     @BindView(R.id.mainGiftLayoutTable)
     TableLayout giftTable;
+
     @BindView(R.id.mainGiftTxtPoints)
     TextView totalPoints;
+
+    @BindView(R.id.appointment_gift)
+    TextView appointmentGift;
+
+    private IGiftsPresenter giftsPresenter;
 
     public GiftsFragment() {
         // Required empty public constructor
@@ -45,6 +55,7 @@ public class GiftsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gifts, container, false);
         ButterKnife.bind(this, view);
+        giftsPresenter = new GiftsPresenter();
         int totalpoint;
         if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("") && Cache.getByKey(Constants.TOTAL_POINTS_C).equals("")) {
             totalpoint = 0;
@@ -52,21 +63,22 @@ public class GiftsFragment extends Fragment {
             totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
         }
 
-        totalPoints.setText(getString(R.string.title_star_have) + totalpoint + getString(R.string.title_end_points));
+        totalPoints.setText(getString(R.string.title_points) + "¡" + totalpoint + "!");
         initTable();
         return view;
     }
 
     private void initTable() {
+        appointmentGift.setText(Cache.getByKey(Constants.APPOINTMENT));
 
         Table table = new Table(getActivity(), giftTable);
         table.addHead(R.array.head_table);
-        int r = 0;
-        for (int i = 0; i < 3; i++){
-            r = r + 5000;
+        List<Gift> giftList = giftsPresenter.getListGiftsTable();
+
+        for (Gift gift: giftList){
             ArrayList<String> elements = new ArrayList<>();
-            elements.add(Integer.toString(i));
-            elements.add("Recarga $" + r );
+            elements.add(gift.getPoints());
+            elements.add(gift.getGift());
             table.addRowTable(elements);
         }
     }

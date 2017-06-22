@@ -2,6 +2,7 @@ package org.pfccap.education.application;
 
 import org.pfccap.education.dao.AnswersDao;
 import org.pfccap.education.dao.AnswersQuestionDao;
+import org.pfccap.education.dao.GiftDao;
 import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.SecondAnswerDao;
 import org.pfccap.education.dao.UserDao;
@@ -17,6 +18,7 @@ public class AppDao {
     private static QuestionDao questionDao;
     private static AnswersQuestionDao answersQuestionDao;
     private static SecondAnswerDao secondAnswerDao;
+    private static GiftDao giftDao;
 
     public static UserDao getUserDao() {
         return userDao;
@@ -56,5 +58,13 @@ public class AppDao {
 
     public static void setSecondAnswerDao(SecondAnswerDao secondAnswerDao) {
         AppDao.secondAnswerDao = secondAnswerDao;
+    }
+
+    public static GiftDao getGiftDao() {
+        return giftDao;
+    }
+
+    public static void setGiftDao(GiftDao giftDao) {
+        AppDao.giftDao = giftDao;
     }
 }

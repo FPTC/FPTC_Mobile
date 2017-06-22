@@ -61,6 +61,11 @@ public class Main {
         secondAnswer.addStringProperty("idSecondAnswer");
         secondAnswer.addStringProperty("description");
 
+        //crea tabla para datos de la tabla de puntos
+        Entity gift = schema.addEntity("Gift");
+        gift.addIdProperty().autoincrement();
+        gift.addStringProperty("points");
+        gift.addStringProperty("gift");
 
         //crea respuestas
         Entity answers = schema.addEntity("Answers");
