@@ -75,11 +75,13 @@ public class GiftsFragment extends Fragment {
         table.addHead(R.array.head_table);
         List<Gift> giftList = giftsPresenter.getListGiftsTable();
 
-        for (Gift gift: giftList){
-            ArrayList<String> elements = new ArrayList<>();
-            elements.add(gift.getPoints());
-            elements.add(gift.getGift());
-            table.addRowTable(elements);
+        if (giftList != null && giftList.size() > 0) {
+            for (Gift gift : giftList) {
+                ArrayList<String> elements = new ArrayList<>();
+                elements.add(gift.getPoints());
+                elements.add(gift.getGift());
+                table.addRowTable(elements);
+            }
         }
     }
 

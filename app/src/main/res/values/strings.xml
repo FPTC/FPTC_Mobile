@@ -8,7 +8,7 @@
     <string name="app_name">Ámate</string>
     <string name="title_info_dialog">Información</string>
     <string name="title_error_dialog">Error</string>
-    <string name="profile_completed">Por favor llena tu perfil antes de continuar</string>
+    <string name="profile_completed">Por favor llena tu perfil antes de continuar, si ya lo has llenado solo presiona el botón ok y luego el botón guardar que está arriba y a la derecha de la pantalla. Gracias.</string>
     <string name="network_not_available">No tiene conexión a internet</string>
 
     <!-- Pantalla Login -->
@@ -66,10 +66,10 @@
     <string name="cancel">Cancelar</string>
     <string name="yes">SI</string>
     <string name="no">NO</string>
-    <string name="intro_cervical"> <strong>¿Sabías que el cáncer de cuello uterino se puede prevenir?</strong> \n
-        Aprender sobre él te permitirá vivir más y mejor. \n Ámate, cuida tu salud.</string>
-    <string name="intro_breast"> <strong>¿Sabías que el cáncer de seno se puede detectar tempranamente?</strong> \n
-        Aprender sobre él te permitirá vivir más y mejor. \n Ámate, cuida tu salud.</string>
+    <string name="intro_cervical"> <strong>¿Sabías que el cáncer de cuello uterino se puede prevenir?</strong> \n\n
+        Aprender sobre él te permitirá vivir más y mejor. \n\n Ámate, cuida tu salud.</string>
+    <string name="intro_breast"> <strong>¿Sabías que el cáncer de seno se puede detectar tempranamente?</strong> \n\n
+        Aprender sobre él te permitirá vivir más y mejor. \n\n Ámate, cuida tu salud.</string>
     <string name="title_question">Pregunta:</string>
     <string name="go_to_learn">Vamos a Aprender</string>
     <string name="get_questions">Cargando las preguntas</string>

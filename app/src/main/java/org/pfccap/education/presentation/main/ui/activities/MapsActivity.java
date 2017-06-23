@@ -188,7 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setPadding(0, 110, 0, 0);
+        mMap.setPadding(0, 150, 0, 0);
         updateLocationUI();
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();

@@ -20,66 +20,60 @@
             android:textColor="@color/colorPrimaryText"
             android:textSize="28sp" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:background="@drawable/premios" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.45"
+            android:layout_weight="0.75"
             android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/title_table"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
                 <TableLayout
                     android:id="@+id/mainGiftLayoutTable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center"/>
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/points_additional"
-                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="5dp"/>
+                    android:text="@string/points_additional"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/border_box"
                     android:gravity="center"
                     android:text="@string/title_appointment"
-                    android:textSize="18sp"
-                    android:background="@drawable/border_box"/>
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/appointment_gift"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/table_cell_head"
                     android:gravity="center"
                     android:text=""
-                    android:textSize="22sp"
-                    android:background="@drawable/table_cell_head"
-                    android:textColor="@color/colorPrimaryText"/>
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="22sp" />
 
             </LinearLayout>
         </ScrollView>

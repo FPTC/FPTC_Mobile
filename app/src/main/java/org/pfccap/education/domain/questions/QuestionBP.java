@@ -110,7 +110,7 @@ public class QuestionBP implements IQuestionBP {
             ILQuestionDB ilQuestionDB = new LQuestionDB();
             ilQuestionDB.deleteDB();
             //este Questions es el de entities con lo que se mapeo al cargar de firebase
-            HashMap<String, Questions> cancerCervix = questionsListAll.getCancerCervix();
+            HashMap<String, Questions> cancerCervix = questionsListAll.getCervixCancer();
 
             QuestionDao questionsDao = AppDao.getQuestionDao();
             Question questionsDB;  //este Question es el del DAO para mapear a la base de datos
@@ -160,7 +160,7 @@ public class QuestionBP implements IQuestionBP {
 
             }
 
-            HashMap<String, Questions> cancerSeno = questionsListAll.getCancerSeno();
+            HashMap<String, Questions> cancerSeno = questionsListAll.getBreastCancer();
 
             for (Map.Entry<String, Questions> entry : cancerSeno.entrySet()) {
                 questionsDB = new Question();
