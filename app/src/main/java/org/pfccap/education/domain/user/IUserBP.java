@@ -16,5 +16,5 @@ public interface IUserBP {
 
     void save(UserAuth user);
 
-    void update(HashMap<String, Object> dataUser, String uid);
+    void update(HashMap<String, Object> dataUser);
 }

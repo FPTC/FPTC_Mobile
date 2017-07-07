@@ -38,7 +38,7 @@
                 android:background="@drawable/rounded_text_circle"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textColor="@color/colorBlueLigth" />
+                android:textColor="@color/colorBlack"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/question_points"
-                android:textColor="@color/colorBlueLigth" />
+                android:textColor="@color/colorBlack"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,19 +83,18 @@
                     android:id="@+id/mainQuestionTxtQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_darkcolor"
+                    android:background="@drawable/rounded_txt_primary"
                     android:gravity="center"
-                    android:minHeight="0dp"
-                    android:padding="20dp"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="20sp" />
+                    android:textSize="21sp"
+                    android:padding="20dp"/>
 
 
                 <LinearLayout
                     android:id="@+id/questionLayoutButtons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -136,19 +135,21 @@
                     android:id="@+id/mainQuestionRecyclerAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/mainQuestionTxtInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_primarylight"
                     android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_txt_secondary"
                     android:padding="20dp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="18sp"
                     android:visibility="gone" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

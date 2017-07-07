@@ -101,7 +101,7 @@ public class Utilities {
 
     private static void dialogo(String titulo, String mensaje,
                                 tipoDialogEnum tipoDialog,
-                                Context context) {
+                                final Context context) {
 
         AlertDialog.Builder dialog = null;
 
@@ -121,6 +121,7 @@ public class Utilities {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
             }
         });
 

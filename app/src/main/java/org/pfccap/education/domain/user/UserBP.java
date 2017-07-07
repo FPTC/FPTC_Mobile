@@ -50,9 +50,9 @@ public class UserBP implements IUserBP {
     }
 
     @Override
-    public void update(HashMap<String, Object> dataUser, String uid) {
+    public void update(HashMap<String, Object> dataUser) {
         try {
-            FirebaseHelper.getInstance().getUserReference(uid).updateChildren(dataUser);
+            firebaseHelper.getMyUserReference().updateChildren(dataUser);
         } catch (Exception e) {
             throw e;
         }

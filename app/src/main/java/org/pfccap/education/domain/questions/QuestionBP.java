@@ -118,7 +118,7 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB = new Question();
                 questionsDB.setIdquest(entry.getKey());
                 questionsDB.setTxtQuestion(entry.getValue().getText());
-                questionsDB.setTypeCancer("cervix");
+                questionsDB.setTypeCancer(Constants.CERVIX);
                 questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());
@@ -166,7 +166,7 @@ public class QuestionBP implements IQuestionBP {
                 questionsDB = new Question();
                 questionsDB.setIdquest(entry.getKey());
                 questionsDB.setTxtQuestion(entry.getValue().getText());
-                questionsDB.setTypeCancer("breast");
+                questionsDB.setTypeCancer(Constants.BREAST);
                 questionsDB.setTypeQuestion(entry.getValue().getTypeQuestion());
                 questionsDB.setOrder(entry.getValue().getOrder());
                 questionsDB.setEnable(entry.getValue().isEnable());

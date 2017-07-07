@@ -18,13 +18,14 @@ import org.pfccap.education.presentation.main.presenters.MainActivityPresenter;
 import org.pfccap.education.presentation.main.ui.fragments.GiftsFragment;
 import org.pfccap.education.presentation.main.ui.fragments.IntroFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
+import org.pfccap.education.presentation.main.ui.fragments.MessageGetGift;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView,
-        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener {
+        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener, GiftsFragment.OnFragmentInteractionListener {
 
     private IMainActivityPresenter mainActivityPresenter;
 
@@ -108,8 +109,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_profile:
-                                menuItem.setChecked(true);
-                                Utilities.initActivity(MainActivity.this, ProfileActivity.class);
+                                if (!Utilities.isNetworkAvailable(MainActivity.this)) {
+                                    Utilities.dialogoError(getString(R.string.title_error_dialog)
+                                            , getString(R.string.network_not_available)
+                                            , MainActivity.this);
+                                }else{
+                                    menuItem.setChecked(true);
+                                    Utilities.initActivity(MainActivity.this, ProfileActivity.class);
+                                }
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_gifts:
@@ -148,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void onNavigateToCervical() {
         Utilities.initFragment(this, IntroFragment.newInstance(getString(R.string.intro_cervical),
-                R.drawable.cancer_cervix, R.color.colorBlueLigth));
+                R.drawable.cancer_cervix, R.color.colorBlue));
     }
 
     @Override
@@ -159,5 +166,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void onNavigationQuestion() {
         Utilities.initActivity(this, QuestionsActivity.class);
+    }
+
+    @Override
+    public void onNavigationMessageGift() {
+        Utilities.initFragment(this, MessageGetGift.newInstance());
     }
 }

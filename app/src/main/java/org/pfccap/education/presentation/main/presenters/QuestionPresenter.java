@@ -1,6 +1,7 @@
 package org.pfccap.education.presentation.main.presenters;
 
 import android.content.Context;
+import android.view.View;
 
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -77,18 +78,15 @@ public class QuestionPresenter implements IQuestionPresenter {
                     calendar.get(Calendar.YEAR)
             );
 
-            HashMap<String, Object> data = new HashMap<>();
-
             switch (Cache.getByKey(Constants.TYPE_CANCER)) {
                 case Constants.CERVIX:
-                    //TODO ultima pregunta, aqui hay que hacer la verificación con la configuración de firebase para sumar los turnos
                     int turn = Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) + 1;
                     Cache.save(Constants.CERVIX_TURN, String.valueOf(turn));
                     // se coloca la fecha de completado de preguntas
                     Cache.save(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
 
-                    data.put(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
-                    data.put(Constants.CERVIX_TURN, turn);
+                    updateDataFirebase(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
+                    updateDataFirebase(Constants.CERVIX_TURN, turn);
 
                     if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
@@ -98,7 +96,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                     }
-                    data.put(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
+                    updateDataFirebase(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
                     break;
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
@@ -106,8 +104,8 @@ public class QuestionPresenter implements IQuestionPresenter {
                     // se coloca la fecha de completado de preguntas
                     Cache.save(Constants.DATE_COMPLETED_BREAST, dateCompleted);
 
-                    data.put(Constants.DATE_COMPLETED_BREAST, dateCompleted);
-                    data.put(Constants.BREAST_TURN, turn);
+                    updateDataFirebase(Constants.DATE_COMPLETED_BREAST, dateCompleted);
+                    updateDataFirebase(Constants.BREAST_TURN, turn);
 
                     if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
@@ -117,17 +115,16 @@ public class QuestionPresenter implements IQuestionPresenter {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                     }
-                    data.put(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
+                    updateDataFirebase(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
                     break;
             }
-            data.put(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
+            updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
                     Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
-            IUserBP userBP = new UserBP();
-            userBP.update(data, Cache.getByKey(Constants.USER_UID));
 
             setPoints(message);
         } else {
             setNextQuestion(current);
+            updateDataFirebase(Constants.STATE, 1);
         }
     }
 
@@ -154,38 +151,64 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void calculatePointsCheck(int points, boolean value) {
+        switch (Cache.getByKey(Constants.TYPE_Q)) {
+            case Constants.EVALUATIVA:
+                //se gestiona las respuestas tivo evaluativas
+                try {
 
-        try {
+                    switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+                        case Constants.CERVIX:
+                            sumPoints(Constants.CURRENT_POINTS_C, points);
+                            updateDataFirebase(Constants.CURRENT_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)));
+                            break;
+                        case Constants.BREAST:
+                            sumPoints(Constants.CURRENT_POINTS_B, points);
+                            updateDataFirebase(Constants.CURRENT_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)));
+                            break;
+                    }
 
-            switch (Cache.getByKey(Constants.TYPE_CANCER)) {
-                case Constants.CERVIX:
-                    sumPoints(Constants.CURRENT_POINTS_C, points);
-                    break;
-                case Constants.BREAST:
-                    sumPoints(Constants.CURRENT_POINTS_B, points);
-                    break;
-            }
+                    String check;
+                    if (value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
+                        check = context.getResources().getString(R.string.right);
+                    } else if (!value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
+                        check = context.getResources().getString(R.string.fail);
+                    } else {
+                        check = context.getResources().getString(R.string.thanks_for_answers);
+                    }
 
-            String check;
+                    if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                        questionView.showInfoTxtSecondary();
+                    }
+                    questionView.disableItemsAdapter();
+                    loadInfoSnackbar(check);
+                } catch (Exception e) {
+                    FirebaseCrash.report(e);
+                    System.out.println("error " + e.getMessage());
+                }
 
-            if (value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
-                check = context.getResources().getString(R.string.right);
-            } else if (!value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
-                check = context.getResources().getString(R.string.fail);
-            } else {
-                check = context.getResources().getString(R.string.thanks_for_answers);
-            }
-
-            if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                questionView.showInfoTxtSecondary();
-            }
-
-            questionView.disableItemsAdapter();
-            loadInfoSnackbar(check);
-        } catch (Exception e) {
-            FirebaseCrash.report(e);
-            System.out.println("error " + e.getMessage());
+                break;
+            case Constants.RIESGO:
+                questionView.processAnswer();
+                if (!Cache.getByKey(Constants.SECOND_Q).equals("") && !Cache.getByKey(Constants.ANSWER_ID).equals("")) {
+                    getSecondAnswers(Cache.getByKey(Constants.ANSWER_ID));
+                    Cache.save(Constants.ANSWER_ID, "");
+                } else {
+                    loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
+                }
+                break;
+            case Constants.EDUCATIVA:
+                questionView.processAnswer();
+                if (value) {
+                    loadInfoSnackbar(context.getResources().getString(R.string.right));
+                } else{
+                    loadInfoSnackbar(context.getResources().getString(R.string.fail));
+                }
+                break;
+            default:
+                loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
+                break;
         }
+
     }
 
     private void sumPoints(String constant, int points) {
@@ -199,6 +222,13 @@ public class QuestionPresenter implements IQuestionPresenter {
         Cache.save(constant, String.valueOf(totalPoinst));
     }
 
+    private void updateDataFirebase(String path, Object data) {
+        HashMap<String, Object> obj = new HashMap<>();
+        obj.put(path, data);
+        IUserBP userBP = new UserBP();
+        userBP.update(obj);
+    }
+
     @Override
     public void getSecondAnswers(String idAnswer) {
         //se carga el valor del tipo de respuesta para almacenar en firebase con el valor aninada + el turno de la respeusta de cuestionario
@@ -207,7 +237,7 @@ public class QuestionPresenter implements IQuestionPresenter {
         List<SecondAnswer> secondAnswerList = ilQuestionDB.getSecondAnswers(idAnswer);
         List<AnswersQuestion> answersQuestionList = new ArrayList<>();
         AnswersQuestion answersQuestion;
-        if (secondAnswerList.size() > 0) {
+        if (secondAnswerList != null && secondAnswerList.size() > 0) {
             for (SecondAnswer secondAnswer : secondAnswerList) {
                 answersQuestion = new AnswersQuestion();
                 answersQuestion.setDescription(secondAnswer.getDescription());
@@ -217,6 +247,8 @@ public class QuestionPresenter implements IQuestionPresenter {
                 answersQuestionList.add(answersQuestion);
             }
             questionView.loadAdapterRecycler(answersQuestionList);
+        }else{
+            loadInfoSnackbar(context.getResources().getString(R.string.error_nested));
         }
     }
 
@@ -271,47 +303,35 @@ public class QuestionPresenter implements IQuestionPresenter {
                     break;
                 case Constants.RIESGO:
                     //se carga los label de los botones true y false
+                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
+                    //para las preguntas anidadas
                     List<AnswersQuestion> lstAnswersQuestion = ilQuestionDB.getAnswers(currentQ.getIdquest());
                     for (AnswersQuestion answersQuestion : lstAnswersQuestion) {
                         if (answersQuestion.getValue()) {
-                            lableTrue = answersQuestion.getDescription();
-                            valueTrue = String.valueOf(answersQuestion.getValue());
-                            Cache.save(Constants.ANSWER_TRUE_ID, answersQuestion.getIdAnswer());
+                            Cache.save(Constants.ANSWER_ID, answersQuestion.getIdAnswer());
                             if (answersQuestion.getTxtSecondQuestion() != null &&
                                     !answersQuestion.getTxtSecondQuestion().equals("")) {
                                 //se guarda en cache la preguna aninada para mostrala cuando se necesite
-                                Cache.save(Constants.SECOND_QTRUE, answersQuestion.getTxtSecondQuestion());
+                                Cache.save(Constants.SECOND_Q, answersQuestion.getTxtSecondQuestion());
                             } else {
-                                Cache.save(Constants.SECOND_QTRUE, "");
+                                Cache.save(Constants.SECOND_Q, "");
                             }
                         }
                         if (!answersQuestion.getValue()) {
-                            lableFalse = answersQuestion.getDescription();
-                            valueFalse = String.valueOf(answersQuestion.getValue());
-                            Cache.save(Constants.ANSWER_FALSE_ID, answersQuestion.getIdAnswer());
+                            Cache.save(Constants.ANSWER_ID, answersQuestion.getIdAnswer());
                             if (answersQuestion.getTxtSecondQuestion() != null &&
                                     !answersQuestion.getTxtSecondQuestion().equals("")) {
                                 //se guarda en cache la preguna aninada para mostrala cuando se necesite
-                                Cache.save(Constants.SECOND_QFALSE, answersQuestion.getTxtSecondQuestion());
+                                Cache.save(Constants.SECOND_Q, answersQuestion.getTxtSecondQuestion());
                             } else {
-                                Cache.save(Constants.SECOND_QFALSE, "");
+                                Cache.save(Constants.SECOND_Q, "");
                             }
                         }
                     }
-                    questionView.setLabelButtonTrueFalse(lableTrue, valueTrue, lableFalse, valueFalse);
                     Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
                     break;
                 case Constants.EDUCATIVA:
-                    //se carga los label de los botones true y false
-                    List<AnswersQuestion> lstAnswersQuestion1 = ilQuestionDB.getAnswers(currentQ.getIdquest());
-                    if (lstAnswersQuestion1 != null && lstAnswersQuestion1.size() != 0) {
-                        lableTrue = lstAnswersQuestion1.get(0).getDescription();
-                        valueTrue = String.valueOf(lstAnswersQuestion1.get(0).getValue());
-                        lableFalse = lstAnswersQuestion1.get(1).getDescription();
-                        valueFalse = String.valueOf(lstAnswersQuestion1.get(1).getValue());
-                    }
-                    questionView.setLabelButtonTrueFalse(lableTrue, valueTrue, lableFalse, valueFalse);
-                    //se carga la información que se muestra en el snack bar para usarla luego
+                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
                     Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
                     break;
             }

@@ -92,7 +92,7 @@ public class IntroFragment extends Fragment implements IIntroView {
     @OnClick(R.id.mainIntroBtnGo)
     public void goAnswersQuestion(){
         switch (Cache.getByKey(Constants.TYPE_CANCER)){
-            case Constants.CERVIX: //TODO validar si puede contestar por segunda o más veces
+            case Constants.CERVIX:
                 if (Cache.getByKey(Constants.CERVIX_TURN).equals(Cache.getByKey(Constants.NUM_OPPORTUNITIES))){
                     showTurnError();
                 }else{

@@ -28,4 +28,6 @@ public interface IQuestionView {
 
     void showInfoTxtSecondary();
 
+    void processAnswer();
+
 }

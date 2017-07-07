@@ -1,6 +1,11 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,14 +14,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.dao.AnswersQuestion;
-import org.pfccap.education.presentation.main.adapters.AnswerSecondaryAdapter;
+import org.pfccap.education.presentation.main.adapters.AnswerQuestionsAdapter;
 import org.pfccap.education.presentation.main.presenters.IQuestionPresenter;
 import org.pfccap.education.presentation.main.presenters.QuestionPresenter;
 import org.pfccap.education.utilities.Cache;
@@ -66,7 +70,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @BindView(R.id.mainQuestionTxtPoints)
     TextView txtPoints;
 
-    private AnswerSecondaryAdapter adapter;
+    private AnswerQuestionsAdapter adapter;
     private IQuestionPresenter questionPresenter;
 
     @BindView(R.id.progressBarQ)
@@ -83,9 +87,37 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
         ButterKnife.bind(this);
         questionPresenter = new QuestionPresenter(this, QuestionsActivity.this);
+
+        initColorTxtByCancer();
         initAdapter();
         initRecyclerView();
         initQuestion();
+    }
+
+
+    private void initColorTxtByCancer(){
+        //esto es para cambiar de color los campos de texto según el cáncer
+        LayerDrawable drawableFilePrimary = (LayerDrawable) txtPrimaryQuestion.getBackground();
+        final GradientDrawable shapePrimary = (GradientDrawable) drawableFilePrimary.findDrawableByLayerId(R.id.shape_txt_primary);
+
+        LayerDrawable drawableFileSecondary = (LayerDrawable) txtInfo.getBackground();
+        final GradientDrawable shapeSecondary = (GradientDrawable) drawableFileSecondary.findDrawableByLayerId(R.id.shape_txt_secondary);
+
+
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+            case Constants.BREAST:
+                shapePrimary.setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+                shapeSecondary.setColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
+                setPrimaryProgressColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
+                break;
+            case Constants.CERVIX:
+                shapePrimary.setColor(ContextCompat.getColor(this, R.color.colorBlue));
+                shapeSecondary.setColor(ContextCompat.getColor(this, R.color.colorBlueLigth));
+                setPrimaryProgressColor(ContextCompat.getColor(this, R.color.colorBlue));
+
+                break;
+        }
     }
 
     private void initQuestion() {
@@ -107,9 +139,20 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     }
 
+    public void setPrimaryProgressColor(int colorInstance) {
+        if (progressBar.getProgressDrawable() instanceof LayerDrawable) {
+            LayerDrawable layered = (LayerDrawable) progressBar.getProgressDrawable();
+            Drawable circleDrawableExample = layered.getDrawable(1);
+            circleDrawableExample.setColorFilter(colorInstance, PorterDuff.Mode.SRC_IN);
+            progressBar.setProgressDrawable(layered);
+        } else {
+            progressBar.getProgressDrawable().setColorFilter(colorInstance, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
     private void initAdapter() {
         if (adapter == null) {
-            adapter = new AnswerSecondaryAdapter(new ArrayList<AnswersQuestion>(), questionPresenter);
+            adapter = new AnswerQuestionsAdapter(new ArrayList<AnswersQuestion>(), questionPresenter);
         }
     }
 
@@ -130,12 +173,12 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 recyclerViewAnswers.setVisibility(View.VISIBLE);
                 break;
             case "Riesgo":
-                layoutButtons.setVisibility(View.VISIBLE);
-                recyclerViewAnswers.setVisibility(View.GONE);
+                layoutButtons.setVisibility(View.GONE);
+                recyclerViewAnswers.setVisibility(View.VISIBLE);
                 break;
             case "Educativa":
-                layoutButtons.setVisibility(View.VISIBLE);
-                recyclerViewAnswers.setVisibility(View.GONE);
+                layoutButtons.setVisibility(View.GONE);
+                recyclerViewAnswers.setVisibility(View.VISIBLE);
                 break;
         }
         txtPrimaryQuestion.setText(text);
@@ -206,7 +249,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     @Override
     public void showInfoTxtSecondary() {
         txtInfo.setVisibility(View.VISIBLE);
-        layoutButtons.setVisibility(View.GONE);
         recyclerViewAnswers.setVisibility(View.GONE);
         txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH)); //esto es los mensajes complementarios que se muestran en algunas preguntas
     }
@@ -218,21 +260,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         finish();
     }
 
-    @OnClick({R.id.mainQuestionBtnFalse, R.id.mainQuestionBtnTrue})
-    public void clickFalseOrTrueBtn(Button button) {
-        btnTrue.setEnabled(false);
-        btnFalse.setEnabled(false);
-        switch (button.getId()) {
-            case R.id.mainQuestionBtnFalse:
-                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_FALSE_ID),
-                        Cache.getByKey(Constants.SECOND_QFALSE), Boolean.valueOf(valueFalse.getText().toString()));
-                break;
-            case R.id.mainQuestionBtnTrue:
-                processAnswer(Cache.getByKey(Constants.TURN_ANSWER), Cache.getByKey(Constants.ANSWER_TRUE_ID),
-                        Cache.getByKey(Constants.SECOND_QTRUE), Boolean.valueOf(valueTrue.getText().toString()));
-                break;
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -240,37 +267,24 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
         super.onBackPressed();
     }
 
-    void processAnswer(String turnAnswer, String answerId, String txtSecondAnswer, boolean value) {
-        questionPresenter.saveAnswerQuestionDB(turnAnswer,
-                answerId);//TODO: almacena respeusta en firebase, falta agregar el UID de usuario
+    @Override
+    public void processAnswer() {
 
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.RIESGO:
-                if (!txtSecondAnswer.equals("")) {
-                    questionPresenter.getSecondAnswers(answerId);
-                    txtPrimaryQuestion.setText(txtSecondAnswer);
-                    layoutButtons.setVisibility(View.GONE);
-                    recyclerViewAnswers.setVisibility(View.VISIBLE);
-
+                if (!Cache.getByKey(Constants.SECOND_Q).equals("")) {
+                    txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
                 } else {
-
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
                         txtInfo.setVisibility(View.VISIBLE);
-                        layoutButtons.setVisibility(View.GONE);
                         recyclerViewAnswers.setVisibility(View.GONE);
                         txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
                     }
-                    questionPresenter.loadInfoSnackbar(getString(R.string.thanks_for_answers));
                 }
                 break;
             case Constants.EDUCATIVA:
-                if (value) {
-                    questionPresenter.loadInfoSnackbar(getString(R.string.right));
-                } else {
-                    questionPresenter.loadInfoSnackbar(getString(R.string.fail));
-                }
                 txtInfo.setVisibility(View.VISIBLE);
-                layoutButtons.setVisibility(View.GONE);
+                recyclerViewAnswers.setVisibility(View.GONE);
                 txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
                 break;
         }

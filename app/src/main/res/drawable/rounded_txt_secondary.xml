@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="5dp">
-        <shape
-            android:shape="rectangle" android:padding="10dp">
-            <solid android:color="@color/colorPrimaryDark"/>
+    <item android:id="@+id/shape_txt_secondary">
+        <shape android:shape="rectangle" android:padding="50dp">
+            <solid android:color="#000000"/>
             <corners
                 android:bottomRightRadius="26dp"
                 android:bottomLeftRadius="26dp"

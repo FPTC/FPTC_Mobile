@@ -1,6 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
-import org.pfccap.education.entities.UserAuth;
+import java.util.HashMap;
 
 /**
  * Created by USUARIO on 02/05/2017.
@@ -12,7 +12,7 @@ public interface IProfilePresenter {
 
     void getEmailUser();
 
-    void saveUserData(UserAuth user);
+    void updateUserData(HashMap<String, Object> dataUser);
 
     void getUserData();
 

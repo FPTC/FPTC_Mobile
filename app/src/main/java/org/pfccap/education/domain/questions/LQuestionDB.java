@@ -52,7 +52,7 @@ public class LQuestionDB implements ILQuestionDB {
         try {
             return answersQuestionDao.queryBuilder()
                     .where(AnswersQuestionDao.Properties.IdQuestion.eq(idQuestion))
-                    .orderAsc()
+                    .orderAsc(AnswersQuestionDao.Properties.Description)
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -65,7 +65,7 @@ public class LQuestionDB implements ILQuestionDB {
         try {
             return secondAnswer.queryBuilder()
                     .where(SecondAnswerDao.Properties.IdAnswer.eq(idAnswer))
-                    .orderAsc()
+                    .orderDesc(SecondAnswerDao.Properties.Description)
                     .list();
         } catch (Exception e) {
             FirebaseCrash.report(e);

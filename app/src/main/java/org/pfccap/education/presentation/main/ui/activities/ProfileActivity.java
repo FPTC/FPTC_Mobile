@@ -32,6 +32,7 @@ import org.pfccap.education.utilities.Utilities;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -166,23 +167,23 @@ public class ProfileActivity extends AppCompatActivity
     }
 
     private void saveUserData() {
-        UserAuth user = new UserAuth();
+        HashMap<String, Object> user = new HashMap<>();
+        user.put(Constants.NAME, txtName.getText().toString());
+        user.put(Constants.LASTNAME, txtLastName.getText().toString());
+        user.put(Constants.ADDRESS, txtAddress.getText().toString());
+        user.put(Constants.DATEBIRDARY, txtBirth.getText().toString());
+        user.put(Constants.HASCHILDS, Integer.parseInt(txtChilds.getText().toString()));
+        user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
+        user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
+        user.put(Constants.LALITUDE, Double.parseDouble(txtLatitude.getText().toString()));
+        user.put(Constants.LONGITUDE, Double.parseDouble(txtLongitude.getText().toString()));
+        user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
+        user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
+        user.put(Constants.PROFILE_COMPLETED, 1);
 
-        user.setName(txtName.getText().toString());
-        user.setLastName(txtLastName.getText().toString());
-        user.setAddress(txtAddress.getText().toString());
-        user.setDateBirthday(txtBirth.getText().toString());
-        user.setHasChilds(Integer.parseInt(txtChilds.getText().toString()));
-        user.setHeight(Double.parseDouble(txtHeight.getText().toString()));
-        user.setWeight(Double.parseDouble(txtWeight.getText().toString()));
-        user.setLatitude(Double.parseDouble(txtLatitude.getText().toString()));
-        user.setLongitude(Double.parseDouble(txtLongitude.getText().toString()));
-        user.setNeighborhood(txtNeighborhood.getText().toString());
-        user.setPhoneNumber(txtPhone.getText().toString());
-        user.setProfileCompleted(1);
         Cache.save(Constants.PROFILE_COMPLETED, "1");
 
-        profilePresenter.saveUserData(user);
+        profilePresenter.updateUserData(user);
     }
 
     @Override

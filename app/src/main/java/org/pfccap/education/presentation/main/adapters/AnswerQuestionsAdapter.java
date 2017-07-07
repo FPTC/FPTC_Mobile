@@ -23,24 +23,30 @@ import butterknife.OnClick;
  * Created by USUARIO on 17/05/2017.
  */
 
-public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondaryAdapter.ViewHolder> {
+public class AnswerQuestionsAdapter extends RecyclerView.Adapter<AnswerQuestionsAdapter.ViewHolder> {
 
     private List<AnswersQuestion> dataset;
     private IQuestionPresenter iQuestionPresenter;
 
-    public AnswerSecondaryAdapter(List<AnswersQuestion> dataset, IQuestionPresenter iQuestionPresenter) {
+    public AnswerQuestionsAdapter(List<AnswersQuestion> dataset, IQuestionPresenter iQuestionPresenter) {
         this.dataset = dataset;
         this.iQuestionPresenter = iQuestionPresenter;
     }
 
     @Override
-    public AnswerSecondaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_answer_secondary_question, parent, false);
+    public AnswerQuestionsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        //dependiendo del cancer es el color que tiene las filas del item, por eso se infla un recurso diferente
+        if (Cache.getByKey(Constants.TYPE_CANCER).equals(Constants.BREAST)) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_answer_secondary_question_breast, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_answer_secondary_question_cervix, parent, false);
+        }
         return new ViewHolder(view, iQuestionPresenter);
     }
 
     @Override
-    public void onBindViewHolder(AnswerSecondaryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(AnswerQuestionsAdapter.ViewHolder holder, int position) {
         AnswersQuestion element = dataset.get(position);
         holder.labelButton.setText(element.getDescription());
         holder.labelButton.setEnabled(element.getEnable());
@@ -100,7 +106,7 @@ public class AnswerSecondaryAdapter extends RecyclerView.Adapter<AnswerSecondary
             int points = Integer.valueOf(pointsAnswer.getText().toString());
             boolean value = Boolean.valueOf(valueAnswer.getText().toString());
             iQuestionPresenter.calculatePointsCheck(points, value);
-
         }
+
     }
 }

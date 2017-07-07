@@ -1,6 +1,5 @@
 <resources>
 
-
     <!-- Generales -->
     <string name="CARGANDO">Cargando</string>
     <string name="PROGRESS_DIALOG_MENSAJE_GENERAL">Estamos procesando tu solicitud</string>
@@ -8,8 +7,8 @@
     <string name="app_name">Ámate</string>
     <string name="title_info_dialog">Información</string>
     <string name="title_error_dialog">Error</string>
-    <string name="profile_completed">Por favor llena tu perfil antes de continuar, si ya lo has llenado solo presiona el botón ok y luego el botón guardar que está arriba y a la derecha de la pantalla. Gracias.</string>
-    <string name="network_not_available">No tiene conexión a internet</string>
+    <string name="profile_completed">Por favor llena tu perfil antes de continuar, si ya lo has llenado solo presiona el botón (OK) y luego el botón (GUARDAR) que está arriba y a la derecha de la pantalla. Gracias.</string>
+    <string name="network_not_available">No tiene conexión a internet y es necesario para que puedas continua, verifica tu conexión y vuelve a intentar.</string>
 
     <!-- Pantalla Login -->
     <string name="login">Ingresar</string>
@@ -52,6 +51,7 @@
     <string name="fb_login_protocol_scheme">fb302572720156810</string>
     <string name="fb_texto_ingreso">Ingresar con Facebook</string>
     <string name="logout">Cerrar sesión</string>
+
     <string name="map">Dirección</string>
     <string name="get_address">Aceptar</string>
     <string name="save">Guardar</string>
@@ -90,7 +90,7 @@
     <string name="get_to_gift">Reclama tus premios</string>
     <string name="title_points">"Puntos acumulados \n"</string>
     <string name="points_additional">Adicionalmente, si tienes indicación de hacerte la mamografía o citología vaginal y cumples
-    con la cita de tu axamen, recibirás:</string>
+    con la cita de tu examen, recibirás:</string>
 
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
@@ -99,6 +99,7 @@
     <string name="thanks_for_answers">Gracias por responder</string>
     <string name="end_turn">Se agotaron tus %d oportunidades para contestar, continua con el otro cuestionario. </string>
     <string name="lapse_answer">Tienes que esperar %d día(s) para volver a responder.</string>
+    <string name="error_nested">Error: sin configurar pregunta anidada.</string>
 
     <!--Para la tabla de premios -->
     <string-array name="head_table">
@@ -113,5 +114,23 @@
     <string name="nested_label">Anidada</string>
     <string name="password_enable">Ver Password</string>
     <string name="final_thanks">¡Gracias! \n por usar nuestra app</string>
+
+    <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
+    <string name="congratulation">¡Felicitaciones!</string>
+    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citoligía vaginal para detectar a tiempo el cáncer de mamá y prevenir el cáncer de cuello uterino</string>
+    <string name="warning_git">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.\nSangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.\n\nEsta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.\n\nPara más información contáctanos en:\namate@pfccap.org</string>
+    <string name="title_warning">¡Importante!</string>
+    <string name="mammography">mamografía</string>
+    <string name="vaginal_cytology">citología vaginal</string>
+    <string name="message_validation_no_gift">Y recuerda siempre:\n
+ 1. Evitas el cáncer cuando contralas el consumo de licor, dejas de fumar y tienes sexo CON condón.\n
+ 2. Y la vacuna contra el virus del papiloma humano te protege contra el cáncer de cuello uterino.</string>
+    <string name="message_validation_yes_gift">De acuerdo a tus respuestas es tiempo de que te hagas el examen de %1$s. ¿Te gustaría que te contactáramos para ayudarte a sacar tu cita y estar al día en el cuidado de tu salud?</string>
+    <string name="points_and_thanks_gift">Tus puntos acumulados son: %1$s.\nEn el transcurso del día llegará tu premio correspondiente a la recarga.\n¡Muchas gracias por tu participación!</string>
+
+    <!--validaciones antes de obtener el prio -->
+    <string name="have_opportunities_breast">Aún tienes más oportunidades para ganar puntos con la encuesta de cancer de seno.</string>
+    <string name="have_oppotunities_cervix">Aún tienes más oportunidades para ganar puntos con la encuesta de cancer de cuello uterino</string>
+    <string name="dont_have_enough_points">No tienes los puntos suficientes para reclamar un premio.</string>
 
 </resources>

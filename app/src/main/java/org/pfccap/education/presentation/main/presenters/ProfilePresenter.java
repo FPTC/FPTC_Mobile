@@ -4,16 +4,15 @@ import android.content.Context;
 
 import com.google.firebase.crash.FirebaseCrash;
 
-import org.pfccap.education.R;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.ui.activities.IProfileView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
-import org.pfccap.education.utilities.Utilities;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
@@ -48,14 +47,14 @@ public class ProfilePresenter implements IProfilePresenter {
     }
 
     @Override
-    public void saveUserData(UserAuth user) {
+    public void updateUserData(HashMap<String, Object> dataUser) {
 
         try {
 
             profileView.showProgress();
             profileView.disableInputs();
 
-            userBP.save(user);
+            userBP.update(dataUser);
 
             profileView.hideProgress();
             profileView.enableInputs();
@@ -72,14 +71,6 @@ public class ProfilePresenter implements IProfilePresenter {
 
     public void getUserData() {
         try {
-
-            if (!Utilities.isNetworkAvailable(context)) {
-                Utilities.dialogoError(context.getResources().getString(R.string.title_error_dialog)
-                        , context.getResources().getString(R.string.network_not_available)
-                        , context);
-                return;
-            }
-
             profileView.showProgress();
             profileView.disableInputs();
 

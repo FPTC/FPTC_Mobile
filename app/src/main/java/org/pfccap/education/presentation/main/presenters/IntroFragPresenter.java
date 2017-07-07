@@ -6,10 +6,13 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.dao.Question;
+import org.pfccap.education.domain.configuration.ConfigurationBP;
+import org.pfccap.education.domain.configuration.IConfigurationBP;
 import org.pfccap.education.domain.questions.ILQuestionDB;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.LQuestionDB;
 import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.entities.ConfigurationGifts;
 import org.pfccap.education.entities.QuestionList;
 import org.pfccap.education.presentation.main.ui.fragments.IIntroView;
 import org.pfccap.education.utilities.Cache;
@@ -31,12 +34,14 @@ public class IntroFragPresenter implements IIntroFragPresenter {
     private IIntroView iIntroView;
     private Context context;
     private IQuestionBP questionBP;
+    private IConfigurationBP configurationBP;
 
     public IntroFragPresenter(IIntroView iIntroView, Context context) {
         this.iIntroView = iIntroView;
         this.context = context;
         ilQuestionDB = new LQuestionDB();
         questionBP = new QuestionBP();
+        configurationBP = new ConfigurationBP();
     }
 
     @Override
@@ -66,6 +71,39 @@ public class IntroFragPresenter implements IIntroFragPresenter {
                     .subscribeWith(new DisposableObserver<QuestionList>() {
                         @Override
                         public void onNext(QuestionList value) {
+                            getConfGifts();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            iIntroView.hideProgress();
+                            FirebaseCrash.report(e);
+                            iIntroView.errorDBQuestion(e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            iIntroView.hideProgress();
+            iIntroView.errorDBQuestion(e.getMessage());
+        }
+    }
+
+    private void getConfGifts() {
+        try {
+
+            configurationBP.getConfigurationGifts()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<ConfigurationGifts>() {
+                        @Override
+                        public void onNext(ConfigurationGifts value) {
+                            Cache.save(Constants.APPOINTMENT, value.getAppointment());
                             iIntroView.hideProgress();
                             iIntroView.goAnswersQuestion();
                         }
@@ -89,6 +127,4 @@ public class IntroFragPresenter implements IIntroFragPresenter {
             iIntroView.errorDBQuestion(e.getMessage());
         }
     }
-
-
 }

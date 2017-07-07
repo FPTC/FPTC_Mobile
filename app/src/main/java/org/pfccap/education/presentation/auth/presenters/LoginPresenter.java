@@ -98,7 +98,7 @@ public class LoginPresenter implements ILoginPresenter {
                                                                                    String.valueOf(userAuth.getDateCompletedCervix()));
                                                                            Cache.save(Constants.PROFILE_COMPLETED,
                                                                                    String.valueOf(userAuth.getProfileCompleted()));
-
+                                                                           Cache.save(Constants.PROFILE_COMPLETED, String.valueOf(userAuth.getProfileCompleted()));
                                                                            getQuestion();
                                                                        }
 
