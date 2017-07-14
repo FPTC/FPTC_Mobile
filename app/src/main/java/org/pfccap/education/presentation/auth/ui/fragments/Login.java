@@ -101,7 +101,7 @@ public class Login extends Fragment implements ILoginView,
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this, getContext());
 
         loginPresenter.isLogging();
 

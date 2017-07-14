@@ -13,4 +13,10 @@ public interface IMainFragmentView {
     void navigateToGifts();
 
     void showError(String error);
+
+    void showProgress();
+
+    void hideProgress();
+
+    void showIntroQuestion(String turn, String dateComplite, String lapse);
 }

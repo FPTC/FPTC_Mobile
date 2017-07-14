@@ -160,9 +160,9 @@ public class QuestionBP implements IQuestionBP {
 
             }
 
-            HashMap<String, Questions> cancerSeno = questionsListAll.getBreastCancer();
+            HashMap<String, Questions> cancerBreats = questionsListAll.getBreastCancer();
 
-            for (Map.Entry<String, Questions> entry : cancerSeno.entrySet()) {
+            for (Map.Entry<String, Questions> entry : cancerBreats.entrySet()) {
                 questionsDB = new Question();
                 questionsDB.setIdquest(entry.getKey());
                 questionsDB.setTxtQuestion(entry.getValue().getText());

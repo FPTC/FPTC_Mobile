@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "406095449018",
+    "firebase_url": "https://fptc-test.firebaseio.com",
+    "project_id": "fptc-test",
+    "storage_bucket": "fptc-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406095449018:android:7ba249406672ccd9",
+        "android_client_info": {
+          "package_name": "org.pfccap.education"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406095449018-rhnrjstcipf1rq1fgdgq5840n7qtsogf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFgF_SUnbwKuAef8qOvFg73D1yW3bYKv8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

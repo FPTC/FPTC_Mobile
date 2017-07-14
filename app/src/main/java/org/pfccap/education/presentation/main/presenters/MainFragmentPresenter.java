@@ -3,7 +3,12 @@ package org.pfccap.education.presentation.main.presenters;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import org.pfccap.education.R;
+import org.pfccap.education.domain.user.IUserBP;
+import org.pfccap.education.domain.user.UserBP;
+import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.ui.activities.ProfileActivity;
 import org.pfccap.education.presentation.main.ui.fragments.IMainFragmentView;
 import org.pfccap.education.utilities.Cache;
@@ -14,6 +19,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jggomez on 14-Jun-17.
@@ -85,5 +94,54 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
         }
 
         return false;
+    }
+
+    @Override
+    public void getDataUserUpdated() {
+
+        view.showProgress();
+
+        IUserBP userBP = new UserBP();
+        userBP.getUser().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<UserAuth>() {
+                                   @Override
+                                   public void onNext(UserAuth userAuth) {
+                                       Cache.save(Constants.BREAST_TURN,
+                                               String.valueOf(userAuth.getRepetitionsAnswersBreast()));
+                                       Cache.save(Constants.CERVIX_TURN,
+                                               String.valueOf(userAuth.getRepetitionsAnswersCervix()));
+                                       Cache.save(Constants.DATE_COMPLETED_BREAST,
+                                               String.valueOf(userAuth.getDateCompletedBreast()));
+                                       Cache.save(Constants.DATE_COMPLETED_CERVIX,
+                                               String.valueOf(userAuth.getDateCompletedCervix()));
+                                       Cache.save(Constants.PROFILE_COMPLETED,
+                                               String.valueOf(userAuth.getProfileCompleted()));
+                                       Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
+                                       Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
+                                       Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
+                                       view.hideProgress();
+                                       if(Cache.getByKey(Constants.TYPE_CANCER).equals(Constants.BREAST)){
+                                           view.showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST,
+                                                   Constants.LAPSE_BREAST);
+                                       } else if(Cache.getByKey(Constants.TYPE_CANCER).equals(Constants.CERVIX)) {
+                                           view.showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX,
+                                                   Constants.LAPSE_CERVIX);
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onError(Throwable e) {
+                                       FirebaseCrash.report(e);
+                                       view.hideProgress();
+                                       view.showError(e.getMessage());
+                                   }
+
+                                   @Override
+                                   public void onComplete() {
+
+                                   }
+                               }
+                );
     }
 }

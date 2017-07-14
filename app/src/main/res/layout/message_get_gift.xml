@@ -46,20 +46,20 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/git_btn_yes"
+                    android:id="@+id/gitf_btn_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_txt_primary"
+                    android:background="@drawable/rounded_blue_light"
                     android:layout_margin="10dp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="18sp"
                     android:text="@string/yes"/>
 
                 <Button
-                    android:id="@+id/git_btn_no"
+                    android:id="@+id/gitf_btn_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_blue_light"
+                    android:background="@drawable/rounded_txt_primary"
                     android:layout_margin="10dp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="18sp"

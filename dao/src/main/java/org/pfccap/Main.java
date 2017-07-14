@@ -67,13 +67,5 @@ public class Main {
         gift.addStringProperty("points");
         gift.addStringProperty("gift");
 
-        //crea respuestas
-        Entity answers = schema.addEntity("Answers");
-        answers.addIdProperty().autoincrement();
-        answers.addLongProperty("codeQuestion");
-        answers.addStringProperty("answer");
-        Property userProperty = answers.addLongProperty("idUser").notNull().getProperty();
-        answers.addToOne(user, userProperty);
-
     }
 }

@@ -6,7 +6,9 @@ package org.pfccap.education.utilities;
 
 public class Constants {
 
-    public static final String BASE_URL = "https://us-central1-fptc-dev.cloudfunctions.net/validationCancerType/";
+    public static final String BASE_URL = "https://us-central1-fptc-dev.cloudfunctions.net/";
+    public static final String BASE_URL_TEST = "https://us-central1-fptc-test.cloudfunctions.net/";
+
 
     //autenticación de usuarios
     public static String USER_UID = "useruid";
@@ -49,8 +51,10 @@ public class Constants {
     public static String LAPSE_CERVIX = "laspsecervix";
     public static String NUM_OPPORTUNITIES = "numOpportunities";
 
-    //tabla de puntos
-    public static String APPOINTMENT = "appointment";
+    //tabla de puntos, es el valor del premio que dan por sacar la cita
+    public static String APPOINTMENT_GIFT = "appointmentgift";
+    //el para el tipo de examen, 0 quiere decir queno requiere examane, 1 para mamografía, 2 para citología y 3 para los dos
+    public static String APPOINTMENT_TYPE = "appointmenttype";
 
     //constantes para actualizar los datos de usuario en firebase
     public static final String NAME = "name";
@@ -65,5 +69,7 @@ public class Constants {
     public static final String NEIGHVORHOOD = "neighborhood";
     public static final String PHONENUMBER = "phoneNumber";
     public static final String STATE = "state";
+    public static final String APPOINTMENT_C = "appointmentCervix";
+    public static final String APPOINTMENT_B = "appointmentBreast";
 
 }

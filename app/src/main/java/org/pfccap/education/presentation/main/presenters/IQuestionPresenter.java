@@ -21,7 +21,7 @@ public interface IQuestionPresenter {
 
     void loadInfoSnackbar(String check);
 
-    void calculatePointsCheck(int points, boolean value);
+    void calculatePointsCheck(int points, boolean value, String answerId);
 
     void getSecondAnswers(String idAnswer);
 

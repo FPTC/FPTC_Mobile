@@ -1,8 +1,11 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import android.content.Context;
+
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.crash.FirebaseCrash;
 
+import org.pfccap.education.R;
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.domain.configuration.ConfigurationBP;
@@ -37,8 +40,9 @@ public class SignupPresenter implements ISignupPresenter {
     private ISignupView signupView;
     private IQuestionBP questionBP;
     private IConfigurationBP configurationBP;
+    private Context context;
 
-    public SignupPresenter(ISignupView signupView) {
+    public SignupPresenter(ISignupView signupView, Context context) {
         this.signupView = signupView;
         questionBP = new QuestionBP();
         configurationBP = new ConfigurationBP();
@@ -99,6 +103,9 @@ public class SignupPresenter implements ISignupPresenter {
                                                                                    String.valueOf(userAuth.getDateCompletedCervix()));
                                                                            Cache.save(Constants.PROFILE_COMPLETED,
                                                                                    String.valueOf(userAuth.getProfileCompleted()));
+                                                                           Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
+                                                                           Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
+                                                                           Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
 
                                                                            getQuestion();
 
@@ -122,7 +129,7 @@ public class SignupPresenter implements ISignupPresenter {
                                             signupView.hideProgress();
                                             signupView.enableInputs();
                                             FirebaseCrash.report(e);
-                                            signupView.signUpError(Utilities.traslateErrorCode(e.getMessage()));
+                                            signupView.signUpError(Utilities.traslateErrorCode(e.getMessage(), context));
                                         }
 
                                         @Override
@@ -139,12 +146,12 @@ public class SignupPresenter implements ISignupPresenter {
                             FirebaseCrash.report(e);
                             if (e instanceof FirebaseAuthException) {
                                 String errorCode = ((FirebaseAuthException) e).getErrorCode();
-                                signupView.signUpError(Utilities.traslateErrorCode(errorCode));
+                                signupView.signUpError(Utilities.traslateErrorCode(errorCode, context));
                             } else {
                                 Pattern pattern = Pattern.compile(".*WEAK_PASSWORD.*");
                                 Matcher matcher = pattern.matcher(e.getMessage());
                                 if (matcher.find()) {
-                                    signupView.signUpError(Utilities.traslateErrorCode("WEAK_PASSWORD"));
+                                    signupView.signUpError(Utilities.traslateErrorCode(context.getString(R.string.weak_password), context));
                                 }
                             }
                         }
@@ -205,7 +212,7 @@ public class SignupPresenter implements ISignupPresenter {
                     .subscribeWith(new DisposableObserver<ConfigurationGifts>() {
                         @Override
                         public void onNext(ConfigurationGifts value) {
-                            Cache.save(Constants.APPOINTMENT, value.getAppointment());
+                            Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
                             signupView.hideProgress();
                             signupView.enableInputs();
                             signupView.signUpSuccessful();
@@ -238,9 +245,13 @@ public class SignupPresenter implements ISignupPresenter {
         FirebaseCrash.report(e);
         if (e instanceof FirebaseAuthException) {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
-            signupView.signUpError(Utilities.traslateErrorCode(errorCode));
+            signupView.signUpError(Utilities.traslateErrorCode(errorCode, context));
         } else {
-            signupView.signUpError(e.getMessage());
+            if (e.getMessage().equals(context.getResources().getString(R.string.error_with_network))) {
+                signupView.signUpError(context.getResources().getString(R.string.error_with_network_spanish));
+            }else{
+                signupView.signUpError(e.getMessage());
+            }
         }
     }
 

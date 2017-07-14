@@ -164,11 +164,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @OnClick(R.id.utilitiesMapBtnBack)
     public void clickGetAddress() {
         Intent intent = new Intent();
-        try{
+        try {
             intent.putExtra("address", Address);
             intent.putExtra("latitude", String.valueOf(lat));
             intent.putExtra("longitude", String.valueOf(lng));
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
         }
         setResult(ProfileActivity.REQUEST_CODE_MAPS, intent);
@@ -189,6 +189,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setPadding(0, 150, 0, 0);
+
         updateLocationUI();
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
@@ -229,19 +230,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     private void getDeviceLocation() {
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
-        if (mLocationPermissionGranted) {
-            mLastKnownLocation = LocationServices.FusedLocationApi
-                    .getLastLocation(mGoogleApiClient);
-        }
 
         if (mCameraPosition != null) {
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
@@ -252,7 +240,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             Log.d(TAG, "Current location is null. Using defaults.");
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
     }
 
@@ -268,6 +255,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
+                } else {
+                    Utilities.snackbarMessageError(findViewById(android.R.id.content), getString(R.string.no_permission_my_location));
                 }
             }
         }
@@ -295,6 +284,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         if (mLocationPermissionGranted) {
+            mLastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
         } else {

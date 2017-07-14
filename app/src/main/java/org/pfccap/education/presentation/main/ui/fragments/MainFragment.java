@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.main.presenters.IMainFragmentPresenter;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -27,6 +29,9 @@ public class MainFragment extends Fragment implements IMainFragmentView {
 
     private OnMainFragInteractionListener mListener;
     private IMainFragmentPresenter mainFragmentPresenter;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     public MainFragment() {
         // Required empty public constructor
@@ -62,42 +67,27 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
         Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
-        try {
-
-            if(!mainFragmentPresenter.profileCompleted()){
-               return;
-            }
-
-            if (!mainFragmentPresenter.validateTurn(Constants.BREAST_TURN) &&
-                    !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(Constants.DATE_COMPLETED_BREAST),
-                            Cache.getByKey(Constants.LAPSE_BREAST))) {
-                mListener.onNavigateToBreast();
-            }
-        } catch (ParseException e) {
-            Utilities.snackbarMessageError(getView(), e.getMessage());
+        if (Utilities.isNetworkAvailable(getContext())) {
+            //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
+            mainFragmentPresenter.getDataUserUpdated();
+        }else {
+            showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
         }
-
     }
 
     @Override
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
-        try {
-
-            if(!mainFragmentPresenter.profileCompleted()){
-                return;
-            }
-
-            if (!mainFragmentPresenter.validateTurn(Constants.CERVIX_TURN) &&
-                    !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(Constants.DATE_COMPLETED_CERVIX),
-                            Cache.getByKey(Constants.LAPSE_CERVIX))) {
-                mListener.onNavigateToCervical();
-            }
-        } catch (ParseException e) {
-            Utilities.snackbarMessageError(getView(), e.getMessage());
+        if (Utilities.isNetworkAvailable(getContext())) {
+            //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
+            mainFragmentPresenter.getDataUserUpdated();
+        }else {
+            showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
         }
+
     }
+
 
     @Override
     @OnClick(R.id.mainBtnGift)
@@ -111,6 +101,40 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     public void showError(String error) {
         Utilities.snackbarMessageError(getView(),
                 error);
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showIntroQuestion(String turn, String dateComplite, String lapse) {
+        try {
+            if (!mainFragmentPresenter.profileCompleted()) {
+                return;
+            }
+            if (!mainFragmentPresenter.validateTurn(turn) &&
+                    !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(dateComplite),
+                            Cache.getByKey(lapse))) {
+
+                switch (Cache.getByKey(Constants.TYPE_CANCER)){
+                    case Constants.BREAST:
+                        mListener.onNavigateToBreast();
+                        break;
+                    case Constants.CERVIX:
+                        mListener.onNavigateToCervical();
+                        break;
+                }
+            }
+        } catch (ParseException e) {
+            Utilities.snackbarMessageError(getView(), e.getMessage());
+        }
     }
 
 

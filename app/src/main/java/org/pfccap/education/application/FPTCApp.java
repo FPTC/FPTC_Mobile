@@ -34,7 +34,6 @@ public class FPTCApp extends Application {
         //se crean los DAOs
         AppDao.setUserDao(daoSession.getUserDao());
         AppDao.setQuestionDao(daoSession.getQuestionDao());
-        AppDao.setAnswersDao(daoSession.getAnswersDao());
         AppDao.setAnswersQuestionDao(daoSession.getAnswersQuestionDao());
         AppDao.setSecondAnswerDao(daoSession.getSecondAnswerDao());
         AppDao.setGiftDao(daoSession.getGiftDao());

@@ -103,7 +103,7 @@ public class IntroFragPresenter implements IIntroFragPresenter {
                     .subscribeWith(new DisposableObserver<ConfigurationGifts>() {
                         @Override
                         public void onNext(ConfigurationGifts value) {
-                            Cache.save(Constants.APPOINTMENT, value.getAppointment());
+                            Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
                             iIntroView.hideProgress();
                             iIntroView.goAnswersQuestion();
                         }

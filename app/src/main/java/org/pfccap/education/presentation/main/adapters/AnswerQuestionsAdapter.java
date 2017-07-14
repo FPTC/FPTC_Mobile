@@ -105,7 +105,7 @@ public class AnswerQuestionsAdapter extends RecyclerView.Adapter<AnswerQuestions
             iQuestionPresenter.saveAnswerQuestionDB(Cache.getByKey(Constants.TURN_ANSWER), answerId.getText().toString());
             int points = Integer.valueOf(pointsAnswer.getText().toString());
             boolean value = Boolean.valueOf(valueAnswer.getText().toString());
-            iQuestionPresenter.calculatePointsCheck(points, value);
+            iQuestionPresenter.calculatePointsCheck(points, value, answerId.getText().toString());
         }
 
     }

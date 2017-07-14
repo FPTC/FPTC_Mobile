@@ -1,22 +1,29 @@
 package org.pfccap.education.presentation.auth.ui.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
@@ -57,9 +64,17 @@ public class Signup extends Fragment implements ISignupView,
     @BindView(R.id.authSignupEmail)
     EditText authSignupEmail;
 
-    @NotEmpty(messageResId = R.string.field_required)
+    @Password(messageResId = R.string.field_required)
     @BindView(R.id.authSignupPassword)
     EditText authSignupPassword;
+
+    @Checked(messageResId = R.string.privacy_check_validation_message)
+    @BindView(R.id.link_check_privacy)
+    CheckBox link_check_privacy;
+
+    @Checked(messageResId = R.string.terms_check_validation_message)
+    @BindView(R.id.link_check_terms)
+    CheckBox link_check_terms;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -69,6 +84,12 @@ public class Signup extends Fragment implements ISignupView,
 
     @BindView(R.id.authBtnSignUp)
     Button authBtnSignUp;
+
+    @BindView(R.id.link_termsCondition)
+    TextView link_termsCondition;
+
+    @BindView(R.id.link_privacy_policy)
+    TextView link_privacy_policy;
 
     public Signup() {
         // Required empty public constructor
@@ -91,14 +112,25 @@ public class Signup extends Fragment implements ISignupView,
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, view);
 
-        signupPresenter = new SignupPresenter(this);
+        signupPresenter = new SignupPresenter(this, getContext());
 
         initText();
+        initTextLink();
 
         validator = new Validator(this);
         validator.setValidationListener(this);
 
         return view;
+    }
+
+    private void initTextLink() {
+        link_termsCondition.setClickable(true);
+        link_termsCondition.setMovementMethod(LinkMovementMethod.getInstance());
+        link_termsCondition.setText(Utilities.fromHtml("<a href='https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8'>Términos y Condiciones</a>"));
+
+        link_privacy_policy.setClickable(true);
+        link_privacy_policy.setMovementMethod(LinkMovementMethod.getInstance());
+        link_privacy_policy.setText(Utilities.fromHtml("<a href='https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8'>Políticas de privacidad</a>"));
     }
 
     private void initText() {
@@ -171,6 +203,7 @@ public class Signup extends Fragment implements ISignupView,
 
     private void setInputs(boolean enabled) {
         authSignupName.setEnabled(enabled);
+        authSignupLastName.setEnabled(enabled);
         authSignupEmail.setEnabled(enabled);
         authSignupPassword.setEnabled(enabled);
         authBtnSignUp.setEnabled(enabled);

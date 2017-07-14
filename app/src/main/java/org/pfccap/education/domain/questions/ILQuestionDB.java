@@ -15,7 +15,9 @@ public interface ILQuestionDB {
 
     List<Question> getAll(String typeCancer);
 
-    List<AnswersQuestion> getAnswers(String idQuestion);
+    List<AnswersQuestion> getAnswersByQuestion(String idQuestion);
+
+    AnswersQuestion getAnswersByAnswers(String idQuestion, String idAnswer);
 
     List<SecondAnswer> getSecondAnswers(String idAnswer);
 

@@ -150,7 +150,7 @@ public class QuestionPresenter implements IQuestionPresenter {
     }
 
     @Override
-    public void calculatePointsCheck(int points, boolean value) {
+    public void calculatePointsCheck(int points, boolean value, String answerId) {
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.EVALUATIVA:
                 //se gestiona las respuestas tivo evaluativas
@@ -167,20 +167,12 @@ public class QuestionPresenter implements IQuestionPresenter {
                             break;
                     }
 
-                    String check;
-                    if (value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
-                        check = context.getResources().getString(R.string.right);
-                    } else if (!value && Cache.getByKey(Constants.TYPE_Q).equals(Constants.EVALUATIVA)) {
-                        check = context.getResources().getString(R.string.fail);
-                    } else {
-                        check = context.getResources().getString(R.string.thanks_for_answers);
-                    }
-
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
                         questionView.showInfoTxtSecondary();
                     }
                     questionView.disableItemsAdapter();
-                    loadInfoSnackbar(check);
+
+                    textSnackBar(value);
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                     System.out.println("error " + e.getMessage());
@@ -188,27 +180,39 @@ public class QuestionPresenter implements IQuestionPresenter {
 
                 break;
             case Constants.RIESGO:
-                questionView.processAnswer();
-                if (!Cache.getByKey(Constants.SECOND_Q).equals("") && !Cache.getByKey(Constants.ANSWER_ID).equals("")) {
-                    getSecondAnswers(Cache.getByKey(Constants.ANSWER_ID));
-                    Cache.save(Constants.ANSWER_ID, "");
+                //verifico si hay pregunta aninada para la respuesta dada, trayendo los datos de la pregunta que corresponden a esta respuesta
+                AnswersQuestion answers = ilQuestionDB.getAnswersByAnswers(Cache.getByKey(Constants.QUESTION_ID),answerId);
+                if (answers != null && answers.getTxtSecondQuestion() != null &&
+                        !answers.getTxtSecondQuestion().equals("")) {
+                    //se guarda en cache la preguna aninada para mostrala cuando se necesite
+                    getSecondAnswers(answerId);
+                    Cache.save(Constants.SECOND_Q, answers.getTxtSecondQuestion());
                 } else {
+                    Cache.save(Constants.SECOND_Q, "");
                     loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
                 }
+                questionView.processAnswer();
                 break;
             case Constants.EDUCATIVA:
                 questionView.processAnswer();
-                if (value) {
-                    loadInfoSnackbar(context.getResources().getString(R.string.right));
-                } else{
-                    loadInfoSnackbar(context.getResources().getString(R.string.fail));
-                }
+                textSnackBar(value);
                 break;
             default:
-                loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
+                textSnackBar(value);
                 break;
         }
 
+    }
+
+    private void textSnackBar(boolean value) {
+
+        String check;
+        if (value) {
+            check = context.getResources().getString(R.string.right);
+        } else {
+            check = context.getResources().getString(R.string.fail);
+        }
+        loadInfoSnackbar(check);
     }
 
     private void sumPoints(String constant, int points) {
@@ -243,11 +247,11 @@ public class QuestionPresenter implements IQuestionPresenter {
                 answersQuestion.setDescription(secondAnswer.getDescription());
                 answersQuestion.setPoints(0);
                 answersQuestion.setValue(false);
-                answersQuestion.setIdAnswer(secondAnswer.getIdAnswer());
+                answersQuestion.setIdAnswer(secondAnswer.getIdSecondAnswer());
                 answersQuestionList.add(answersQuestion);
             }
             questionView.loadAdapterRecycler(answersQuestionList);
-        }else{
+        } else {
             loadInfoSnackbar(context.getResources().getString(R.string.error_nested));
         }
     }
@@ -299,39 +303,15 @@ public class QuestionPresenter implements IQuestionPresenter {
                 case Constants.EVALUATIVA:
                     //re carga las respuestas de la pregunta en el adaptador
                     Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
-                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
+                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswersByQuestion(currentQ.getIdquest()));
                     break;
                 case Constants.RIESGO:
                     //se carga los label de los botones true y false
-                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
-                    //para las preguntas anidadas
-                    List<AnswersQuestion> lstAnswersQuestion = ilQuestionDB.getAnswers(currentQ.getIdquest());
-                    for (AnswersQuestion answersQuestion : lstAnswersQuestion) {
-                        if (answersQuestion.getValue()) {
-                            Cache.save(Constants.ANSWER_ID, answersQuestion.getIdAnswer());
-                            if (answersQuestion.getTxtSecondQuestion() != null &&
-                                    !answersQuestion.getTxtSecondQuestion().equals("")) {
-                                //se guarda en cache la preguna aninada para mostrala cuando se necesite
-                                Cache.save(Constants.SECOND_Q, answersQuestion.getTxtSecondQuestion());
-                            } else {
-                                Cache.save(Constants.SECOND_Q, "");
-                            }
-                        }
-                        if (!answersQuestion.getValue()) {
-                            Cache.save(Constants.ANSWER_ID, answersQuestion.getIdAnswer());
-                            if (answersQuestion.getTxtSecondQuestion() != null &&
-                                    !answersQuestion.getTxtSecondQuestion().equals("")) {
-                                //se guarda en cache la preguna aninada para mostrala cuando se necesite
-                                Cache.save(Constants.SECOND_Q, answersQuestion.getTxtSecondQuestion());
-                            } else {
-                                Cache.save(Constants.SECOND_Q, "");
-                            }
-                        }
-                    }
+                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswersByQuestion(currentQ.getIdquest()));
                     Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
                     break;
                 case Constants.EDUCATIVA:
-                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswers(currentQ.getIdquest()));
+                    questionView.loadAdapterRecycler(ilQuestionDB.getAnswersByQuestion(currentQ.getIdquest()));
                     Cache.save(Constants.INFO_TEACH, currentQ.getInfo());
                     break;
             }

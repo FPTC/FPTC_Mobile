@@ -42,15 +42,14 @@
             android:id="@+id/refcenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
         <ImageView
-            android:layout_marginTop="1dp"
             android:id="@+id/mark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/refcenter"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="1dp"
             android:background="@drawable/mark_google23x70" />
 
     </RelativeLayout>

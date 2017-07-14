@@ -1,5 +1,7 @@
 package org.pfccap.education.presentation.auth.presenters;
 
+import android.content.Context;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -8,6 +10,7 @@ import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.crash.FirebaseCrash;
 
+import org.pfccap.education.R;
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.domain.configuration.ConfigurationBP;
@@ -42,10 +45,12 @@ public class LoginPresenter implements ILoginPresenter {
     private IAuthProcess objAuthProcess;
     private IQuestionBP questionBP;
     private IConfigurationBP configurationBP;
+    private Context context;
 
 
-    public LoginPresenter(ILoginView loginView) {
+    public LoginPresenter(ILoginView loginView, Context context) {
         this.loginView = loginView;
+        this.context = context;
         questionBP = new QuestionBP();
         configurationBP = new ConfigurationBP();
     }
@@ -98,7 +103,10 @@ public class LoginPresenter implements ILoginPresenter {
                                                                                    String.valueOf(userAuth.getDateCompletedCervix()));
                                                                            Cache.save(Constants.PROFILE_COMPLETED,
                                                                                    String.valueOf(userAuth.getProfileCompleted()));
-                                                                           Cache.save(Constants.PROFILE_COMPLETED, String.valueOf(userAuth.getProfileCompleted()));
+                                                                           Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
+                                                                           Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
+                                                                           Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
+
                                                                            getQuestion();
                                                                        }
 
@@ -150,9 +158,13 @@ public class LoginPresenter implements ILoginPresenter {
         FirebaseCrash.report(e);
         if (e instanceof FirebaseAuthException) {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
-            loginView.loginError(Utilities.traslateErrorCode(errorCode));
+            loginView.loginError(Utilities.traslateErrorCode(errorCode, context));
         } else {
-            loginView.loginError(e.getMessage());
+            if (e.getMessage().equals(context.getResources().getString(R.string.error_with_network))) {
+                loginView.loginError(context.getResources().getString(R.string.error_with_network_spanish));
+            }else{
+                loginView.loginError(e.getMessage());
+            }
         }
     }
 
@@ -198,7 +210,7 @@ public class LoginPresenter implements ILoginPresenter {
                     .subscribeWith(new DisposableObserver<ConfigurationGifts>() {
                         @Override
                         public void onNext(ConfigurationGifts value) {
-                            Cache.save(Constants.APPOINTMENT, value.getAppointment());
+                            Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
                             loginView.enableInputs();
                             loginView.hideProgress();
                             loginView.navigateToMainScreen();

@@ -131,6 +131,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
+    public void onBackPressed() { //Al llegar al ultimo fragmento cierra la actividad al precinoar el back para evitar pantallas en blanco
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1)finish();
+        super.onBackPressed();
+    }
+
+    @Override
     public void setUserName(String userName) {
         txtNavigationHeaderUserName.setText(userName);
     }

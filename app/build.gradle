@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
+        config {
+            keyAlias 'amate'
+            keyPassword '4m4t3k3y2017'
+            storeFile file('C:/Users/USUARIO.USUARIO-PC/Documents/proyectosAndroid/FPTC_Mobile/app/amatekey.jks')
+            storePassword '4m4t3k3y2017'
+        }
     }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -13,6 +19,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -24,6 +31,8 @@ android {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen', '../dao/classes']
         }
+    }
+    productFlavors {
     }
 }
 dependencies {
@@ -44,7 +53,6 @@ dependencies {
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     compile 'com.mobsandgeeks:android-saripaar:2.0.2'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'

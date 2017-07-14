@@ -2,12 +2,12 @@ package org.pfccap.education.presentation.main.ui.fragments;
 
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -15,7 +15,6 @@ import org.pfccap.education.R;
 import org.pfccap.education.dao.Gift;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
-import org.pfccap.education.entities.Validation;
 import org.pfccap.education.presentation.main.presenters.GiftsPresenter;
 import org.pfccap.education.presentation.main.presenters.IGiftsPresenter;
 import org.pfccap.education.utilities.Cache;
@@ -32,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class GiftsFragment extends Fragment {
+public class GiftsFragment extends Fragment implements IGiftsFragmentView {
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,6 +43,9 @@ public class GiftsFragment extends Fragment {
 
     @BindView(R.id.appointment_gift)
     TextView appointmentGift;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     int totalpoint;
 
@@ -65,7 +67,7 @@ public class GiftsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gifts, container, false);
         ButterKnife.bind(this, view);
-        giftsPresenter = new GiftsPresenter();
+        giftsPresenter = new GiftsPresenter(this, getContext());
         if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("") && Cache.getByKey(Constants.TOTAL_POINTS_C).equals("")) {
             totalpoint = 0;
         } else {
@@ -78,7 +80,7 @@ public class GiftsFragment extends Fragment {
     }
 
     private void initTable() {
-        appointmentGift.setText(Cache.getByKey(Constants.APPOINTMENT));
+        appointmentGift.setText(Cache.getByKey(Constants.APPOINTMENT_GIFT));
 
         Table table = new Table(getActivity(), giftTable);
         table.addHead(R.array.head_table);
@@ -94,42 +96,53 @@ public class GiftsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void afterUpdateUserInfo() {
+            //cambiar el campo state en el usuario, indicando que acabo los dos cuestionarios
+            HashMap<String, Object> obj = new HashMap<>();
+            obj.put(Constants.STATE, 2);
+            IUserBP userBP = new UserBP();
+            userBP.update(obj);
+
+            mListener.onNavigationMessageGift();
+    }
+
+    @Override
+    public void showErrorSnack(String message) {
+        Utilities.snackbarMessageError(getView(), message);
+    }
+
+    @Override
+    public void showErrorDialog(String title, String message) {
+        Utilities.dialogoInfo(title, message, getContext());
+    }
+
     @OnClick(R.id.mainGiftBtnGetGift)
     public void showMessageGift() {
         if (mListener != null) {
-            if (totalpoint > 5) {
-                if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) !=
-                        Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
-
-                    Utilities.snackbarMessageError(getView(), getString(R.string.have_opportunities_breast));
-
-                } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) !=
-                        Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
-
-                    Utilities.snackbarMessageError(getView(), getString(R.string.have_oppotunities_cervix));
-
-                }else{
-                    if (Utilities.isNetworkAvailable(getContext())){
-                        giftsPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
-
-                        mListener.onNavigationMessageGift();
-                        //cambiar el campo state en el usuario, indicando que acabo los dos cuestionarios
-                        HashMap<String, Object> obj = new HashMap<>();
-                        obj.put(Constants.STATE, 2);
-                        IUserBP userBP = new UserBP();
-                        userBP.update(obj);
-                    }else {
-                        Utilities.dialogoError(getString(R.string.TITULO_ERROR), getString(R.string.network_not_available), getContext());
-                    }
-
+            if (totalpoint > 5) { //TODO preguntar si siempre debe tener más de 5 puntos para reclamar premio
+                if (Utilities.isNetworkAvailable(getContext())) {
+                    //si tiene internet se actualiza las vatiales de usuario con respecto a la
+                    // configuración de turnos, puntos acumulados y estado
+                    giftsPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
+                } else {
+                    Utilities.dialogoError(getString(R.string.TITULO_ERROR), getString(R.string.network_not_available), getContext());
                 }
-
             } else {
                 Utilities.snackbarMessageError(getView(), getString(R.string.dont_have_enough_points));
             }
         }
     }
-
 
     @Override
     public void onAttach(Context context) {

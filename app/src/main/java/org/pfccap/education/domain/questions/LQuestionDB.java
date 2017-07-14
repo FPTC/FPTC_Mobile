@@ -48,12 +48,24 @@ public class LQuestionDB implements ILQuestionDB {
     }
 
     @Override
-    public List<AnswersQuestion> getAnswers(String idQuestion) {
+    public List<AnswersQuestion> getAnswersByQuestion(String idQuestion) {
         try {
             return answersQuestionDao.queryBuilder()
                     .where(AnswersQuestionDao.Properties.IdQuestion.eq(idQuestion))
                     .orderAsc(AnswersQuestionDao.Properties.Description)
                     .list();
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            return null;
+        }
+    }
+
+    @Override
+    public AnswersQuestion getAnswersByAnswers(String idQuestion, String idAnswer) {
+        try {
+            return answersQuestionDao.queryBuilder()
+                    .where(AnswersQuestionDao.Properties.IdQuestion.eq(idQuestion), AnswersQuestionDao.Properties.IdAnswer.eq(idAnswer))
+                    .unique();
         } catch (Exception e) {
             FirebaseCrash.report(e);
             return null;
@@ -80,6 +92,7 @@ public class LQuestionDB implements ILQuestionDB {
                 AppDao.getAnswersQuestionDao().deleteAll();
                 AppDao.getQuestionDao().deleteAll();
                 AppDao.getSecondAnswerDao().deleteAll();
+                AppDao.getGiftDao().deleteAll();
                 AppDao.getGiftDao().deleteAll();
             }
         } catch (Exception e) {
