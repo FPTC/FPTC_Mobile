@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -136,6 +137,7 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
+        textView.setTextSize(20);
         ColoredSnackbar.alert(snackbar).show();
     }
 
@@ -144,6 +146,7 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
+        textView.setTextSize(20);
         ColoredSnackbar.info(snackbar).show();
     }
 
@@ -152,14 +155,22 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
+        textView.setTextSize(28);
+        if (info.equals(context.getResources().getString(R.string.fail))) {
+            ColoredSnackbar.info(snackbar);
+        }else if(info.equals(context.getResources().getString(R.string.right))){
+            ColoredSnackbar.right(snackbar);
+        }else {
+            ColoredSnackbar.info(snackbar);
+        }
         snackbar.setAction("Siguiente", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context, context);
                 iQuestionPresenter.loadNextQuestion();
             }
-        });
-        ColoredSnackbar.info(snackbar).show();
+        }).show();
+
     }
 
     private enum tipoDialogEnum {
@@ -188,7 +199,6 @@ public class Utilities {
     }
 
     public static String traslateErrorCode(String code, Context context) {
-        //TODO pasar el contexto para poner los mensajes en string
         String message = "";
         switch (code) {
             case "ERROR_USER_NOT_FOUND":

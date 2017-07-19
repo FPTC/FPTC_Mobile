@@ -1,14 +1,12 @@
 package org.pfccap.education.presentation.auth.ui.fragments;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.UnderlineSpan;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +22,7 @@ import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
@@ -31,6 +30,7 @@ import org.pfccap.education.presentation.auth.presenters.SignupPresenter;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,10 +52,12 @@ public class Signup extends Fragment implements ISignupView,
     private Validator validator;
 
     @NotEmpty(messageResId = R.string.field_required)
+    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.authSignupName)
     EditText authSignupName;
 
     @NotEmpty(messageResId = R.string.field_required)
+    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.authSignupLastName)
     EditText authSignupLastName;
 
@@ -90,6 +92,9 @@ public class Signup extends Fragment implements ISignupView,
 
     @BindView(R.id.link_privacy_policy)
     TextView link_privacy_policy;
+
+    @BindView(R.id.link_create_gmail)
+    TextView link_create_gmail;
 
     public Signup() {
         // Required empty public constructor
@@ -131,6 +136,12 @@ public class Signup extends Fragment implements ISignupView,
         link_privacy_policy.setClickable(true);
         link_privacy_policy.setMovementMethod(LinkMovementMethod.getInstance());
         link_privacy_policy.setText(Utilities.fromHtml("<a href='https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8'>Políticas de privacidad</a>"));
+
+        link_create_gmail.setClickable(true);
+        link_create_gmail.setMovementMethod(LinkMovementMethod.getInstance());
+        String linkGmailUrl = "https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default";
+        link_create_gmail.setText(Utilities.fromHtml("<a href='"+ linkGmailUrl +"'>"+getString(R.string.create_gmail_acount)+"</a>"));
+
     }
 
     private void initText() {

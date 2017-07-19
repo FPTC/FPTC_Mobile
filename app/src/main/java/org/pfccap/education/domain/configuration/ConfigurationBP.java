@@ -49,7 +49,11 @@ public class ConfigurationBP implements IConfigurationBP {
                                             String.valueOf(configuration.getLapseCervix()));
                                     Cache.save(Constants.NUM_OPPORTUNITIES,
                                             String.valueOf(configuration.getNumOpportunities()));
-
+                                    if(Cache.getByKey(Constants.NUM_OPPORTUNITIES).equals("")){
+                                        //Esto es porque luego se hace la comparación de valores haciendo la conversión a
+                                        // enteros y si el valor viene vació sale una excepción cerrando la app.
+                                        Cache.save(Constants.NUM_OPPORTUNITIES, "0");
+                                    }
                                     e.onNext(configuration);
                                 }
 

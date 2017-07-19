@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     tools:context="org.pfccap.education.presentation.main.ui.fragments.MainFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:indeterminate="true"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +16,7 @@
             android:layout_weight="0.6"
             android:orientation="horizontal"
             android:weightSum="1">
-            <!-- TODO: Update blank fragment layout -->
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -36,6 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/aprende_cancer_seno" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -43,7 +35,7 @@
                     android:gravity="center"
                     android:text="@string/btn_breast_cancer"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -65,7 +57,7 @@
                     android:gravity="center"
                     android:text="@string/btn_cervical_cancer"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -80,10 +72,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                android:text="@string/btn_take_gift"
-                android:drawableTop="@mipmap/ic_gift_white_intro"
-                android:paddingTop="10dp"/>
+                android:drawableStart="@mipmap/ic_gift_white_intro"
+                android:gravity="center"
+                android:text="@string/btn_take_gift" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/mainProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 </FrameLayout>

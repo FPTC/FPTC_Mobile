@@ -64,7 +64,7 @@ public class Constants {
     public static final String HASCHILDS = "hasChilds";
     public static final String HEIGHT = "height";
     public static final String WEIGHT = "weight";
-    public static final String LALITUDE = "latitude";
+    public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String NEIGHVORHOOD = "neighborhood";
     public static final String PHONENUMBER = "phoneNumber";

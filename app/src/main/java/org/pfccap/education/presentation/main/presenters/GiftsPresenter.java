@@ -81,15 +81,14 @@ public class GiftsPresenter implements IGiftsPresenter {
                                        Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
                                        Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
 
-                                       if (!Cache.getByKey(Constants.BREAST_TURN).equals(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
-
+                                       if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                                           view.hideProgress();
                                            view.showErrorSnack(context.getString(R.string.have_opportunities_breast));
-
-                                       } else if (!Cache.getByKey(Constants.CERVIX_TURN).equals(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
-
+                                       } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                                           view.hideProgress();
                                            view.showErrorSnack(context.getString(R.string.have_oppotunities_cervix));
-
                                        } else if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
+                                           view.hideProgress();
                                            view.showErrorDialog(context.getString(R.string.title_info_dialog), context.getString(R.string.done_get_gift));
                                        } else {
 

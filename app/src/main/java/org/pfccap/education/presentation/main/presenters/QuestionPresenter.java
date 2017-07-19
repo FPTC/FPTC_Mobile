@@ -88,7 +88,11 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
                     updateDataFirebase(Constants.CERVIX_TURN, turn);
 
-                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
+                    if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C));
+                        Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
+                    } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) >
+                            Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
@@ -107,7 +111,11 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.DATE_COMPLETED_BREAST, dateCompleted);
                     updateDataFirebase(Constants.BREAST_TURN, turn);
 
-                    if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) > Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
+                    if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                        Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                    } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) >
+                            Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                         Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
@@ -181,7 +189,21 @@ public class QuestionPresenter implements IQuestionPresenter {
                 break;
             case Constants.RIESGO:
                 //verifico si hay pregunta aninada para la respuesta dada, trayendo los datos de la pregunta que corresponden a esta respuesta
-                AnswersQuestion answers = ilQuestionDB.getAnswersByAnswers(Cache.getByKey(Constants.QUESTION_ID),answerId);
+                AnswersQuestion answers = ilQuestionDB.getAnswersByAnswers(Cache.getByKey(Constants.QUESTION_ID), answerId);
+                switch (answerId) {
+                    case "id234581":
+                        Cache.save(Constants.APPOINTMENT_B, "0");
+                        break;
+                    case "id234582":
+                        Cache.save(Constants.APPOINTMENT_B, "1");
+                        break;
+                    case "id453634":
+                        Cache.save(Constants.APPOINTMENT_C, "0");
+                        break;
+                    case "id125695":
+                        Cache.save(Constants.APPOINTMENT_C, "1");
+                        break;
+                }
                 if (answers != null && answers.getTxtSecondQuestion() != null &&
                         !answers.getTxtSecondQuestion().equals("")) {
                     //se guarda en cache la preguna aninada para mostrala cuando se necesite

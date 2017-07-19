@@ -11,7 +11,8 @@ import android.view.View;
 public class ColoredSnackbar {
 
     private static final int COLOR_ERROR = 0xffa30039;
-    private static final int COLOR_INFO = 0xffdb2763;
+    private static final int COLOR_INFO = 0xffc82c63;
+    private static final int COLOR_RIGHT = 0xff0da4a6;
 
     private static View getSnackBarLayout(Snackbar snackbar) {
         if (snackbar != null) {
@@ -33,6 +34,10 @@ public class ColoredSnackbar {
 
     public static Snackbar info(Snackbar snackbar) {
         return colorSnackBar(snackbar, COLOR_INFO);
+    }
+
+    public static Snackbar right(Snackbar snackbar) {
+        return colorSnackBar(snackbar, COLOR_RIGHT);
     }
 
     public static Snackbar alert(Snackbar snackbar) {

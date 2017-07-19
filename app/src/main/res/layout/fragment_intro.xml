@@ -37,9 +37,10 @@
             android:drawableEnd="@mipmap/ic_keyboard_arrow_right_white_48dp"
             android:drawableStart="@mipmap/ic_blanco_barra_amate"
             android:paddingStart="30dp"
-            android:text="@string/go_to_learn"
+            android:text="@string/btn_test_knowledge"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textAllCaps="false"/>
 
         <TextView
             android:id="@+id/mainIntroTxt"

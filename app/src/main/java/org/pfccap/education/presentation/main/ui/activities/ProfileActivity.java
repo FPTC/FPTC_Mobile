@@ -16,9 +16,11 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.DecimalMax;
 import com.mobsandgeeks.saripaar.annotation.DecimalMin;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.pfccap.education.R;
@@ -51,10 +53,12 @@ public class ProfileActivity extends AppCompatActivity
     Toolbar toolbar;
 
     @NotEmpty(messageResId = R.string.field_required)
+    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.mainProfileTxtName)
     EditText txtName;
 
     @NotEmpty(messageResId = R.string.field_required)
+    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.mainProfileTxtLastName)
     EditText txtLastName;
 
@@ -65,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity
     EditText txtAge;
 
     @NotEmpty(messageResId = R.string.phone_no_empty_msg)
+    @Length(min=7, max = 10, messageResId = R.string.limits_phone_number)
     @BindView(R.id.mainProfileTxtPhone)
     EditText txtPhone;
 
@@ -119,7 +124,11 @@ public class ProfileActivity extends AppCompatActivity
         initToolbar();
 
         profilePresenter.getEmailUser();
-        profilePresenter.getUserData();
+        if (!Utilities.isNetworkAvailable(ProfileActivity.this)) {
+            loadInfoLocal();
+        }else{
+            profilePresenter.getUserData();
+        }
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -160,13 +169,27 @@ public class ProfileActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                validator.validate();
+                    validator.validate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void saveUserData() {
+
+        Cache.save(Constants.USER_NAME, txtName.getText().toString());
+        Cache.save(Constants.LASTNAME, txtLastName.getText().toString());
+        Cache.save(Constants.ADDRESS, txtAddress.getText().toString());
+        Cache.save(Constants.DATEBIRDARY, txtBirth.getText().toString());
+        Cache.save(Constants.HASCHILDS, txtChilds.getText().toString());
+        Cache.save(Constants.HEIGHT, txtHeight.getText().toString());
+        Cache.save(Constants.WEIGHT, txtWeight.getText().toString());
+        Cache.save(Constants.LATITUDE, txtLatitude.getText().toString());
+        Cache.save(Constants.LONGITUDE, txtLongitude.getText().toString());
+        Cache.save(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
+        Cache.save(Constants.PHONENUMBER, txtPhone.getText().toString());
+        Cache.save(Constants.PROFILE_COMPLETED, "1");
+
         HashMap<String, Object> user = new HashMap<>();
         user.put(Constants.NAME, txtName.getText().toString());
         user.put(Constants.LASTNAME, txtLastName.getText().toString());
@@ -175,7 +198,7 @@ public class ProfileActivity extends AppCompatActivity
         user.put(Constants.HASCHILDS, Integer.parseInt(txtChilds.getText().toString()));
         user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
         user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
-        user.put(Constants.LALITUDE, Double.parseDouble(txtLatitude.getText().toString()));
+        user.put(Constants.LATITUDE, Double.parseDouble(txtLatitude.getText().toString()));
         user.put(Constants.LONGITUDE, Double.parseDouble(txtLongitude.getText().toString()));
         user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
@@ -222,6 +245,35 @@ public class ProfileActivity extends AppCompatActivity
         Utilities.snackbarMessageError(findViewById(android.R.id.content), error);
     }
 
+    private void loadInfoLocal() {
+        txtBirth.setText(Cache.getByKey(Constants.DATEBIRDARY));
+        txtAddress.setText(Cache.getByKey(Constants.ADDRESS));
+        txtLongitude.setText(Cache.getByKey(Constants.LONGITUDE));
+        txtLatitude.setText(Cache.getByKey(Constants.LATITUDE));
+        txtChilds.setText(Cache.getByKey(Constants.HASCHILDS));
+        txtHeight.setText(Cache.getByKey(Constants.HEIGHT));
+        txtName.setText(Cache.getByKey(Constants.USER_NAME));
+        txtLastName.setText(Cache.getByKey(Constants.LASTNAME));
+        txtNeighborhood.setText(Cache.getByKey(Constants.NEIGHVORHOOD));
+        txtPhone.setText(Cache.getByKey(Constants.PHONENUMBER));
+        txtWeight.setText(Cache.getByKey(Constants.WEIGHT));
+
+        if (!Cache.getByKey(Constants.DATEBIRDARY).equals("")) {
+
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
+            try {
+                cal.setTime(sdf.parse(Cache.getByKey(Constants.DATEBIRDARY)));
+                profilePresenter.calculateAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar
+                        .DAY_OF_MONTH));
+            } catch (ParseException e) {
+                Utilities.dialogoError(getString(R.string.title_error_dialog), e.getMessage(), this);
+            }
+
+        }
+    }
+
     @Override
     public void loadData(UserAuth user) {
         txtBirth.setText(user.getDateBirthday());
@@ -243,7 +295,8 @@ public class ProfileActivity extends AppCompatActivity
 
             try {
                 cal.setTime(sdf.parse(user.getDateBirthday()));
-                profilePresenter.calculateAge(cal.get(Calendar.YEAR));
+                profilePresenter.calculateAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar
+                .DAY_OF_MONTH));
             } catch (ParseException e) {
                 Utilities.dialogoError(getString(R.string.title_error_dialog), e.getMessage(), this);
             }
@@ -265,7 +318,7 @@ public class ProfileActivity extends AppCompatActivity
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         txtBirth.setText(date);
-        profilePresenter.calculateAge(year);
+        profilePresenter.calculateAge(year, monthOfYear+1, dayOfMonth);
     }
 
     public void setAge(int age) {

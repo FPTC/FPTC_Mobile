@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public interface IProfilePresenter {
 
-    void calculateAge(int yearBirth);
+    void calculateAge(int yearBirth, int mothBirth, int dayMonthBirth);
 
     void getEmailUser();
 

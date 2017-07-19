@@ -15,7 +15,8 @@
         android:background="@drawable/rounded_blue_light"
         android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textAllCaps="false"/>
 
     <TextView
         android:id="@+id/questionAnswersPoints"

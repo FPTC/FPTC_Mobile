@@ -65,14 +65,14 @@
     <string name="enable_gps">Activación del GPS</string>
     <string name="content_enable_gps">¿Deseas ir activar el GPS para ubicar mejor tu posición en el mapa?</string>
     <string name="cancel">Cancelar</string>
-    <string name="yes">SI</string>
-    <string name="no">NO</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
     <string name="intro_cervical"> <strong>¿Sabías que el cáncer de cuello uterino se puede prevenir?</strong> \n\n
-        Aprender sobre él te permitirá vivir más y mejor. \n\n Ámate, cuida tu salud.</string>
+        Aprender sobre él te permitirá vivir más y mejor \n\n Ámate, cuida tu salud</string>
     <string name="intro_breast"> <strong>¿Sabías que el cáncer de seno se puede detectar tempranamente?</strong> \n\n
-        Aprender sobre él te permitirá vivir más y mejor. \n\n Ámate, cuida tu salud.</string>
+        Aprender sobre él te permitirá vivir más y mejor \n\n Ámate, cuida tu salud</string>
     <string name="title_question">Pregunta:</string>
-    <string name="go_to_learn">Vamos a Aprender</string>
+    <string name="btn_test_knowledge">Prueba tu conocimiento</string>
     <string name="get_questions">Cargando las preguntas</string>
     <string name="no_db_questions">No hay pregutas disponibles por favor vuelva a ingresar</string>
     <string name="question_points">PUNTOS</string>
@@ -95,11 +95,12 @@
 
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
+    <string name="firs_total_points">Has obtenido %1$s puntos en este intento. Vuelve a intantarlo, si tienes más oportunidades para contestar podrás subir tu puntuación.</string>
     <string name="total_points_equal">"Has obtenido menos puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. Pero no te preocupes conservarás el puntajes más alto. Vuelve a intantarlo, si tienes más oportunidades para contestar podrás subir tu puntuación."</string>
     <string name="total_points_up">"Has obtenido más puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. Vuelve a intantarlo, si tienes más oportunidades para contestar podrás subir tu puntuación."</string>
     <string name="thanks_for_answers">Gracias por responder</string>
-    <string name="end_turn">Se agotaron tus %d oportunidades para contestar, continua con el otro cuestionario. </string>
-    <string name="lapse_answer">Tienes que esperar %d día(s) para volver a responder.</string>
+    <string name="end_turn">Se agotaron tus oportunidades para contestar, por favor continua con el otro módulo. </string>
+    <string name="lapse_answer">Tendrás otra oportunidad de responder este módulo en %d día(s). Vuelve a intentarlo para seguir aprendiendo e incrementar tus puntos y ganar mejores premios..</string>
     <string name="error_nested">Error: sin configurar pregunta anidada.</string>
 
     <!--Para la tabla de premios -->
@@ -114,7 +115,7 @@
     <string name="answer_label">Respuesta</string>
     <string name="nested_label">Anidada</string>
     <string name="password_enable">Ver Password</string>
-    <string name="final_thanks">¡Gracias! \n por usar nuestra app</string>
+    <string name="final_thanks">¡Gracias por usar nuestra app!</string>
 
     <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
     <string name="congratulation">¡Felicitaciones!</string>
@@ -154,4 +155,7 @@
 
     <string name="error_with_network">A network error (such as timeout, interrupted connection or unreachable host) has occurred.</string>
     <string name="error_with_network_spanish">Hay problemas de conección con el internet, por favor verifica tu conexión y vuelve a intenarlo.</string>
+    <string name="create_gmail_acount">Si no tienes una cuenta de email presiona aqui para crear una.</string>
+    <string name="field_only_alphabets">Este campo solo acepta letras</string>
+    <string name="limits_phone_number">Debe tener entre 5 a 10 números</string>
 </resources>

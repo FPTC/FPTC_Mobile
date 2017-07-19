@@ -30,7 +30,7 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     private OnMainFragInteractionListener mListener;
     private IMainFragmentPresenter mainFragmentPresenter;
 
-    @BindView(R.id.progressBar)
+    @BindView(R.id.mainProgressBar)
     ProgressBar progressBar;
 
     public MainFragment() {
@@ -67,25 +67,26 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
         Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
-        if (Utilities.isNetworkAvailable(getContext())) {
+        /*if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
         }else {
             showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
-        }
+        }*/
+        showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
     }
 
     @Override
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
-        if (Utilities.isNetworkAvailable(getContext())) {
+        /*if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
         }else {
             showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
-        }
-
+        }*/
+        showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
     }
 
 

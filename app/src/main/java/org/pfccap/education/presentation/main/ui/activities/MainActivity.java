@@ -109,14 +109,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_profile:
-                                if (!Utilities.isNetworkAvailable(MainActivity.this)) {
-                                    Utilities.dialogoError(getString(R.string.title_error_dialog)
-                                            , getString(R.string.network_not_available)
-                                            , MainActivity.this);
-                                }else{
-                                    menuItem.setChecked(true);
-                                    Utilities.initActivity(MainActivity.this, ProfileActivity.class);
-                                }
+                                menuItem.setChecked(true);
+                                Utilities.initActivity(MainActivity.this, ProfileActivity.class);
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_gifts:
@@ -132,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void onBackPressed() { //Al llegar al ultimo fragmento cierra la actividad al precinoar el back para evitar pantallas en blanco
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1)finish();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) finish();
         super.onBackPressed();
     }
 

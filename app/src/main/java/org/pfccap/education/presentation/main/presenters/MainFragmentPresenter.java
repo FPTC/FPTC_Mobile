@@ -56,13 +56,11 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
 
     @Override
     public boolean validateTurn(String turnCancer) {
-        //TODO validar cuando las contasntes vienes "" ya que genera error con el Integer.valueOf
-        if (Integer.valueOf(Cache.getByKey(turnCancer)) ==
+        if (Integer.valueOf(Cache.getByKey(turnCancer)) >=
                 Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
 
             Utilities.dialogoInfo(context.getResources().getString(R.string.title_info_dialog)
-                    , String.format(context.getResources().getString(R.string.end_turn),
-                            Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES)))
+                    , context.getResources().getString(R.string.end_turn)
                     , context
             );
             return true;
@@ -120,7 +118,7 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
                                        Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
                                        Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
                                        Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
-                                       view.hideProgress();
+
                                        if(Cache.getByKey(Constants.TYPE_CANCER).equals(Constants.BREAST)){
                                            view.showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST,
                                                    Constants.LAPSE_BREAST);
@@ -128,6 +126,7 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
                                            view.showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX,
                                                    Constants.LAPSE_CERVIX);
                                        }
+                                       view.hideProgress();
                                    }
 
                                    @Override

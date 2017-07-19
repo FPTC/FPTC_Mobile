@@ -35,9 +35,12 @@ public class ProfilePresenter implements IProfilePresenter {
     }
 
     @Override
-    public void calculateAge(int yearBirth) {
+    public void calculateAge(int yearBirth, int monthBirth, int dayMonthBirth) {
         Calendar calendar = Calendar.getInstance();
         int age = calendar.get(Calendar.YEAR) - yearBirth;
+        if (calendar.get(Calendar.MONTH)+1 <= monthBirth && calendar.get(Calendar.DAY_OF_MONTH) < dayMonthBirth){
+            age = age - 1;
+        }
         profileView.setAge(age);
     }
 
