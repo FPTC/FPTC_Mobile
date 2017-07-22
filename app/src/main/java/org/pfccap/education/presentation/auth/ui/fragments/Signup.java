@@ -52,14 +52,10 @@ public class Signup extends Fragment implements ISignupView,
     private Validator validator;
 
     @NotEmpty(messageResId = R.string.field_required)
-    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
+    @Pattern(regex = "[A-Za-z]+ ", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.authSignupName)
     EditText authSignupName;
 
-    @NotEmpty(messageResId = R.string.field_required)
-    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
-    @BindView(R.id.authSignupLastName)
-    EditText authSignupLastName;
 
     @NotEmpty(messageResId = R.string.field_required)
     @Email(messageResId = R.string.email_validation_msg)
@@ -129,17 +125,20 @@ public class Signup extends Fragment implements ISignupView,
     }
 
     private void initTextLink() {
+        String linkGmailUrl;
         link_termsCondition.setClickable(true);
         link_termsCondition.setMovementMethod(LinkMovementMethod.getInstance());
-        link_termsCondition.setText(Utilities.fromHtml("<a href='https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8'>Términos y Condiciones</a>"));
+        linkGmailUrl = "https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8";
+        link_termsCondition.setText(Utilities.fromHtml("<a href='"+linkGmailUrl+"'>"+getString(R.string.terms_and_conditions)+"</a>"));
 
         link_privacy_policy.setClickable(true);
         link_privacy_policy.setMovementMethod(LinkMovementMethod.getInstance());
-        link_privacy_policy.setText(Utilities.fromHtml("<a href='https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8'>Políticas de privacidad</a>"));
+        linkGmailUrl = "https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8";
+        link_privacy_policy.setText(Utilities.fromHtml("<a href='"+linkGmailUrl+"'>"+getString(R.string.privacy_policy)+"</a>"));
 
         link_create_gmail.setClickable(true);
         link_create_gmail.setMovementMethod(LinkMovementMethod.getInstance());
-        String linkGmailUrl = "https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default";
+        linkGmailUrl = "https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default";
         link_create_gmail.setText(Utilities.fromHtml("<a href='"+ linkGmailUrl +"'>"+getString(R.string.create_gmail_acount)+"</a>"));
 
     }
@@ -214,7 +213,6 @@ public class Signup extends Fragment implements ISignupView,
 
     private void setInputs(boolean enabled) {
         authSignupName.setEnabled(enabled);
-        authSignupLastName.setEnabled(enabled);
         authSignupEmail.setEnabled(enabled);
         authSignupPassword.setEnabled(enabled);
         authBtnSignUp.setEnabled(enabled);
@@ -223,7 +221,6 @@ public class Signup extends Fragment implements ISignupView,
     @Override
     public void onValidationSucceeded() {
         signupPresenter.signUp(authSignupName.getText().toString(),
-                authSignupLastName.getText().toString(),
                 authSignupEmail.getText().toString(),
                 authSignupPassword.getText().toString());
     }

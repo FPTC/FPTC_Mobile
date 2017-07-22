@@ -6,6 +6,6 @@ package org.pfccap.education.presentation.auth.presenters;
 
 public interface ISignupPresenter {
 
-    void signUp(final String name, final String lastName, String email, String password);
+    void signUp(final String name, String email, String password);
 
 }

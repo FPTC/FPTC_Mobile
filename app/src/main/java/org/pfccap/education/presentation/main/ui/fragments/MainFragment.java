@@ -80,13 +80,12 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
-        /*if (Utilities.isNetworkAvailable(getContext())) {
+        if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
         }else {
             showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
-        }*/
-        showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
+        }
     }
 
 

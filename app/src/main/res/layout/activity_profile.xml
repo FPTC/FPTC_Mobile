@@ -78,7 +78,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/nombre_usuario"
                         android:inputType="textPersonName"
-                        android:maxLength="35"/>
+                        android:maxLength="35"
+                        android:digits="qwertzuiopasdfghjklyxcvbnm "/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -92,7 +93,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/apellido_usuario"
                         android:inputType="textPersonName"
-                        android:maxLength="35"/>
+                        android:maxLength="35"
+                        android:digits="qwertzuiopasdfghjklyxcvbnm "/>
 
                 </android.support.design.widget.TextInputLayout>
 

@@ -49,7 +49,7 @@ public class SignupPresenter implements ISignupPresenter {
     }
 
     @Override
-    public void signUp(final String name, final String lastName, String email, String password) {
+    public void signUp(final String name, String email, String password) {
 
         try {
 
@@ -59,7 +59,7 @@ public class SignupPresenter implements ISignupPresenter {
             IAuthProcess objAuthProcess = new AuthProcess();
             final IConfigurationBP configurationBP = new ConfigurationBP();
 
-            objAuthProcess.signUp(name, lastName, email, password)
+            objAuthProcess.signUp(name, email, password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext(new Consumer<UserAuth>() {

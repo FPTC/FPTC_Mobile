@@ -1,5 +1,7 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.text.SpannableString;
+
 import org.pfccap.education.dao.AnswersQuestion;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public interface IQuestionView {
 
     void disableItemsAdapter();
 
-    void showInfoTxtSecondary();
+    void showInfoTxtSecondary(SpannableString s);
 
-    void processAnswer();
+    void processAnswer(SpannableString s);
 
 }

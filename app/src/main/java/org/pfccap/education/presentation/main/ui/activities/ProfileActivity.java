@@ -53,12 +53,10 @@ public class ProfileActivity extends AppCompatActivity
     Toolbar toolbar;
 
     @NotEmpty(messageResId = R.string.field_required)
-    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.mainProfileTxtName)
     EditText txtName;
 
     @NotEmpty(messageResId = R.string.field_required)
-    @Pattern(regex = "[A-Za-z]+", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.mainProfileTxtLastName)
     EditText txtLastName;
 
@@ -198,11 +196,19 @@ public class ProfileActivity extends AppCompatActivity
         user.put(Constants.HASCHILDS, Integer.parseInt(txtChilds.getText().toString()));
         user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
         user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
-        user.put(Constants.LATITUDE, Double.parseDouble(txtLatitude.getText().toString()));
-        user.put(Constants.LONGITUDE, Double.parseDouble(txtLongitude.getText().toString()));
         user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
         user.put(Constants.PROFILE_COMPLETED, 1);
+        if (txtLatitude.getText().toString().equals("")){
+            user.put(Constants.LATITUDE, 0);
+        }else {
+            user.put(Constants.LATITUDE, Double.parseDouble(txtLatitude.getText().toString()));
+        }
+        if (txtLongitude.getText().toString().equals("")){
+            user.put(Constants.LONGITUDE, 0);
+        }else {
+            user.put(Constants.LONGITUDE, Double.parseDouble(txtLongitude.getText().toString()));
+        }
 
         Cache.save(Constants.PROFILE_COMPLETED, "1");
 
@@ -280,13 +286,29 @@ public class ProfileActivity extends AppCompatActivity
         txtAddress.setText(user.getAddress());
         txtLongitude.setText(String.valueOf(user.getLongitude()));
         txtLatitude.setText(String.valueOf(user.getLatitude()));
-        txtChilds.setText(String.valueOf(user.getHasChilds()));
-        txtHeight.setText(String.valueOf(user.getHeight()));
         txtName.setText(user.getName());
         txtLastName.setText(user.getLastName());
         txtNeighborhood.setText(user.getNeighborhood());
         txtPhone.setText(user.getPhoneNumber());
-        txtWeight.setText(String.valueOf(user.getWeight()));
+        txtChilds.setText(String.valueOf(user.getHasChilds()));
+
+        if (user.getHeight() == 0){
+            txtHeight.setText("");
+        }else{
+            txtHeight.setText(String.valueOf(user.getHeight()));
+        }
+        if (user.getWeight() == 0){
+            txtHeight.setText("");
+        }else {
+            txtHeight.setText(String.valueOf(user.getWeight()));
+        }
+        if(Cache.getByKey(Constants.PROFILE_COMPLETED).equals("0")){
+            txtChilds.setText("");
+        }else {
+            txtChilds.setText(String.valueOf(user.getHasChilds()));
+        }
+
+
 
         if (user.getDateBirthday() != null && !user.getDateBirthday().equals("")) {
 

@@ -11,7 +11,7 @@ import io.reactivex.Observable;
 
 public interface IAuthProcess {
 
-    Observable<UserAuth> signUp(final String name, final String lastName, final String email, final String password);
+    Observable<UserAuth> signUp(final String name,  final String email, final String password);
 
     Observable<UserAuth> signIn(final String email, final String password);
 

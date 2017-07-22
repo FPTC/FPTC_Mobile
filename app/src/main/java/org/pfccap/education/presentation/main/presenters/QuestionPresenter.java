@@ -1,7 +1,8 @@
 package org.pfccap.education.presentation.main.presenters;
 
 import android.content.Context;
-import android.view.View;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -19,6 +20,8 @@ import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -88,7 +91,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
                     updateDataFirebase(Constants.CERVIX_TURN, turn);
 
-                    if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
+                    if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("0")) {
                         message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C));
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
                     } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) >
@@ -101,6 +104,13 @@ public class QuestionPresenter implements IQuestionPresenter {
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
                     }
                     updateDataFirebase(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
+
+                    try {
+                        message = message + validateDateLastAnswer(Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        FirebaseCrash.report(e);
+                    }
                     break;
                 case Constants.BREAST:
                     turn = Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) + 1;
@@ -124,10 +134,18 @@ public class QuestionPresenter implements IQuestionPresenter {
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
                     }
                     updateDataFirebase(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
+
+                    try {
+                        message = message + validateDateLastAnswer(Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        FirebaseCrash.report(e);
+                    }
                     break;
             }
-            updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
+            updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))  +
                     Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
+
 
             setPoints(message);
         } else {
@@ -138,6 +156,22 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     private void setPoints(String message) {
         questionView.finishActivity(message);
+    }
+
+    private String validateDateLastAnswer(String dateCancer, String lapseCancer) throws ParseException {
+
+        String dayMessage = "";
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        cal.setTime(sdf.parse(dateCancer));
+        cal.add(Calendar.DATE, Integer.valueOf(lapseCancer));
+
+        if (!dateCancer.equals("null") && !dateCancer.equals("") && !lapseCancer.equals("0") && cal.after(Calendar.getInstance())) {
+            dayMessage = "\n\n" + String.format(context.getResources().getString(R.string.lapse_answer), Integer.valueOf(lapseCancer));
+        }
+
+        return dayMessage;
     }
 
     @Override
@@ -176,11 +210,12 @@ public class QuestionPresenter implements IQuestionPresenter {
                     }
 
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                        questionView.showInfoTxtSecondary();
+                        formatInfoTextAnswer(value);
+                        questionView.showInfoTxtSecondary(formatInfoTextAnswer(value));
                     }
                     questionView.disableItemsAdapter();
 
-                    textSnackBar(value);
+                    loadInfoSnackbar("");
                 } catch (Exception e) {
                     FirebaseCrash.report(e);
                     System.out.println("error " + e.getMessage());
@@ -211,30 +246,39 @@ public class QuestionPresenter implements IQuestionPresenter {
                     Cache.save(Constants.SECOND_Q, answers.getTxtSecondQuestion());
                 } else {
                     Cache.save(Constants.SECOND_Q, "");
+                    questionView.disableItemsAdapter();
                     loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
                 }
-                questionView.processAnswer();
+                questionView.processAnswer(formatInfoTextAnswer(value));
                 break;
             case Constants.EDUCATIVA:
-                questionView.processAnswer();
-                textSnackBar(value);
+                questionView.processAnswer(formatInfoTextAnswer(value));
+                loadInfoSnackbar("");
                 break;
             default:
-                textSnackBar(value);
+                loadInfoSnackbar("");
                 break;
         }
 
     }
 
-    private void textSnackBar(boolean value) {
-
-        String check;
+    private SpannableString formatInfoTextAnswer(boolean value) {
+        String s;
         if (value) {
-            check = context.getResources().getString(R.string.right);
+            s = context.getResources().getString(R.string.right) + "\n\n" + Cache.getByKey(Constants.INFO_TEACH);
+            SpannableString ss1 = new SpannableString(s);
+            ss1.setSpan(new RelativeSizeSpan(1.2f), 0, 10, 0);
+            return ss1;
+        } else if (!value) {
+            s = context.getResources().getString(R.string.fail) + "\n\n" + Cache.getByKey(Constants.INFO_TEACH);
+            SpannableString ss1 = new SpannableString(s);
+            ss1.setSpan(new RelativeSizeSpan(1.2f), 0, 12, 0);
+            return ss1;
         } else {
-            check = context.getResources().getString(R.string.fail);
+            s = Cache.getByKey(Constants.INFO_TEACH);
+            SpannableString ss1 = new SpannableString(s);
+            return ss1;
         }
-        loadInfoSnackbar(check);
     }
 
     private void sumPoints(String constant, int points) {

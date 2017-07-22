@@ -54,20 +54,6 @@
                         android:maxLength="50" />
                 </android.support.design.widget.TextInputLayout>
 
-                <!--  Name Label -->
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/authSignupLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/apellido_usuario"
-                        android:inputType="textCapWords"
-                        android:maxLength="50" />
-                </android.support.design.widget.TextInputLayout>
-
                 <!-- Email Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -115,7 +101,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/accept"
                         android:textSize="18sp" />
@@ -123,7 +109,7 @@
                     <TextView
                         android:id="@+id/link_termsCondition"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:clickable="true"
                         android:gravity="center"

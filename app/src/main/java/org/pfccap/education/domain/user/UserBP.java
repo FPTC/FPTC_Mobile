@@ -82,6 +82,8 @@ public class UserBP implements IUserBP {
                             FirebaseCrash.report(error);
                             e.onError(error);
                         }
+
+
                     });
 
                 }

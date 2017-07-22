@@ -134,7 +134,8 @@ public class LQuestionDB implements ILQuestionDB {
 
     @Override
     public List<Gift> getAllGift() {
-        return giftDao.loadAll();
+        return giftDao.queryBuilder()
+                .orderAsc().list();
     }
 
 }

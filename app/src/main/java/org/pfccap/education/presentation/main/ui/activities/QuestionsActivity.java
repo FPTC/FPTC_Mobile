@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -247,10 +248,10 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void showInfoTxtSecondary() {
+    public void showInfoTxtSecondary(SpannableString s) {
         txtInfo.setVisibility(View.VISIBLE);
         recyclerViewAnswers.setVisibility(View.GONE);
-        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH)); //esto es los mensajes complementarios que se muestran en algunas preguntas
+        txtInfo.setText(s); //esto es los mensajes complementarios que se muestran en algunas preguntas
     }
 
 
@@ -268,7 +269,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void processAnswer() {
+    public void processAnswer(SpannableString s) {
 
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.RIESGO:
@@ -278,14 +279,14 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
                         txtInfo.setVisibility(View.VISIBLE);
                         recyclerViewAnswers.setVisibility(View.GONE);
-                        txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                        txtInfo.setText(s);
                     }
                 }
                 break;
             case Constants.EDUCATIVA:
                 txtInfo.setVisibility(View.VISIBLE);
                 recyclerViewAnswers.setVisibility(View.GONE);
-                txtInfo.setText(Cache.getByKey(Constants.INFO_TEACH));
+                txtInfo.setText(s);
                 break;
         }
     }

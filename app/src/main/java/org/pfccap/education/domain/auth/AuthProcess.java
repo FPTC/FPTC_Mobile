@@ -37,7 +37,7 @@ public class AuthProcess implements IAuthProcess {
     }
 
     @Override
-    public Observable<UserAuth> signUp(final String name, final String lastName, final String email, final String password) {
+    public Observable<UserAuth> signUp(final String name, final String email, final String password) {
 
         return Observable.create(
                 new ObservableOnSubscribe<UserAuth>() {
@@ -52,7 +52,6 @@ public class AuthProcess implements IAuthProcess {
                                         final UserAuth user = new UserAuth();
                                         user.setEmail(authResult.getUser().getEmail());
                                         user.setName(name);
-                                        user.setLastName(lastName);
 
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 

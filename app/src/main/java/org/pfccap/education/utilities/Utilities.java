@@ -155,13 +155,14 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
-        textView.setTextSize(28);
-        if (info.equals(context.getResources().getString(R.string.fail))) {
-            ColoredSnackbar.info(snackbar);
-        }else if(info.equals(context.getResources().getString(R.string.right))){
-            ColoredSnackbar.right(snackbar);
-        }else {
-            ColoredSnackbar.info(snackbar);
+        textView.setTextSize(20);
+        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+            case Constants.CERVIX:
+                ColoredSnackbar.right(snackbar);
+                break;
+            case Constants.BREAST:
+                ColoredSnackbar.info(snackbar);
+                break;
         }
         snackbar.setAction("Siguiente", new View.OnClickListener() {
             @Override
@@ -170,7 +171,6 @@ public class Utilities {
                 iQuestionPresenter.loadNextQuestion();
             }
         }).show();
-
     }
 
     private enum tipoDialogEnum {
@@ -183,19 +183,7 @@ public class Utilities {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        // ¿Tenemos conexión ponemos a true
-        if (networkInfo == null || !networkInfo.isConnectedOrConnecting() || !networkInfo.isAvailable())
-            return false;
-
-        try {
-            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com.co");
-            int returnVal = p1.waitFor();
-            return (returnVal == 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        return networkInfo != null && networkInfo.isConnectedOrConnecting() && networkInfo.isAvailable();
     }
 
     public static String traslateErrorCode(String code, Context context) {

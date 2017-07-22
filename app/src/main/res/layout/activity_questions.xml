@@ -182,7 +182,7 @@
             android:id="@+id/mainQuestionTxtPointThanks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/logo"
+            android:layout_centerInParent="true"
             android:background="@color/colorPrimaryLightTransparence"
             android:padding="15dp"
             android:layout_marginTop="80dp"
