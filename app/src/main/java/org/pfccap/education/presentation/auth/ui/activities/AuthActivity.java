@@ -8,6 +8,7 @@ import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.fragments.Login;
 import org.pfccap.education.presentation.auth.ui.fragments.ResetPasswordFragment;
 import org.pfccap.education.presentation.auth.ui.fragments.Signup;
+import org.pfccap.education.presentation.auth.ui.fragments.TermsAndPolicyFragment;
 import org.pfccap.education.presentation.main.ui.activities.MainActivity;
 import org.pfccap.education.utilities.Utilities;
 
@@ -41,6 +42,18 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
     @Override
     public void onNavigateToLoginScreen() {
         Utilities.initFragment(this, Login.newInstance());
+    }
+
+    @Override
+    public void onTermsAndCondition() {
+        Utilities.initFragment(this, TermsAndPolicyFragment.newInstance(getResources().getString(R.string.terms_and_conditions),
+                getResources().getString(R.string.terms_conditions_content)));
+    }
+
+    @Override
+    public void onPrivacyPolicy() {
+        Utilities.initFragment(this, TermsAndPolicyFragment.newInstance(getResources().getString(R.string.privacy_policy),
+                getResources().getString(R.string.privacy_policy_content)));
     }
 
     @Override

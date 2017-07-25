@@ -62,19 +62,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/mainBtnGift"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4">
+            android:layout_weight="0.4"
+            android:clickable="true"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <Button
-                android:id="@+id/mainBtnGift"
-                style="@style/BtnMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:drawableStart="@mipmap/ic_gift_white_intro"
-                android:gravity="center"
-                android:text="@string/btn_take_gift" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_gift_white_intro"
+                android:layout_gravity="center"
+                android:contentDescription="@string/gift" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_take_gift"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryText"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -6,9 +6,12 @@ package org.pfccap.education.utilities;
 
 public class Constants {
 
-    public static final String BASE_URL = "https://us-central1-fptc-dev.cloudfunctions.net/";
-    public static final String BASE_URL_TEST = "https://us-central1-fptc-test.cloudfunctions.net/";
-
+    //para remote config firebase
+    public static final String BASE_URL_SERVICE_KEY = "serviceAppointment";
+    public static final String BASE_URL_TERMS_CONDITIONS_KEY = "urlTermCondition";
+    public static final String BASE_URL_PRIVACY_POLICY_KEY = "urlPrivacyPolicy";
+    public static final String BASE_URL_CREATE_EMAIL_APP = "urlCreateEmailApp";
+    public static final int CACHE_EXPIRATION = 3600;
 
     //autenticación de usuarios
     public static String USER_UID = "useruid";

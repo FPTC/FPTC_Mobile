@@ -20,7 +20,6 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Pattern;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.pfccap.education.R;
@@ -64,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity
     EditText txtBirth;
 
     @BindView(R.id.mainProfileTxtAge)
-    EditText txtAge;
+    TextView txtAge;
 
     @NotEmpty(messageResId = R.string.phone_no_empty_msg)
     @Length(min=7, max = 10, messageResId = R.string.limits_phone_number)
@@ -298,9 +297,9 @@ public class ProfileActivity extends AppCompatActivity
             txtHeight.setText(String.valueOf(user.getHeight()));
         }
         if (user.getWeight() == 0){
-            txtHeight.setText("");
+            txtWeight.setText("");
         }else {
-            txtHeight.setText(String.valueOf(user.getWeight()));
+            txtWeight.setText(String.valueOf(user.getWeight()));
         }
         if(Cache.getByKey(Constants.PROFILE_COMPLETED).equals("0")){
             txtChilds.setText("");
@@ -344,7 +343,7 @@ public class ProfileActivity extends AppCompatActivity
     }
 
     public void setAge(int age) {
-        txtAge.setText(String.format("%s años", String.valueOf(age)));
+        txtAge.setText(getString(R.string.years, String.valueOf(age)));
     }
 
     @Override
@@ -371,7 +370,6 @@ public class ProfileActivity extends AppCompatActivity
     private void setInputs(boolean enabled) {
         txtBirth.setEnabled(enabled);
         txtAddress.setEnabled(enabled);
-        txtAge.setEnabled(enabled);
         txtChilds.setEnabled(enabled);
         txtHeight.setEnabled(enabled);
         txtName.setEnabled(enabled);

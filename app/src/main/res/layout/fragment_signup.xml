@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <!--  Name Label -->
@@ -51,7 +51,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/nombre_usuario"
                         android:inputType="textCapWords"
-                        android:maxLength="50" />
+                        android:maxLength="50"
+                        android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "/>
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Email Label -->
@@ -113,7 +114,8 @@
                         android:layout_marginStart="5dp"
                         android:clickable="true"
                         android:gravity="center"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"/>
 
                 </LinearLayout>
 
@@ -130,7 +132,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/accept"
                         android:textSize="18sp" />
@@ -138,11 +140,12 @@
                     <TextView
                         android:id="@+id/link_privacy_policy"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:clickable="true"
                         android:gravity="center"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"/>
 
                 </LinearLayout>
 
@@ -175,7 +178,6 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="@string/create_gmail_acount"
-                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
             </LinearLayout>

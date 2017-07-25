@@ -56,7 +56,14 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
 
     @Override
     public boolean validateTurn(String turnCancer) {
-        if (Integer.valueOf(Cache.getByKey(turnCancer)) >=
+        if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN))>=Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))
+                &&Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN))>=Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))){
+            Utilities.dialogoInfo(context.getResources().getString(R.string.title_info_dialog)
+                    , context.getResources().getString(R.string.end_all_turn)
+                    , context
+            );
+            return true;
+        } else if (Integer.valueOf(Cache.getByKey(turnCancer)) >=
                 Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
 
             Utilities.dialogoInfo(context.getResources().getString(R.string.title_info_dialog)

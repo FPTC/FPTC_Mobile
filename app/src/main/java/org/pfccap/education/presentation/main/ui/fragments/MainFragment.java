@@ -16,9 +16,6 @@ import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,13 +64,12 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
         Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
-        /*if (Utilities.isNetworkAvailable(getContext())) {
+        if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
-        }else {
+        } else {
             showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
-        }*/
-        showIntroQuestion(Constants.BREAST_TURN, Constants.DATE_COMPLETED_BREAST, Constants.LAPSE_BREAST);
+        }
     }
 
     @Override
@@ -83,7 +79,7 @@ public class MainFragment extends Fragment implements IMainFragmentView {
         if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
-        }else {
+        } else {
             showIntroQuestion(Constants.CERVIX_TURN, Constants.DATE_COMPLETED_CERVIX, Constants.LAPSE_CERVIX);
         }
     }
@@ -93,7 +89,17 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnGift)
     public void navigateToGifts() {
         if (mListener != null) {
-            mListener.onNavigateToGifts();
+            if (Cache.getByKey(Constants.BREAST_TURN).equals("0") || Cache.getByKey(Constants.BREAST_TURN).equals("")) {
+                showError(getString(R.string.have_opportunities));
+            } else if (Cache.getByKey(Constants.BREAST_TURN).equals("0") || Cache.getByKey(Constants.BREAST_TURN).equals("")) {
+                showError(getString(R.string.have_opportunities));
+            } else if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                showError(getString(R.string.have_opportunities_breast));
+            } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                showError(getString(R.string.have_opportunities_cervix));
+            } else {
+                mListener.onNavigateToGifts();
+            }
         }
     }
 
@@ -123,7 +129,7 @@ public class MainFragment extends Fragment implements IMainFragmentView {
                     !mainFragmentPresenter.validateDateLastAnswer(Cache.getByKey(dateComplite),
                             Cache.getByKey(lapse))) {
 
-                switch (Cache.getByKey(Constants.TYPE_CANCER)){
+                switch (Cache.getByKey(Constants.TYPE_CANCER)) {
                     case Constants.BREAST:
                         mListener.onNavigateToBreast();
                         break;

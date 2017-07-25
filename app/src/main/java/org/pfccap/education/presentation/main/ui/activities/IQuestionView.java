@@ -28,8 +28,8 @@ public interface IQuestionView {
 
     void disableItemsAdapter();
 
-    void showInfoTxtSecondary(SpannableString s);
+    void showInfoTxtSecondary(boolean value);
 
-    void processAnswer(SpannableString s);
+    void processAnswer(boolean value);
 
 }

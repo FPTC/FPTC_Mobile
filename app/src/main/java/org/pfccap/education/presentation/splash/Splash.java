@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
+import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.Timer;
@@ -17,8 +18,9 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-                Utilities.initActivity(Splash.this, AuthActivity.class);
-                finish();
+        APIService.getBASEURL();
+        Utilities.initActivity(Splash.this, AuthActivity.class);
+        finish();
 
     }
 }

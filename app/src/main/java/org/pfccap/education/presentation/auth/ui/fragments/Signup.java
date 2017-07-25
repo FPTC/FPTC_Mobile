@@ -27,6 +27,8 @@ import com.mobsandgeeks.saripaar.annotation.Pattern;
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
 import org.pfccap.education.presentation.auth.presenters.SignupPresenter;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.List;
@@ -52,7 +54,6 @@ public class Signup extends Fragment implements ISignupView,
     private Validator validator;
 
     @NotEmpty(messageResId = R.string.field_required)
-    @Pattern(regex = "[A-Za-z]+ ", messageResId = R.string.field_only_alphabets)
     @BindView(R.id.authSignupName)
     EditText authSignupName;
 
@@ -125,21 +126,21 @@ public class Signup extends Fragment implements ISignupView,
     }
 
     private void initTextLink() {
-        String linkGmailUrl;
-        link_termsCondition.setClickable(true);
+       String linkUrl;
+    /*  link_termsCondition.setClickable(true);
         link_termsCondition.setMovementMethod(LinkMovementMethod.getInstance());
-        linkGmailUrl = "https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8";
-        link_termsCondition.setText(Utilities.fromHtml("<a href='"+linkGmailUrl+"'>"+getString(R.string.terms_and_conditions)+"</a>"));
+        linkUrl = Cache.getByKey(Constants.BASE_URL_TERMS_CONDITIONS_KEY);
+        link_termsCondition.setText(Utilities.fromHtml("<a href='"+linkUrl+"'>"+getString(R.string.terms_and_conditions)+"</a>"));
 
         link_privacy_policy.setClickable(true);
         link_privacy_policy.setMovementMethod(LinkMovementMethod.getInstance());
-        linkGmailUrl = "https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8";
-        link_privacy_policy.setText(Utilities.fromHtml("<a href='"+linkGmailUrl+"'>"+getString(R.string.privacy_policy)+"</a>"));
-
+        linkUrl = Cache.getByKey(Constants.BASE_URL_PRIVACY_POLICY_KEY);
+        link_privacy_policy.setText(Utilities.fromHtml("<a href='"+linkUrl+"'>"+getString(R.string.privacy_policy)+"</a>"));
+*/
         link_create_gmail.setClickable(true);
         link_create_gmail.setMovementMethod(LinkMovementMethod.getInstance());
-        linkGmailUrl = "https://accounts.google.com/SignUp?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default";
-        link_create_gmail.setText(Utilities.fromHtml("<a href='"+ linkGmailUrl +"'>"+getString(R.string.create_gmail_acount)+"</a>"));
+        linkUrl = Cache.getByKey(Constants.BASE_URL_CREATE_EMAIL_APP);
+        link_create_gmail.setText(Utilities.fromHtml("<a href='"+ linkUrl +"'>"+getString(R.string.create_gmail_acount)+"</a>"));
 
     }
 
@@ -147,6 +148,14 @@ public class Signup extends Fragment implements ISignupView,
         SpannableString content = new SpannableString(getString(R.string.tienes_cuenta));
         content.setSpan(new UnderlineSpan(), 0, getString(R.string.tienes_cuenta).length(), 0);
         authLinkLogin.setText(content);
+
+        SpannableString terms = new SpannableString(getString(R.string.terms_and_conditions));
+        terms.setSpan(new UnderlineSpan(), 0, getString(R.string.terms_and_conditions).length(), 0);
+        link_termsCondition.setText(terms);
+
+        SpannableString privacy = new SpannableString(getString(R.string.privacy_policy));
+        privacy.setSpan(new UnderlineSpan(), 0, getString(R.string.privacy_policy).length(), 0);
+        link_privacy_policy.setText(privacy);
     }
 
     @Override
@@ -201,6 +210,20 @@ public class Signup extends Fragment implements ISignupView,
         }
     }
 
+    @OnClick(R.id.link_termsCondition)
+    public void link_termsCondition() {
+        if (mListener != null) {
+            mListener.onTermsAndCondition();
+        }
+    }
+
+    @OnClick(R.id.link_privacy_policy)
+    public void link_privacy_policy() {
+        if (mListener != null) {
+            mListener.onPrivacyPolicy();
+        }
+    }
+
     @Override
     public void signUpError(String error) {
         Utilities.snackbarMessageError(getView(), error);
@@ -252,6 +275,8 @@ public class Signup extends Fragment implements ISignupView,
     public interface OnSigUpFragmentInteractor {
 
         void onNavigateToLoginScreen();
+        void onTermsAndCondition();
+        void onPrivacyPolicy();
 
     }
 }

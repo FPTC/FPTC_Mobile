@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.firebase.crash.FirebaseCrash;
 
-import org.json.JSONArray;
 import org.pfccap.education.R;
 import org.pfccap.education.dao.Gift;
 import org.pfccap.education.domain.questions.ILQuestionDB;
@@ -20,11 +19,9 @@ import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -83,10 +80,10 @@ public class GiftsPresenter implements IGiftsPresenter {
 
                                        if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
                                            view.hideProgress();
-                                           view.showErrorSnack(context.getString(R.string.have_opportunities_breast));
+                                           view.showErrorSnack(context.getString(R.string.have_opportunities_breast_days, Cache.getByKey(Constants.LAPSE_BREAST)));
                                        } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
                                            view.hideProgress();
-                                           view.showErrorSnack(context.getString(R.string.have_oppotunities_cervix));
+                                           view.showErrorSnack(context.getString(R.string.have_opportunities_cervix_days, Cache.getByKey(Constants.LAPSE_CERVIX)));
                                        } else if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
                                            view.hideProgress();
                                            view.showErrorDialog(context.getString(R.string.title_info_dialog), context.getString(R.string.done_get_gift));
@@ -114,7 +111,9 @@ public class GiftsPresenter implements IGiftsPresenter {
                                                        public void onError(Throwable e) {
                                                            Exception error = new Exception(e.getMessage());
                                                            FirebaseCrash.report(error);
-                                                           System.out.println("Error: " + e.getMessage());
+                                                           view.hideProgress();
+                                                           view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
+                                                                   e.getMessage());
                                                        }
 
                                                        @Override

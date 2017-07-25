@@ -1,15 +1,18 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -80,6 +83,7 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     private int progressq = 0;
     private int current = 0;
 
+    private GradientDrawable shapeSecondary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,25 +100,23 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
 
-    private void initColorTxtByCancer(){
+    private void initColorTxtByCancer() {
         //esto es para cambiar de color los campos de texto según el cáncer
         LayerDrawable drawableFilePrimary = (LayerDrawable) txtPrimaryQuestion.getBackground();
         final GradientDrawable shapePrimary = (GradientDrawable) drawableFilePrimary.findDrawableByLayerId(R.id.shape_txt_primary);
 
         LayerDrawable drawableFileSecondary = (LayerDrawable) txtInfo.getBackground();
-        final GradientDrawable shapeSecondary = (GradientDrawable) drawableFileSecondary.findDrawableByLayerId(R.id.shape_txt_secondary);
+        shapeSecondary = (GradientDrawable) drawableFileSecondary.findDrawableByLayerId(R.id.shape_txt_secondary);
 
 
         switch (Cache.getByKey(Constants.TYPE_CANCER)) {
             case Constants.BREAST:
                 shapePrimary.setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-                shapeSecondary.setColor(ContextCompat.getColor(this, R.color.colorPrimaryLight));
                 setPrimaryProgressColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
                 break;
             case Constants.CERVIX:
                 shapePrimary.setColor(ContextCompat.getColor(this, R.color.colorBlue));
-                shapeSecondary.setColor(ContextCompat.getColor(this, R.color.colorBlueLigth));
                 setPrimaryProgressColor(ContextCompat.getColor(this, R.color.colorBlue));
 
                 break;
@@ -248,10 +250,18 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void showInfoTxtSecondary(SpannableString s) {
+    public void showInfoTxtSecondary(boolean value) {
+        SpannableString info;
+        if (value) {
+            info = formatInfoTextAnswer(getResources().getString(R.string.right));
+            shapeSecondary.setColor(ContextCompat.getColor(this, R.color.answerColorRight));
+        } else {
+            info = formatInfoTextAnswer(getResources().getString(R.string.fail));
+            shapeSecondary.setColor(ContextCompat.getColor(this, R.color.answerColorFail));
+        }
         txtInfo.setVisibility(View.VISIBLE);
         recyclerViewAnswers.setVisibility(View.GONE);
-        txtInfo.setText(s); //esto es los mensajes complementarios que se muestran en algunas preguntas
+        txtInfo.setText(info); //esto es los mensajes complementarios que se muestran en algunas preguntas
     }
 
 
@@ -269,25 +279,42 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void processAnswer(SpannableString s) {
-
+    public void processAnswer(boolean value) {
+        SpannableString info;
         switch (Cache.getByKey(Constants.TYPE_Q)) {
             case Constants.RIESGO:
                 if (!Cache.getByKey(Constants.SECOND_Q).equals("")) {
                     txtPrimaryQuestion.setText(Cache.getByKey(Constants.SECOND_Q));
                 } else {
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
+                        info = formatInfoTextAnswer(getResources().getString(R.string.warning_answers));
+                        shapeSecondary.setColor(ContextCompat.getColor(this, R.color.answerColorWarning));
                         txtInfo.setVisibility(View.VISIBLE);
                         recyclerViewAnswers.setVisibility(View.GONE);
-                        txtInfo.setText(s);
+                        txtInfo.setText(info);
                     }
                 }
                 break;
             case Constants.EDUCATIVA:
+                if (value) {
+                    info = formatInfoTextAnswer(getResources().getString(R.string.right));
+                    shapeSecondary.setColor(ContextCompat.getColor(this, R.color.answerColorRight));
+                } else {
+                    info = formatInfoTextAnswer(getResources().getString(R.string.fail));
+                    shapeSecondary.setColor(ContextCompat.getColor(this, R.color.answerColorFail));
+                }
                 txtInfo.setVisibility(View.VISIBLE);
                 recyclerViewAnswers.setVisibility(View.GONE);
-                txtInfo.setText(s);
+                txtInfo.setText(info);
                 break;
         }
+    }
+
+    private SpannableString formatInfoTextAnswer(String s) {
+        //esto es para agregar el subtitulo en el mismo edittext que dice correcto, incorrecto o cuidado
+        s = s + "\n\n" + Cache.getByKey(Constants.INFO_TEACH);
+        SpannableString ss1 = new SpannableString(s);
+        ss1.setSpan(new RelativeSizeSpan(1.2f), 0, 12, 0);
+        return ss1;
     }
 }

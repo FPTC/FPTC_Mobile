@@ -92,16 +92,24 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.CERVIX_TURN, turn);
 
                     if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("0")) {
-                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C));
+
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C),
+                                Cache.getByKey(Constants.LAPSE_CERVIX));
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
+
                     } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) >
+
                             Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
-                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
+                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C)) + "\n\n" +
+                                context.getResources().getString(R.string.finish_question_message);
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
+
                     } else {
                         message = context.getResources().getString(R.string.total_points_equal,
-                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C));
+                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C))+"\n\n" +
+                                context.getResources().getString(R.string.finish_question_message);
+
                     }
                     updateDataFirebase(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
 
@@ -122,16 +130,19 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.BREAST_TURN, turn);
 
                     if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
-                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B),
+                                Cache.getByKey(Constants.LAPSE_BREAST));
                         Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
                     } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) >
                             Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
-                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
+                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B)) + "\n\n" +
+                                context.getResources().getString(R.string.finish_question_message);
                         Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
                     } else {
                         message = context.getResources().getString(R.string.total_points_equal,
-                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B));
+                                Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B)) + "\n\n" +
+                                context.getResources().getString(R.string.finish_question_message);
                     }
                     updateDataFirebase(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
 
@@ -143,7 +154,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                     }
                     break;
             }
-            updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))  +
+            updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
                     Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
 
 
@@ -168,7 +179,7 @@ public class QuestionPresenter implements IQuestionPresenter {
         cal.add(Calendar.DATE, Integer.valueOf(lapseCancer));
 
         if (!dateCancer.equals("null") && !dateCancer.equals("") && !lapseCancer.equals("0") && cal.after(Calendar.getInstance())) {
-            dayMessage = "\n\n" + String.format(context.getResources().getString(R.string.lapse_answer), Integer.valueOf(lapseCancer));
+            dayMessage = "\n\n" + context.getString(R.string.finish_question_message);
         }
 
         return dayMessage;
@@ -210,8 +221,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                     }
 
                     if (!Cache.getByKey(Constants.INFO_TEACH).equals("")) {
-                        formatInfoTextAnswer(value);
-                        questionView.showInfoTxtSecondary(formatInfoTextAnswer(value));
+                        questionView.showInfoTxtSecondary(value);
                     }
                     questionView.disableItemsAdapter();
 
@@ -249,10 +259,10 @@ public class QuestionPresenter implements IQuestionPresenter {
                     questionView.disableItemsAdapter();
                     loadInfoSnackbar(context.getResources().getString(R.string.thanks_for_answers));
                 }
-                questionView.processAnswer(formatInfoTextAnswer(value));
+                questionView.processAnswer(value);
                 break;
             case Constants.EDUCATIVA:
-                questionView.processAnswer(formatInfoTextAnswer(value));
+                questionView.processAnswer(value);
                 loadInfoSnackbar("");
                 break;
             default:
@@ -260,25 +270,6 @@ public class QuestionPresenter implements IQuestionPresenter {
                 break;
         }
 
-    }
-
-    private SpannableString formatInfoTextAnswer(boolean value) {
-        String s;
-        if (value) {
-            s = context.getResources().getString(R.string.right) + "\n\n" + Cache.getByKey(Constants.INFO_TEACH);
-            SpannableString ss1 = new SpannableString(s);
-            ss1.setSpan(new RelativeSizeSpan(1.2f), 0, 10, 0);
-            return ss1;
-        } else if (!value) {
-            s = context.getResources().getString(R.string.fail) + "\n\n" + Cache.getByKey(Constants.INFO_TEACH);
-            SpannableString ss1 = new SpannableString(s);
-            ss1.setSpan(new RelativeSizeSpan(1.2f), 0, 12, 0);
-            return ss1;
-        } else {
-            s = Cache.getByKey(Constants.INFO_TEACH);
-            SpannableString ss1 = new SpannableString(s);
-            return ss1;
-        }
     }
 
     private void sumPoints(String constant, int points) {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>serviceAppointment</key>
+        <value>https://us-central1-fptc-test.cloudfunctions.net/</value>
+    </entry>
+    <entry>
+        <key>urlTermCondition</key>
+        <value>https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8</value>
+    </entry>
+    <entry>
+        <key>urlPrivacyPolicy</key>
+        <value>https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8</value>
+    </entry>
+    <entry>
+        <key>urlCreateEmailApp</key>
+        <value>https://accounts.google.com/SignUp?service=mail&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ltmpl=default</value>
+    </entry>
+</defaultsMap>
