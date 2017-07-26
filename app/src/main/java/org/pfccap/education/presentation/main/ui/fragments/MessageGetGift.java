@@ -63,37 +63,18 @@ public class MessageGetGift extends Fragment {
         int totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
         points.setText(getString(R.string.points_and_thanks_gift, String.valueOf(totalpoint)));
 
-       /* if (!Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("0")) {
+        if (!Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("0")) {
             String type_appointement = "";
             if (Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("3")){
                 type_appointement = "mamografía y citología vaginal";
-            }else  if (Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("2")){
-                type_appointement = "mamografía";
             }else  if (Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("1")){
-                type_appointement = "citología vaginal";
-            }
-            content.setText(getString(R.string.message_validation_yes_gift, type_appointement));
-            buttons.setVisibility(View.VISIBLE);
-            logo.setVisibility(View.GONE);
-        }else{
-            content.setText(getString(R.string.message_validation_no_gift));
-            buttons.setVisibility(View.GONE);
-            logo.setVisibility(View.VISIBLE);
-        }*/
-
-        if (!Cache.getByKey(Constants.APPOINTMENT_C).equals("0") || !Cache.getByKey(Constants.APPOINTMENT_B).equals("0")) {
-            String type_appointement = "";
-            if (Cache.getByKey(Constants.APPOINTMENT_C).equals("1") && Cache.getByKey(Constants.APPOINTMENT_B).equals("1")){
-                type_appointement = "mamografía y citología vaginal";
-            }else  if (Cache.getByKey(Constants.APPOINTMENT_C).equals("0") && Cache.getByKey(Constants.APPOINTMENT_B).equals("1")){
                 type_appointement = "mamografía";
-            }else  if (!Cache.getByKey(Constants.APPOINTMENT_C).equals("1") && !Cache.getByKey(Constants.APPOINTMENT_B).equals("0")){
+            }else  if (Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("2")){
                 type_appointement = "citología vaginal";
             }
             content.setText(getString(R.string.message_validation_yes_gift, type_appointement));
             buttons.setVisibility(View.VISIBLE);
             logo.setVisibility(View.GONE);
-            points.setVisibility(View.GONE);
         }else{
             content.setText(getString(R.string.message_validation_no_gift));
             buttons.setVisibility(View.GONE);

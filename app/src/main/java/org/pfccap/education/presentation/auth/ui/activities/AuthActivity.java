@@ -10,6 +10,7 @@ import org.pfccap.education.presentation.auth.ui.fragments.ResetPasswordFragment
 import org.pfccap.education.presentation.auth.ui.fragments.Signup;
 import org.pfccap.education.presentation.auth.ui.fragments.TermsAndPolicyFragment;
 import org.pfccap.education.presentation.main.ui.activities.MainActivity;
+import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Utilities;
 
 public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFragmentInteractor,
@@ -21,6 +22,7 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        APIService.getBASEURL();
         FragmentManager fm = getSupportFragmentManager();
 
         fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {

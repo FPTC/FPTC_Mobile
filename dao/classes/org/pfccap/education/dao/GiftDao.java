@@ -26,6 +26,7 @@ public class GiftDao extends AbstractDao<Gift, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Points = new Property(1, String.class, "points", false, "POINTS");
         public final static Property Gift = new Property(2, String.class, "gift", false, "GIFT");
+        public final static Property Order = new Property(3, Integer.class, "order", false, "ORDER");
     };
 
 
@@ -43,7 +44,8 @@ public class GiftDao extends AbstractDao<Gift, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"GIFT\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"POINTS\" TEXT," + // 1: points
-                "\"GIFT\" TEXT);"); // 2: gift
+                "\"GIFT\" TEXT," + // 2: gift
+                "\"ORDER\" INTEGER);"); // 3: order
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,11 @@ public class GiftDao extends AbstractDao<Gift, Long> {
         if (gift != null) {
             stmt.bindString(3, gift);
         }
+ 
+        Integer order = entity.getOrder();
+        if (order != null) {
+            stmt.bindLong(4, order);
+        }
     }
 
     /** @inheritdoc */
@@ -85,7 +92,8 @@ public class GiftDao extends AbstractDao<Gift, Long> {
         Gift entity = new Gift( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // points
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // gift
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // gift
+            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // order
         );
         return entity;
     }
@@ -96,6 +104,7 @@ public class GiftDao extends AbstractDao<Gift, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPoints(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setGift(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setOrder(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
      }
     
     /** @inheritdoc */

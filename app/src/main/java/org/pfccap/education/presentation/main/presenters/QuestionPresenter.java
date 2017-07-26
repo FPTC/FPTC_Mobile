@@ -1,8 +1,6 @@
 package org.pfccap.education.presentation.main.presenters;
 
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -38,10 +36,6 @@ public class QuestionPresenter implements IQuestionPresenter {
     private IQuestionView questionView;
     private ILQuestionDB ilQuestionDB;
     private IQuestionBP questionBP;
-    private String lableTrue = "";
-    private String lableFalse = "";
-    private String valueTrue = "";
-    private String valueFalse = "";
     private List<Question> lstQuestion;
     private int[] randomNumberSecuence;
     private Context context;
@@ -235,20 +229,7 @@ public class QuestionPresenter implements IQuestionPresenter {
             case Constants.RIESGO:
                 //verifico si hay pregunta aninada para la respuesta dada, trayendo los datos de la pregunta que corresponden a esta respuesta
                 AnswersQuestion answers = ilQuestionDB.getAnswersByAnswers(Cache.getByKey(Constants.QUESTION_ID), answerId);
-                switch (answerId) {
-                    case "id234581":
-                        Cache.save(Constants.APPOINTMENT_B, "0");
-                        break;
-                    case "id234582":
-                        Cache.save(Constants.APPOINTMENT_B, "1");
-                        break;
-                    case "id453634":
-                        Cache.save(Constants.APPOINTMENT_C, "0");
-                        break;
-                    case "id125695":
-                        Cache.save(Constants.APPOINTMENT_C, "1");
-                        break;
-                }
+
                 if (answers != null && answers.getTxtSecondQuestion() != null &&
                         !answers.getTxtSecondQuestion().equals("")) {
                     //se guarda en cache la preguna aninada para mostrala cuando se necesite
@@ -354,7 +335,10 @@ public class QuestionPresenter implements IQuestionPresenter {
             Cache.save(Constants.TYPE_Q, currentQ.getTypeQuestion());
             Cache.save(Constants.QUESTION_ID, currentQ.getIdquest());
             questionView.setPrimaryQuestion(currentQ.getTxtQuestion());
-            questionView.setProgressBar(100 / lstQuestion.size());
+            //se redonde al mayor entero para que el progresso alcance hasta el final visualmente
+            float progressF = 100 / lstQuestion.size(); //evita alguna falla en caso de que la división de entera
+            int progress = Math.round(progressF);
+            questionView.setProgressBar(progress);
             setTypeAnswer(context.getString(R.string.answer_label));// set de key que contiene el id de la respeusta al contestar
             switch (currentQ.getTypeQuestion()) {
                 case Constants.EVALUATIVA:

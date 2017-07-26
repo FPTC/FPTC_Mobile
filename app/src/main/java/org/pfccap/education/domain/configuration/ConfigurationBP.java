@@ -118,6 +118,7 @@ public class ConfigurationBP implements IConfigurationBP {
                 gift = new Gift();
                 gift.setPoints(entry.getValue().getPoints());
                 gift.setGift(entry.getValue().getGift());
+                gift.setOrder(entry.getValue().getOrder());
                 giftDao.insert(gift);
             }
         } catch (Exception e) {

@@ -12,6 +12,7 @@ public class Gift {
     private Long id;
     private String points;
     private String gift;
+    private Integer order;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -23,10 +24,11 @@ public class Gift {
         this.id = id;
     }
 
-    public Gift(Long id, String points, String gift) {
+    public Gift(Long id, String points, String gift, Integer order) {
         this.id = id;
         this.points = points;
         this.gift = gift;
+        this.order = order;
     }
 
     public Long getId() {
@@ -51,6 +53,14 @@ public class Gift {
 
     public void setGift(String gift) {
         this.gift = gift;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     // KEEP METHODS - put your custom methods here

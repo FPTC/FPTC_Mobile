@@ -66,6 +66,7 @@ public class Main {
         gift.addIdProperty().autoincrement();
         gift.addStringProperty("points");
         gift.addStringProperty("gift");
+        gift.addIntProperty("order");
 
     }
 }

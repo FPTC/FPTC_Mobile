@@ -10,11 +10,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
+import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
@@ -61,15 +61,15 @@ public class Utilities {
                                                                   Fragment fragmentDestino) {
 
         if (Build.VERSION.SDK_INT >= 21) {
-            Slide slideTransition = new Slide(Gravity.END);
-            slideTransition.setDuration(1000);
+            Fade fadeTransition = new Fade();
+            fadeTransition.setDuration(1000);
 
-            fragmentDestino.setEnterTransition(slideTransition);
+            fragmentDestino.setEnterTransition(fadeTransition);
 
-            slideTransition = new Slide(Gravity.START);
-            slideTransition.setDuration(1000);
+            fadeTransition = new Fade();
+            fadeTransition.setDuration(1000);
 
-            fragmentDestino.setExitTransition(slideTransition);
+            fragmentDestino.setExitTransition(fadeTransition);
             fragmentDestino.setAllowEnterTransitionOverlap(true);
             fragmentDestino.setAllowReturnTransitionOverlap(true);
         }

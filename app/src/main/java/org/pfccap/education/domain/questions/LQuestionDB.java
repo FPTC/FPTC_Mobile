@@ -93,7 +93,6 @@ public class LQuestionDB implements ILQuestionDB {
                 AppDao.getQuestionDao().deleteAll();
                 AppDao.getSecondAnswerDao().deleteAll();
                 AppDao.getGiftDao().deleteAll();
-                AppDao.getGiftDao().deleteAll();
             }
         } catch (Exception e) {
             FirebaseCrash.report(e);
@@ -135,7 +134,8 @@ public class LQuestionDB implements ILQuestionDB {
     @Override
     public List<Gift> getAllGift() {
         return giftDao.queryBuilder()
-                .orderAsc().list();
+                .orderAsc(GiftDao.Properties.Order)
+                .list();
     }
 
 }

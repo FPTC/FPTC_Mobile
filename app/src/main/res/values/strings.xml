@@ -10,7 +10,8 @@
     <string name="profile_completed">Por favor llena tu perfil antes de continuar, si ya lo has llenado solo presiona el botón (OK) y luego el botón (GUARDAR) que está arriba y a la derecha de la pantalla. Gracias.</string>
     <string name="network_not_available">No tiene conexión a internet y es necesario para que puedas continuar, verifica tu conexión y vuelve a intentarlo.</string>
     <string name="years">%1$s años</string>
-
+    <string name="cervix">CERVIX</string>
+    <string name="breast">BREAST</string>
     <!-- Pantalla Login -->
     <string name="login">Ingresar</string>
     <string name="sign_up">Crea una nueva cuenta. Regístrate</string>
@@ -121,7 +122,10 @@
     <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
     <string name="congratulation">¡Felicitaciones!</string>
     <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citoligía vaginal para detectar a tiempo el cáncer de mamá y prevenir el cáncer de cuello uterino</string>
-    <string name="warning_git">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.\nSangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.\n\nEsta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.\n\nPara más información contáctanos en:\namate@pfccap.org</string>
+    <string name="warning_git">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.\n
+        Sangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.\n\n
+        Esta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.\n\n
+        Para más información contáctanos en:\namate@pfccap.org</string>
     <string name="title_warning">¡Importante!</string>
     <string name="mammography">mamografía</string>
     <string name="vaginal_cytology">citología vaginal</string>

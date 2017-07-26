@@ -8,6 +8,7 @@ public class ItemGifts {
 
     String gift;
     String points;
+    int order;
 
     public ItemGifts(){}
 
@@ -25,5 +26,13 @@ public class ItemGifts {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

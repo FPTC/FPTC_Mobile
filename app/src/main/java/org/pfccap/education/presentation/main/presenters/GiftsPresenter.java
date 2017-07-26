@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.firebase.crash.FirebaseCrash;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.pfccap.education.R;
 import org.pfccap.education.dao.Gift;
 import org.pfccap.education.domain.questions.ILQuestionDB;
@@ -99,21 +101,43 @@ public class GiftsPresenter implements IGiftsPresenter {
                                                        public void onNext(Validation value) {
 
                                                            List<Object> valueObject = value.getResponse();
-                                                           if (valueObject != null && valueObject.size()==0) {
+                                                           if (valueObject != null && valueObject.size() == 0) {
                                                                Cache.save(Constants.APPOINTMENT_TYPE, "0");
+                                                           } else if (valueObject.size() == 1) {
+                                                               JSONArray valueArray = new JSONArray(valueObject);
+                                                               try {
+                                                                   String answerApp = valueArray.getString(0);
+                                                                   if (answerApp.equals(context.getResources().getString(R.string.cervix))) {
+                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "2");
+                                                                   } else if (answerApp.equals(context.getResources().getString(R.string.breast))) {
+                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "1");
+                                                                   }else{
+                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "0");
+                                                                       FirebaseCrash.log(answerApp);
+                                                                   }
+
+                                                               } catch (JSONException e) {
+                                                                   e.printStackTrace();
+                                                                   FirebaseCrash.report(e);
+                                                               }
+                                                           } else if (valueObject.size() == 2) {
+                                                               Cache.save(Constants.APPOINTMENT_TYPE, "3");
                                                            }
-                                                           System.out.println(value.toString() + " data1: " + value.getResponse() + " data2: " + value.getResponseCode());
                                                            view.hideProgress();
                                                            view.afterUpdateUserInfo();
                                                        }
 
                                                        @Override
                                                        public void onError(Throwable e) {
-                                                           Exception error = new Exception(e.getMessage());
-                                                           FirebaseCrash.report(error);
+                                                           FirebaseCrash.report(e);
                                                            view.hideProgress();
-                                                           view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
-                                                                   e.getMessage());
+                                                           if(e.getMessage().equals("timeout")){
+                                                               view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
+                                                                       "Hubo un problema de conexión con el servidor, consulta al técnico o vuelve a intentarlo");
+                                                           }else {
+                                                               view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
+                                                                       e.getMessage());
+                                                           }
                                                        }
 
                                                        @Override

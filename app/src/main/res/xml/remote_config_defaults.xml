@@ -2,7 +2,7 @@
 <defaultsMap>
     <entry>
         <key>serviceAppointment</key>
-        <value>https://us-central1-fptc-test.cloudfunctions.net/</value>
+        <value>https://us-central1-fptc-dev.cloudfunctions.net/</value>
     </entry>
     <entry>
         <key>urlTermCondition</key>
