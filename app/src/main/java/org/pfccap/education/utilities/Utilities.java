@@ -169,6 +169,7 @@ public class Utilities {
             public void onClick(View view) {
                 IQuestionPresenter iQuestionPresenter = new QuestionPresenter(context, context);
                 iQuestionPresenter.loadNextQuestion();
+                snackbar.dismiss();
             }
         }).show();
     }

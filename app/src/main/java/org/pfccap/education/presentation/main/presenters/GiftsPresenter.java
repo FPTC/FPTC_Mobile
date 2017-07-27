@@ -131,13 +131,7 @@ public class GiftsPresenter implements IGiftsPresenter {
                                                        public void onError(Throwable e) {
                                                            FirebaseCrash.report(e);
                                                            view.hideProgress();
-                                                           if(e.getMessage().equals("timeout")){
-                                                               view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
-                                                                       "Hubo un problema de conexión con el servidor, consulta al técnico o vuelve a intentarlo");
-                                                           }else {
-                                                               view.showErrorDialog(context.getResources().getString(R.string.title_error_dialog),
-                                                                       e.getMessage());
-                                                           }
+
                                                        }
 
                                                        @Override

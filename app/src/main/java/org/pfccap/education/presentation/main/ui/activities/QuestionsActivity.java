@@ -203,14 +203,6 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
     }
 
     @Override
-    public void setLabelButtonTrueFalse(String lableTrue, String valT, String lableFalse, String valF) {
-        btnTrue.setText(lableTrue);
-        valueTrue.setText(valT);
-        btnFalse.setText(lableFalse);
-        valueFalse.setText(valF);
-    }
-
-    @Override
     public void setInfoSnackbar(String text) {
         Utilities.snackbarNextAnswer(findViewById(android.R.id.content), text, QuestionsActivity.this);
     }

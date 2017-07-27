@@ -39,6 +39,7 @@ public class QuestionPresenter implements IQuestionPresenter {
     private List<Question> lstQuestion;
     private int[] randomNumberSecuence;
     private Context context;
+    int progress;
 
     public QuestionPresenter(IQuestionView questionView, Context context) {
         this.questionView = questionView;
@@ -51,6 +52,7 @@ public class QuestionPresenter implements IQuestionPresenter {
     public void getQuestionsDB(int current) {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
         randomNumberSecuence = randomNumberSecuence(lstQuestion.size());
+        progress = 100 / lstQuestion.size();
 
         if (lstQuestion != null && randomNumberSecuence != null && lstQuestion.size() != 0
                 && randomNumberSecuence.length != 0) {
@@ -335,10 +337,14 @@ public class QuestionPresenter implements IQuestionPresenter {
             Cache.save(Constants.TYPE_Q, currentQ.getTypeQuestion());
             Cache.save(Constants.QUESTION_ID, currentQ.getIdquest());
             questionView.setPrimaryQuestion(currentQ.getTxtQuestion());
-            //se redonde al mayor entero para que el progresso alcance hasta el final visualmente
-            float progressF = 100 / lstQuestion.size(); //evita alguna falla en caso de que la división de entera
-            int progress = Math.round(progressF);
-            questionView.setProgressBar(progress);
+
+            if (current==lstQuestion.size()-1){
+                questionView.setProgressBar(100); // si es la ultima pregunta lleno el progress bar porque en
+                // algunos casos el resultado de la división da pasos menores al total necesario para llenarlo
+            }else {
+                questionView.setProgressBar(progress);
+            }
+
             setTypeAnswer(context.getString(R.string.answer_label));// set de key que contiene el id de la respeusta al contestar
             switch (currentQ.getTypeQuestion()) {
                 case Constants.EVALUATIVA:
