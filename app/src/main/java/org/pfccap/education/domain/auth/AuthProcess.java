@@ -20,6 +20,10 @@ import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -53,6 +57,15 @@ public class AuthProcess implements IAuthProcess {
                                         user.setEmail(authResult.getUser().getEmail());
                                         user.setName(name);
 
+                                        //se actualiza el usaurio  la fecha en que se crea el usuario
+                                        Calendar calendar = Calendar.getInstance();
+                                        String dateCreate = String.format(Locale.US, "%d/%d/%d",
+                                                calendar.get(Calendar.DAY_OF_MONTH),
+                                                calendar.get(Calendar.MONTH) + 1,
+                                                calendar.get(Calendar.YEAR)
+                                        );
+                                        user.setDateCreate(dateCreate);
+
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 
                                         UserProfileChangeRequest.Builder userProfileReq = new UserProfileChangeRequest.Builder();
@@ -61,11 +74,15 @@ public class AuthProcess implements IAuthProcess {
                                         authResult.getUser().updateProfile(userProfileReq.build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+                                                //se crea el usuario en la base de datos firebase
                                                 userBP = new UserBP();
                                                 userBP.save(user);
                                                 e.onNext(user);
                                             }
                                         });
+
+
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -181,6 +198,7 @@ public class AuthProcess implements IAuthProcess {
     }
 
     private void saveAuthData(String email, String name, String uid) {
+
         Cache.save(Constants.IS_LOGGGIN, "true");
         Cache.save(Constants.USER_EMAIL, email);
         Cache.save(Constants.USER_NAME, name);

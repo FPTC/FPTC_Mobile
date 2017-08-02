@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.style.UnderlineSpan;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,7 +22,6 @@ import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
-import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.presenters.ISignupPresenter;
@@ -32,7 +31,6 @@ import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,13 +55,12 @@ public class Signup extends Fragment implements ISignupView,
     @BindView(R.id.authSignupName)
     EditText authSignupName;
 
-
     @NotEmpty(messageResId = R.string.field_required)
     @Email(messageResId = R.string.email_validation_msg)
     @BindView(R.id.authSignupEmail)
     EditText authSignupEmail;
 
-    @Password(messageResId = R.string.field_required)
+    @Password(messageResId = R.string.valite_password)
     @BindView(R.id.authSignupPassword)
     EditText authSignupPassword;
 
@@ -198,6 +195,9 @@ public class Signup extends Fragment implements ISignupView,
     @Override
     @OnClick(R.id.authBtnSignUp)
     public void handleSignUp() {
+        //se esconde el teclado despues de presionar el botón para poder ver los errores del snakbar
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(authSignupEmail.getWindowToken(), 0);
         validator.validate();
     }
 

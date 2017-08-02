@@ -18,7 +18,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.auth.ui.activities.AuthActivity" />
+        <activity android:name=".presentation.auth.ui.activities.AuthActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".presentation.splash.Splash"
             android:theme="@style/SplashTheme">
@@ -60,7 +61,7 @@
             android:parentActivityName=".presentation.main.ui.activities.ProfileActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".presentation.main.ui.activities.MainActivity" />
+        <activity android:name=".presentation.main.ui.activities.MainActivity"/>
 
         <activity
             android:name=".presentation.main.ui.activities.ProfileActivity"

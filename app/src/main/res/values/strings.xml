@@ -7,7 +7,7 @@
     <string name="app_name">Ámate</string>
     <string name="title_info_dialog">Información</string>
     <string name="title_error_dialog">Error</string>
-    <string name="profile_completed">Por favor llena tu perfil antes de continuar, si ya lo has llenado solo presiona el botón (OK) y luego el botón (GUARDAR) que está arriba y a la derecha de la pantalla. Gracias.</string>
+    <string name="profile_completed">Por favor completa todo tu perfil antes de continuar. Si ya lo hiciste sólo presiona el botón (OK) y luego el botón (GUARDAR) que se encuentra arriba y a la derecha de la pantalla, gracias.</string>
     <string name="network_not_available">No tiene conexión a internet y es necesario para que puedas continuar, verifica tu conexión y vuelve a intentarlo.</string>
     <string name="years">%1$s años</string>
     <string name="cervix">CERVIX</string>
@@ -89,7 +89,7 @@
     <string name="email_validation_msg">El correo electrónico no es valido</string>
     <string name="field_required">Este campo es requerido</string>
     <string name="points">Puntos</string>
-    <string name="get_to_gift">Reclama tus premios</string>
+    <string name="get_to_gift">Reclama tu premio</string>
     <string name="title_points">"Puntos acumulados \n"</string>
     <string name="points_additional">Adicionalmente, si tienes indicación de hacerte la mamografía o citología vaginal y cumples
     con la cita de tu examen, recibirás:</string>
@@ -108,7 +108,7 @@
     <!--Para la tabla de premios -->
     <string-array name="head_table">
         <item>Puntos</item>
-        <item>Premios</item>
+        <item>Premio</item>
     </string-array>
     <string name="title_table">Catálogo de puntos y premios</string>
     <string name="title_appointment">¡Recarga por cuidar tu salud!</string>
@@ -121,25 +121,25 @@
     <string name="warning_answers">¡Cuidado!</string>
     <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
     <string name="congratulation">¡Felicitaciones!</string>
-    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citoligía vaginal para detectar a tiempo el cáncer de mamá y prevenir el cáncer de cuello uterino</string>
-    <string name="warning_git">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.\n
-        Sangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.\n\n
-        Esta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.\n\n
-        Para más información contáctanos en:\namate@pfccap.org</string>
+    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citoligía vaginal para detectar a tiempo el cáncer de seno y prevenir el cáncer de cuello uterino</string>
+    <string name="warning_git1">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.</string>
+    <string name="warning_git2">Sangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.</string>
+    <string name="warning_git3">Esta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.</string>
+    <string name="warning_link">Para más información contáctanos en:\namate@pfccap.org</string>
     <string name="title_warning">¡Importante!</string>
     <string name="mammography">mamografía</string>
     <string name="vaginal_cytology">citología vaginal</string>
-    <string name="message_validation_no_gift">Y recuerda siempre:\n
- 1. Evitas el cáncer cuando contralas el consumo de licor, dejas de fumar y tienes sexo CON condón.\n
+    <string name="message_validation_no_gift">Y recuerda siempre:\n\n
+ 1. Evitas el cáncer cuando contralas el consumo de licor, dejas de fumar y tienes sexo CON condón.\n\n
  2. Y la vacuna contra el virus del papiloma humano te protege contra el cáncer de cuello uterino.</string>
-    <string name="message_validation_yes_gift">De acuerdo a tus respuestas es tiempo de que te hagas el examen de %1$s. ¿Te gustaría que te contactáramos para ayudarte a sacar tu cita y estar al día en el cuidado de tu salud?</string>
-    <string name="points_and_thanks_gift">Tus puntos acumulados son: %1$s.\nEn el transcurso del día llegará tu premio correspondiente a la recarga.\n¡Muchas gracias por tu participación!</string>
+    <string name="message_validation_yes_gift">De acuerdo a tus respuestas es tiempo de que te hagas el examen de %1$s. \n\n ¿Te gustaría que te contactáramos para ayudarte a sacar tu cita y estar al día en el cuidado de tu salud?</string>
+    <string name="points_and_thanks_gift">Tus puntos acumulados son:\n\n%1$s\n\nEn el transcurso del día llegará tu premio correspondiente a la recarga.\n\n¡Muchas gracias por tu \nparticipación!</string>
 
     <!--validaciones antes de obtener el prio -->
     <string name="have_opportunities_breast_days">Podrás incrementar tus puntos en %1$s días. Regresa con más puntos para un mejor premio.</string>
     <string name="have_opportunities_cervix_days">Podrás incrementar tus puntos en %1$s días. Regresa con más puntos para un mejor premio.</string>
     <string name="have_opportunities">Debes contestar el cuestionario de cada módulo antes de reclamar tu premio.</string>
-    <string name="have_opportunities_breast">Tienes otra oportunidad en el módulo cáncer de seno para mejorar tu puntiación.</string>
+    <string name="have_opportunities_breast">Tienes otra oportunidad en el módulo cáncer de seno para mejorar tu puntuación.</string>
     <string name="have_opportunities_cervix">Tienes otra oportunidad en el módulo cáncer de cuello uterino para mejorar tu puntiación.</string>
     <string name="weak_password">WEAK_PASSWORD</string>
     <string name="error_user_not_found">No existe este usuario con este correo electrónico, por favor verifique.</string>
@@ -155,7 +155,7 @@
     <string name="terms_check_validation_message">Debe aceptar los términos y condiciones</string>
     <string name="privacy_check_validation_message">Debe aceptar las políticas de privacidad</string>
     <string name="no_permission_my_location">No tiene permisos de localización, no podrás saber tu posición actual automáticamente.</string>
-    <string name="done_get_gift">Ya has solicitado reclamar tu premio, te estaremos informando cuando tengas más premios disponibles para reclamar. Gracias por usar nuestra aplicación y esperamos que hayas aprendido mucho. Y recuerda tu salud es lo primero.</string>
+    <string name="done_get_gift">Ya has solicitado reclamar tu premio. Sigue atenta con nuestra aplicación para nuevas oportunidades de probar tu conocimiento y aprender. Y recuerda… ¡Ámate cuida tu salud!</string>
 
     <string name="error_with_network">A network error (such as timeout, interrupted connection or unreachable host) has occurred.</string>
     <string name="error_with_network_spanish">Hay problemas de conección con el internet, por favor verifica tu conexión y vuelve a intenarlo.</string>
@@ -168,6 +168,14 @@
     <string name="accept">Acepto</string>
     <string name="terms_and_conditions">Condiciones de uso</string>
     <string name="privacy_policy">Políticas de privacidad</string>
+    <string name="valite_password">Debe tener 6 o más letras y/o números</string>
+    <string name="gift_btn_gift">Premio</string>
+    <string name="appointment_cervix_breast">mamografía y citología vaginal</string>
+    <string name="appointment_breast">mamografía</string>
+    <string name="appointment_cervix">citología vaginal</string>
+    <string name="finish">Finalizar</string>
+    <string name="invite">Invita a una amiga</string>
+
     <string name="terms_conditions_content">Apreciado Usuario: el sitio web de la -FUNDACIÓN PARA LA PREVENCIÓN Y EL TRATAMIENTO
         DEL CÁNCER con sede en Cali, Colombia.- www.pfccap.org (en adelante el Sitio Web) tiene como
         función principal proveer información y servicios así como divulgar y promover normas y directrices
@@ -532,4 +540,5 @@ El Usuario se compromete a revisar periódicamente esta sección para estar info
 modificaciones y cada nuevo acceso del usuario a la página será considerado una aceptación tácita
 de las nuevas condiciones.\n\n
 Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de junio de 2017.</string>
+
 </resources>

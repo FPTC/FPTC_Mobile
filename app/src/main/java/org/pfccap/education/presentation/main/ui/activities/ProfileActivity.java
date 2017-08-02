@@ -251,17 +251,18 @@ public class ProfileActivity extends AppCompatActivity
     }
 
     private void loadInfoLocal() {
-        txtBirth.setText(Cache.getByKey(Constants.DATEBIRDARY));
-        txtAddress.setText(Cache.getByKey(Constants.ADDRESS));
-        txtLongitude.setText(Cache.getByKey(Constants.LONGITUDE));
-        txtLatitude.setText(Cache.getByKey(Constants.LATITUDE));
-        txtChilds.setText(Cache.getByKey(Constants.HASCHILDS));
-        txtHeight.setText(Cache.getByKey(Constants.HEIGHT));
+
         txtName.setText(Cache.getByKey(Constants.USER_NAME));
         txtLastName.setText(Cache.getByKey(Constants.LASTNAME));
+        txtAddress.setText(Cache.getByKey(Constants.ADDRESS));
+        txtBirth.setText(Cache.getByKey(Constants.DATEBIRDARY));
+        txtChilds.setText(Cache.getByKey(Constants.HASCHILDS));
+        txtHeight.setText(Cache.getByKey(Constants.HEIGHT));
+        txtWeight.setText(Cache.getByKey(Constants.WEIGHT));
+        txtLatitude.setText(Cache.getByKey(Constants.LATITUDE));
+        txtLongitude.setText(Cache.getByKey(Constants.LONGITUDE));
         txtNeighborhood.setText(Cache.getByKey(Constants.NEIGHVORHOOD));
         txtPhone.setText(Cache.getByKey(Constants.PHONENUMBER));
-        txtWeight.setText(Cache.getByKey(Constants.WEIGHT));
 
         if (!Cache.getByKey(Constants.DATEBIRDARY).equals("")) {
 
@@ -281,15 +282,29 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void loadData(UserAuth user) {
-        txtBirth.setText(user.getDateBirthday());
-        txtAddress.setText(user.getAddress());
-        txtLongitude.setText(String.valueOf(user.getLongitude()));
-        txtLatitude.setText(String.valueOf(user.getLatitude()));
+
+        //se guarda localmente los datos para garantizar que este actualizado la información
+        Cache.save(Constants.USER_NAME, user.getName());
+        Cache.save(Constants.LASTNAME, user.getLastName());
+        Cache.save(Constants.ADDRESS, user.getAddress());
+        Cache.save(Constants.DATEBIRDARY, user.getDateBirthday());
+        Cache.save(Constants.HASCHILDS, String.valueOf(user.getHasChilds()));
+        Cache.save(Constants.HEIGHT, String.valueOf(user.getHeight()));
+        Cache.save(Constants.WEIGHT, String.valueOf(user.getWeight()));
+        Cache.save(Constants.LATITUDE, String.valueOf(user.getLatitude()));
+        Cache.save(Constants.LONGITUDE,String.valueOf(user.getLongitude()));
+        Cache.save(Constants.NEIGHVORHOOD, user.getNeighborhood());
+        Cache.save(Constants.PHONENUMBER, user.getPhoneNumber());
+
         txtName.setText(user.getName());
         txtLastName.setText(user.getLastName());
+        txtAddress.setText(user.getAddress());
+        txtBirth.setText(user.getDateBirthday());
+        txtLatitude.setText(String.valueOf(user.getLatitude()));
+        txtLongitude.setText(String.valueOf(user.getLongitude()));
         txtNeighborhood.setText(user.getNeighborhood());
         txtPhone.setText(user.getPhoneNumber());
-        txtChilds.setText(String.valueOf(user.getHasChilds()));
+
 
         if (user.getHeight() == 0){
             txtHeight.setText("");

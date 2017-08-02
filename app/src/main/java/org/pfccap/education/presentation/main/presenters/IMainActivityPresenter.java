@@ -10,4 +10,5 @@ public interface IMainActivityPresenter {
 
     void logOut();
 
+    void invite();
 }

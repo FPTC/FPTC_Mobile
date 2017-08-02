@@ -3,27 +3,34 @@ package org.pfccap.education.entities;
 /**
  * Created by USUARIO on 05/07/2017.
  */
-import java.util.List;
 
 public class Validation {
 
         private int responseCode;
-        private List<Object> response = null;
+        private boolean cervix;
+        private boolean breast;
 
-        public Integer getResponseCode() {
+        public int getResponseCode() {
                 return responseCode;
         }
 
-        public void setResponseCode(Integer responseCode) {
+        public void setResponseCode(int responseCode) {
                 this.responseCode = responseCode;
         }
 
-        public List<Object> getResponse() {
-                return response;
+        public boolean isCervix() {
+                return cervix;
         }
 
-        public void setResponse(List<Object> response) {
-                this.response = response;
+        public void setCervix(boolean cervix) {
+                this.cervix = cervix;
         }
 
+        public boolean isBreast() {
+                return breast;
+        }
+
+        public void setBreast(boolean breast) {
+                this.breast = breast;
+        }
 }

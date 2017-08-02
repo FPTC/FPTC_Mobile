@@ -130,13 +130,13 @@ public class GiftsFragment extends Fragment implements IGiftsFragmentView {
     @OnClick(R.id.mainGiftBtnGetGift)
     public void showMessageGift() {
         if (mListener != null) {
-            if (Utilities.isNetworkAvailable(getContext())) {
+     //       if (Utilities.isNetworkAvailable(getContext())) {
                 //si tiene internet se actualiza las vatiales de usuario con respecto a la
                 // configuración de turnos, puntos acumulados y estado
                 giftsPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
-            } else {
-                Utilities.dialogoError(getString(R.string.TITULO_ERROR), getString(R.string.network_not_available), getContext());
-            }
+ //           } else {
+      //          Utilities.dialogoError(getString(R.string.TITULO_ERROR), getString(R.string.network_not_available), getContext());
+   //         }
         }
     }
 

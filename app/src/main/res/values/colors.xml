@@ -12,7 +12,7 @@
     <color name="colorBlue">#0da4a6</color>
     <color name="colorBlueLigth">#5bd6d7</color>
     <color name="colorBlueLigthTransparence">#700da4a6</color>
-    <color name="colorWarning">#ffb300</color>
+    <color name="colorWarning">#99ffb300</color>
     <color name="answerColorWarning">#ffa726</color>
     <color name="answerColorRight">#66bb6a</color>
     <color name="answerColorFail">#f50057</color>

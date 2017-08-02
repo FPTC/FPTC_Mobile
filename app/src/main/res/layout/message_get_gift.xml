@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:scrollbars="none">
+    android:layout_margin="10dp">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/logo_amate"
+        android:contentDescription="@string/app_name" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,83 +25,104 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@string/congratulation"
-                android:textSize="22sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"/>
 
             <TextView
+                android:id="@+id/gift_msg_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/intro_ms_gift"
-                android:textSize="17sp"
-                android:layout_marginTop="10dp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/content_ms_gift"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/message_validation_yes_gift"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/lyt_botton_gift"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/gitf_btn_yes"
+                    android:id="@+id/gift_btn_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:background="@drawable/rounded_blue_light"
-                    android:layout_margin="10dp"
+                    android:text="@string/yes"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="18sp"
-                    android:text="@string/yes"/>
+                    android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/gitf_btn_no"
+                    android:id="@+id/gift_btn_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button"
                     android:layout_margin="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="@string/no"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryText"
-                    android:textSize="18sp"
-                    android:text="@string/no"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/logo_gift"
+            <Button
+                android:id="@+id/gitf_btn_gift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logo_amate"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_blue_light"
+                android:paddingEnd="40dp"
+                android:paddingStart="40dp"
+                android:text="@string/gift_btn_gift"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp" />
+
 
             <TextView
-                android:id="@+id/points_gitf_message"
+                android:id="@+id/points_gift_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="17sp"/>
+                android:layout_marginTop="30dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/points_and_thanks_gift"
+                android:textSize="20sp"
+                android:gravity="center" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/gitf_btn_finish"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableStart="@drawable/ic_warning_black_36dp"
-                android:drawableTint="@color/colorWarning"
-                android:gravity="bottom"
-                android:text="@string/title_warning"
-                android:textSize="16sp"
-                tools:targetApi="m" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/warning_git" />
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_button"
+                android:paddingEnd="40dp"
+                android:paddingStart="40dp"
+                android:text="@string/finish"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp" />
 
         </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</FrameLayout>

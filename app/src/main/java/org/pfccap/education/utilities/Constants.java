@@ -72,7 +72,7 @@ public class Constants {
     public static final String NEIGHVORHOOD = "neighborhood";
     public static final String PHONENUMBER = "phoneNumber";
     public static final String STATE = "state";
-    public static final String APPOINTMENT_C = "appointmentCervix";
-    public static final String APPOINTMENT_B = "appointmentBreast";
+    public static final String APPOINTMENT = "appointment";
 
+    public static final String DATE_CREATE = "dateCreate";
 }

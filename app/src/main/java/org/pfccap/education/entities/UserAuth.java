@@ -29,6 +29,7 @@ public class UserAuth {
     private int currentPointsBreast;
     private int currentPointsCervix;
     private int profileCompleted;
+    private String dateCreate;
 
     public UserAuth() {
 
@@ -216,5 +217,13 @@ public class UserAuth {
 
     public void setCurrentPointsCervix(int currentPointsCervix) {
         this.currentPointsCervix = currentPointsCervix;
+    }
+
+    public String getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(String dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }

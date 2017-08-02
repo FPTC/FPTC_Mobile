@@ -43,6 +43,7 @@ public class SignupPresenter implements ISignupPresenter {
     private Context context;
 
     public SignupPresenter(ISignupView signupView, Context context) {
+        this.context = context;
         this.signupView = signupView;
         questionBP = new QuestionBP();
         configurationBP = new ConfigurationBP();
@@ -113,7 +114,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                                                                        @Override
                                                                        public void onError(Throwable e) {
-
+                                                                           showErrorView(e);
                                                                        }
 
                                                                        @Override
@@ -126,10 +127,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                                         @Override
                                         public void onError(Throwable e) {
-                                            signupView.hideProgress();
-                                            signupView.enableInputs();
-                                            FirebaseCrash.report(e);
-                                            signupView.signUpError(Utilities.traslateErrorCode(e.getMessage(), context));
+                                            showErrorView(e);
                                         }
 
                                         @Override
@@ -141,19 +139,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                         @Override
                         public void onError(Throwable e) {
-                            signupView.hideProgress();
-                            signupView.enableInputs();
-                            FirebaseCrash.report(e);
-                            if (e instanceof FirebaseAuthException) {
-                                String errorCode = ((FirebaseAuthException) e).getErrorCode();
-                                signupView.signUpError(Utilities.traslateErrorCode(errorCode, context));
-                            } else {
-                                Pattern pattern = Pattern.compile(".*WEAK_PASSWORD.*");
-                                Matcher matcher = pattern.matcher(e.getMessage());
-                                if (matcher.find()) {
-                                    signupView.signUpError(Utilities.traslateErrorCode(context.getString(R.string.weak_password), context));
-                                }
-                            }
+                            showErrorView(e);
                         }
 
                         @Override
@@ -184,10 +170,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                         @Override
                         public void onError(Throwable e) {
-                            signupView.enableInputs();
-                            signupView.hideProgress();
-                            FirebaseCrash.report(e);
-                            signupView.signUpError(e.getMessage());
+                            showErrorView(e);
 
                         }
 
@@ -221,10 +204,7 @@ public class SignupPresenter implements ISignupPresenter {
 
                         @Override
                         public void onError(Throwable e) {
-                            signupView.enableInputs();
-                            signupView.hideProgress();
-                            FirebaseCrash.report(e);
-                            signupView.signUpError(e.getMessage());
+                            showErrorView(e);
 
                         }
 
@@ -247,9 +227,13 @@ public class SignupPresenter implements ISignupPresenter {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
             signupView.signUpError(Utilities.traslateErrorCode(errorCode, context));
         } else {
-            if (e.getMessage().equals(context.getResources().getString(R.string.error_with_network))) {
+            Pattern pattern = Pattern.compile(".*WEAK_PASSWORD.*");
+            Matcher matcher = pattern.matcher(e.getMessage());
+            if (matcher.find()) {
+                signupView.signUpError(Utilities.traslateErrorCode(context.getString(R.string.weak_password), context));
+            } else if (e.getMessage().equals(context.getResources().getString(R.string.error_with_network))) {
                 signupView.signUpError(context.getResources().getString(R.string.error_with_network_spanish));
-            }else{
+            } else {
                 signupView.signUpError(e.getMessage());
             }
         }

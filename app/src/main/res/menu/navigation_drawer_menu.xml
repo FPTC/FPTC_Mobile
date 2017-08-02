@@ -14,5 +14,10 @@
             android:id="@+id/item_drawer_gifts"
             android:title="@string/gift"
             android:icon="@drawable/ic_gift_black_48dp"/>
+
+        <item
+            android:id="@+id/item_drawer_invite"
+            android:title="@string/invite"
+            android:icon="@drawable/ic_compartir_nav"/>
     </group>
 </menu>

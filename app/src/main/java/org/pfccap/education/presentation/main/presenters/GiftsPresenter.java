@@ -86,10 +86,10 @@ public class GiftsPresenter implements IGiftsPresenter {
                                        } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
                                            view.hideProgress();
                                            view.showErrorSnack(context.getString(R.string.have_opportunities_cervix_days, Cache.getByKey(Constants.LAPSE_CERVIX)));
-                                       } else if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
+                                       } else /*if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
                                            view.hideProgress();
                                            view.showErrorDialog(context.getString(R.string.title_info_dialog), context.getString(R.string.done_get_gift));
-                                       } else {
+                                       } else*/ {
 
                                            ValidationService service = APIService.getInstanceRetrofit(ValidationService.class);
 
@@ -100,37 +100,26 @@ public class GiftsPresenter implements IGiftsPresenter {
                                                        @Override
                                                        public void onNext(Validation value) {
 
-                                                           List<Object> valueObject = value.getResponse();
-                                                           if (valueObject != null && valueObject.size() == 0) {
-                                                               Cache.save(Constants.APPOINTMENT_TYPE, "0");
-                                                           } else if (valueObject.size() == 1) {
-                                                               JSONArray valueArray = new JSONArray(valueObject);
-                                                               try {
-                                                                   String answerApp = valueArray.getString(0);
-                                                                   if (answerApp.equals(context.getResources().getString(R.string.cervix))) {
-                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "2");
-                                                                   } else if (answerApp.equals(context.getResources().getString(R.string.breast))) {
-                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "1");
-                                                                   }else{
-                                                                       Cache.save(Constants.APPOINTMENT_TYPE, "0");
-                                                                       FirebaseCrash.log(answerApp);
-                                                                   }
+                                                           boolean cervix = value.isCervix();
+                                                           boolean breast = value.isBreast();
 
-                                                               } catch (JSONException e) {
-                                                                   e.printStackTrace();
-                                                                   FirebaseCrash.report(e);
-                                                               }
-                                                           } else if (valueObject.size() == 2) {
+                                                           if (cervix && breast){
                                                                Cache.save(Constants.APPOINTMENT_TYPE, "3");
+                                                           }else if (cervix){
+                                                               Cache.save(Constants.APPOINTMENT_TYPE, "2");
+                                                           }else if (breast){
+                                                               Cache.save(Constants.APPOINTMENT_TYPE, "1");
+                                                           }else {
+                                                               Cache.save(Constants.APPOINTMENT_TYPE, "0");
                                                            }
+
                                                            view.hideProgress();
                                                            view.afterUpdateUserInfo();
                                                        }
 
                                                        @Override
                                                        public void onError(Throwable e) {
-                                                           FirebaseCrash.report(e);
-                                                           view.hideProgress();
+                                                           showErrorView(e);
 
                                                        }
 
@@ -140,13 +129,11 @@ public class GiftsPresenter implements IGiftsPresenter {
                                                        }
                                                    });
                                        }
-
                                    }
 
                                    @Override
                                    public void onError(Throwable e) {
-                                       FirebaseCrash.report(e);
-                                       Utilities.traslateErrorCode(e.getMessage(), context);
+                                       showErrorView(e);
                                    }
 
                                    @Override
@@ -155,5 +142,16 @@ public class GiftsPresenter implements IGiftsPresenter {
                                    }
                                }
                 );
+    }
+
+    private void showErrorView(Throwable e) {
+        FirebaseCrash.report(e);
+        view.hideProgress();
+        FirebaseCrash.report(e);
+        if (e.getMessage().equals("Unable to resolve host \"us-central1-fptc-dev.cloudfunctions.net\": No address associated with hostname")) {
+            view.showErrorSnack(context.getResources().getString(R.string.error_with_network_spanish));
+        } else {
+            view.showErrorSnack(e.getMessage());
+        }
     }
 }

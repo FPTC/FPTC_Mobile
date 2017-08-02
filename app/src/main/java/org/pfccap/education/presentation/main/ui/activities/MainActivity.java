@@ -1,5 +1,6 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,13 +20,15 @@ import org.pfccap.education.presentation.main.ui.fragments.GiftsFragment;
 import org.pfccap.education.presentation.main.ui.fragments.IntroFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MessageGetGift;
+import org.pfccap.education.presentation.main.ui.fragments.WarningFragment;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView,
-        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener, GiftsFragment.OnFragmentInteractionListener {
+        MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener,
+        GiftsFragment.OnFragmentInteractionListener, MessageGetGift.OnMessFragInteractionListener {
 
     private IMainActivityPresenter mainActivityPresenter;
 
@@ -118,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
+                            case R.id.item_drawer_invite:
+                                mainActivityPresenter.invite();
+                                return true;
                         }
                         return true;
                     }
@@ -125,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
-    public void onBackPressed() { //Al llegar al ultimo fragmento cierra la actividad al precinoar el back para evitar pantallas en blanco
+    public void onBackPressed() {
+        getSupportFragmentManager();
+        //Al llegar al ultimo fragmento cierra la actividad al precinoar el back para evitar pantallas en blanco
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) finish();
         super.onBackPressed();
     }
@@ -144,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     public void navigateToLogin() {
         Utilities.initActivity(this, AuthActivity.class);
         finish();
+    }
+
+    @Override
+    public void goInviteActivity(Intent intent) {
+        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -171,5 +184,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void onNavigationMessageGift() {
         Utilities.initFragment(this, MessageGetGift.newInstance());
+    }
+
+    @Override
+    public void onNavigateToWarnings() {
+        Utilities.initFragment(this, WarningFragment.newInstance());
     }
 }
