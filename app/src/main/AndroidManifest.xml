@@ -61,7 +61,8 @@
             android:parentActivityName=".presentation.main.ui.activities.ProfileActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".presentation.main.ui.activities.MainActivity"/>
+        <activity android:name=".presentation.main.ui.activities.MainActivity"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".presentation.main.ui.activities.ProfileActivity"

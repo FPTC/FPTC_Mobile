@@ -3,6 +3,8 @@ package org.pfccap.education.presentation.main.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     private void initFragment() {
-        Utilities.initFragment(this, new MainFragment());
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.content, MainFragment.newInstance()).addToBackStack(null);
+        t.commit();
     }
 
     @Override
@@ -107,22 +111,25 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.item_drawer_home:
-                                menuItem.setChecked(true);
+                                FragmentManager fm = getSupportFragmentManager();
+                                for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                    fm.popBackStack();
+                                }
                                 initFragment();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_profile:
-                                menuItem.setChecked(true);
                                 Utilities.initActivity(MainActivity.this, ProfileActivity.class);
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_gifts:
-                                menuItem.setChecked(true);
                                 Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_invite:
+                                menuItem.setChecked(false);
                                 mainActivityPresenter.invite();
+                                drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                         }
                         return true;
@@ -132,10 +139,12 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void onBackPressed() {
-        getSupportFragmentManager();
         //Al llegar al ultimo fragmento cierra la actividad al precinoar el back para evitar pantallas en blanco
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) finish();
-        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }else{
+            getSupportFragmentManager().popBackStack("MAIN", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.pfccap.education.presentation.main.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;

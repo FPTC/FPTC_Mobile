@@ -75,7 +75,7 @@ public class Utilities {
         }
 
         FragmentTransaction t = classInicio.getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.content, fragmentDestino).addToBackStack(null);
+        t.replace(R.id.content, fragmentDestino).addToBackStack("MAIN");
         t.commit();
     }
 

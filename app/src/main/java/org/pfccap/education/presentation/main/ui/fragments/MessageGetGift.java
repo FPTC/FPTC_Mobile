@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -71,6 +72,18 @@ public class MessageGetGift extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.message_get_gift, container, false);
         ButterKnife.bind(this, view);
+
+        initTexts();
+        //se muestra la introducción y el mensaje
+        intro.setVisibility(View.VISIBLE);
+        content.setVisibility(View.VISIBLE);
+        points.setVisibility(View.GONE);
+        finish.setVisibility(View.GONE);
+
+        return view;
+    }
+
+    public void initTexts(){
         //se calcula los puntos totales
         SpannableString spanTxt;
         int totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
@@ -79,11 +92,6 @@ public class MessageGetGift extends Fragment {
         spanTxt.setSpan(new StyleSpan(Typeface.BOLD), 27, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spanTxt.setSpan(new RelativeSizeSpan(2f), 27, 30, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         points.setText(spanTxt);
-        //se muestra la introducción y el mensaje
-        intro.setVisibility(View.VISIBLE);
-        content.setVisibility(View.VISIBLE);
-        points.setVisibility(View.GONE);
-        finish.setVisibility(View.GONE);
 
         if (!Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("0")) {
             if (Cache.getByKey(Constants.APPOINTMENT_TYPE).equals("3")){
@@ -112,7 +120,6 @@ public class MessageGetGift extends Fragment {
 
         }
 
-        return view;
     }
 
     @OnClick(R.id.gift_btn_yes)

@@ -86,10 +86,10 @@ public class GiftsPresenter implements IGiftsPresenter {
                                        } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
                                            view.hideProgress();
                                            view.showErrorSnack(context.getString(R.string.have_opportunities_cervix_days, Cache.getByKey(Constants.LAPSE_CERVIX)));
-                                       } else /*if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
+                                       } else if (Integer.valueOf(Cache.getByKey(Constants.STATE)) >= 2) {
                                            view.hideProgress();
                                            view.showErrorDialog(context.getString(R.string.title_info_dialog), context.getString(R.string.done_get_gift));
-                                       } else*/ {
+                                       } else {
 
                                            ValidationService service = APIService.getInstanceRetrofit(ValidationService.class);
 
