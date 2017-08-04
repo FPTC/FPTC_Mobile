@@ -1,21 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context="org.pfccap.education.presentation.main.ui.fragments.WarningFragment">
+    tools:context="org.pfccap.education.presentation.main.ui.fragments.WarningFragment"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
+        android:layout_gravity="center"
         android:background="@drawable/logo_amate"
         android:contentDescription="@string/app_name" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +29,6 @@
                 android:id="@+id/gift_txt_warning_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:drawableStart="@drawable/alert"
                 android:gravity="center"
                 android:paddingEnd="20dp"
@@ -76,4 +78,4 @@
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</LinearLayout>

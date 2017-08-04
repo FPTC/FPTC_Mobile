@@ -59,12 +59,12 @@ public class AuthProcess implements IAuthProcess {
 
                                         //se actualiza el usaurio  la fecha en que se crea el usuario
                                         Calendar calendar = Calendar.getInstance();
-                                        String dateCreate = String.format(Locale.US, "%d/%d/%d",
+                                        String dateCreated = String.format(Locale.US, "%d/%d/%d",
                                                 calendar.get(Calendar.DAY_OF_MONTH),
                                                 calendar.get(Calendar.MONTH) + 1,
                                                 calendar.get(Calendar.YEAR)
                                         );
-                                        user.setDateCreate(dateCreate);
+                                        user.setDateCreated(dateCreated);
 
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 

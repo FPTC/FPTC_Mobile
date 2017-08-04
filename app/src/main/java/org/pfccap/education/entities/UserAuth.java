@@ -29,7 +29,7 @@ public class UserAuth {
     private int currentPointsBreast;
     private int currentPointsCervix;
     private int profileCompleted;
-    private String dateCreate;
+    private String dateCreated;
 
     public UserAuth() {
 
@@ -219,11 +219,11 @@ public class UserAuth {
         this.currentPointsCervix = currentPointsCervix;
     }
 
-    public String getDateCreate() {
-        return dateCreate;
+    public String getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDateCreate(String dateCreate) {
-        this.dateCreate = dateCreate;
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

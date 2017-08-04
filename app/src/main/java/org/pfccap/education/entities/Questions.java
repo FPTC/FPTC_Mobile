@@ -14,6 +14,7 @@ public class Questions {
     private String text;
     private String typeQuestion;
     private boolean enable;
+    private String visible;
 
     public Questions() {
 
@@ -73,5 +74,13 @@ public class Questions {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public String getVisible() {
+        return visible;
+    }
+
+    public void setVisible(String visible) {
+        this.visible = visible;
     }
 }

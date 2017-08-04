@@ -121,7 +121,7 @@
     <string name="warning_answers">¡Cuidado!</string>
     <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
     <string name="congratulation">¡Felicitaciones!</string>
-    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citoligía vaginal para detectar a tiempo el cáncer de seno y prevenir el cáncer de cuello uterino</string>
+    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citología vaginal para detectar a tiempo el cáncer de seno y prevenir el cáncer de cuello uterino</string>
     <string name="warning_git1">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.</string>
     <string name="warning_git2">Sangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.</string>
     <string name="warning_git3">Esta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.</string>

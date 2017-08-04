@@ -14,16 +14,16 @@
             android:id="@+id/mainGiftTxtPoints"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.15"
+            android:layout_weight="0.16"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="28sp" />
+            android:textSize="28sp"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_weight="0.74"
             android:scrollbars="none">
 
             <LinearLayout
