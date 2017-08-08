@@ -137,7 +137,7 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
-        textView.setTextSize(20);
+        textView.setTextSize(18);
         ColoredSnackbar.alert(snackbar).show();
     }
 
@@ -146,7 +146,7 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
-        textView.setTextSize(20);
+        textView.setTextSize(18);
         ColoredSnackbar.info(snackbar).show();
     }
 
@@ -155,7 +155,7 @@ public class Utilities {
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
-        textView.setTextSize(20);
+        textView.setTextSize(18);
         switch (Cache.getByKey(Constants.TYPE_CANCER)){
             case Constants.CERVIX:
                 ColoredSnackbar.right(snackbar);

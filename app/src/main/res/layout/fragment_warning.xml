@@ -6,13 +6,6 @@
     tools:context="org.pfccap.education.presentation.main.ui.fragments.WarningFragment"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/logo_amate"
-        android:contentDescription="@string/app_name" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +22,6 @@
                 android:id="@+id/gift_txt_warning_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/alert"
                 android:gravity="center"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
@@ -76,6 +68,28 @@
                 android:paddingStart="20dp"
                 android:text="@string/warning_link"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/gitf_btn_warning_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_blue_light"
+                android:paddingEnd="40dp"
+                android:paddingStart="40dp"
+                android:text="@string/finish"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/logo_amate"
+                android:contentDescription="@string/app_name" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

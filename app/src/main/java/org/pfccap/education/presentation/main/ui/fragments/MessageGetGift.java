@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.pfccap.education.R;
@@ -55,6 +56,9 @@ public class MessageGetGift extends Fragment {
 
     @BindView(R.id.gitf_btn_finish)
     Button finish;
+
+    @BindView(R.id.scrollMessageGift)
+    ScrollView scrollView;
 
     public MessageGetGift() {
         // Required empty public constructor
@@ -104,11 +108,7 @@ public class MessageGetGift extends Fragment {
                 spanTxt = new SpannableString(getString(R.string.message_validation_yes_gift, getString(R.string.appointment_cervix)));
                 spanTxt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),R.color.colorPrimary)),67, 85,  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            //se actualiza que requiere examen con las variables en el nodo de usuario en firebase en 0
-            HashMap<String, Object> obj = new HashMap<>();
-            obj.put(Constants.APPOINTMENT, false);
-            IUserBP userBP = new UserBP();
-            userBP.update(obj);
+
             content.setText(spanTxt);
             buttons.setVisibility(View.VISIBLE);
             gift.setVisibility(View.GONE);
@@ -124,7 +124,7 @@ public class MessageGetGift extends Fragment {
 
     @OnClick(R.id.gift_btn_yes)
     public void gift_btn_yes(){
-        //se actualiza si requiere examen las variables en el nodo de usuario en firebase
+        //se actualiza si requiere examen con 1 en las variables en el nodo de usuario en firebase
         HashMap<String, Object> obj = new HashMap<>();
         obj.put(Constants.APPOINTMENT, true);
         IUserBP userBP = new UserBP();
@@ -134,16 +134,33 @@ public class MessageGetGift extends Fragment {
         buttons.setVisibility(View.GONE);
         points.setVisibility(View.VISIBLE);
         finish.setVisibility(View.VISIBLE);
+        //se situa el scroll en la parte superior después de cambiar el contenido
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
     }
 
     @OnClick(R.id.gift_btn_no)
     public void gift_btn_no(){
+        //se actualiza si requiere examen con 0 en las variables en el nodo de usuario en firebase
+        HashMap<String, Object> obj = new HashMap<>();
+        obj.put(Constants.APPOINTMENT, false);
+        IUserBP userBP = new UserBP();
+        userBP.update(obj);
         intro.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
         buttons.setVisibility(View.GONE);
         points.setVisibility(View.VISIBLE);
-        gift.setVisibility(View.GONE);
         finish.setVisibility(View.VISIBLE);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
     }
 
     @OnClick(R.id.gitf_btn_gift)
@@ -154,6 +171,12 @@ public class MessageGetGift extends Fragment {
         points.setVisibility(View.VISIBLE);
         gift.setVisibility(View.GONE);
         finish.setVisibility(View.VISIBLE);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
     }
 
 

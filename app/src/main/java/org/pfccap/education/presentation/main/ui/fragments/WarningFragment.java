@@ -13,6 +13,7 @@ import org.pfccap.education.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WarningFragment extends Fragment {
 
@@ -43,6 +44,11 @@ public class WarningFragment extends Fragment {
         Linkify.addLinks(link, Linkify.EMAIL_ADDRESSES);
 
         return view;
+    }
+
+    @OnClick(R.id.gitf_btn_warning_finish)
+    public void finished(){
+        getActivity().onBackPressed();
     }
 
 }

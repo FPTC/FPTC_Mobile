@@ -115,7 +115,7 @@ public class QuestionBP implements IQuestionBP {
             QuestionDao questionsDao = AppDao.getQuestionDao();
             Question questionsDB;  //este Question es el del DAO para mapear a la base de datos
             for (Map.Entry<String, Questions> entry : cancerCervix.entrySet()) {
-                if (entry.getValue().getVisible().equals("0")) {
+                if (entry.getValue().isEnable()) {
                     questionsDB = new Question();
                     questionsDB.setIdquest(entry.getKey());
                     questionsDB.setTxtQuestion(entry.getValue().getText());
@@ -164,7 +164,7 @@ public class QuestionBP implements IQuestionBP {
             HashMap<String, Questions> cancerBreats = questionsListAll.getBreastCancer();
 
             for (Map.Entry<String, Questions> entry : cancerBreats.entrySet()) {
-                if (entry.getValue().getVisible().equals("0")) {
+                if (entry.getValue().isEnable()) {
                     questionsDB = new Question();
                     questionsDB.setIdquest(entry.getKey());
                     questionsDB.setTxtQuestion(entry.getValue().getText());
