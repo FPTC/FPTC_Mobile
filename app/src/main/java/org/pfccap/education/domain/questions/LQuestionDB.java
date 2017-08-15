@@ -24,8 +24,8 @@ public class LQuestionDB implements ILQuestionDB {
     private AnswersQuestionDao answersQuestionDao;
     private SecondAnswerDao secondAnswer;
     private GiftDao giftDao;
-    private int[] ramdomNumberSecuence;
 
+    //clase para obtener información de la base de datos local
     public LQuestionDB() {
         questionDao = AppDao.getQuestionDao();
         answersQuestionDao = AppDao.getAnswersQuestionDao();
@@ -33,6 +33,7 @@ public class LQuestionDB implements ILQuestionDB {
         giftDao = AppDao.getGiftDao();
     }
 
+    //se obtiene todas las preguntas que no han sido contestadas
     @Override
     public List<Question> getAll(String typeCancer) {
         try {
@@ -47,6 +48,7 @@ public class LQuestionDB implements ILQuestionDB {
         }
     }
 
+    //se obtiene  todas las respestas de la pregunta actual
     @Override
     public List<AnswersQuestion> getAnswersByQuestion(String idQuestion) {
         try {
@@ -60,6 +62,7 @@ public class LQuestionDB implements ILQuestionDB {
         }
     }
 
+    //se obtiene una la repuesta
     @Override
     public AnswersQuestion getAnswersByAnswers(String idQuestion, String idAnswer) {
         try {

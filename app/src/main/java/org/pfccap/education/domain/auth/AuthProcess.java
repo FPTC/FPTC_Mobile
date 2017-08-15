@@ -40,6 +40,7 @@ public class AuthProcess implements IAuthProcess {
 
     }
 
+    //se obtiene la respuesta después de iniciar sesión
     @Override
     public Observable<UserAuth> signUp(final String name, final String email, final String password) {
 
@@ -65,7 +66,7 @@ public class AuthProcess implements IAuthProcess {
                                                 calendar.get(Calendar.YEAR)
                                         );
                                         user.setDateCreated(dateCreated);
-
+                                        //se inicializa las variables de cache con los valores por defecto y se guarda los datos de autenticación
                                         saveAuthData(authResult.getUser().getEmail(), name, authResult.getUser().getUid());
 
                                         UserProfileChangeRequest.Builder userProfileReq = new UserProfileChangeRequest.Builder();
@@ -97,6 +98,7 @@ public class AuthProcess implements IAuthProcess {
         );
     }
 
+    //se obtiene la respeusta después de crear usuario
     @Override
     public Observable<UserAuth> signIn(final String email, final String password) {
 
@@ -114,6 +116,7 @@ public class AuthProcess implements IAuthProcess {
                                         user.setEmail(authResult.getUser().getEmail());
                                         user.setName(authResult.getUser().getDisplayName());
 
+                                        //se inicializa las variables de cache con los valores por defecto y se guarda los datos de autenticación
                                         saveAuthData(authResult.getUser().getEmail(),
                                                 authResult.getUser().getDisplayName(),
                                                 authResult.getUser().getUid());
@@ -132,6 +135,7 @@ public class AuthProcess implements IAuthProcess {
         );
     }
 
+    //se obtiene la respeusta después de iniciar sesión con facebook
     @Override
     public Observable<UserAuth> signInWithCredential(String token) {
 
@@ -151,6 +155,7 @@ public class AuthProcess implements IAuthProcess {
                                         userAuth.setEmail(authResult.getUser().getEmail());
                                         userAuth.setName(authResult.getUser().getDisplayName());
 
+                                        //se inicializa las variables de cache con los valores por defecto y se guarda los datos de autenticación
                                         saveAuthData(authResult.getUser().getEmail(),
                                                 authResult.getUser().getDisplayName(),
                                                 authResult.getUser().getUid());
@@ -169,6 +174,7 @@ public class AuthProcess implements IAuthProcess {
         );
     }
 
+    //se obtiene respuesta después de iniciar proceso de reset password
     @Override
     public Observable<String> resetPassword(final String email) {
 
@@ -197,6 +203,7 @@ public class AuthProcess implements IAuthProcess {
         );
     }
 
+    //guarda datos iniciales en cache
     private void saveAuthData(String email, String name, String uid) {
 
         Cache.save(Constants.IS_LOGGGIN, "true");
@@ -208,6 +215,7 @@ public class AuthProcess implements IAuthProcess {
         Cache.save(Constants.PROFILE_COMPLETED, "0");
     }
 
+    //metodo para cerrar sesión
     public void logOut() {
         FirebaseHelper.getInstance().signOut();
         LoginManager.getInstance().logOut();

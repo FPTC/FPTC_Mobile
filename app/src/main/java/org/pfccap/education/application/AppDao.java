@@ -11,7 +11,7 @@ import org.pfccap.education.dao.UserDao;
  */
 
 public class AppDao {
-
+    // se utiliza para poder acceder a la base de datos generada con greendao
     private static UserDao userDao;
     private static QuestionDao questionDao;
     private static AnswersQuestionDao answersQuestionDao;

@@ -28,6 +28,8 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class ConfigurationBP implements IConfigurationBP {
 
+    //se obtiene la respuesta de la consulta de la configuración cada cuantos días puede responder el cuestionario
+    // y número de oportunidades para contestar el cuestionario
     @Override
     public Observable<Configuration> getConfiguration() {
         try {
@@ -73,6 +75,7 @@ public class ConfigurationBP implements IConfigurationBP {
         }
     }
 
+    //se obtiene los datos para llenar la tabla de puntos y premios
     @Override
     public Observable<ConfigurationGifts> getConfigurationGifts() {
         try {
@@ -107,6 +110,7 @@ public class ConfigurationBP implements IConfigurationBP {
         }
     }
 
+    //se guardan los datos obtenidos de la consulta a firebase en la base de datos local
     private void saveGiftTable(ConfigurationGifts listGift) {
 
         try {
