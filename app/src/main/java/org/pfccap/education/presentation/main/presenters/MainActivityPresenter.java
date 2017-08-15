@@ -58,10 +58,10 @@ public class MainActivityPresenter implements IMainActivityPresenter {
                         "<body>\n" +
                         "<table>\n" +
                         "<tr><td><img \n" +
-                        "src=\"https://firebasestorage.googleapis.com/v0/b/project-963864459523015283.appspot.com/o/imgs_correo%2Fekosavelogo.png?alt=media&token=dad709a7-f28f-477f-ad0b-242a4b18b076\" alt=\"Amate_logo\"border=\"0\"width=\"200\"height=\"48\"style=\"display:block;font-family:Arial;color:#000000;font-size:1em\"/></td>\n" +
+                        "src=\"https://firebasestorage.googleapis.com/v0/b/fptc-test.appspot.com/o/imagenes%2Flogo_amate.png?alt=media&token=79014774-f8ec-4932-97ae-27263279407f\" alt=\"Amate_logo\"border=\"0\"width=\"200\"height=\"48\"style=\"display:block;font-family:Arial;color:#000000;font-size:1em\"/></td>\n" +
                         "</tr>\n" +
                         "<tr><td><img \n" +
-                        "src=\"https://firebasestorage.googleapis.com/v0/b/project-963864459523015283.appspot.com/o/imgs_correo%2Fbanner_ekosave.jpg?alt=media&token=0349e355-03e9-492c-90dd-e3f2a05484fa\" alt=\"Ámate cuida tu salud\"border=\"0\"width=\"600\"height=\"257\"style=\"display:block;font-family:Arial;color:#000000;font-size:1em\"/></td>\n" +
+                        "src=\"https://firebasestorage.googleapis.com/v0/b/fptc-test.appspot.com/o/imagenes%2Fimagen%20destacada.png?alt=media&token=4a133f63-654e-4b2e-b49a-1633c7dc0911\" alt=\"Ámate cuida tu salud\"border=\"0\"width=\"600\"height=\"257\"style=\"display:block;font-family:Arial;color:#000000;font-size:1em\"/></td>\n" +
                         "</tr>\n" +
                         "<tr>\n" +
                         "<td align=\"right\"><a href=\"%%APPINVITE_LINK_PLACEHOLDER%%\" style=\"color:#ff00ff;\"><span style=\"color:#ff00ff;\"><img src=\"https://firebasestorage.googleapis.com/v0/b/project-963864459523015283.appspot.com/o/imgs_correo%2Fgoogleplay.jpg?alt=media&token=794697b4-96d0-4e82-9c76-f7c6f5bf3f43\" alt=\"link_google_play\"border=\"0\"width=\"188\"height=\"62\"style=\"display:block;font-family:Arial;color:#000000;font-size:1em\"/></span></a></td>\n" +
