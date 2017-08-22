@@ -49,7 +49,6 @@ public class MainActivityPresenter implements IMainActivityPresenter {
                 "¡Invita a tus amigas a probar tu conocimiento y aprender más sobre el cáncer de seno y el cáncer de cuello uterino!")
                 .setEmailSubject("Ámate cuida tu salud")
                 .setMessage("Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.")
-                .setDeepLink(Uri.parse("http://40.71.81.33/fundacancerPruebas/public/#/login"))
                 .setEmailHtmlContent("<html>\n" +
                         "<head>\n" +
                         "\t<title>Ámate cuida tu salud</title>\n" +

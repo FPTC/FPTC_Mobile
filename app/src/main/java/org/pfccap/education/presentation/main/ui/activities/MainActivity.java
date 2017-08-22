@@ -126,11 +126,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
-                            case R.id.item_drawer_invite:
+                            /*case R.id.item_drawer_invite:
                                 menuItem.setChecked(false);
                                 mainActivityPresenter.invite();
                                 drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
+                                return true;*/
                         }
                         return true;
                     }

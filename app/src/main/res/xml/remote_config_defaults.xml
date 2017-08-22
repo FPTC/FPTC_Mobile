@@ -2,15 +2,7 @@
 <defaultsMap>
     <entry>
         <key>serviceAppointment</key>
-        <value>https://us-central1-fptc-dev.cloudfunctions.net/</value>
-    </entry>
-    <entry>
-        <key>urlTermCondition</key>
-        <value>https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8</value>
-    </entry>
-    <entry>
-        <key>urlPrivacyPolicy</key>
-        <value>https://drive.google.com/open?id=0B9amhpoFL3zha0k3VjVIeHRubW8</value>
+        <value>https://us-central1-amate-b8ceb.cloudfunctions.net/</value>
     </entry>
     <entry>
         <key>urlCreateEmailApp</key>

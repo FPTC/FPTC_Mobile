@@ -96,8 +96,8 @@
 
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
-    <string name="firs_total_points">Has obtenido %1$s puntos en este intento. En %2$s días tendrás otra oportunidad de probar tu conocimiento y lo que has aprendido para subir tu puntuación.</string>
-    <string name="total_points_equal">Has obtenido menos puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. ¡Guardaremos tu puntuación más alta!</string>
+    <string name="firs_total_points">Has obtenido %1$s punto(s) en este intento. En %2$s días tendrás otra oportunidad de probar tu conocimiento y lo que has aprendido para subir tu puntuación.</string>
+    <string name="total_points_equal">Has obtenido menos puntos en este intento, tenías %1$s punto(s) y ahora has conseguido %2$s punto(s). ¡Guardaremos tu puntuación más alta!</string>
     <string name="total_points_up">Has obtenido más puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. ¡Guardaremos tu puntuación más alta!</string>
     <string name="thanks_for_answers">Gracias por responder</string>
     <string name="end_turn">Se agotaron tus oportunidades para contestar, por favor continua con el otro módulo.</string>
@@ -140,7 +140,7 @@
     <string name="have_opportunities_cervix_days">Podrás incrementar tus puntos en %1$s días. Regresa con más puntos para un mejor premio.</string>
     <string name="have_opportunities">Debes contestar el cuestionario de cada módulo antes de reclamar tu premio.</string>
     <string name="have_opportunities_breast">Tienes otra oportunidad en el módulo cáncer de seno para mejorar tu puntuación.</string>
-    <string name="have_opportunities_cervix">Tienes otra oportunidad en el módulo cáncer de cuello uterino para mejorar tu puntiación.</string>
+    <string name="have_opportunities_cervix">Tienes otra oportunidad en el módulo cáncer de cuello uterino para mejorar tu puntuación.</string>
     <string name="weak_password">WEAK_PASSWORD</string>
     <string name="error_user_not_found">No existe este usuario con este correo electrónico, por favor verifique.</string>
     <string name="error_invalid_email">El ema il registrado no es válido, por favor verifique.</string>
