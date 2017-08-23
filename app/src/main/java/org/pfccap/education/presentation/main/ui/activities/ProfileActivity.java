@@ -1,5 +1,6 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Select;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.pfccap.education.R;
@@ -59,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtLastName)
     EditText txtLastName;
 
+    @NotEmpty(messageResId = R.string.dateBirthday)
     @BindView(R.id.mainProfileTxtBirth)
     EditText txtBirth;
 
@@ -66,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity
     TextView txtAge;
 
     @NotEmpty(messageResId = R.string.phone_no_empty_msg)
-    @Length(min=7, max = 10, messageResId = R.string.limits_phone_number)
+    @Length(min = 7, max = 10, messageResId = R.string.limits_phone_number)
     @BindView(R.id.mainProfileTxtPhone)
     EditText txtPhone;
 
@@ -123,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity
         profilePresenter.getEmailUser();
         if (!Utilities.isNetworkAvailable(ProfileActivity.this)) {
             loadInfoLocal();
-        }else{
+        } else {
             profilePresenter.getUserData();
         }
 
@@ -166,7 +170,7 @@ public class ProfileActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                    validator.validate();
+                validator.validate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -198,14 +202,14 @@ public class ProfileActivity extends AppCompatActivity
         user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
         user.put(Constants.PROFILE_COMPLETED, 1);
-        if (txtLatitude.getText().toString().equals("")){
+        if (txtLatitude.getText().toString().equals("")) {
             user.put(Constants.LATITUDE, 0);
-        }else {
+        } else {
             user.put(Constants.LATITUDE, Double.parseDouble(txtLatitude.getText().toString()));
         }
-        if (txtLongitude.getText().toString().equals("")){
+        if (txtLongitude.getText().toString().equals("")) {
             user.put(Constants.LONGITUDE, 0);
-        }else {
+        } else {
             user.put(Constants.LONGITUDE, Double.parseDouble(txtLongitude.getText().toString()));
         }
 
@@ -292,7 +296,7 @@ public class ProfileActivity extends AppCompatActivity
         Cache.save(Constants.HEIGHT, String.valueOf(user.getHeight()));
         Cache.save(Constants.WEIGHT, String.valueOf(user.getWeight()));
         Cache.save(Constants.LATITUDE, String.valueOf(user.getLatitude()));
-        Cache.save(Constants.LONGITUDE,String.valueOf(user.getLongitude()));
+        Cache.save(Constants.LONGITUDE, String.valueOf(user.getLongitude()));
         Cache.save(Constants.NEIGHVORHOOD, user.getNeighborhood());
         Cache.save(Constants.PHONENUMBER, user.getPhoneNumber());
 
@@ -306,22 +310,21 @@ public class ProfileActivity extends AppCompatActivity
         txtPhone.setText(user.getPhoneNumber());
 
 
-        if (user.getHeight() == 0){
+        if (user.getHeight() == 0) {
             txtHeight.setText("");
-        }else{
+        } else {
             txtHeight.setText(String.valueOf(user.getHeight()));
         }
-        if (user.getWeight() == 0){
+        if (user.getWeight() == 0) {
             txtWeight.setText("");
-        }else {
+        } else {
             txtWeight.setText(String.valueOf(user.getWeight()));
         }
-        if(Cache.getByKey(Constants.PROFILE_COMPLETED).equals("0")){
+        if (Cache.getByKey(Constants.PROFILE_COMPLETED).equals("0")) {
             txtChilds.setText("");
-        }else {
+        } else {
             txtChilds.setText(String.valueOf(user.getHasChilds()));
         }
-
 
 
         if (user.getDateBirthday() != null && !user.getDateBirthday().equals("")) {
@@ -332,7 +335,7 @@ public class ProfileActivity extends AppCompatActivity
             try {
                 cal.setTime(sdf.parse(user.getDateBirthday()));
                 profilePresenter.calculateAge(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar
-                .DAY_OF_MONTH));
+                        .DAY_OF_MONTH));
             } catch (ParseException e) {
                 Utilities.dialogoError(getString(R.string.title_error_dialog), e.getMessage(), this);
             }
@@ -354,7 +357,7 @@ public class ProfileActivity extends AppCompatActivity
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         txtBirth.setText(date);
-        profilePresenter.calculateAge(year, monthOfYear+1, dayOfMonth);
+        profilePresenter.calculateAge(year, monthOfYear + 1, dayOfMonth);
     }
 
     public void setAge(int age) {
@@ -405,11 +408,10 @@ public class ProfileActivity extends AppCompatActivity
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Utilities.snackbarMessageError(findViewById(android.R.id.content), message);
-            }
+            ((EditText) view).setError(message);
+
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

@@ -540,5 +540,9 @@ El Usuario se compromete a revisar periódicamente esta sección para estar info
 modificaciones y cada nuevo acceso del usuario a la página será considerado una aceptación tácita
 de las nuevas condiciones.\n\n
 Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de junio de 2017.</string>
+    <string name="dateBirthday">Debes seleccionar la fecha de nacimiento</string>
+    <string name="title_invitation">¡Invita a tus amigas a probar tu conocimiento y aprender más sobre el cáncer de seno y el cáncer de cuello uterino!</string>
+    <string name="email_subject_invitation">Ámate cuida tu salud</string>
+    <string name="message_invitation">Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.</string>
 
 </resources>

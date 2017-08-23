@@ -9,10 +9,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.activities.AuthActivity;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         MainFragment.OnMainFragInteractionListener, IntroFragment.OnIntroFragInteractionListener,
         GiftsFragment.OnFragmentInteractionListener, MessageGetGift.OnMessFragInteractionListener {
 
+    private static final int REQUEST_INVITE = 1;
     private IMainActivityPresenter mainActivityPresenter;
 
     @BindView(R.id.navigation_drawer_layout)
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         starViews();
         initFragment();
 
-        mainActivityPresenter = new MainActivityPresenter(this);
+        mainActivityPresenter = new MainActivityPresenter(this, this);
         mainActivityPresenter.setUserName();
     }
 
@@ -126,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
-                            /*case R.id.item_drawer_invite:
+                           /* case R.id.item_drawer_invite:
                                 menuItem.setChecked(false);
                                 mainActivityPresenter.invite();
                                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void goInviteActivity(Intent intent) {
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, REQUEST_INVITE);
     }
 
     @Override
@@ -198,5 +203,26 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void onNavigateToWarnings() {
         Utilities.initFragment(this, WarningFragment.newInstance());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FirebaseCrash.log("onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    FirebaseCrash.log("onActivityResult: sent invitation " + id);
+                    FirebaseCrash.log("Result ok invitation data: "+data.getDataString());
+                }
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                // ...
+                FirebaseCrash.log("Data error invitation: "+ data.getDataString());
+            }
+        }
     }
 }

@@ -1,8 +1,11 @@
 package org.pfccap.education.presentation.main.presenters;
 
+import android.content.Context;
 import android.content.Intent;
 
 import com.google.firebase.crash.FirebaseCrash;
+
+import org.pfccap.education.R;
 import org.pfccap.education.domain.auth.AuthProcess;
 import org.pfccap.education.domain.auth.IAuthProcess;
 import org.pfccap.education.presentation.main.ui.activities.IMainActivityView;
@@ -18,9 +21,11 @@ public class MainActivityPresenter implements IMainActivityPresenter {
 
     private IMainActivityView mainActivityView;
     private IAuthProcess authProcess;
+    private Context context;
 
-    public MainActivityPresenter(IMainActivityView mainActivityView) {
+    public MainActivityPresenter(IMainActivityView mainActivityView, Context context) {
         this.mainActivityView = mainActivityView;
+        this.context = context;
     }
 
     @Override
@@ -46,9 +51,9 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     @Override
     public void invite() {
         Intent intent = new AppInviteInvitation.IntentBuilder(
-                "¡Invita a tus amigas a probar tu conocimiento y aprender más sobre el cáncer de seno y el cáncer de cuello uterino!")
-                .setEmailSubject("Ámate cuida tu salud")
-                .setMessage("Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.")
+                context.getString(R.string.title_invitation))
+                .setEmailSubject(context.getString(R.string.email_subject_invitation))
+                .setMessage(context.getString(R.string.message_invitation))
                 .setEmailHtmlContent("<html>\n" +
                         "<head>\n" +
                         "\t<title>Ámate cuida tu salud</title>\n" +

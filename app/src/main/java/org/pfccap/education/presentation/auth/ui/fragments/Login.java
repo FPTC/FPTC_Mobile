@@ -9,6 +9,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -233,6 +234,8 @@ public class Login extends Fragment implements ILoginView,
                 ((EditText) view).setError(message);
             } else {
                 Utilities.snackbarMessageError(getActivity().findViewById(android.R.id.content), message);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
     }
