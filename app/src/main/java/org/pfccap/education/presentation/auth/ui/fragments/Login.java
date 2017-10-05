@@ -2,6 +2,7 @@ package org.pfccap.education.presentation.auth.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -33,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -49,6 +52,8 @@ public class Login extends Fragment implements ILoginView,
     private ILoginPresenter loginPresenter;
     private CallbackManager callbackManager;
     private Validator validator;
+
+    MaterialDialog materialDialog;
 
     @NotEmpty(messageResId = R.string.field_required)
     @Email(messageResId = R.string.email_validation_msg)
@@ -211,6 +216,24 @@ public class Login extends Fragment implements ILoginView,
         Utilities.snackbarMessageError(getView(), error);
     }
 
+    @Override
+    public void showIndeterminateProgress() {
+
+       // Utilities.snackbarMessageError(getView(), "Por favor espera un poco más");
+        materialDialog = new MaterialDialog.Builder(getActivity())
+                .title("Autenticando")
+                .content("Por Favor espera un momento")
+                .progress(true, 0)
+                .show();
+    }
+
+    @Override
+    public void hideIndeterminateProgress() {
+        if (materialDialog!=null) {
+            materialDialog.dismiss();
+        }
+    }
+
     private void setInputs(boolean enabled) {
         authBtnLogin.setEnabled(enabled);
         authLoginTxtEmail.setEnabled(enabled);
@@ -238,6 +261,15 @@ public class Login extends Fragment implements ILoginView,
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
+    }
+
+    @OnClick(R.id.paweredbyleadis)
+    public void paweredByLeadis(){
+        String url = "http://leadis.co/";
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     /**

@@ -24,4 +24,8 @@ public interface ILoginView {
 
     void loginError(String error);
 
+    void showIndeterminateProgress();
+
+    void hideIndeterminateProgress();
+
 }

@@ -256,6 +256,4 @@
 
     </ScrollView>
 
-    <include layout="@layout/toolbar" />
-
 </LinearLayout>

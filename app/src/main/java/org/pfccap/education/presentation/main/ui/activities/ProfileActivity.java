@@ -280,7 +280,6 @@ public class ProfileActivity extends AppCompatActivity
             } catch (ParseException e) {
                 Utilities.dialogoError(getString(R.string.title_error_dialog), e.getMessage(), this);
             }
-
         }
     }
 
@@ -410,6 +409,7 @@ public class ProfileActivity extends AppCompatActivity
 
             ((EditText) view).setError(message);
 
+            Utilities.snackbarMessageError(findViewById(android.R.id.content), message);
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }

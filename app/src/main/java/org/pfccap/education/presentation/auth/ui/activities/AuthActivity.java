@@ -1,8 +1,13 @@
 package org.pfccap.education.presentation.auth.ui.activities;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.auth.ui.fragments.Login;
@@ -12,6 +17,10 @@ import org.pfccap.education.presentation.auth.ui.fragments.TermsAndPolicyFragmen
 import org.pfccap.education.presentation.main.ui.activities.MainActivity;
 import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Utilities;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFragmentInteractor,
         ResetPasswordFragment.OnResetPassFragInteractionListener, Login.OnLoginFragInteractionListener {
@@ -34,6 +43,20 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
             }
         });
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "org.pfccap.education",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         initFragment();
     }
 

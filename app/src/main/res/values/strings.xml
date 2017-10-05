@@ -49,8 +49,9 @@
     <string name="age">Edad</string>
 
     <!-- Facebook Login -->
-    <string name="facebook_app_id">302572720156810</string>
-    <string name="fb_login_protocol_scheme">fb302572720156810</string>
+    <string name="facebook_app_id">1953791061527563</string>
+    <string name="fb_login_protocol_scheme">fb1953791061527563</string>
+
     <string name="fb_texto_ingreso">Ingresar con Facebook</string>
     <string name="logout">Cerrar sesión</string>
 
@@ -544,5 +545,6 @@ Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de juni
     <string name="title_invitation">¡Invita a tus amigas a probar tu conocimiento y aprender más sobre el cáncer de seno y el cáncer de cuello uterino!</string>
     <string name="email_subject_invitation">Ámate cuida tu salud</string>
     <string name="message_invitation">Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.</string>
+    <string name="app_namef">amatecuidatusalud</string>
 
 </resources>

@@ -2,6 +2,7 @@ package org.pfccap.education.presentation.auth.presenters;
 
 import android.content.Context;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -213,6 +214,7 @@ public class LoginPresenter implements ILoginPresenter {
                             Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
                             loginView.enableInputs();
                             loginView.hideProgress();
+                            loginView.hideIndeterminateProgress();
                             loginView.navigateToMainScreen();
                         }
 
@@ -244,6 +246,8 @@ public class LoginPresenter implements ILoginPresenter {
         loginButtonFacebook.registerCallback(objCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                loginView.showProgress();
+                loginView.showIndeterminateProgress();
 
                 objAuthProcess = new AuthProcess();
 
@@ -254,7 +258,6 @@ public class LoginPresenter implements ILoginPresenter {
                             @Override
                             public void accept(UserAuth userAuth) throws Exception {
                                 loginView.disableInputs();
-                                loginView.showProgress();
                             }
                         })
                         .subscribeWith(new DisposableObserver<UserAuth>() {
@@ -265,6 +268,7 @@ public class LoginPresenter implements ILoginPresenter {
 
                             @Override
                             public void onError(Throwable e) {
+                                loginView.hideIndeterminateProgress();
                                 loginView.enableInputs();
                                 loginView.hideProgress();
                                 FirebaseCrash.report(e);
