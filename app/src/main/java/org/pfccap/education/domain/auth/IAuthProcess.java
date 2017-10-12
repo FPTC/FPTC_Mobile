@@ -1,6 +1,8 @@
 package org.pfccap.education.domain.auth;
 
 
+import com.facebook.Profile;
+
 import org.pfccap.education.entities.UserAuth;
 
 import io.reactivex.Observable;

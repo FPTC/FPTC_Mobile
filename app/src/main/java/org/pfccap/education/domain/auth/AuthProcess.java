@@ -2,6 +2,7 @@ package org.pfccap.education.domain.auth;
 
 import android.support.annotation.NonNull;
 
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -12,6 +13,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.domain.user.IUserBP;
@@ -27,6 +32,9 @@ import java.util.Locale;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by jggomez on 20-Apr-17.
@@ -81,7 +89,6 @@ public class AuthProcess implements IAuthProcess {
                                                 e.onNext(user);
                                             }
                                         });
-
 
 
                                     }
@@ -150,17 +157,58 @@ public class AuthProcess implements IAuthProcess {
                                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                     @Override
                                     public void onSuccess(final AuthResult authResult) {
-
-                                        final UserAuth userAuth = new UserAuth();
-                                        userAuth.setEmail(authResult.getUser().getEmail());
-                                        userAuth.setName(authResult.getUser().getDisplayName());
-
+                                        final Profile profile = Profile.getCurrentProfile();
+                                        final UserAuth user = new UserAuth();
+                                        user.setEmail(authResult.getUser().getEmail());
+                                        if (profile != null) {
+                                            user.setName(profile.getName());
+                                        }
+                                        //se actualiza el usaurio  la fecha en que se crea el usuario
+                                        Calendar calendar = Calendar.getInstance();
+                                        String dateCreated = String.format(Locale.US, "%d/%d/%d",
+                                                calendar.get(Calendar.DAY_OF_MONTH),
+                                                calendar.get(Calendar.MONTH) + 1,
+                                                calendar.get(Calendar.YEAR)
+                                        );
+                                        user.setDateCreated(dateCreated);
                                         //se inicializa las variables de cache con los valores por defecto y se guarda los datos de autenticación
                                         saveAuthData(authResult.getUser().getEmail(),
                                                 authResult.getUser().getDisplayName(),
                                                 authResult.getUser().getUid());
 
-                                        e.onNext(userAuth);
+                                        // se verifica la existencia del usuario para ver si se crea en la base de datos firebase por primera vez
+                                        //esto se debe a que el mismo metodo de facebook hace el registro y el login
+                                        FirebaseHelper firebaseHelper = FirebaseHelper.getInstance();
+                                        firebaseHelper.getMyUserReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                UserAuth userAuth = dataSnapshot.getValue(UserAuth.class);
+                                                if (userAuth == null) {
+                                                    UserProfileChangeRequest.Builder userProfileReq = new UserProfileChangeRequest.Builder();
+                                                    if (profile != null) {
+                                                        userProfileReq.setDisplayName(profile.getName());
+                                                    }
+                                                    authResult.getUser().updateProfile(userProfileReq.build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            //se crea el usuario en la base de datos firebase
+                                                            userBP = new UserBP();
+                                                            userBP.save(user);
+
+                                                        }
+                                                    });
+                                                }
+                                                e.onNext(user);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                Exception error = new Exception(databaseError.getMessage());
+                                                FirebaseCrash.report(error);
+                                                e.onError(error);
+                                            }
+
+                                        });
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
