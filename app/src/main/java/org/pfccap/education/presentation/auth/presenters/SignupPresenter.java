@@ -73,7 +73,6 @@ public class SignupPresenter implements ISignupPresenter {
                         @Override
                         public void onNext(UserAuth value) {
 
-
                             configurationBP.getConfiguration()
                                     .observeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())

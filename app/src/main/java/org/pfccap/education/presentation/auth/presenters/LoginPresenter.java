@@ -264,7 +264,69 @@ public class LoginPresenter implements ILoginPresenter {
                         .subscribeWith(new DisposableObserver<UserAuth>() {
                             @Override
                             public void onNext(UserAuth value) {
-                                getQuestion();
+
+                                configurationBP.getConfiguration()
+                                        .observeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeWith(new DisposableObserver<Configuration>() {
+                                            @Override
+                                            public void onNext(Configuration value) {
+                                                Cache.save(Constants.LAPSE_BREAST,
+                                                        String.valueOf(value.getLapseBreast()));
+                                                Cache.save(Constants.LAPSE_CERVIX,
+                                                        String.valueOf(value.getLapseCervix()));
+                                                Cache.save(Constants.NUM_OPPORTUNITIES,
+                                                        String.valueOf(value.getNumOpportunities()));
+
+                                                IUserBP userBP = new UserBP();
+                                                userBP.getUser().subscribeOn(Schedulers.io())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribeWith(new DisposableObserver<UserAuth>() {
+
+                                                                           @Override
+                                                                           public void onNext(UserAuth userAuth) {
+                                                                               Cache.save(Constants.BREAST_TURN,
+                                                                                       String.valueOf(userAuth.getRepetitionsAnswersBreast()));
+                                                                               Cache.save(Constants.CERVIX_TURN,
+                                                                                       String.valueOf(userAuth.getRepetitionsAnswersCervix()));
+                                                                               Cache.save(Constants.DATE_COMPLETED_BREAST,
+                                                                                       String.valueOf(userAuth.getDateCompletedBreast()));
+                                                                               Cache.save(Constants.DATE_COMPLETED_CERVIX,
+                                                                                       String.valueOf(userAuth.getDateCompletedCervix()));
+                                                                               Cache.save(Constants.PROFILE_COMPLETED,
+                                                                                       String.valueOf(userAuth.getProfileCompleted()));
+                                                                               Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
+                                                                               Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
+                                                                               Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));
+
+                                                                               getQuestion();
+
+                                                                           }
+
+                                                                           @Override
+                                                                           public void onError(Throwable e) {
+                                                                               showErrorView(e);
+                                                                           }
+
+                                                                           @Override
+                                                                           public void onComplete() {
+
+                                                                           }
+                                                                       }
+                                                        );
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable e) {
+                                                showErrorView(e);
+                                            }
+
+                                            @Override
+                                            public void onComplete() {
+
+                                            }
+                                        });
+
                             }
 
                             @Override

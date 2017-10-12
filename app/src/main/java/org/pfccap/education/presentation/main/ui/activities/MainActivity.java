@@ -27,6 +27,8 @@ import org.pfccap.education.presentation.main.ui.fragments.IntroFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MainFragment;
 import org.pfccap.education.presentation.main.ui.fragments.MessageGetGift;
 import org.pfccap.education.presentation.main.ui.fragments.WarningFragment;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
 
 import butterknife.BindView;
@@ -128,7 +130,17 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_drawer_gifts:
-                                Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
+                                if (Cache.getByKey(Constants.BREAST_TURN).equals("0") || Cache.getByKey(Constants.BREAST_TURN).equals("")) {
+                                    showError(getString(R.string.have_opportunities));
+                                } else if (Cache.getByKey(Constants.BREAST_TURN).equals("0") || Cache.getByKey(Constants.BREAST_TURN).equals("")) {
+                                    showError(getString(R.string.have_opportunities));
+                                } else if (Integer.valueOf(Cache.getByKey(Constants.BREAST_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                                    showError(getString(R.string.have_opportunities_breast));
+                                } else if (Integer.valueOf(Cache.getByKey(Constants.CERVIX_TURN)) < Integer.valueOf(Cache.getByKey(Constants.NUM_OPPORTUNITIES))) {
+                                    showError(getString(R.string.have_opportunities_cervix));
+                                } else {
+                                    Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
+                                }
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                            /* case R.id.item_drawer_invite:
