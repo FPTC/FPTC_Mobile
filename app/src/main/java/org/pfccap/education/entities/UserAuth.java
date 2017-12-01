@@ -11,6 +11,7 @@ public class UserAuth {
     private String dateBirthday;
     private String email;
     private String phoneNumber;
+    private String phoneNumberCel;
     private String address;
     private String neighborhood;
     private double latitude;
@@ -225,5 +226,13 @@ public class UserAuth {
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getPhoneNumberCel() {
+        return phoneNumberCel;
+    }
+
+    public void setPhoneNumberCel(String phoneNumberCel) {
+        this.phoneNumberCel = phoneNumberCel;
     }
 }

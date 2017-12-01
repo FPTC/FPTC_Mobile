@@ -2,6 +2,7 @@ package org.pfccap.education.domain.auth;
 
 import android.support.annotation.NonNull;
 
+import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -144,9 +145,9 @@ public class AuthProcess implements IAuthProcess {
 
     //se obtiene la respeusta después de iniciar sesión con facebook
     @Override
-    public Observable<UserAuth> signInWithCredential(String token) {
+    public Observable<UserAuth> signInWithCredential(AccessToken token) {
 
-        final AuthCredential credential = FacebookAuthProvider.getCredential(token);
+        final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
         return Observable.create(
                 new ObservableOnSubscribe<UserAuth>() {

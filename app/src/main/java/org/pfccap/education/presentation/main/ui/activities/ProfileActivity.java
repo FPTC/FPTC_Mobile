@@ -62,6 +62,10 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtLastName)
     EditText txtLastName;
 
+    @NotEmpty(messageResId = R.string.field_required)
+    @BindView(R.id.mainProfileTxtEmail)
+    EditText txtEmail;
+
     @NotEmpty(messageResId = R.string.dateBirthday)
     @BindView(R.id.mainProfileTxtBirth)
     EditText txtBirth;
@@ -70,9 +74,14 @@ public class ProfileActivity extends AppCompatActivity
     TextView txtAge;
 
     @NotEmpty(messageResId = R.string.phone_no_empty_msg)
-    @Length(min = 7, max = 10, messageResId = R.string.limits_phone_number)
+    @Length(min = 7, max = 7, messageResId = R.string.limits_phone_number)
     @BindView(R.id.mainProfileTxtPhone)
     EditText txtPhone;
+
+    @NotEmpty(messageResId = R.string.phone_no_empty_msg)
+    @Length(min = 10, max = 10, messageResId = R.string.limits_phone_number_cel)
+    @BindView(R.id.mainProfileTxtPhoneCel)
+    EditText txtPhoneCel;
 
     @NotEmpty(messageResId = R.string.field_required)
     @BindView(R.id.mainProfileTxtAddress)
@@ -103,8 +112,8 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.mainProfileTxtChilds)
     EditText txtChilds;
 
-    @BindView(R.id.textEmailUser)
-    TextView textEmailUser;
+    /*@BindView(R.id.textEmailUser)
+    TextView textEmailUser;*/
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -189,19 +198,36 @@ public class ProfileActivity extends AppCompatActivity
         Cache.save(Constants.LONGITUDE, txtLongitude.getText().toString());
         Cache.save(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         Cache.save(Constants.PHONENUMBER, txtPhone.getText().toString());
+        Cache.save(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
         Cache.save(Constants.PROFILE_COMPLETED, "1");
+        //se agrega esta campo debido a que algunos usuarios de facebook ingresan con número de
+        if(Cache.getByKey(Constants.USER_EMAIL).equals("")) {
+            Cache.save(Constants.USER_EMAIL, txtEmail.getText().toString());
+        }
+        Cache.save(Constants.EMAIL, txtEmail.getText().toString());
 
         HashMap<String, Object> user = new HashMap<>();
         user.put(Constants.NAME, txtName.getText().toString());
         user.put(Constants.LASTNAME, txtLastName.getText().toString());
+        user.put(Constants.EMAIL, txtEmail.getText().toString());
         user.put(Constants.ADDRESS, txtAddress.getText().toString());
         user.put(Constants.DATEBIRDARY, txtBirth.getText().toString());
         user.put(Constants.HASCHILDS, Integer.parseInt(txtChilds.getText().toString()));
-        user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
-        user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
         user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
+        user.put(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
         user.put(Constants.PROFILE_COMPLETED, 1);
+
+        if(txtHeight.getText().toString().equals("")){
+            user.put(Constants.HEIGHT, 0);
+        }else{
+            user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
+        }
+        if (txtWeight.getText().toString().equals("")){
+            user.put(Constants.WEIGHT, 0);
+        }else {
+            user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
+        }
         if (txtLatitude.getText().toString().equals("")) {
             user.put(Constants.LATITUDE, 0);
         } else {
@@ -226,7 +252,8 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void setEmailUser(String email) {
-        textEmailUser.setText(email);
+      //  textEmailUser.setText(email);
+        txtEmail.setText(email);
     }
 
     @Override
@@ -258,6 +285,7 @@ public class ProfileActivity extends AppCompatActivity
 
         txtName.setText(Cache.getByKey(Constants.USER_NAME));
         txtLastName.setText(Cache.getByKey(Constants.LASTNAME));
+        txtEmail.setText(Cache.getByKey(Constants.EMAIL));
         txtAddress.setText(Cache.getByKey(Constants.ADDRESS));
         txtBirth.setText(Cache.getByKey(Constants.DATEBIRDARY));
         txtChilds.setText(Cache.getByKey(Constants.HASCHILDS));
@@ -267,6 +295,7 @@ public class ProfileActivity extends AppCompatActivity
         txtLongitude.setText(Cache.getByKey(Constants.LONGITUDE));
         txtNeighborhood.setText(Cache.getByKey(Constants.NEIGHVORHOOD));
         txtPhone.setText(Cache.getByKey(Constants.PHONENUMBER));
+        txtPhoneCel.setText(Cache.getByKey(Constants.PHONENUMBERCEL));
 
         if (!Cache.getByKey(Constants.DATEBIRDARY).equals("")) {
 
@@ -298,6 +327,8 @@ public class ProfileActivity extends AppCompatActivity
         Cache.save(Constants.LONGITUDE, String.valueOf(user.getLongitude()));
         Cache.save(Constants.NEIGHVORHOOD, user.getNeighborhood());
         Cache.save(Constants.PHONENUMBER, user.getPhoneNumber());
+        Cache.save(Constants.EMAIL, user.getEmail());
+        Cache.save(Constants.PHONENUMBERCEL, user.getPhoneNumberCel());
 
         txtName.setText(user.getName());
         txtLastName.setText(user.getLastName());
@@ -307,7 +338,8 @@ public class ProfileActivity extends AppCompatActivity
         txtLongitude.setText(String.valueOf(user.getLongitude()));
         txtNeighborhood.setText(user.getNeighborhood());
         txtPhone.setText(user.getPhoneNumber());
-
+        txtPhoneCel.setText(user.getPhoneNumberCel());
+        txtEmail.setText(user.getEmail());
 
         if (user.getHeight() == 0) {
             txtHeight.setText("");
@@ -392,7 +424,9 @@ public class ProfileActivity extends AppCompatActivity
         txtName.setEnabled(enabled);
         txtNeighborhood.setEnabled(enabled);
         txtPhone.setEnabled(enabled);
+        txtPhoneCel.setEnabled(enabled);
         txtWeight.setEnabled(enabled);
+        txtEmail.setEnabled(enabled);
 
     }
 

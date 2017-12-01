@@ -12,20 +12,13 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <ProgressBar
-            android:id="@+id/progressBarF"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:indeterminate="true"
-            android:visibility="invisible" />
-
         <ImageView
             android:id="@+id/mainIntroImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.36"
+            android:adjustViewBounds="true"
+            android:background="@null"
             android:src="@drawable/cancer_cervix" />
 
         <Button
@@ -38,9 +31,9 @@
             android:drawableStart="@mipmap/ic_blanco_barra_amate"
             android:paddingStart="30dp"
             android:text="@string/btn_test_knowledge"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="25sp"
-            android:textAllCaps="false"/>
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/mainIntroTxt"
@@ -54,5 +47,14 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarF"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
 </FrameLayout>

@@ -119,8 +119,8 @@ public class GiftsPresenter implements IGiftsPresenter {
 
                                                        @Override
                                                        public void onError(Throwable e) {
+                                                           view.hideProgress();
                                                            showErrorView(e);
-
                                                        }
 
                                                        @Override

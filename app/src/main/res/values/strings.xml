@@ -16,7 +16,7 @@
     <string name="login">Ingresar</string>
     <string name="sign_up">Crea una nueva cuenta. Regístrate</string>
     <string name="password">Contraseña</string>
-    <string name="email">Correo electrónico</string>
+    <string name="email">Correo electrónico (ejemplo@ejemplo.com)</string>
     <string name="nombre_usuario">Nombres</string>
     <string name="apellido_usuario">Apellidos</string>
     <string name="crear_cuenta">Crear Cuenta</string>
@@ -45,7 +45,7 @@
     <string name="city">Ciudad</string>
     <string name="address">Dirección</string>
     <string name="neighborhood">Barrio</string>
-    <string name="phone">Teléfono o Número de Celular</string>
+    <string name="phone">Número fijo</string>
     <string name="age">Edad</string>
 
     <!-- Facebook Login -->
@@ -162,7 +162,8 @@
     <string name="error_with_network_spanish">Hay problemas de conección con el internet, por favor verifica tu conexión y vuelve a intenarlo.</string>
     <string name="create_gmail_acount">No tienes una cuenta de correo electrónico creala aquí.</string>
     <string name="field_only_alphabets">Este campo solo acepta letras</string>
-    <string name="limits_phone_number">Debe tener entre 7 a 10 números</string>
+    <string name="limits_phone_number">Debe tener 7 números</string>
+    <string name="limits_phone_number_cel">Debe tener 10 números</string>
     <string name="finish_question_message">Sigue atenta con nuestra aplicación para nuevas oportunidades de probar tu conocimiento y aprender. Interesantes y nuevas preguntas estarán disponibles para ti.</string>
 
     <!-- Textos de terminos, condiciones y poilicas de privacidad-->
@@ -546,5 +547,6 @@ Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de juni
     <string name="email_subject_invitation">Ámate cuida tu salud</string>
     <string name="message_invitation">Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.</string>
     <string name="app_namef">amatecuidatusalud</string>
+    <string name="phoneCel">Número Celular</string>
 
 </resources>

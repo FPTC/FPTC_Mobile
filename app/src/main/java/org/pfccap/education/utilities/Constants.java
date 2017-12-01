@@ -17,12 +17,12 @@ public class Constants {
     public static String USER_UID = "useruid";
     public static String USER_NAME = "username";
     public static String USER_EMAIL = "useremail";
+    public static String EMAIL = "email";
     public static String IS_LOGGGIN = "islogging";
 
     //cargue de preguntas
     public static final String TYPE_Q = "typeq";
     public static String SECOND_Q = "secondq"; //almacena el texto de la pregunta anidada
-    public static String ANSWER_ID = "answerid";
     public static final String TYPE_CANCER = "typecancer";
     public static final String QUESTION_ID = "questionid";
     public static final String INFO_TEACH = "infosnackbar";
@@ -71,6 +71,7 @@ public class Constants {
     public static final String LONGITUDE = "longitude";
     public static final String NEIGHVORHOOD = "neighborhood";
     public static final String PHONENUMBER = "phoneNumber";
+    public static final String PHONENUMBERCEL = "phoneNumberCel";
     public static final String STATE = "state";
     public static final String APPOINTMENT = "appointment";
 

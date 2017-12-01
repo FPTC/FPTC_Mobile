@@ -173,7 +173,7 @@ public class LoginPresenter implements ILoginPresenter {
     private void getQuestion() {
         try {
 
-            questionBP.getQuestions()
+             questionBP.getQuestions()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<QuestionList>() {
@@ -252,7 +252,7 @@ public class LoginPresenter implements ILoginPresenter {
 
                 objAuthProcess = new AuthProcess();
 
-                objAuthProcess.signInWithCredential(loginResult.getAccessToken().getToken())
+                objAuthProcess.signInWithCredential(loginResult.getAccessToken())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext(new Consumer<UserAuth>() {

@@ -132,8 +132,7 @@ public class Login extends Fragment implements ILoginView,
     }
 
     private void initLoginFacebook() {
-        authBtnLoginFacebook.setReadPermissions("email");
-        authBtnLoginFacebook.setReadPermissions("public_profile");
+        authBtnLoginFacebook.setReadPermissions("email", "public_profile");
         authBtnLoginFacebook.setFragment(this);
         callbackManager = loginPresenter.registerCallbackFacebook(authBtnLoginFacebook);
     }

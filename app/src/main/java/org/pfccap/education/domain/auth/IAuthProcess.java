@@ -1,6 +1,7 @@
 package org.pfccap.education.domain.auth;
 
 
+import com.facebook.AccessToken;
 import com.facebook.Profile;
 
 import org.pfccap.education.entities.UserAuth;
@@ -17,7 +18,7 @@ public interface IAuthProcess {
 
     Observable<UserAuth> signIn(final String email, final String password);
 
-    Observable<UserAuth> signInWithCredential(String token);
+    Observable<UserAuth> signInWithCredential(AccessToken token);
 
     Observable<String> resetPassword(final String email);
 

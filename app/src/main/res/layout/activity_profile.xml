@@ -28,13 +28,11 @@
             android:layout_height="wrap_content"
             android:gravity="top|center"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:weightSum="1">
-
-            <LinearLayout
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+          <!--  <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
@@ -60,13 +58,14 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
-            </LinearLayout>
+            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.9"
-                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/logo_amate" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -94,6 +93,20 @@
                         android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "
                         android:hint="@string/apellido_usuario"
                         android:inputType="textPersonName"
+                        android:maxLength="35" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
                         android:maxLength="35" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -143,6 +156,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/phone"
+                        android:inputType="phone"
+                        android:maxLength="15" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtPhoneCel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phoneCel"
                         android:inputType="phone"
                         android:maxLength="15" />
                 </android.support.design.widget.TextInputLayout>
@@ -252,7 +279,7 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+
 
     </ScrollView>
 
