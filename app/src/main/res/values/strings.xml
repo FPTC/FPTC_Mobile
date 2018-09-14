@@ -122,7 +122,7 @@
     <string name="warning_answers">¡Cuidado!</string>
     <!--mensajes del fragmento messagegetgift que es cuando ya obtuvo el premio -->
     <string name="congratulation">¡Felicitaciones!</string>
-    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citología vaginal para detectar a tiempo el cáncer de seno y prevenir el cáncer de cuello uterino</string>
+    <string name="intro_ms_gift">Ahora sabes lo importante que es hacerte la mamografía y la citología vaginal para detectar a tiempo el cáncer de seno y prevenir el cáncer de cuello uterino.</string>
     <string name="warning_git1">Independiente de tu edad si tienes alguna masa, dolor, salida de líquido o molestia en el seno debes consultar al médico.</string>
     <string name="warning_git2">Sangrados vaginales anormales o dolor vaginal también requieren que consultes al médico.</string>
     <string name="warning_git3">Esta aplicación no receta, diagnostica o formula tratamientos ni reemplaza la consulta con un médico.</string>
@@ -548,5 +548,12 @@ Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de juni
     <string name="message_invitation">Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.</string>
     <string name="app_namef">amatecuidatusalud</string>
     <string name="phoneCel">Número Celular</string>
+    <string name="quienes_somos">Quienes Somos</string>
+    <string name="quienes_somos_intro">​Nos enorgullece presentar a Ámate | Cuida tu salud, una herramienta tecnológica pensada para la mujer, desarrollada por la Fundación para la Prevención y Tratamiento del Cáncer (FPTC, Cali - Colombia) en alianza con Partners for Cancer Care and Prevention (PFCCAP, Baltimore, USA) que busca disminuir la carga individual y social que representan el cáncer de seno y de cuello uterino.</string>
+    <string name="quienes_somos_txtdos">Con Ámate las mujeres podrán aprender sobre el cáncer de seno, el cáncer de cuello uterino y ser orientadas para el examen de detección temprana cuando la mujer lo necesite.</string>
+    <string name="mas_informacion">Para más información visítanos en:</string>
+    <string name="web_pfccap">http://pfccap.org/espanol/inicio.html</string>
+    <string name="who_is">¿Quienes Somos?</string>
+    <string name="error_descarga_paises">Error en la descarga de la tabla paises</string>
 
 </resources>

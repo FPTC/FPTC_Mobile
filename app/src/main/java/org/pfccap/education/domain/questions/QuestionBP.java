@@ -124,13 +124,14 @@ public class QuestionBP implements IQuestionBP {
                     questionsDB.setOrder(entry.getValue().getOrder());
                     questionsDB.setEnable(entry.getValue().isEnable());
                     questionsDB.setInfo(entry.getValue().getInfo());
-                    String trueAnswerQ = firebaseHelper.getAnswersReference().child("breastCancer").child(entry.getKey())
-                            .child(Cache.getByKey(Constants.USER_UID)).child("respuesta"+Cache.getByKey(Constants.CERVIX_TURN)).getKey();
+                   /* String trueAnswerQ = firebaseHelper.getAnswersReference().child("breastCancer").child(entry.getKey())
+                            .child(Cache.getByKey(Constants.USER_UID)).child("respuesta"+Cache.getByKey(Constants.BREAST_TURN)).getKey();
                     if (trueAnswerQ != null && trueAnswerQ != ""){
                         questionsDB.setAnswer(true);
                     }else {
                         questionsDB.setAnswer(false);
-                    }
+                    }*/
+                    questionsDB.setAnswer(false);
                     questionsDao.insert(questionsDB);
 
                     HashMap<String, Answer> answersCervix = entry.getValue().getAnswers();

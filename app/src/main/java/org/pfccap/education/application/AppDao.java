@@ -1,7 +1,12 @@
 package org.pfccap.education.application;
 
 import org.pfccap.education.dao.AnswersQuestionDao;
+import org.pfccap.education.dao.CiudadesDao;
+import org.pfccap.education.dao.ComunasDao;
+import org.pfccap.education.dao.EseDao;
 import org.pfccap.education.dao.GiftDao;
+import org.pfccap.education.dao.IPSDao;
+import org.pfccap.education.dao.PaisesDao;
 import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.SecondAnswerDao;
 import org.pfccap.education.dao.UserDao;
@@ -17,6 +22,11 @@ public class AppDao {
     private static AnswersQuestionDao answersQuestionDao;
     private static SecondAnswerDao secondAnswerDao;
     private static GiftDao giftDao;
+    private static PaisesDao countriesDao;
+    private static CiudadesDao citiesDao;
+    private static ComunasDao comunasDao;
+    private static EseDao eseDao;
+    private static IPSDao ipsDao;
 
     public static UserDao getUserDao() {
         return userDao;
@@ -56,5 +66,45 @@ public class AppDao {
 
     public static void setGiftDao(GiftDao giftDao) {
         AppDao.giftDao = giftDao;
+    }
+
+    public static PaisesDao getCountriesDao() {
+        return countriesDao;
+    }
+
+    public static void setCountriesDao(PaisesDao countriesDao) {
+        AppDao.countriesDao = countriesDao;
+    }
+
+    public static CiudadesDao getCitiesDao() {
+        return citiesDao;
+    }
+
+    public static void setCitiesDao(CiudadesDao citiesDao) {
+        AppDao.citiesDao = citiesDao;
+    }
+
+    public static ComunasDao getComunasDao() {
+        return comunasDao;
+    }
+
+    public static void setComunasDao(ComunasDao comunasDao) {
+        AppDao.comunasDao = comunasDao;
+    }
+
+    public static EseDao getEseDao() {
+        return eseDao;
+    }
+
+    public static void setEseDao(EseDao eseDao) {
+        AppDao.eseDao = eseDao;
+    }
+
+    public static IPSDao getIpsDao() {
+        return ipsDao;
+    }
+
+    public static void setIpsDao(IPSDao ipsDao) {
+        AppDao.ipsDao = ipsDao;
     }
 }

@@ -43,7 +43,7 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
             }
         });
 
-        try {
+       /* try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "org.pfccap.education",
                     PackageManager.GET_SIGNATURES);
@@ -56,7 +56,7 @@ public class AuthActivity extends AppCompatActivity implements Signup.OnSigUpFra
 
         } catch (NoSuchAlgorithmException e) {
 
-        }
+        }*/
         initFragment();
     }
 

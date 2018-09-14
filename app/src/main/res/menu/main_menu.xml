@@ -9,6 +9,7 @@
         android:title="@string/logout"
         app:showAsAction="never" />
     <item
+        android:id="@+id/whoIs"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:title=""

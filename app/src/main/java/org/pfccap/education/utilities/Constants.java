@@ -16,7 +16,6 @@ public class Constants {
     //autenticación de usuarios
     public static String USER_UID = "useruid";
     public static String USER_NAME = "username";
-    public static String USER_EMAIL = "useremail";
     public static String EMAIL = "email";
     public static String IS_LOGGGIN = "islogging";
 

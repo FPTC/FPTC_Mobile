@@ -7,6 +7,7 @@ import org.pfccap.education.dao.AnswersQuestion;
 import org.pfccap.education.dao.AnswersQuestionDao;
 import org.pfccap.education.dao.Gift;
 import org.pfccap.education.dao.GiftDao;
+import org.pfccap.education.dao.PaisesDao;
 import org.pfccap.education.dao.Question;
 import org.pfccap.education.dao.QuestionDao;
 import org.pfccap.education.dao.SecondAnswer;
@@ -24,6 +25,7 @@ public class LQuestionDB implements ILQuestionDB {
     private AnswersQuestionDao answersQuestionDao;
     private SecondAnswerDao secondAnswer;
     private GiftDao giftDao;
+    private PaisesDao paisesDao;
 
     //clase para obtener información de la base de datos local
     public LQuestionDB() {
@@ -31,6 +33,7 @@ public class LQuestionDB implements ILQuestionDB {
         answersQuestionDao = AppDao.getAnswersQuestionDao();
         secondAnswer = AppDao.getSecondAnswerDao();
         giftDao = AppDao.getGiftDao();
+        paisesDao = AppDao.getCountriesDao();
     }
 
     //se obtiene todas las preguntas que no han sido contestadas
@@ -96,6 +99,14 @@ public class LQuestionDB implements ILQuestionDB {
                 AppDao.getQuestionDao().deleteAll();
                 AppDao.getSecondAnswerDao().deleteAll();
                 AppDao.getGiftDao().deleteAll();
+                //se agregaron tablas nuevas
+                if (paisesDao.loadAll() != null) {
+                    AppDao.getCountriesDao().deleteAll();
+                    AppDao.getCitiesDao().deleteAll();
+                    AppDao.getComunasDao().deleteAll();
+                    AppDao.getEseDao().deleteAll();
+                    AppDao.getIpsDao().deleteAll();
+                }
             }
         } catch (Exception e) {
             FirebaseCrash.report(e);

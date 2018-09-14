@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -118,6 +119,21 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @BindView(R.id.spCity)
+    AppCompatSpinner spCity;
+
+    @BindView(R.id.spCountry)
+    AppCompatSpinner spCountry;
+
+    @BindView(R.id.spComuna)
+    AppCompatSpinner spComuna;
+
+    @BindView(R.id.spEse)
+    AppCompatSpinner spEse;
+
+    @BindView(R.id.spIps)
+    AppCompatSpinner spIps;
+
     private DatePickerDialog datePickerDialog;
 
     @Override
@@ -142,6 +158,16 @@ public class ProfileActivity extends AppCompatActivity
 
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+        initCountry();
+        initListeners();
+
+    }
+
+    private void initListeners() {
+    }
+
+    private void initCountry() {
 
     }
 
@@ -201,10 +227,9 @@ public class ProfileActivity extends AppCompatActivity
         Cache.save(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
         Cache.save(Constants.PROFILE_COMPLETED, "1");
         //se agrega esta campo debido a que algunos usuarios de facebook ingresan con número de
-        if(Cache.getByKey(Constants.USER_EMAIL).equals("")) {
-            Cache.save(Constants.USER_EMAIL, txtEmail.getText().toString());
+        if(Cache.getByKey(Constants.EMAIL).equals("")) {
+            Cache.save(Constants.EMAIL, txtEmail.getText().toString());
         }
-        Cache.save(Constants.EMAIL, txtEmail.getText().toString());
 
         HashMap<String, Object> user = new HashMap<>();
         user.put(Constants.NAME, txtName.getText().toString());

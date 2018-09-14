@@ -256,7 +256,7 @@ public class AuthProcess implements IAuthProcess {
     private void saveAuthData(String email, String name, String uid) {
 
         Cache.save(Constants.IS_LOGGGIN, "true");
-        Cache.save(Constants.USER_EMAIL, email);
+        Cache.save(Constants.EMAIL, email);
         Cache.save(Constants.USER_NAME, name);
         Cache.save(Constants.USER_UID, uid);
         Cache.save(Constants.BREAST_TURN, "0");

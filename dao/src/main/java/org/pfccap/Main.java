@@ -68,5 +68,47 @@ public class Main {
         gift.addStringProperty("gift");
         gift.addIntProperty("order");
 
+        //crea tabla paises
+        Entity paises = schema.addEntity("Paises");
+        paises.addIdProperty().autoincrement();
+        paises.addIntProperty("idCountry");
+        paises.addStringProperty("name");
+        paises.addBooleanProperty("state");
+
+        //crea tabla ciudades
+        Entity ciudades = schema.addEntity("Ciudades");
+        ciudades.addIdProperty().autoincrement();
+        ciudades.addIntProperty("idCity");
+        ciudades.addIntProperty("idPais");
+        ciudades.addStringProperty("name");
+        ciudades.addBooleanProperty("state");
+
+        //crea tabla comunas
+        Entity comunas = schema.addEntity("Comunas");
+        comunas.addIdProperty().autoincrement();
+        comunas.addIntProperty("idComuna");
+        comunas.addIntProperty("idPais");
+        comunas.addIntProperty("idCiudad");
+        comunas.addStringProperty("name");
+        comunas.addBooleanProperty("state");
+
+        //crea tabla ese
+        Entity ese = schema.addEntity("Ese");
+        ese.addIdProperty().autoincrement();
+        ese.addIntProperty("idEse");
+        ese.addIntProperty("idPais");
+        ese.addIntProperty("idCiudad");
+        ese.addStringProperty("name");
+        ese.addBooleanProperty("state");
+
+        //crea tabla ips
+        Entity ips = schema.addEntity("IPS");
+        ips.addIdProperty().autoincrement();
+        ips.addIntProperty("idIps");
+        ips.addIntProperty("idPais");
+        ips.addIntProperty("idCiudad");
+        ips.addIntProperty("idEse");
+        ips.addStringProperty("name");
+        ips.addBooleanProperty("state");
     }
 }

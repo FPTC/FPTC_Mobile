@@ -2,7 +2,6 @@ package org.pfccap.education.presentation.auth.presenters;
 
 import android.content.Context;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -64,6 +63,7 @@ public class LoginPresenter implements ILoginPresenter {
 
             loginView.disableInputs();
             loginView.showProgress();
+            loginView.showIndeterminateProgress();
 
             objAuthProcess = new AuthProcess();
 
@@ -157,6 +157,7 @@ public class LoginPresenter implements ILoginPresenter {
     private void showErrorView(Throwable e) {
         loginView.enableInputs();
         loginView.hideProgress();
+        loginView.hideIndeterminateProgress();
         FirebaseCrash.report(e);
         if (e instanceof FirebaseAuthException) {
             String errorCode = ((FirebaseAuthException) e).getErrorCode();
@@ -184,10 +185,7 @@ public class LoginPresenter implements ILoginPresenter {
 
                         @Override
                         public void onError(Throwable e) {
-                            loginView.enableInputs();
-                            loginView.hideProgress();
-                            FirebaseCrash.report(e);
-                            loginView.loginError(e.getMessage());
+                            showErrorView(e);
 
                         }
 
@@ -213,18 +211,48 @@ public class LoginPresenter implements ILoginPresenter {
                         @Override
                         public void onNext(ConfigurationGifts value) {
                             Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
-                            loginView.enableInputs();
-                            loginView.hideProgress();
-                            loginView.hideIndeterminateProgress();
-                            loginView.navigateToMainScreen();
+                            getPaises();
                         }
 
                         @Override
                         public void onError(Throwable e) {
+                            showErrorView(e);
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            showErrorView(e);
+        }
+    }
+
+    private void getPaises() {
+        try {
+
+            configurationBP.getPaises()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<Boolean>() {
+                        @Override
+                        public void onNext(Boolean value) {
                             loginView.enableInputs();
                             loginView.hideProgress();
-                            FirebaseCrash.report(e);
-                            loginView.loginError(e.getMessage());
+                            loginView.hideIndeterminateProgress();
+                            if (value) {
+                                loginView.navigateToMainScreen();
+                            } else {
+                                loginView.loginError(context.getResources().getString(R.string.error_descarga_paises));
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            showErrorView(e);
 
                         }
 
@@ -249,7 +277,7 @@ public class LoginPresenter implements ILoginPresenter {
             public void onSuccess(LoginResult loginResult) {
                 loginView.showProgress();
                 loginView.showIndeterminateProgress();
-
+                loginView.disableInputs();
                 objAuthProcess = new AuthProcess();
 
                 objAuthProcess.signInWithCredential(loginResult.getAccessToken())
@@ -331,11 +359,7 @@ public class LoginPresenter implements ILoginPresenter {
 
                             @Override
                             public void onError(Throwable e) {
-                                loginView.hideIndeterminateProgress();
-                                loginView.enableInputs();
-                                loginView.hideProgress();
-                                FirebaseCrash.report(e);
-                                loginView.loginError(e.getMessage());
+                                showErrorView(e);
                             }
 
                             @Override
@@ -349,14 +373,12 @@ public class LoginPresenter implements ILoginPresenter {
             public void onCancel() {
                 loginView.enableInputs();
                 loginView.hideProgress();
+                loginView.hideIndeterminateProgress();
             }
 
             @Override
             public void onError(FacebookException error) {
-                loginView.enableInputs();
-                loginView.hideProgress();
-                FirebaseCrash.report(error);
-                loginView.loginError(error.getMessage());
+                showErrorView(error);
             }
         });
 

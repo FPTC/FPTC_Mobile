@@ -147,10 +147,7 @@ public class SignupPresenter implements ISignupPresenter {
                     });
 
         } catch (Exception e) {
-            signupView.hideProgress();
-            signupView.enableInputs();
-            FirebaseCrash.report(e);
-            signupView.signUpError(e.getMessage());
+            showErrorView(e);
         }
 
     }
@@ -195,10 +192,43 @@ public class SignupPresenter implements ISignupPresenter {
                         @Override
                         public void onNext(ConfigurationGifts value) {
                             Cache.save(Constants.APPOINTMENT_GIFT, value.getAppointment());
+                            getPaises();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            showErrorView(e);
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            showErrorView(e);
+        }
+    }
+
+    private void getPaises() {
+        try {
+
+            configurationBP.getPaises()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<Boolean>() {
+                        @Override
+                        public void onNext(Boolean value) {
                             signupView.hideProgress();
                             signupView.enableInputs();
-                            signupView.signUpSuccessful();
-                            signupView.navigateToLoginScreen();
+                            if (value) {
+                                signupView.signUpSuccessful();
+                                signupView.navigateToLoginScreen();
+                            } else {
+                                signupView.signUpError(context.getResources().getString(R.string.error_descarga_paises));
+                            }
                         }
 
                         @Override

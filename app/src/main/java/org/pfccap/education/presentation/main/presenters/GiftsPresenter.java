@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.google.firebase.crash.FirebaseCrash;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.pfccap.education.R;
 import org.pfccap.education.dao.Gift;
 import org.pfccap.education.domain.questions.ILQuestionDB;
@@ -19,7 +17,6 @@ import org.pfccap.education.presentation.main.ui.fragments.IGiftsFragmentView;
 import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
-import org.pfccap.education.utilities.Utilities;
 
 import java.util.List;
 

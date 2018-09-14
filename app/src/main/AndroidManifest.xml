@@ -75,6 +75,11 @@
         <activity android:name=".presentation.main.ui.activities.QuestionsActivity"
             android:screenOrientation="portrait"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+
+        <activity android:name=".presentation.main.ui.activities.WhoIsActivity"
+            android:parentActivityName=".presentation.main.ui.activities.MainActivity"
+            android:screenOrientation="portrait"/>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

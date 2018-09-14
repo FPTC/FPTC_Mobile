@@ -6,6 +6,7 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
+import org.pfccap.education.entities.Countries;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.ui.activities.IProfileView;
 import org.pfccap.education.utilities.Cache;
@@ -13,6 +14,7 @@ import org.pfccap.education.utilities.Constants;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
@@ -46,7 +48,7 @@ public class ProfilePresenter implements IProfilePresenter {
 
     @Override
     public void getEmailUser() {
-        profileView.setEmailUser(Cache.getByKey(Constants.USER_EMAIL));
+        profileView.setEmailUser(Cache.getByKey(Constants.EMAIL));
     }
 
     @Override
@@ -108,6 +110,12 @@ public class ProfilePresenter implements IProfilePresenter {
             profileView.showError(e.getMessage());
         }
 
+    }
+
+    @Override
+    public List<Countries> getCountryData() {
+
+        return null;
     }
 
 

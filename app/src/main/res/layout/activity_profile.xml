@@ -28,258 +28,291 @@
             android:layout_height="wrap_content"
             android:gravity="top|center"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-          <!--  <LinearLayout
+            android:paddingTop="10dp">
+            <!--  <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_margin="8dp"
+                  android:layout_weight="0.1"
+                  android:orientation="horizontal"
+                  android:weightSum="1">
+
+                  <ImageView
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_weight="0.3"
+                      android:src="@drawable/logo_amate" />
+
+                  <TextView
+                      android:id="@+id/textEmailUser"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical"
+                      android:layout_marginStart="15dp"
+                      android:layout_weight="0.7"
+                      android:text=""
+                      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="15sp" />
+              </LinearLayout>-->
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo_amate" />
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:layout_weight="0.1"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "
+                    android:hint="@string/nombre_usuario"
+                    android:inputType="textPersonName"
+                    android:maxLength="35" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "
+                    android:hint="@string/apellido_usuario"
+                    android:inputType="textPersonName"
+                    android:maxLength="35" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="35" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <ImageView
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.3"
-                    android:src="@drawable/logo_amate" />
+                    android:layout_weight="0.8">
+
+                    <EditText
+                        android:id="@+id/mainProfileTxtBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="@string/birth"
+                        android:inputType="date"
+                        android:text="@string/selecciona_fecha_nac" />
+                </android.support.design.widget.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/textEmailUser"
+                    android:id="@+id/mainProfileTxtAge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:layout_weight="0.7"
-                    android:text=""
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp" />
-            </LinearLayout>-->
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/logo_amate" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "
-                        android:hint="@string/nombre_usuario"
-                        android:inputType="textPersonName"
-                        android:maxLength="35" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM "
-                        android:hint="@string/apellido_usuario"
-                        android:inputType="textPersonName"
-                        android:maxLength="35" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="35" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    android:layout_marginTop="8dp">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8">
-
-                        <EditText
-                            android:id="@+id/mainProfileTxtBirth"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="false"
-                            android:hint="@string/birth"
-                            android:inputType="date"
-                            android:text="@string/selecciona_fecha_nac" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/mainProfileTxtAge"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:layout_marginTop="8dp"
-                        android:hint="@string/age"
-                        android:textSize="17sp"
-                        android:layout_gravity="bottom"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/phone"
-                        android:inputType="phone"
-                        android:maxLength="15" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtPhoneCel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/phoneCel"
-                        android:inputType="phone"
-                        android:maxLength="15" />
-                </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:hint="@string/age"
+                    android:textSize="17sp" />
+            </LinearLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.9">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
-                        <EditText
-                            android:id="@+id/mainProfileTxtAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/address"
-                            android:inputType="textPostalAddress"
-                            android:maxLength="80" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtLongitude"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone" />
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtLatitude"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone" />
-
-                    <ImageButton
-                        android:id="@+id/btnmaps"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.1"
-                        android:background="@null"
-                        android:contentDescription="@string/map"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_add_location_black_48dp"
-                        android:tint="@color/colorPrimary" />
-
-                </LinearLayout>
-
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/mainProfileTxtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:hint="@string/phone"
+                    android:inputType="phone"
+                    android:maxLength="15" />
+            </android.support.design.widget.TextInputLayout>
 
-                    <EditText
-                        android:id="@+id/mainProfileTxtNeighborhood"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/neighborhood"
-                        android:inputType="text"
-                        android:maxLength="50" />
-                </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
-                <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/mainProfileTxtPhoneCel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:hint="@string/phoneCel"
+                    android:inputType="phone"
+                    android:maxLength="15" />
+            </android.support.design.widget.TextInputLayout>
 
-                    <EditText
-                        android:id="@+id/mainProfileTxtHeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/person_height"
-                        android:inputType="numberDecimal"
-                        android:maxLength="4" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <EditText
-                        android:id="@+id/mainProfileTxtWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/person_weight"
-                        android:inputType="numberDecimal"
-                        android:maxLength="5" />
-                </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_weight="0.9">
 
                     <EditText
-                        android:id="@+id/mainProfileTxtChilds"
+                        android:id="@+id/mainProfileTxtAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/person_childs"
-                        android:inputType="number"
-                        android:maxLength="2" />
+                        android:hint="@string/address"
+                        android:inputType="textPostalAddress"
+                        android:maxLength="80" />
                 </android.support.design.widget.TextInputLayout>
+
+                <EditText
+                    android:id="@+id/mainProfileTxtLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/mainProfileTxtLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btnmaps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"
+                    android:background="@null"
+                    android:contentDescription="@string/map"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add_location_black_48dp"
+                    android:tint="@color/colorPrimary" />
 
             </LinearLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
+                <EditText
+                    android:id="@+id/mainProfileTxtNeighborhood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/neighborhood"
+                    android:inputType="text"
+                    android:maxLength="50" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/person_height"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/person_weight"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/mainProfileTxtChilds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/person_childs"
+                    android:inputType="number"
+                    android:maxLength="2" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spComuna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spEse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spIps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="10dp" />
+
+        </LinearLayout>
 
     </ScrollView>
 

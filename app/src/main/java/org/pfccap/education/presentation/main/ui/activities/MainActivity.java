@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
             case R.id.logout:
                 mainActivityPresenter.logOut();
                 return true;
+            case R.id.whoIs:
+                Utilities.initActivity(this, WhoIsActivity.class);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -142,6 +145,9 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                                     Utilities.initFragment(MainActivity.this, GiftsFragment.newInstance());
                                 }
                                 drawerLayout.closeDrawer(GravityCompat.START);
+                                return true;
+                            case R.id.item_who_is:
+                                Utilities.initActivity(MainActivity.this, WhoIsActivity.class);
                                 return true;
                            /* case R.id.item_drawer_invite:
                                 menuItem.setChecked(false);

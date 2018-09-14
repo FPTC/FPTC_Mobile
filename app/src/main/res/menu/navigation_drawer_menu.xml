@@ -15,6 +15,11 @@
             android:title="@string/gift"
             android:icon="@drawable/ic_gift_black_48dp"/>
 
+        <item
+            android:id="@+id/item_who_is"
+            android:title="@string/who_is"
+            android:icon="@mipmap/ic_barra_amate"/>
+
         <!--item
             android:id="@+id/item_drawer_invite"
             android:title="@string/invite"

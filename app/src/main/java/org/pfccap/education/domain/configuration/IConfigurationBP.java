@@ -15,4 +15,6 @@ public interface IConfigurationBP {
 
     Observable<ConfigurationGifts> getConfigurationGifts();
 
+    Observable<Boolean> getPaises();
+
 }

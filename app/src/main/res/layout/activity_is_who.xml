@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+
+    <ScrollView
+        android:id="@+id/scrollMessageGift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/quienes_somos"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/gift_msg_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/quienes_somos_intro"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/content_ms_gift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/quienes_somos_txtdos"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/mas_informacion"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/link_web_ptccap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/lyt_botton_gift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageButton
+                    android:id="@+id/btnFab"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/facebook_box" />
+
+                <ImageButton
+                    android:id="@+id/btnInts"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/instagram" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
