@@ -29,6 +29,7 @@
                     android:background="@drawable/aprende_cancer_seno" />
 
                 <TextView
+                    android:id="@+id/txtBtnBreast"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@color/colorPrimaryLightTransparence"
@@ -51,6 +52,7 @@
                     android:background="@drawable/aprende_cancer_cervix" />
 
                 <TextView
+                    android:id="@+id/txtBtnCervix"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@color/colorBlueLigthTransparence"
@@ -74,7 +76,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/ic_gift_white_intro"
+                android:background="@drawable/ic_cupwinners"
                 android:layout_gravity="center"
                 android:contentDescription="@string/gift" />
             <TextView

@@ -10,7 +10,7 @@ package org.pfccap.education.dao;
 public class Paises {
 
     private Long id;
-    private Integer idCountry;
+    private Long idCountry;
     private String name;
     private Boolean state;
 
@@ -24,7 +24,7 @@ public class Paises {
         this.id = id;
     }
 
-    public Paises(Long id, Integer idCountry, String name, Boolean state) {
+    public Paises(Long id, Long idCountry, String name, Boolean state) {
         this.id = id;
         this.idCountry = idCountry;
         this.name = name;
@@ -39,11 +39,11 @@ public class Paises {
         this.id = id;
     }
 
-    public Integer getIdCountry() {
+    public Long getIdCountry() {
         return idCountry;
     }
 
-    public void setIdCountry(Integer idCountry) {
+    public void setIdCountry(Long idCountry) {
         this.idCountry = idCountry;
     }
 

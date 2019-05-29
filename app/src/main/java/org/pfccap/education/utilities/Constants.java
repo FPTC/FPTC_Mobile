@@ -12,6 +12,10 @@ public class Constants {
     public static final String BASE_URL_PRIVACY_POLICY_KEY = "urlPrivacyPolicy";
     public static final String BASE_URL_CREATE_EMAIL_APP = "urlCreateEmailApp";
     public static final int CACHE_EXPIRATION = 3600;
+    public static final String FAILEDTRIES = "failedTries";
+    public static final String EXAMGIFTBREAST = "examGiftBreast";
+    public static final String EXAMGIFTCERVIX = "examGiftCervix";
+
 
     //autenticación de usuarios
     public static String USER_UID = "useruid";
@@ -75,4 +79,18 @@ public class Constants {
     public static final String APPOINTMENT = "appointment";
 
     public static final String DATE_CREATE = "dateCreate";
+
+    //se agregan nuevos campos al sisteme 21/09/2018
+    public static final String COUNTRY = "pais" ;
+    public static final String CITY = "ciudad";
+    public static final String COMUNA = "comuna";
+    public static final String ESE = "ese";
+    public static final String IPS = "ips";
+    public static final String ERROR_TAMIZAJE = "errorTamisaje";
+    public static final String TYPE_CANCER_ERROR_TAMIZAJE_CERVIX = "tamizaje_error_cervix";
+    public static final String TYPE_CANCER_ERROR_TAMIZAJE_BREAST = "tamizaje_error_breast";
+    public static final String INTENTOS = "intentos";
+    public static final String BREAST_INDICATION = "breastIndication";
+    public static final String CERVIX_INDICATION = "cervixIndication";
+    public static final String STATE_CODE = "stateCade";
 }

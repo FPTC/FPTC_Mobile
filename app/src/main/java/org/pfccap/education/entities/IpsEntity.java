@@ -2,10 +2,10 @@ package org.pfccap.education.entities;
 
 public class IpsEntity {
 
-    private int id;
-    private int idPais;
-    private int idCiudad;
-    private int isESE;
+    private long id;
+    private String idPais;
+    private String idCiudad;
+    private String isESE;
     private String name;
     private boolean state;
 
@@ -13,36 +13,36 @@ public class IpsEntity {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(int idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 
-    public int getIdCiudad() {
+    public String getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(int idCiudad) {
+    public void setIdCiudad(String idCiudad) {
         this.idCiudad = idCiudad;
     }
 
-    public int getIdESE() {
+    public String getIsESE() {
         return isESE;
     }
 
-    public void setIdESE(int idESE) {
-        this.isESE = idESE;
+    public void setIsESE(String isESE) {
+        this.isESE = isESE;
     }
 
     public String getName() {

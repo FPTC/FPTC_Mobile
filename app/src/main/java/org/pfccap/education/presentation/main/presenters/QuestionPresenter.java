@@ -12,9 +12,13 @@ import org.pfccap.education.domain.questions.ILQuestionDB;
 import org.pfccap.education.domain.questions.IQuestionBP;
 import org.pfccap.education.domain.questions.LQuestionDB;
 import org.pfccap.education.domain.questions.QuestionBP;
+import org.pfccap.education.domain.services.ValidationService;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
+import org.pfccap.education.entities.UserAuth;
+import org.pfccap.education.entities.Validation;
 import org.pfccap.education.presentation.main.ui.activities.IQuestionView;
+import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
@@ -27,6 +31,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by USUARIO on 08/05/2017.
  */
@@ -37,9 +45,11 @@ public class QuestionPresenter implements IQuestionPresenter {
     private ILQuestionDB ilQuestionDB;
     private IQuestionBP questionBP;
     private List<Question> lstQuestion;
+    private List<Question> lstQuestionWithoutFilter;
     private int[] randomNumberSecuence;
     private Context context;
     int progress;
+    private String message = "";
 
     public QuestionPresenter(IQuestionView questionView, Context context) {
         this.questionView = questionView;
@@ -51,11 +61,27 @@ public class QuestionPresenter implements IQuestionPresenter {
     @Override
     public void getQuestionsDB(int current) {
         lstQuestion = ilQuestionDB.getAll(Cache.getByKey(Constants.TYPE_CANCER));
+        lstQuestionWithoutFilter = ilQuestionDB.getAllWithoutFilter(Cache.getByKey(Constants.TYPE_CANCER));
         randomNumberSecuence = randomNumberSecuence(lstQuestion.size());
         progress = 100 / lstQuestion.size();
 
         if (lstQuestion != null && randomNumberSecuence != null && lstQuestion.size() != 0
                 && randomNumberSecuence.length != 0) {
+            //esta validación se coloco para el caso especial en el que a un usuario cuando contastaba las preguntas de un modulo
+            //se le reiniciaban las preguntas pero el total de puntos seguia acumulando, dando como resultado un tope mayor al límite.
+            if (lstQuestion.size() == lstQuestionWithoutFilter.size() && current == 0) {
+                switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+                    case Constants.CERVIX:
+                        Cache.save(Constants.TOTAL_POINTS_C, "0");
+                        Cache.save(Constants.CURRENT_POINTS_C, "0");
+                        break;
+                    case Constants.BREAST:
+                        Cache.save(Constants.TOTAL_POINTS_B, "0");
+                        Cache.save(Constants.CURRENT_POINTS_B, "0");
+                        break;
+                }
+
+            }
             loadQuestionCurrent(current);
         } else {
             questionView.finishActivity(context.getResources().getString(R.string.no_db_questions));
@@ -64,7 +90,6 @@ public class QuestionPresenter implements IQuestionPresenter {
 
     @Override
     public void loadQuestionCurrent(int current) {
-        String message = "";
 
         if (current == lstQuestion.size()) {
             ilQuestionDB.resetQuestion();
@@ -87,14 +112,20 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.DATE_COMPLETED_CERVIX, dateCompleted);
                     updateDataFirebase(Constants.CERVIX_TURN, turn);
 
-                    if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("0")) {
+                    message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C));
+                    if (Integer.valueOf(Cache.getByKey(Constants.LAPSE_CERVIX)) > 1) {
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C)) +
+                                context.getResources().getString(R.string.turn_to_next_Oportunity, Cache.getByKey(Constants.LAPSE_CERVIX));
+                    }
+                    Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
+
+                    /*if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("0")) {
 
                         message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_C),
                                 Cache.getByKey(Constants.LAPSE_CERVIX));
                         Cache.save(Constants.TOTAL_POINTS_C, Cache.getByKey(Constants.CURRENT_POINTS_C));
 
                     } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_C)) >
-
                             Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C))) {
                         message = context.getResources().getString(R.string.total_points_up,
                                 Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C)) + "\n\n" +
@@ -103,10 +134,10 @@ public class QuestionPresenter implements IQuestionPresenter {
 
                     } else {
                         message = context.getResources().getString(R.string.total_points_equal,
-                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C))+"\n\n" +
+                                Cache.getByKey(Constants.TOTAL_POINTS_C), Cache.getByKey(Constants.CURRENT_POINTS_C)) + "\n\n" +
                                 context.getResources().getString(R.string.finish_question_message);
 
-                    }
+                    }*/
                     updateDataFirebase(Constants.TOTAL_POINTS_C, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)));
 
                     try {
@@ -125,10 +156,14 @@ public class QuestionPresenter implements IQuestionPresenter {
                     updateDataFirebase(Constants.DATE_COMPLETED_BREAST, dateCompleted);
                     updateDataFirebase(Constants.BREAST_TURN, turn);
 
-                    if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
-                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B),
-                                Cache.getByKey(Constants.LAPSE_BREAST));
-                        Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
+
+                    message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                    if (Integer.valueOf(Cache.getByKey(Constants.LAPSE_BREAST)) > 1) {
+                        message = context.getResources().getString(R.string.firs_total_points, Cache.getByKey(Constants.CURRENT_POINTS_B)) +
+                                context.getResources().getString(R.string.turn_to_next_Oportunity, Cache.getByKey(Constants.LAPSE_BREAST));
+                    }
+                    Cache.save(Constants.TOTAL_POINTS_B, Cache.getByKey(Constants.CURRENT_POINTS_B));
+                   /* if (Cache.getByKey(Constants.TOTAL_POINTS_B).equals("0")) {
                     } else if (Integer.valueOf(Cache.getByKey(Constants.CURRENT_POINTS_B)) >
                             Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B))) {
                         message = context.getResources().getString(R.string.total_points_up,
@@ -139,7 +174,7 @@ public class QuestionPresenter implements IQuestionPresenter {
                         message = context.getResources().getString(R.string.total_points_equal,
                                 Cache.getByKey(Constants.TOTAL_POINTS_B), Cache.getByKey(Constants.CURRENT_POINTS_B)) + "\n\n" +
                                 context.getResources().getString(R.string.finish_question_message);
-                    }
+                    }*/
                     updateDataFirebase(Constants.TOTAL_POINTS_B, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
 
                     try {
@@ -153,8 +188,8 @@ public class QuestionPresenter implements IQuestionPresenter {
             updateDataFirebase(Constants.TOTAL_POINTS, Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) +
                     Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B)));
 
-
-            setPoints(message);
+            //TODO
+            questionView.tamizaje();
         } else {
             setNextQuestion(current);
             updateDataFirebase(Constants.STATE, 1);
@@ -306,7 +341,7 @@ public class QuestionPresenter implements IQuestionPresenter {
 
             String dateCompleted = String.format(Locale.US, "%d/%d/%d",
                     calendar.get(Calendar.DAY_OF_MONTH),
-                    calendar.get(Calendar.MONTH)+1,
+                    calendar.get(Calendar.MONTH) + 1,
                     calendar.get(Calendar.YEAR)
             );
 
@@ -338,10 +373,10 @@ public class QuestionPresenter implements IQuestionPresenter {
             Cache.save(Constants.QUESTION_ID, currentQ.getIdquest());
             questionView.setPrimaryQuestion(currentQ.getTxtQuestion());
 
-            if (current==lstQuestion.size()-1){
+            if (current == lstQuestion.size() - 1) {
                 questionView.setProgressBar(100); // si es la ultima pregunta lleno el progress bar porque en
                 // algunos casos el resultado de la división da pasos menores al total necesario para llenarlo
-            }else {
+            } else {
                 questionView.setProgressBar(progress);
             }
 
@@ -402,5 +437,80 @@ public class QuestionPresenter implements IQuestionPresenter {
             FirebaseCrash.report(e);
             return null;
         }
+    }
+
+    //comprobación de tamizaje después de finalizar cada ronda de preguntas.
+    @Override
+    public void getValidaionAppointment(String Uid) {
+        questionView.showProgress();
+
+        ValidationService service = APIService.getInstanceRetrofit(ValidationService.class);
+
+        service.getValidation(Uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<Validation>() {
+                    @Override
+                    public void onNext(Validation value) {
+
+                        if (value != null) {
+                            try {
+                                boolean cervix = value.isCervix();
+                                boolean breast = value.isBreast();
+
+                                if (cervix && breast) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "3");
+                                    message = message + "\n\n" + context.getResources().getString(R.string.message_validation_yes,
+                                            context.getResources().getString(R.string.appointment_cervix_breast));
+                                } else if (cervix) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "2");
+                                    message = message + "\n\n" + context.getResources().getString(R.string.message_validation_yes,
+                                            context.getResources().getString(R.string.appointment_cervix));
+                                } else if (breast) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "1");
+                                    message = message + "\n\n" + context.getResources().getString(R.string.message_validation_yes,
+                                            context.getResources().getString(R.string.appointment_breast));
+                                } else {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "0");
+                                }
+                                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX, "false");
+                                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST, "false");
+                                questionView.hideProgress();
+                                setPoints(message);
+                            } catch (Exception e) {
+                                //se utiliza esta constante para poner un aviso en el inicio para que intenten sincronizar de nuevo esto debido a la desconexión de internet principalmente.
+                                errorTamizaje("\n\n" + e.getMessage());
+                                FirebaseCrash.report(e);
+                            }
+                        } else {
+                            //en este caso no hay excepción
+                            errorTamizaje("");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        questionView.hideProgress();
+                        errorTamizaje("\n\n" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void errorTamizaje(String e) {
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+            case Constants.CERVIX:
+                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX, "true");
+                break;
+            case Constants.BREAST:
+                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST, "true");
+                break;
+        }
+        message = message + "\n\n" + context.getString(R.string.error_tamizaje) + e;
+        setPoints(message);
     }
 }

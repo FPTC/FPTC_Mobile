@@ -4,18 +4,18 @@ import java.util.HashMap;
 
 public class Countries {
 
-    private int id;
+    private long id;
     private String name;
     private boolean state;
     private HashMap<String, Cities> ciudades = new HashMap<>();
 
     public Countries (){}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryText">
 
     <include layout="@layout/toolbar" />
 
@@ -19,22 +20,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <ImageView
+                android:id="@+id/webAmate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_amate"
+                android:adjustViewBounds="true"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                />
+
+           <!-- <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/quienes_somos"
-                android:textColor="@color/colorPrimary"
-                android:textSize="28sp" />
-
+                android:background="@drawable/logo_amate"
+                android:adjustViewBounds="true"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"/>-->
             <TextView
                 android:id="@+id/gift_msg_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="@string/quienes_somos_intro"
+                android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TextView
@@ -42,9 +58,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="@string/quienes_somos_txtdos"
+                android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TextView
@@ -55,19 +73,8 @@
                 android:paddingStart="10dp"
                 android:text="@string/mas_informacion"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/link_web_ptccap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:clickable="true"
                 android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/lyt_botton_gift"
@@ -76,24 +83,39 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <ImageButton
-                    android:id="@+id/btnFab"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:id="@+id/btnLinkWeb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
-                    android:background="@drawable/facebook_box" />
+                    android:background="@drawable/logo_circular_fptc" />
 
                 <ImageButton
                     android:id="@+id/btnInts"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_margin="7dp"
-                    android:background="@drawable/instagram" />
+                    android:background="@drawable/ic_instagram" />
+
+                <ImageButton
+                    android:id="@+id/btnFab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/ic_facebook" />
 
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/btnLinkWeb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/logo_text_fptc"
+                android:layout_marginTop="10dp"
+                android:padding="7dp" />
 
         </LinearLayout>
     </ScrollView>

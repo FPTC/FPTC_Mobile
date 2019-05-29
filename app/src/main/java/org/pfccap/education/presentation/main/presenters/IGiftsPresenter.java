@@ -11,6 +11,7 @@ import java.util.List;
 public interface IGiftsPresenter {
 
     List<Gift> getListGiftsTable();
-    void getValidaionAppointment(String Uid);
+
+   // void getValidaionAppointment(String Uid);
 
 }

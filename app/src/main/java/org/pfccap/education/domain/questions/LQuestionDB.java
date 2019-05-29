@@ -51,6 +51,19 @@ public class LQuestionDB implements ILQuestionDB {
         }
     }
 
+    @Override
+    public List<Question> getAllWithoutFilter(String typeCancer) {
+        try {
+            return questionDao.queryBuilder()
+                    .where(QuestionDao.Properties.TypeCancer.eq(typeCancer))
+                    .orderDesc()
+                    .list();
+        } catch (Exception e) {
+            FirebaseCrash.report(e);
+            return null;
+        }
+    }
+
     //se obtiene  todas las respestas de la pregunta actual
     @Override
     public List<AnswersQuestion> getAnswersByQuestion(String idQuestion) {

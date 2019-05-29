@@ -103,6 +103,8 @@ public class SignupPresenter implements ISignupPresenter {
                                                                                    String.valueOf(userAuth.getDateCompletedCervix()));
                                                                            Cache.save(Constants.PROFILE_COMPLETED,
                                                                                    String.valueOf(userAuth.getProfileCompleted()));
+                                                                           Cache.save(Constants.BREAST_INDICATION, String.valueOf(userAuth.isBreastIndication()));
+                                                                           Cache.save(Constants.CERVIX_INDICATION, String.valueOf(userAuth.isCervixIndication()));
                                                                            Cache.save(Constants.TOTAL_POINTS_B, String.valueOf(userAuth.getPointsBreast()));
                                                                            Cache.save(Constants.TOTAL_POINTS_C, String.valueOf(userAuth.getPointsCervix()));
                                                                            Cache.save(Constants.STATE, String.valueOf(userAuth.getState()));

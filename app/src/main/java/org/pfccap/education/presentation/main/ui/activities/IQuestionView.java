@@ -30,4 +30,10 @@ public interface IQuestionView {
 
     void processAnswer(boolean value);
 
+    void tamizaje();
+
+    void showProgress();
+
+    void hideProgress();
+
 }

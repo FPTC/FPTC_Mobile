@@ -7,6 +7,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.pfccap.education.domain.firebase.FirebaseHelper;
 import org.pfccap.education.entities.UserAuth;
+import org.pfccap.education.utilities.Cache;
+import org.pfccap.education.utilities.Constants;
 
 import java.util.HashMap;
 
@@ -69,11 +71,17 @@ public class UserBP implements IUserBP {
                     firebaseHelper.getMyUserReference().addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserAuth userAuth = dataSnapshot.getValue(UserAuth.class);
-                            if (userAuth == null) {
-                                userAuth = new UserAuth();
+                            try {
+                                UserAuth userAuth = dataSnapshot.getValue(UserAuth.class);
+                                if (userAuth == null) {
+                                    userAuth = new UserAuth();
+                                }
+                                e.onNext(userAuth);
+                            } catch (Exception databaseError) {
+                                Exception error = new Exception(databaseError.getMessage());
+                                FirebaseCrash.report(error);
+                                e.onError(error);
                             }
-                            e.onNext(userAuth);
                         }
 
                         @Override

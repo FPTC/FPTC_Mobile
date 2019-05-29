@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Cities {
 
-    private int id;
-    private int idPais;
+    private long id;
+    private String idPais;
     private String name;
     private boolean state;
     private HashMap<String, ComunasEntity> comunas = new HashMap<>();
@@ -13,19 +13,20 @@ public class Cities {
 
     public Cities (){}
 
-    public int getId() {
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(int idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 

@@ -32,34 +32,6 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="10dp">
-            <!--  <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:layout_margin="8dp"
-                  android:layout_weight="0.1"
-                  android:orientation="horizontal"
-                  android:weightSum="1">
-
-                  <ImageView
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center_horizontal"
-                      android:layout_weight="0.3"
-                      android:src="@drawable/logo_amate" />
-
-                  <TextView
-                      android:id="@+id/textEmailUser"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center_vertical"
-                      android:layout_marginStart="15dp"
-                      android:layout_weight="0.7"
-                      android:text=""
-                      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                      android:textColor="@color/colorPrimary"
-                      android:textSize="15sp" />
-              </LinearLayout>-->
-
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -277,40 +249,108 @@
                     android:maxLength="2" />
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:text="@string/ubicacion"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="País"/>
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:padding="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorBlack" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ciudad"/>
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:padding="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorBlack" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Comuna"/>
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spComuna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:padding="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorBlack" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ese"/>
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spEse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorBlack" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="IPS"/>
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spIps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorBlack" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_blue_light"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+
 
         </LinearLayout>
 

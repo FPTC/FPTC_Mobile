@@ -105,6 +105,10 @@ public class Utilities {
         dialogo(titulo, mensaje, tipoDialogEnum.error, context);
     }
 
+    public static void dialogoCodeTamizaje(String titulo, String mensaje, Context context) {
+        dialogo(titulo, mensaje, tipoDialogEnum.codeTamizaje, context);
+    }
+
     private static void dialogo(String titulo, String mensaje,
                                 tipoDialogEnum tipoDialog,
                                 final Context context) {
@@ -117,6 +121,9 @@ public class Utilities {
                 break;
             case error:
                 dialog = new AlertDialog.Builder(context, R.style.DialogError);
+                break;
+            case codeTamizaje:
+                dialog = new AlertDialog.Builder(context, R.style.DialogCodeTamizaje);
                 break;
         }
 
@@ -158,7 +165,7 @@ public class Utilities {
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
         textView.setTextSize(18);
-        switch (Cache.getByKey(Constants.TYPE_CANCER)){
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
             case Constants.CERVIX:
                 ColoredSnackbar.right(snackbar);
                 break;
@@ -178,7 +185,8 @@ public class Utilities {
 
     private enum tipoDialogEnum {
         error,
-        informacion
+        informacion,
+        codeTamizaje
     }
 
     public static boolean isNetworkAvailable(Context context) {
@@ -220,9 +228,9 @@ public class Utilities {
     }
 
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(html);

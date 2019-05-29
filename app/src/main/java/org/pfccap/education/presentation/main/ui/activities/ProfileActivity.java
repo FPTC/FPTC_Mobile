@@ -10,8 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.crash.FirebaseCrash;
@@ -27,6 +30,8 @@ import com.mobsandgeeks.saripaar.annotation.Select;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.pfccap.education.R;
+import org.pfccap.education.entities.Countries;
+import org.pfccap.education.entities.SpinnerEntidad;
 import org.pfccap.education.entities.UserAuth;
 import org.pfccap.education.presentation.main.presenters.IProfilePresenter;
 import org.pfccap.education.presentation.main.presenters.ProfilePresenter;
@@ -36,6 +41,7 @@ import org.pfccap.education.utilities.Utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -119,22 +125,34 @@ public class ProfileActivity extends AppCompatActivity
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Select
     @BindView(R.id.spCity)
     AppCompatSpinner spCity;
 
+    @Select
     @BindView(R.id.spCountry)
     AppCompatSpinner spCountry;
 
+    @Select
     @BindView(R.id.spComuna)
     AppCompatSpinner spComuna;
 
+    @Select
     @BindView(R.id.spEse)
     AppCompatSpinner spEse;
 
+    @Select
     @BindView(R.id.spIps)
     AppCompatSpinner spIps;
 
     private DatePickerDialog datePickerDialog;
+
+    private ArrayAdapter<SpinnerEntidad> adaptadorCountries;
+    private ArrayAdapter<SpinnerEntidad> adaptadorCities;
+    private ArrayAdapter<SpinnerEntidad> adaptadorComuna;
+    private ArrayAdapter<SpinnerEntidad> adaptadorEse;
+    private ArrayAdapter<SpinnerEntidad> adaptadorIps;
+    private SpinnerEntidad selectItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,26 +167,125 @@ public class ProfileActivity extends AppCompatActivity
 
         initToolbar();
 
+        initSpinner();
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
         profilePresenter.getEmailUser();
+
         if (!Utilities.isNetworkAvailable(ProfileActivity.this)) {
             loadInfoLocal();
         } else {
             profilePresenter.getUserData();
         }
-
-        validator = new Validator(this);
-        validator.setValidationListener(this);
-
-        initCountry();
-        initListeners();
-
     }
 
-    private void initListeners() {
-    }
+    private void initSpinner() {
+        List<Countries> lstCountries = profilePresenter.getCountryData();
+        ArrayList<SpinnerEntidad> spinnerArray = new ArrayList<>();
+        spinnerArray.add(new SpinnerEntidad(-1, "País"));
+        for (Countries countries : lstCountries) {
+            spinnerArray.add(new SpinnerEntidad(countries.getId(), countries.getName()));
+        }
+        //Combo paises
+        adaptadorCountries = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        adaptadorCountries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCountry.setAdapter(adaptadorCountries);
 
-    private void initCountry() {
+        //Combo ciudades
+        spinnerArray = new ArrayList<>();
+        spinnerArray.add(new SpinnerEntidad(-1, "Ciudad"));
+        adaptadorCities = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        adaptadorCountries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCity.setAdapter(adaptadorCities);
+        //Combo comunas
+        spinnerArray = new ArrayList<>();
+        spinnerArray.add(new SpinnerEntidad(-1, "Comuna"));
+        adaptadorComuna = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        adaptadorCountries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spComuna.setAdapter(adaptadorComuna);
+        //Combo ESE
+        spinnerArray = new ArrayList<>();
+        spinnerArray.add(new SpinnerEntidad(-1, "ESE"));
+        adaptadorEse = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        adaptadorCountries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spEse.setAdapter(adaptadorEse);
+        //Combo IPS
+        spinnerArray = new ArrayList<>();
+        spinnerArray.add(new SpinnerEntidad(-1, "IPS"));
+        adaptadorIps = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        adaptadorCountries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spIps.setAdapter(adaptadorIps);
 
+        //se agregan los listener para llenar los spinner que dependen de un id
+        spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerEntidad selectedItem = (SpinnerEntidad) adapterView.getSelectedItem();
+                adaptadorCities = profilePresenter.getCitiesData(selectedItem.getId());
+                spCity.setAdapter(adaptadorCities);
+                if (!Cache.getByKey(Constants.CITY).equals("")) {
+                    long idCity = Long.valueOf(Cache.getByKey(Constants.CITY));
+                    if (idCity > 0) {
+                        spCity.setSelection(getIndex(spCity, idCity));
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerEntidad selectedItem = (SpinnerEntidad) adapterView.getSelectedItem();
+                adaptadorComuna = profilePresenter.getComunasData(selectedItem.getId());
+                spComuna.setAdapter(adaptadorComuna);
+                adaptadorEse = profilePresenter.getEseData(selectedItem.getId());
+                spEse.setAdapter(adaptadorEse);
+                if (!Cache.getByKey(Constants.COMUNA).equals("")) {
+                    long idComuna = Long.valueOf(Cache.getByKey(Constants.COMUNA));
+                    if (idComuna > 0) {
+                        spComuna.setSelection(getIndex(spComuna, idComuna));
+                    }
+                }
+                if (!Cache.getByKey(Constants.ESE).equals("")) {
+                    long idEse = Long.valueOf(Cache.getByKey(Constants.ESE));
+                    if (idEse > 0) {
+                        spEse.setSelection(getIndex(spEse, idEse));
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spEse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                SpinnerEntidad selectedItem = (SpinnerEntidad) adapterView.getSelectedItem();
+                adaptadorIps = profilePresenter.getIpsData(selectedItem.getId());
+                spIps.setAdapter(adaptadorIps);
+                if (!Cache.getByKey(Constants.IPS).equals("")) {
+                    long idIps = Long.valueOf(Cache.getByKey(Constants.IPS));
+                    if (idIps > 0) {
+                        spIps.setSelection(getIndex(spIps, idIps));
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void initToolbar() {
@@ -196,7 +313,7 @@ public class ProfileActivity extends AppCompatActivity
         datePickerDialog.setMinDate(minCal);
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.save_menu, menu);
         return true;
@@ -209,55 +326,100 @@ public class ProfileActivity extends AppCompatActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }*/
+
+    @OnClick(R.id.btnSave)
+    public void clickSave(){
+        validator.validate();
     }
 
     private void saveUserData() {
 
-        Cache.save(Constants.USER_NAME, txtName.getText().toString());
-        Cache.save(Constants.LASTNAME, txtLastName.getText().toString());
-        Cache.save(Constants.ADDRESS, txtAddress.getText().toString());
-        Cache.save(Constants.DATEBIRDARY, txtBirth.getText().toString());
-        Cache.save(Constants.HASCHILDS, txtChilds.getText().toString());
-        Cache.save(Constants.HEIGHT, txtHeight.getText().toString());
-        Cache.save(Constants.WEIGHT, txtWeight.getText().toString());
-        Cache.save(Constants.LATITUDE, txtLatitude.getText().toString());
-        Cache.save(Constants.LONGITUDE, txtLongitude.getText().toString());
-        Cache.save(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
-        Cache.save(Constants.PHONENUMBER, txtPhone.getText().toString());
-        Cache.save(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
-        Cache.save(Constants.PROFILE_COMPLETED, "1");
-        //se agrega esta campo debido a que algunos usuarios de facebook ingresan con número de
-        if(Cache.getByKey(Constants.EMAIL).equals("")) {
-            Cache.save(Constants.EMAIL, txtEmail.getText().toString());
-        }
-
         HashMap<String, Object> user = new HashMap<>();
+        Cache.save(Constants.USER_NAME, txtName.getText().toString());
         user.put(Constants.NAME, txtName.getText().toString());
+
+        Cache.save(Constants.LASTNAME, txtLastName.getText().toString());
         user.put(Constants.LASTNAME, txtLastName.getText().toString());
-        user.put(Constants.EMAIL, txtEmail.getText().toString());
+
+        Cache.save(Constants.ADDRESS, txtAddress.getText().toString());
         user.put(Constants.ADDRESS, txtAddress.getText().toString());
+
+        Cache.save(Constants.DATEBIRDARY, txtBirth.getText().toString());
         user.put(Constants.DATEBIRDARY, txtBirth.getText().toString());
+
+        Cache.save(Constants.HASCHILDS, txtChilds.getText().toString());
         user.put(Constants.HASCHILDS, Integer.parseInt(txtChilds.getText().toString()));
+
+        Cache.save(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
         user.put(Constants.NEIGHVORHOOD, txtNeighborhood.getText().toString());
+
+        Cache.save(Constants.PHONENUMBER, txtPhone.getText().toString());
         user.put(Constants.PHONENUMBER, txtPhone.getText().toString());
+
+        Cache.save(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
         user.put(Constants.PHONENUMBERCEL, txtPhoneCel.getText().toString());
+
+        Cache.save(Constants.PROFILE_COMPLETED, "1");
         user.put(Constants.PROFILE_COMPLETED, 1);
 
-        if(txtHeight.getText().toString().equals("")){
+        selectItem = (SpinnerEntidad) spCountry.getSelectedItem();
+        if (selectItem != null) {
+            Cache.save(Constants.COUNTRY, String.valueOf(selectItem.getId()));
+            user.put(Constants.COUNTRY, selectItem.getId());
+        }
+
+        selectItem = (SpinnerEntidad) spCity.getSelectedItem();
+        if (selectItem != null) {
+            Cache.save(Constants.CITY, String.valueOf(selectItem.getId()));
+            user.put(Constants.CITY, selectItem.getId());
+        }
+
+        selectItem = (SpinnerEntidad) spComuna.getSelectedItem();
+        if (selectItem != null) {
+            Cache.save(Constants.COMUNA, String.valueOf(selectItem.getId()));
+            user.put(Constants.COMUNA, selectItem.getId());
+        }
+
+        selectItem = (SpinnerEntidad) spEse.getSelectedItem();
+        if (selectItem != null) {
+            Cache.save(Constants.ESE, String.valueOf(selectItem.getId()));
+            user.put(Constants.ESE, selectItem.getId());
+        }
+
+        selectItem = (SpinnerEntidad) spIps.getSelectedItem();
+        if (selectItem != null) {
+            Cache.save(Constants.IPS, String.valueOf(selectItem.getId()));
+            user.put(Constants.IPS, selectItem.getId());
+        }
+        //se agrega esta campo debido a que algunos usuarios de facebook ingresan con número de
+        Cache.save(Constants.EMAIL, txtEmail.getText().toString());
+        if (Cache.getByKey(Constants.EMAIL).equals("")) {
+            user.put(Constants.EMAIL, txtEmail.getText().toString());
+        }
+
+        Cache.save(Constants.HEIGHT, txtHeight.getText().toString());
+        if (txtHeight.getText().toString().equals("")) {
             user.put(Constants.HEIGHT, 0);
-        }else{
+        } else {
             user.put(Constants.HEIGHT, Double.parseDouble(txtHeight.getText().toString()));
         }
-        if (txtWeight.getText().toString().equals("")){
+
+        Cache.save(Constants.WEIGHT, txtWeight.getText().toString());
+        if (txtWeight.getText().toString().equals("")) {
             user.put(Constants.WEIGHT, 0);
-        }else {
+        } else {
             user.put(Constants.WEIGHT, Double.parseDouble(txtWeight.getText().toString()));
         }
+
+        Cache.save(Constants.LATITUDE, txtLatitude.getText().toString());
         if (txtLatitude.getText().toString().equals("")) {
             user.put(Constants.LATITUDE, 0);
         } else {
             user.put(Constants.LATITUDE, Double.parseDouble(txtLatitude.getText().toString()));
         }
+
+        Cache.save(Constants.LONGITUDE, txtLongitude.getText().toString());
         if (txtLongitude.getText().toString().equals("")) {
             user.put(Constants.LONGITUDE, 0);
         } else {
@@ -277,7 +439,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void setEmailUser(String email) {
-      //  textEmailUser.setText(email);
+        //  textEmailUser.setText(email);
         txtEmail.setText(email);
     }
 
@@ -322,6 +484,42 @@ public class ProfileActivity extends AppCompatActivity
         txtPhone.setText(Cache.getByKey(Constants.PHONENUMBER));
         txtPhoneCel.setText(Cache.getByKey(Constants.PHONENUMBERCEL));
 
+
+        //obtengo el valor guardado en cache Pais, no necesito cargar datos porque ya se hace en el init
+        if (!Cache.getByKey(Constants.COUNTRY).equals("")) {
+            long idCountry = Long.valueOf(Cache.getByKey(Constants.COUNTRY));
+            spCountry.setSelection(getIndex(spCountry, idCountry));
+            //cargo los datos del spinner Ciudad
+            /*adaptadorCities = profilePresenter.getCitiesData(idCountry);
+            spCity.setAdapter(adaptadorCities);
+            //obtengo el valor guardado en cache
+            if (!Cache.getByKey(Constants.CITY).equals("")) {
+                long idCity = Long.valueOf(Cache.getByKey(Constants.CITY));
+                spCity.setSelection(getIndex(spCity, idCity));
+                //cargo los datos del spinner Comuna y ESE
+                adaptadorComuna = profilePresenter.getComunasData(idCity);
+                spComuna.setAdapter(adaptadorComuna);
+                adaptadorEse = profilePresenter.getEseData(idCity);
+                spEse.setAdapter(adaptadorEse);
+            }
+            //cargo el valor guardado
+            if (!Cache.getByKey(Constants.COMUNA).equals("")) {
+                long idComuna = Long.valueOf(Cache.getByKey(Constants.COMUNA));
+                spComuna.setSelection(getIndex(spComuna, idComuna));
+            }
+            if (!Cache.getByKey(Constants.ESE).equals("")) {
+                long idEse = Long.valueOf(Cache.getByKey(Constants.ESE));
+                spEse.setSelection(getIndex(spEse, idEse));
+                //cargo los datos del spinner IPS
+                adaptadorIps = profilePresenter.getIpsData(idEse);
+                spIps.setAdapter(adaptadorIps);
+            }
+            //cargo el valor guardado
+            if (!Cache.getByKey(Constants.IPS).equals("")) {
+                long idIps = Long.valueOf(Cache.getByKey(Constants.IPS));
+                spIps.setSelection(getIndex(spIps, idIps));
+            }*/
+        }
         if (!Cache.getByKey(Constants.DATEBIRDARY).equals("")) {
 
             Calendar cal = Calendar.getInstance();
@@ -341,6 +539,9 @@ public class ProfileActivity extends AppCompatActivity
     public void loadData(UserAuth user) {
 
         //se guarda localmente los datos para garantizar que este actualizado la información
+        if (user.getName() == null && user.getEmail() == null || user.getName().equals("") && user.getEmail().equals("")) {
+            loadInfoLocal();
+        }
         Cache.save(Constants.USER_NAME, user.getName());
         Cache.save(Constants.LASTNAME, user.getLastName());
         Cache.save(Constants.ADDRESS, user.getAddress());
@@ -354,6 +555,11 @@ public class ProfileActivity extends AppCompatActivity
         Cache.save(Constants.PHONENUMBER, user.getPhoneNumber());
         Cache.save(Constants.EMAIL, user.getEmail());
         Cache.save(Constants.PHONENUMBERCEL, user.getPhoneNumberCel());
+        Cache.save(Constants.COUNTRY, String.valueOf(user.getPais()));
+        Cache.save(Constants.CITY, String.valueOf(user.getCiudad()));
+        Cache.save(Constants.COMUNA, String.valueOf(user.getComuna()));
+        Cache.save(Constants.ESE, String.valueOf(user.getEse()));
+        Cache.save(Constants.IPS, String.valueOf(user.getIps()));
 
         txtName.setText(user.getName());
         txtLastName.setText(user.getLastName());
@@ -397,6 +603,48 @@ public class ProfileActivity extends AppCompatActivity
             }
 
         }
+
+        //obtengo el valor guardado en cache Pais, no necesito cargar datos porque ya se hace en el init
+        if (user.getPais() > 0) {
+            spCountry.setSelection(getIndex(spCountry, user.getPais()));
+            //cargo los datos del spinner Ciudad
+           /* adaptadorCities = profilePresenter.getCitiesData(user.getPais());
+            spCity.setAdapter(adaptadorCities);
+            //obtengo el valor guardado en cache
+            if (user.getCiudad() > 0) {
+                spCity.setSelection(getIndex(spCity, user.getCiudad()));
+                //cargo los datos del spinner Comuna y ESE
+                adaptadorComuna = profilePresenter.getComunasData(user.getCiudad());
+                spComuna.setAdapter(adaptadorComuna);
+                adaptadorEse = profilePresenter.getEseData(user.getCiudad());
+                spEse.setAdapter(adaptadorEse);
+            }
+            //cargo el valor guardado
+            if (user.getComuna() > 0) {
+                spComuna.setSelection(getIndex(spComuna, user.getComuna()));
+            }
+            if (user.getEse() > 0) {
+                spEse.setSelection(getIndex(spEse, user.getEse()));
+                //cargo los datos del spinner IPS
+                adaptadorIps = profilePresenter.getIpsData(user.getEse());
+                spIps.setAdapter(adaptadorIps);
+            }
+            //cargo el valor guardado
+            if (user.getIps() > 0) {
+                spIps.setSelection(getIndex(spIps, user.getIps()));
+            }*/
+        }
+    }
+
+    private int getIndex(Spinner spinner, long code) {
+        int index = 0;
+        for (int i = 0; i < spinner.getCount(); i++) {
+            SpinnerEntidad selectedItem = (SpinnerEntidad) spinner.getItemAtPosition(i);
+            if (selectedItem.getId() == code) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     @Override
@@ -466,11 +714,17 @@ public class ProfileActivity extends AppCompatActivity
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
 
-            ((EditText) view).setError(message);
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            } else if (view instanceof Spinner) {
+                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+            }
 
             Utilities.snackbarMessageError(findViewById(android.R.id.content), message);
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
         }
     }
 }

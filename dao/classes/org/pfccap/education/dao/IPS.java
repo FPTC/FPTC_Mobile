@@ -10,10 +10,10 @@ package org.pfccap.education.dao;
 public class IPS {
 
     private Long id;
-    private Integer idIps;
-    private Integer idPais;
-    private Integer idCiudad;
-    private Integer idEse;
+    private Long idIps;
+    private String idPais;
+    private String idCiudad;
+    private String idEse;
     private String name;
     private Boolean state;
 
@@ -27,7 +27,7 @@ public class IPS {
         this.id = id;
     }
 
-    public IPS(Long id, Integer idIps, Integer idPais, Integer idCiudad, Integer idEse, String name, Boolean state) {
+    public IPS(Long id, Long idIps, String idPais, String idCiudad, String idEse, String name, Boolean state) {
         this.id = id;
         this.idIps = idIps;
         this.idPais = idPais;
@@ -45,35 +45,35 @@ public class IPS {
         this.id = id;
     }
 
-    public Integer getIdIps() {
+    public Long getIdIps() {
         return idIps;
     }
 
-    public void setIdIps(Integer idIps) {
+    public void setIdIps(Long idIps) {
         this.idIps = idIps;
     }
 
-    public Integer getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(Integer idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 
-    public Integer getIdCiudad() {
+    public String getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(Integer idCiudad) {
+    public void setIdCiudad(String idCiudad) {
         this.idCiudad = idCiudad;
     }
 
-    public Integer getIdEse() {
+    public String getIdEse() {
         return idEse;
     }
 
-    public void setIdEse(Integer idEse) {
+    public void setIdEse(String idEse) {
         this.idEse = idEse;
     }
 

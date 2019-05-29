@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 public class EseEntity {
 
-    private int id;
-    private int idPais;
-    private int idCiudad;
+    private long id;
+    private String idPais;
+    private String idCiudad;
     private String name;
     private boolean state;
 
@@ -14,27 +14,27 @@ public class EseEntity {
 
     public EseEntity(){}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(int idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 
-    public int getIdCiudad() {
+    public String getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(int idCiudad) {
+    public void setIdCiudad(String idCiudad) {
         this.idCiudad = idCiudad;
     }
 

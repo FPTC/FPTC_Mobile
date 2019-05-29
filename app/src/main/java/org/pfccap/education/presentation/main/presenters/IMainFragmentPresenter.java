@@ -15,4 +15,6 @@ public interface IMainFragmentPresenter {
     boolean validateDateLastAnswer(String dateCancer, String lapseCancer) throws ParseException;
 
     void getDataUserUpdated();
+
+    void getValidationAppointment(String Uid, String typeCancer);
 }

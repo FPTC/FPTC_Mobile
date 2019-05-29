@@ -52,7 +52,7 @@ public class GiftsPresenter implements IGiftsPresenter {
         }
     }
 
-    @Override
+    /*@Override
     public void getValidaionAppointment(final String Uid) {
 
         view.showProgress();
@@ -139,7 +139,8 @@ public class GiftsPresenter implements IGiftsPresenter {
                                    }
                                }
                 );
-    }
+    }*/
+
 
     private void showErrorView(Throwable e) {
         FirebaseCrash.report(e);

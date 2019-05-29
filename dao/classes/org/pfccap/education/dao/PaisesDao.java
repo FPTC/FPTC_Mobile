@@ -24,7 +24,7 @@ public class PaisesDao extends AbstractDao<Paises, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property IdCountry = new Property(1, Integer.class, "idCountry", false, "ID_COUNTRY");
+        public final static Property IdCountry = new Property(1, Long.class, "idCountry", false, "ID_COUNTRY");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
         public final static Property State = new Property(3, Boolean.class, "state", false, "STATE");
     };
@@ -64,7 +64,7 @@ public class PaisesDao extends AbstractDao<Paises, Long> {
             stmt.bindLong(1, id);
         }
  
-        Integer idCountry = entity.getIdCountry();
+        Long idCountry = entity.getIdCountry();
         if (idCountry != null) {
             stmt.bindLong(2, idCountry);
         }
@@ -91,7 +91,7 @@ public class PaisesDao extends AbstractDao<Paises, Long> {
     public Paises readEntity(Cursor cursor, int offset) {
         Paises entity = new Paises( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // idCountry
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // idCountry
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
             cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // state
         );
@@ -102,7 +102,7 @@ public class PaisesDao extends AbstractDao<Paises, Long> {
     @Override
     public void readEntity(Cursor cursor, Paises entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setIdCountry(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
+        entity.setIdCountry(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setState(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
      }

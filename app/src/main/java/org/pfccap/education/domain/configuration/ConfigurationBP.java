@@ -3,6 +3,7 @@ package org.pfccap.education.domain.configuration;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import org.pfccap.education.application.AppDao;
@@ -31,7 +32,10 @@ import org.pfccap.education.entities.ItemGifts;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -67,7 +71,7 @@ public class ConfigurationBP implements IConfigurationBP {
                                             String.valueOf(configuration.getLapseCervix()));
                                     Cache.save(Constants.NUM_OPPORTUNITIES,
                                             String.valueOf(configuration.getNumOpportunities()));
-                                    if(Cache.getByKey(Constants.NUM_OPPORTUNITIES).equals("")){
+                                    if (Cache.getByKey(Constants.NUM_OPPORTUNITIES).equals("")) {
                                         //Esto es porque luego se hace la comparación de valores haciendo la conversión a
                                         // enteros y si el valor viene vació sale una excepción cerrando la app.
                                         Cache.save(Constants.NUM_OPPORTUNITIES, "0");
@@ -161,9 +165,12 @@ public class ConfigurationBP implements IConfigurationBP {
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    ConfiguracionIPS countries =
-                                            dataSnapshot.getValue(ConfiguracionIPS.class);
-                                    saveCountries(countries);
+
+                                    GenericTypeIndicator<HashMap<String, Countries>> objectsGTypeInd = new GenericTypeIndicator<HashMap<String, Countries>>() {};
+                                    Map<String, Countries> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
+                                    ArrayList<Countries> objectArrayList = new ArrayList<Countries>(objectHashMap.values());
+
+                                    saveCountries(objectArrayList);
                                     e.onNext(true);
                                 }
 
@@ -184,10 +191,8 @@ public class ConfigurationBP implements IConfigurationBP {
     }
 
     //guarda los datos de pais, ciudad, comuna, ips en la base de datos
-    private void saveCountries(ConfiguracionIPS configuracionIPS){
-        try{
-
-            HashMap<String, Countries> paises = configuracionIPS.getPaises();
+    private void saveCountries(ArrayList<Countries> objectArrayList) {
+        try {
 
             PaisesDao paisesDao = AppDao.getCountriesDao();
             CiudadesDao ciudadesDao = AppDao.getCitiesDao();
@@ -196,16 +201,16 @@ public class ConfigurationBP implements IConfigurationBP {
             IPSDao ipsDao = AppDao.getIpsDao();
 
             Paises pais;
-            for (Map.Entry<String, Countries> entry: paises.entrySet()) {
+            for (int i = 0; i<objectArrayList.size(); i++) {
                 pais = new Paises();
-                pais.setIdCountry(entry.getValue().getId());
-                pais.setName(entry.getValue().getName());
-                pais.setState(entry.getValue().isState());
+                pais.setIdCountry(objectArrayList.get(i).getId());
+                pais.setName(objectArrayList.get(i).getName());
+                pais.setState(objectArrayList.get(i).isState());
                 paisesDao.insert(pais);
 
-                HashMap<String, Cities> ciudades = entry.getValue().getCiudades();
+                HashMap<String, Cities> ciudades = objectArrayList.get(i).getCiudades();
                 Ciudades ciudad;
-                for (Map.Entry<String, Cities> entry1: ciudades.entrySet()){
+                for (Map.Entry<String, Cities> entry1 : ciudades.entrySet()) {
                     ciudad = new Ciudades();
                     ciudad.setIdCity(entry1.getValue().getId());
                     ciudad.setIdPais(entry1.getValue().getIdPais());
@@ -215,7 +220,7 @@ public class ConfigurationBP implements IConfigurationBP {
 
                     HashMap<String, ComunasEntity> comunas = entry1.getValue().getComunas();
                     Comunas comuna;
-                    for (Map.Entry<String, ComunasEntity> entry2: comunas.entrySet()){
+                    for (Map.Entry<String, ComunasEntity> entry2 : comunas.entrySet()) {
                         comuna = new Comunas();
                         comuna.setIdComuna(entry2.getValue().getId());
                         comuna.setIdCiudad(entry2.getValue().getIdCiudad());
@@ -227,7 +232,7 @@ public class ConfigurationBP implements IConfigurationBP {
 
                     HashMap<String, EseEntity> eses = entry1.getValue().getEse();
                     Ese ese;
-                    for (Map.Entry<String, EseEntity> entry3: eses.entrySet()){
+                    for (Map.Entry<String, EseEntity> entry3 : eses.entrySet()) {
                         ese = new Ese();
                         ese.setIdEse(entry3.getValue().getId());
                         ese.setIdCiudad(entry3.getValue().getIdCiudad());
@@ -238,12 +243,12 @@ public class ConfigurationBP implements IConfigurationBP {
 
                         HashMap<String, IpsEntity> ipses = entry3.getValue().getIps();
                         IPS ips;
-                        for (Map.Entry<String, IpsEntity> entry4: ipses.entrySet()){
+                        for (Map.Entry<String, IpsEntity> entry4 : ipses.entrySet()) {
                             ips = new IPS();
                             ips.setIdIps(entry4.getValue().getId());
                             ips.setIdCiudad(entry4.getValue().getIdCiudad());
                             ips.setIdPais(entry4.getValue().getIdPais());
-                            ips.setIdEse(entry4.getValue().getIdESE());
+                            ips.setIdEse(entry4.getValue().getIsESE());
                             ips.setName(entry4.getValue().getName());
                             ips.setState(entry4.getValue().isState());
                             ipsDao.insert(ips);
@@ -252,7 +257,7 @@ public class ConfigurationBP implements IConfigurationBP {
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             FirebaseCrash.report(e);
             throw e;
         }

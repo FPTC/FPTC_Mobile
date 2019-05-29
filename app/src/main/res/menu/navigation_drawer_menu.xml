@@ -12,8 +12,8 @@
             android:icon="@drawable/ic_face_profile_black_48dp"/>
         <item
             android:id="@+id/item_drawer_gifts"
-            android:title="@string/gift"
-            android:icon="@drawable/ic_gift_black_48dp"/>
+            android:title="@string/btn_take_gift"
+            android:icon="@drawable/ic_cupwinners"/>
 
         <item
             android:id="@+id/item_who_is"

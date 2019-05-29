@@ -68,13 +68,24 @@ public class GiftsFragment extends Fragment implements IGiftsFragmentView {
         View view = inflater.inflate(R.layout.fragment_gifts, container, false);
         ButterKnife.bind(this, view);
         giftsPresenter = new GiftsPresenter(this, getContext());
-        if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("") && Cache.getByKey(Constants.TOTAL_POINTS_C).equals("")) {
+        if (Cache.getByKey(Constants.TOTAL_POINTS_C).equals("") && Cache.getByKey(Constants.TOTAL_POINTS_B).equals("")) {
             totalpoint = 0;
         } else {
             totalpoint = Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_C)) + Integer.valueOf(Cache.getByKey(Constants.TOTAL_POINTS_B));
         }
 
-        totalPoints.setText(getString(R.string.title_points) + "¡" + totalpoint + "!");
+        boolean breast = Boolean.valueOf(Cache.getByKey(Constants.BREAST_INDICATION));
+        boolean cervix = Boolean.valueOf(Cache.getByKey(Constants.CERVIX_INDICATION));
+
+        if (cervix && breast) {
+            Cache.save(Constants.APPOINTMENT_TYPE, "3");
+        } else if (cervix) {
+            Cache.save(Constants.APPOINTMENT_TYPE, "2");
+        } else if (breast) {
+            Cache.save(Constants.APPOINTMENT_TYPE, "1");
+        }
+        String msn = getString(R.string.title_points) + "¡" + totalpoint + "!";
+        totalPoints.setText(msn);
         initTable();
         return view;
     }
@@ -82,7 +93,7 @@ public class GiftsFragment extends Fragment implements IGiftsFragmentView {
     private void initTable() {
         appointmentGift.setText(Cache.getByKey(Constants.APPOINTMENT_GIFT));
 
-        Table table = new Table(getActivity(), giftTable);
+        Table table = new Table(getActivity(), giftTable, getContext());
         table.addHead(R.array.head_table);
         List<Gift> giftList = giftsPresenter.getListGiftsTable();
 
@@ -108,12 +119,6 @@ public class GiftsFragment extends Fragment implements IGiftsFragmentView {
 
     @Override
     public void afterUpdateUserInfo() {
-        //cambiar el campo state en el usuario, indicando que acabo los dos cuestionarios
-        HashMap<String, Object> obj = new HashMap<>();
-        obj.put(Constants.STATE, 2);
-        IUserBP userBP = new UserBP();
-        userBP.update(obj);
-
         mListener.onNavigationMessageGift();
     }
 
@@ -129,15 +134,11 @@ public class GiftsFragment extends Fragment implements IGiftsFragmentView {
 
     @OnClick(R.id.mainGiftBtnGetGift)
     public void showMessageGift() {
-        if (mListener != null) {
-     //       if (Utilities.isNetworkAvailable(getContext())) {
-                //si tiene internet se actualiza las vatiales de usuario con respecto a la
-                // configuración de turnos, puntos acumulados y estado
-                giftsPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
- //           } else {
-      //          Utilities.dialogoError(getString(R.string.TITULO_ERROR), getString(R.string.network_not_available), getContext());
-   //         }
-        }
+        //  if (mListener != null) {
+        //TODO la validación al final de la ronda
+        //    giftsPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
+        afterUpdateUserInfo();
+        //   }
     }
 
     @Override

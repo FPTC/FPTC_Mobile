@@ -31,6 +31,14 @@ public class UserAuth {
     private int currentPointsCervix;
     private int profileCompleted;
     private String dateCreated;
+    private long pais;
+    private long ciudad;
+    private long comuna;
+    private long ese;
+    private long ips;
+    private boolean breastIndication;
+    private boolean cervixIndication;
+    private int failedTries;
 
     public UserAuth() {
 
@@ -234,5 +242,69 @@ public class UserAuth {
 
     public void setPhoneNumberCel(String phoneNumberCel) {
         this.phoneNumberCel = phoneNumberCel;
+    }
+
+    public long getPais() {
+        return pais;
+    }
+
+    public void setPais(long pais) {
+        this.pais = pais;
+    }
+
+    public long getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(long ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public long getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(long comuna) {
+        this.comuna = comuna;
+    }
+
+    public long getEse() {
+        return ese;
+    }
+
+    public void setEse(long ese) {
+        this.ese = ese;
+    }
+
+    public long getIps() {
+        return ips;
+    }
+
+    public void setIps(long ips) {
+        this.ips = ips;
+    }
+
+    public boolean isBreastIndication() {
+        return breastIndication;
+    }
+
+    public void setBreastIndication(boolean breastIndication) {
+        this.breastIndication = breastIndication;
+    }
+
+    public boolean isCervixIndication() {
+        return cervixIndication;
+    }
+
+    public void setCervixIndication(boolean cervixIndication) {
+        this.cervixIndication = cervixIndication;
+    }
+
+    public void setFailedTries(int failedTries) {
+        this.failedTries = failedTries;
+    }
+
+    public int getFailedTries() {
+        return failedTries;
     }
 }

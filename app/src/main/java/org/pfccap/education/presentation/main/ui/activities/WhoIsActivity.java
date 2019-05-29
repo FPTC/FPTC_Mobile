@@ -23,17 +23,10 @@ import in.championswimmer.libsocialbuttons.FabSocial;
 
 public class WhoIsActivity extends AppCompatActivity implements IWhoIsView {
 
-    @BindView(R.id.btnFab)
-    ImageButton btnFab;
-
-    @BindView(R.id.btnInts)
-    ImageButton btnInts;
-
-    @BindView(R.id.link_web_ptccap)
-    TextView link_web_ptccap;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +35,7 @@ public class WhoIsActivity extends AppCompatActivity implements IWhoIsView {
 
         ButterKnife.bind(this);
 
-        link_web_ptccap.setClickable(true);
-        link_web_ptccap.setMovementMethod(LinkMovementMethod.getInstance());
-        link_web_ptccap.setText(Utilities.fromHtml("<a href='"+ getString(R.string.web_pfccap) +"'>"+getString(R.string.web_pfccap)+"</a>"));
+        uri = Uri.parse("http://pfccap.org/espanol/inicio.html");
         initToolbar();
     }
 
@@ -58,14 +49,34 @@ public class WhoIsActivity extends AppCompatActivity implements IWhoIsView {
     }
 
     @OnClick(R.id.btnInts)
-    public void clicInts(){
+    public void clicInts() {
         startActivity(newInstagramProfileIntent(getPackageManager(), "https://www.instagram.com/fptc_colombia/"));
     }
 
     @OnClick(R.id.btnFab)
-    public void clicFab(){
+    public void clicFab() {
         startActivity(newFacebookIntent(getPackageManager(), "https://www.facebook.com/FPTCColombia/"));
     }
+
+    @OnClick(R.id.btnLinkWeb)
+    public void clicLinkWeb() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btnLinkWeb2)
+    public void clicLinkWeb2() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.webAmate)
+    public void clicLinkWebAmate() {
+        uri = Uri.parse("http://amatecuidatusalud.pfccap.org/");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
 
     public static Intent newFacebookIntent(PackageManager pm, String url) {
         Uri uri = Uri.parse(url);

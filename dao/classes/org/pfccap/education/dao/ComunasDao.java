@@ -24,9 +24,9 @@ public class ComunasDao extends AbstractDao<Comunas, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property IdComuna = new Property(1, Integer.class, "idComuna", false, "ID_COMUNA");
-        public final static Property IdPais = new Property(2, Integer.class, "idPais", false, "ID_PAIS");
-        public final static Property IdCiudad = new Property(3, Integer.class, "idCiudad", false, "ID_CIUDAD");
+        public final static Property IdComuna = new Property(1, Long.class, "idComuna", false, "ID_COMUNA");
+        public final static Property IdPais = new Property(2, String.class, "idPais", false, "ID_PAIS");
+        public final static Property IdCiudad = new Property(3, String.class, "idCiudad", false, "ID_CIUDAD");
         public final static Property Name = new Property(4, String.class, "name", false, "NAME");
         public final static Property State = new Property(5, Boolean.class, "state", false, "STATE");
     };
@@ -46,8 +46,8 @@ public class ComunasDao extends AbstractDao<Comunas, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"COMUNAS\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"ID_COMUNA\" INTEGER," + // 1: idComuna
-                "\"ID_PAIS\" INTEGER," + // 2: idPais
-                "\"ID_CIUDAD\" INTEGER," + // 3: idCiudad
+                "\"ID_PAIS\" TEXT," + // 2: idPais
+                "\"ID_CIUDAD\" TEXT," + // 3: idCiudad
                 "\"NAME\" TEXT," + // 4: name
                 "\"STATE\" INTEGER);"); // 5: state
     }
@@ -68,19 +68,19 @@ public class ComunasDao extends AbstractDao<Comunas, Long> {
             stmt.bindLong(1, id);
         }
  
-        Integer idComuna = entity.getIdComuna();
+        Long idComuna = entity.getIdComuna();
         if (idComuna != null) {
             stmt.bindLong(2, idComuna);
         }
  
-        Integer idPais = entity.getIdPais();
+        String idPais = entity.getIdPais();
         if (idPais != null) {
-            stmt.bindLong(3, idPais);
+            stmt.bindString(3, idPais);
         }
  
-        Integer idCiudad = entity.getIdCiudad();
+        String idCiudad = entity.getIdCiudad();
         if (idCiudad != null) {
-            stmt.bindLong(4, idCiudad);
+            stmt.bindString(4, idCiudad);
         }
  
         String name = entity.getName();
@@ -105,9 +105,9 @@ public class ComunasDao extends AbstractDao<Comunas, Long> {
     public Comunas readEntity(Cursor cursor, int offset) {
         Comunas entity = new Comunas( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // idComuna
-            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // idPais
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // idCiudad
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // idComuna
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // idPais
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // idCiudad
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // name
             cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0 // state
         );
@@ -118,9 +118,9 @@ public class ComunasDao extends AbstractDao<Comunas, Long> {
     @Override
     public void readEntity(Cursor cursor, Comunas entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setIdComuna(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setIdPais(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
-        entity.setIdCiudad(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.setIdComuna(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setIdPais(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setIdCiudad(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setState(cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0);
      }

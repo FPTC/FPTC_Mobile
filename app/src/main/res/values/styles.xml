@@ -50,6 +50,15 @@
         <item name="android:windowBackground">@drawable/dialog_error</item>
     </style>
 
+    <style name="DialogCodeTamizaje" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/white</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/dialog_code_tamizaje</item>
+    </style>
+
     <style name="BtnPpal" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/rounded_button</item>

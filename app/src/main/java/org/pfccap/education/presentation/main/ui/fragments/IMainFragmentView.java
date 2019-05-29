@@ -19,4 +19,9 @@ public interface IMainFragmentView {
     void hideProgress();
 
     void showIntroQuestion(String turn, String dateComplite, String lapse);
+
+    void resetTextBtnsQuestions(String typeCancer);
+
+    void showMessage(String message);
+
 }

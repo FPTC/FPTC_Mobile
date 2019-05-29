@@ -3,10 +3,12 @@ package org.pfccap.education.presentation.main.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.pfccap.education.R;
 import org.pfccap.education.presentation.main.presenters.IMainFragmentPresenter;
@@ -29,6 +31,12 @@ public class MainFragment extends Fragment implements IMainFragmentView {
 
     @BindView(R.id.mainProgressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.txtBtnBreast)
+    TextView txtBtnBreast;
+
+    @BindView(R.id.txtBtnCervix)
+    TextView txtBtnCervix;
 
     public MainFragment() {
         // Required empty public constructor
@@ -57,6 +65,15 @@ public class MainFragment extends Fragment implements IMainFragmentView {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
         mainFragmentPresenter = new MainFragmentPresenter(this, getContext());
+
+        if (Cache.getByKey(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST).equals("true")) {
+            txtBtnBreast.setText(getString(R.string.error_tamizaje));
+            txtBtnBreast.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.answerColorFail));
+        }
+        if (Cache.getByKey(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX).equals("true")) {
+            txtBtnCervix.setText(getString(R.string.error_tamizaje));
+            txtBtnCervix.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.answerColorFail));
+        }
         return view;
     }
 
@@ -64,6 +81,9 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnBreast)
     public void navigateToBreast() {
         Cache.save(Constants.TYPE_CANCER, Constants.BREAST);
+        if (Cache.getByKey(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST).equals("true")) {
+            mainFragmentPresenter.getValidationAppointment(Cache.getByKey(Constants.USER_UID), Constants.BREAST);
+        }
         if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
@@ -76,6 +96,9 @@ public class MainFragment extends Fragment implements IMainFragmentView {
     @OnClick(R.id.mainBtnCervix)
     public void navigateToCervical() {
         Cache.save(Constants.TYPE_CANCER, Constants.CERVIX);
+        if (Cache.getByKey(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX).equals("true")) {
+            mainFragmentPresenter.getValidationAppointment(Cache.getByKey(Constants.USER_UID), Constants.CERVIX);
+        }
         if (Utilities.isNetworkAvailable(getContext())) {
             //si tiene internet se actualiza las vatiales de usuario con respecto a la configuración de turnos, puntos acumulados y estado
             mainFragmentPresenter.getDataUserUpdated();
@@ -141,6 +164,23 @@ public class MainFragment extends Fragment implements IMainFragmentView {
         } catch (ParseException e) {
             Utilities.snackbarMessageError(getView(), e.getMessage());
         }
+    }
+
+    @Override
+    public void resetTextBtnsQuestions(String typeCancer) {
+        if (typeCancer.equals(Constants.BREAST)) {
+            txtBtnBreast.setText(getContext().getResources().getString(R.string.btn_breast_cancer));
+            txtBtnBreast.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryLightTransparence));
+        }
+        if (typeCancer.equals(Constants.CERVIX)) {
+            txtBtnCervix.setText(getContext().getResources().getString(R.string.btn_cervical_cancer));
+            txtBtnCervix.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBlueLigthTransparence));
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Utilities.snackbarMessageInfo(getView(), message);
     }
 
 

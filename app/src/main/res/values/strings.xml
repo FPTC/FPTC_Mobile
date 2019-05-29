@@ -7,7 +7,7 @@
     <string name="app_name">Ámate</string>
     <string name="title_info_dialog">Información</string>
     <string name="title_error_dialog">Error</string>
-    <string name="profile_completed">Por favor completa todo tu perfil antes de continuar. Si ya lo hiciste sólo presiona el botón (OK) y luego el botón (GUARDAR) que se encuentra arriba y a la derecha de la pantalla, gracias.</string>
+    <string name="profile_completed">Por favor completa todo tu perfil antes de continuar. Si ya lo hiciste sólo presiona el botón (OK) y luego el botón (GUARDAR).</string>
     <string name="network_not_available">No tiene conexión a internet y es necesario para que puedas continuar, verifica tu conexión y vuelve a intentarlo.</string>
     <string name="years">%1$s años</string>
     <string name="cervix">CERVIX</string>
@@ -39,7 +39,7 @@
     <string name="fragment_main_gift">Reclama tu premio</string>
     <string name="btn_breast_cancer">Aprende sobre el <strong>cáncer de seno</strong></string>
     <string name="btn_cervical_cancer">Aprende sobre el <strong>cáncer de cuello uterino</strong></string>
-    <string name="btn_take_gift">Reclama tu premio</string>
+    <string name="btn_take_gift">Puntuaciones</string>
     <string name="birth">Fecha de nacimiento (dd/mm/aaaa)</string>
     <string name="country">País</string>
     <string name="city">Ciudad</string>
@@ -92,24 +92,24 @@
     <string name="points">Puntos</string>
     <string name="get_to_gift">Reclama tu premio</string>
     <string name="title_points">"Puntos acumulados \n"</string>
-    <string name="points_additional">Adicionalmente, si tienes indicación de hacerte la mamografía o citología vaginal y cumples
-    con la cita de tu examen, recibirás:</string>
+    <string name="points_additional">¿Sabes si debes hacerte la mamografía o la citología vaginal? Nosotros te podemos ayudar.
+        Haz click en el botón y si tienes indicación de hacerte la mamografía o
+        citología vaginal y cumples con la cita de tu examen, recibirás:</string>
 
     <string name="fail">¡Incorrecto!</string>
     <string name="right">¡Correcto!</string>
-    <string name="firs_total_points">Has obtenido %1$s punto(s) en este intento. En %2$s días tendrás otra oportunidad de probar tu conocimiento y lo que has aprendido para subir tu puntuación.</string>
-    <string name="total_points_equal">Has obtenido menos puntos en este intento, tenías %1$s punto(s) y ahora has conseguido %2$s punto(s). ¡Guardaremos tu puntuación más alta!</string>
-    <string name="total_points_up">Has obtenido más puntos en este intento, tenías %1$s puntos y ahora has conseguido %2$s puntos. ¡Guardaremos tu puntuación más alta!</string>
+    <string name="firs_total_points">Has obtenido %1$s punto(s) en este intento, los sumaremos al total de puntos acumulados.</string>
+    <string name="turn_to_next_Oportunity">En %1$s días tendrás otra oportunidad de probar tu conocimiento y lo que has aprendido para subir tu puntuación.</string>
     <string name="thanks_for_answers">Gracias por responder</string>
     <string name="end_turn">Se agotaron tus oportunidades para contestar, por favor continua con el otro módulo.</string>
-    <string name="end_all_turn">¡Felicitaciones has completado todos los módulos, ahora puedes reclamar tu premio!</string>
+    <string name="end_all_turn">¡Felicitaciones has completado todos los módulos, ahora puedes ver tu nivel de conocimiento en Puntuaciones!</string>
     <string name="lapse_answer">Tendrás otra oportunidad de responder este módulo en %d día(s). Vuelve a intentarlo para seguir aprendiendo e incrementar tus puntos y ganar mejores premios.</string>
     <string name="error_nested">Error: sin configurar pregunta anidada.</string>
 
     <!--Para la tabla de premios -->
     <string-array name="head_table">
         <item>Puntos</item>
-        <item>Premio</item>
+        <item>Nivel de conocimiento</item>
     </string-array>
     <string name="title_table">Catálogo de puntos y premios</string>
     <string name="title_appointment">¡Recarga por cuidar tu salud!</string>
@@ -133,9 +133,9 @@
     <string name="message_validation_no_gift">Y recuerda siempre:\n\n
  1. Evitas el cáncer cuando contralas el consumo de licor, dejas de fumar y tienes sexo CON condón.\n\n
  2. Y la vacuna contra el virus del papiloma humano te protege contra el cáncer de cuello uterino.</string>
-    <string name="message_validation_yes_gift">De acuerdo a tus respuestas es tiempo de que te hagas el examen de %1$s. \n\n ¿Te gustaría que te contactáramos para ayudarte a sacar tu cita y estar al día en el cuidado de tu salud?</string>
+    <string name="message_validation_yes_gift">De acuerdo a tus respuestas tienes indicación de %1$s.\n\nIngresa el código que te asignaron para reclamar tu premio.</string>
     <string name="points_and_thanks_gift">Tus puntos acumulados son:\n\n%1$s\n\nEn el transcurso del día llegará tu premio correspondiente a la recarga.\n\n¡Muchas gracias por tu \nparticipación!</string>
-
+    <string name="message_validation_yes">De acuerdo a tus respuestas debes hacerte el examen de %1$s. Una vez hagas tu examen pide el código para reclamar tu premio.</string>
     <!--validaciones antes de obtener el prio -->
     <string name="have_opportunities_breast_days">Podrás incrementar tus puntos en %1$s días. Regresa con más puntos para un mejor premio.</string>
     <string name="have_opportunities_cervix_days">Podrás incrementar tus puntos en %1$s días. Regresa con más puntos para un mejor premio.</string>
@@ -156,7 +156,7 @@
     <string name="terms_check_validation_message">Debe aceptar los términos y condiciones</string>
     <string name="privacy_check_validation_message">Debe aceptar las políticas de privacidad</string>
     <string name="no_permission_my_location">No tiene permisos de localización, no podrás saber tu posición actual automáticamente.</string>
-    <string name="done_get_gift">Ya has solicitado reclamar tu premio. Sigue atenta con nuestra aplicación para nuevas oportunidades de probar tu conocimiento y aprender. Y recuerda… ¡Ámate cuida tu salud!</string>
+    <string name="done_get_gift">Ya has solicitado tu premio de %1$s.\n\nSigue atenta con nuestra aplicación para nuevas oportunidades de probar tu conocimiento y aprender. Y recuerda… ¡Ámate cuida tu salud!</string>
 
     <string name="error_with_network">A network error (such as timeout, interrupted connection or unreachable host) has occurred.</string>
     <string name="error_with_network_spanish">Hay problemas de conección con el internet, por favor verifica tu conexión y vuelve a intenarlo.</string>
@@ -548,12 +548,23 @@ Estas Políticas de Privacidad fueron actualizadas por última vez el 17 de juni
     <string name="message_invitation">Hola, Te han invitado a probar tu conocimiento sobre el cáncer de seno y cáncer cuello uterino.</string>
     <string name="app_namef">amatecuidatusalud</string>
     <string name="phoneCel">Número Celular</string>
-    <string name="quienes_somos">Quienes Somos</string>
+    <string name="quienes_somos">Acerca de FPTC</string>
     <string name="quienes_somos_intro">​Nos enorgullece presentar a Ámate | Cuida tu salud, una herramienta tecnológica pensada para la mujer, desarrollada por la Fundación para la Prevención y Tratamiento del Cáncer (FPTC, Cali - Colombia) en alianza con Partners for Cancer Care and Prevention (PFCCAP, Baltimore, USA) que busca disminuir la carga individual y social que representan el cáncer de seno y de cuello uterino.</string>
     <string name="quienes_somos_txtdos">Con Ámate las mujeres podrán aprender sobre el cáncer de seno, el cáncer de cuello uterino y ser orientadas para el examen de detección temprana cuando la mujer lo necesite.</string>
     <string name="mas_informacion">Para más información visítanos en:</string>
     <string name="web_pfccap">http://pfccap.org/espanol/inicio.html</string>
     <string name="who_is">¿Quienes Somos?</string>
     <string name="error_descarga_paises">Error en la descarga de la tabla paises</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="codigo_citologia">Código Citología</string>
+    <string name="codigo_mamografia">Código mamografía</string>
+    <string name="send">Enviar</string>
+    <string name="error_tamizaje">Falla de envio de respuestas, verifica la conexión a Internet y preciona el modulo de nuevo.</string>
+    <string name="no_tiene_indicacion">De acuerdo a tus respuestas, en este momento NO TIENES INDICACIÓN, de mamografía y/o citología vaginal</string>
+    <string name="end_turn_code">Se han terminado todos los intentos para canjear el código</string>
+    <string name="gift_done">Ya has reclamado el premio de:</string>
+    <string name="fallo_tres_intentos">Has gastado los 3 intentos que tenías, por tal razón ya no puedes reclamar tu premio, comunícate con la persona que te dio el código.</string>
+    <string name="recarga_mamografia_soon">Tu código de mamografía ha sido aceptado, tu recarga llegará pronto al número de celular que indicaste en tu perfil</string>
+    <string name="recarga_citologia_soon">Tu código de citología ha sido aceptado, tu recarga llegará pronto al número de celular que indicaste en tu perfil</string>
 
 </resources>

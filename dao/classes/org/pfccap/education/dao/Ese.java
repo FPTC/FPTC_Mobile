@@ -10,9 +10,9 @@ package org.pfccap.education.dao;
 public class Ese {
 
     private Long id;
-    private Integer idEse;
-    private Integer idPais;
-    private Integer idCiudad;
+    private Long idEse;
+    private String idPais;
+    private String idCiudad;
     private String name;
     private Boolean state;
 
@@ -26,7 +26,7 @@ public class Ese {
         this.id = id;
     }
 
-    public Ese(Long id, Integer idEse, Integer idPais, Integer idCiudad, String name, Boolean state) {
+    public Ese(Long id, Long idEse, String idPais, String idCiudad, String name, Boolean state) {
         this.id = id;
         this.idEse = idEse;
         this.idPais = idPais;
@@ -43,27 +43,27 @@ public class Ese {
         this.id = id;
     }
 
-    public Integer getIdEse() {
+    public Long getIdEse() {
         return idEse;
     }
 
-    public void setIdEse(Integer idEse) {
+    public void setIdEse(Long idEse) {
         this.idEse = idEse;
     }
 
-    public Integer getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(Integer idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 
-    public Integer getIdCiudad() {
+    public String getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(Integer idCiudad) {
+    public void setIdCiudad(String idCiudad) {
         this.idCiudad = idCiudad;
     }
 

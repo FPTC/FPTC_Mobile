@@ -27,4 +27,6 @@ public interface IQuestionPresenter {
 
     void backLastQuestion();
 
+    void getValidaionAppointment(String Uid);
+
 }

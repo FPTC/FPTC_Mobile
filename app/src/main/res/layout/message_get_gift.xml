@@ -2,14 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
     <ScrollView
         android:id="@+id/scrollMessageGift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:scrollbars="none">
 
@@ -46,13 +56,71 @@
                 android:text="@string/message_validation_yes_gift"
                 android:textSize="20sp" />
 
-            <LinearLayout
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputCodeCervix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/codigoCitologia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/codigo_citologia"
+                    android:inputType="textPersonName"
+                    android:maxLength="35" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputCodeBreast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
+
+                <EditText
+                    android:id="@+id/codigoMamografia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/codigo_mamografia"
+                    android:inputType="textPersonName"
+                    android:maxLength="35" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/send_codigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_blue_light"
+                android:text="@string/send"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/content_ms_gift2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:textSize="20sp" />
+
+            <!--LinearLayout
                 android:id="@+id/lyt_botton_gift"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/gift_btn_yes"
@@ -90,10 +158,10 @@
                 android:text="@string/gift_btn_gift"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="18sp" />
+                android:textSize="18sp" /-->
 
 
-            <TextView
+            <!--TextView
                 android:id="@+id/points_gift_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,6 +170,57 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="@string/points_and_thanks_gift"
+                android:textSize="20sp" /-->
+
+            <TextView
+                android:id="@+id/gift_txt_warning_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/title_warning"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/gift_txt_warning_content1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWarning"
+                android:padding="10dp"
+                android:text="@string/warning_git1"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gift_txt_warning_content2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWarning"
+                android:padding="10dp"
+                android:text="@string/warning_git2"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gift_txt_warning_content3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWarning"
+                android:padding="10dp"
+                android:text="@string/warning_git3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gift_txt_warning_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/warning_link"
                 android:textSize="20sp" />
 
             <Button
@@ -117,14 +236,13 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="18sp" />
-
-            <ImageView
+            <!--ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/logo_amate"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name" /-->
 
         </LinearLayout>
     </ScrollView>

@@ -10,9 +10,9 @@ package org.pfccap.education.dao;
 public class Comunas {
 
     private Long id;
-    private Integer idComuna;
-    private Integer idPais;
-    private Integer idCiudad;
+    private Long idComuna;
+    private String idPais;
+    private String idCiudad;
     private String name;
     private Boolean state;
 
@@ -26,7 +26,7 @@ public class Comunas {
         this.id = id;
     }
 
-    public Comunas(Long id, Integer idComuna, Integer idPais, Integer idCiudad, String name, Boolean state) {
+    public Comunas(Long id, Long idComuna, String idPais, String idCiudad, String name, Boolean state) {
         this.id = id;
         this.idComuna = idComuna;
         this.idPais = idPais;
@@ -43,27 +43,27 @@ public class Comunas {
         this.id = id;
     }
 
-    public Integer getIdComuna() {
+    public Long getIdComuna() {
         return idComuna;
     }
 
-    public void setIdComuna(Integer idComuna) {
+    public void setIdComuna(Long idComuna) {
         this.idComuna = idComuna;
     }
 
-    public Integer getIdPais() {
+    public String getIdPais() {
         return idPais;
     }
 
-    public void setIdPais(Integer idPais) {
+    public void setIdPais(String idPais) {
         this.idPais = idPais;
     }
 
-    public Integer getIdCiudad() {
+    public String getIdCiudad() {
         return idCiudad;
     }
 
-    public void setIdCiudad(Integer idCiudad) {
+    public void setIdCiudad(String idCiudad) {
         this.idCiudad = idCiudad;
     }
 

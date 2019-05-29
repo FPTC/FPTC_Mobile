@@ -6,11 +6,14 @@ import android.content.Intent;
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.pfccap.education.R;
+import org.pfccap.education.domain.services.ValidationService;
 import org.pfccap.education.domain.user.IUserBP;
 import org.pfccap.education.domain.user.UserBP;
 import org.pfccap.education.entities.UserAuth;
+import org.pfccap.education.entities.Validation;
 import org.pfccap.education.presentation.main.ui.activities.ProfileActivity;
 import org.pfccap.education.presentation.main.ui.fragments.IMainFragmentView;
+import org.pfccap.education.utilities.APIService;
 import org.pfccap.education.utilities.Cache;
 import org.pfccap.education.utilities.Constants;
 import org.pfccap.education.utilities.Utilities;
@@ -32,6 +35,7 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
 
     private IMainFragmentView view;
     private Context context;
+    private String message = "";
 
     public MainFragmentPresenter(IMainFragmentView view, Context context) {
         this.view = view;
@@ -149,5 +153,79 @@ public class MainFragmentPresenter implements IMainFragmentPresenter {
                                    }
                                }
                 );
+    }
+
+    //comprobación de tamizaje después de finalizar cada ronda de preguntas.
+    @Override
+    public void getValidationAppointment(String Uid, final String typeCancer) {
+        view.showProgress();
+
+        ValidationService service = APIService.getInstanceRetrofit(ValidationService.class);
+
+        service.getValidation(Uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<Validation>() {
+                    @Override
+                    public void onNext(Validation value) {
+
+                        if (value != null) {
+                            try {
+                                boolean cervix = value.isCervix();
+                                boolean breast = value.isBreast();
+
+                                if (cervix && breast) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "3");
+                                } else if (cervix) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "2");
+                                } else if (breast) {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "1");
+                                } else {
+                                    Cache.save(Constants.APPOINTMENT_TYPE, "0");
+                                }
+                                if (typeCancer.equals(Constants.CERVIX)){
+                                    Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX, "false");
+                                }
+                                if (typeCancer.equals(Constants.BREAST)) {
+                                    Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST, "false");
+                                }
+                                view.hideProgress();
+                                view.resetTextBtnsQuestions(typeCancer);
+                                view.showMessage("Se validaron las preguntas. Gracias.");
+                            } catch (Exception e) {
+                                //se utiliza esta constante para poner un aviso en el inicio para que intenten sincronizar de nuevo esto debido a la desconexión de internet principalmente.
+                                view.showError(e.getMessage());
+                                errorTamizaje();
+                            }
+                        } else {
+                            //en este caso no hay excepción
+                            view.showError("Error Intente de nuevo.");
+                            errorTamizaje();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.hideProgress();
+                        view.showError("Eroor: "+ e.getMessage());
+                        errorTamizaje();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void errorTamizaje(){
+        switch (Cache.getByKey(Constants.TYPE_CANCER)) {
+            case Constants.CERVIX:
+                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_CERVIX, "true");
+                break;
+            case Constants.BREAST:
+                Cache.save(Constants.TYPE_CANCER_ERROR_TAMIZAJE_BREAST, "true");
+                break;
+        }
     }
 }

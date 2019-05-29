@@ -1,12 +1,10 @@
 package org.pfccap.education.presentation.main.ui.activities;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -79,6 +77,9 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
 
     @BindView(R.id.progressBarQ)
     ProgressBar progressBar;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBarIntermitente;
 
     private int progressq = 0;
     private int current = 0;
@@ -300,6 +301,21 @@ public class QuestionsActivity extends AppCompatActivity implements IQuestionVie
                 txtInfo.setText(info);
                 break;
         }
+    }
+
+    @Override
+    public void tamizaje() {
+        questionPresenter.getValidaionAppointment(Cache.getByKey(Constants.USER_UID));
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
     private SpannableString formatInfoTextAnswer(String s) {
